@@ -1,28 +1,28 @@
-node_modules
+#node_modules
 
 # Output
-.output
-.vercel
-.netlify
-.wrangler
-/.svelte-kit
-/build
+#.output
+#.vercel
+#.netlify
+#.wrangler
+#/.svelte-kit
+#/build
 
 # OS
-.DS_Store
-Thumbs.db
+#.DS_Store
+#Thumbs.db
 
 # Env
-.env
-.env.*
-!.env.example
-!.env.test
+#.env
+#.env.*
+#!.env.example
+#!.env.test
 
 # Vite
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
+#vite.config.js.timestamp-*
+#vite.config.ts.timestamp-*
 
 # Image
-.jpg
-.png
-.svg
+#.jpg
+#.png
+#.svg
