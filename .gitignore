@@ -9,8 +9,8 @@
 #/build
 
 # OS
-#.DS_Store
-#Thumbs.db
+DS_Store
+Thumbs.db
 
 # Env
 #.env
