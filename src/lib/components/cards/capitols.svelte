@@ -44,12 +44,10 @@ let isProjCover = data.isProjCover
         <div class="card_scrollable_container"
             bind:this={simplebarContainer}
             data-simplebar
-            data-simplebar-auto-hide="false">
-
+            data-simplebar-auto-hide="false"
+            data-section={data.Title}>
             
-            
-
-            <div class="card_scroll_flex"> 
+            <div class="card_scroll_flex" data-section={data.Title}> 
                 
                 {#if data.CoverImg}
                     <enhanced:img data-sveltekit-preload-data src={data.CoverImg} alt="CoverImg" />

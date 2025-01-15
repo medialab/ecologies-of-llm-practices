@@ -311,7 +311,7 @@ const cardsDb = {
       }
     ],
     logoImage,
-    bgColor: "#ff00b9",
+    bgColor: "#97D2FB",
     isProjCover: false
   },
   Card2: {
@@ -475,16 +475,82 @@ const cardsDb = {
   }
 };
 const floatersDb = {
-  Floater1: { Title: "Session 1", id: 1 },
-  Floater2: { Title: "Session 2", id: 2 },
-  Floater3: { Title: "Session 3", id: 3 },
-  Floater4: { Title: "Session 4", id: 4 },
-  Floater5: { Title: "Session 5", id: 5 },
-  Floater6: { Title: "Session 6", id: 6 },
-  Floater7: { Title: "Session 7", id: 7 },
-  Floater8: { Title: "Session 8", id: 8 },
-  Floater9: { Title: "Session 9", id: 9 },
-  Floater10: { Title: "Session 10", id: 10 }
+  Floater1: {
+    Title: "project-plan.pdf",
+    id: 1,
+    category: "document",
+    Img: "",
+    href: "/documents/project-plan.pdf"
+  },
+  Floater2: {
+    Title: "tutorial-video.mp4",
+    id: 2,
+    category: "video",
+    Img: "",
+    href: ""
+  },
+  Floater3: {
+    Title: "landscape-photo.jpg",
+    id: 3,
+    category: "image",
+    Img: image_13,
+    href: ""
+  },
+  Floater4: {
+    Title: "team-introduction.mp4",
+    id: 4,
+    category: "video",
+    Img: "",
+    href: ""
+  },
+  Floater5: {
+    Title: "design-mockup.png",
+    id: 5,
+    category: "image",
+    Img: image_12,
+    href: ""
+  },
+  Floater6: {
+    Title: "financial-report.xlsx",
+    id: 6,
+    category: "document",
+    Img: "",
+    href: "/documents/financial-report.xlsx"
+  },
+  Floater7: {
+    Title: "coding-tutorial.mp4",
+    id: 7,
+    category: "video",
+    Img: "",
+    href: ""
+  },
+  Floater8: {
+    Title: "company-logo.svg",
+    id: 8,
+    category: "image",
+    Img: image_3,
+    href: ""
+  },
+  Floater9: {
+    Title: "meeting-notes.docx",
+    id: 9,
+    category: "document",
+    Img: "",
+    href: "/documents/meeting-notes.docx"
+  },
+  Floater10: {
+    Title: "holiday-slideshow.mp4",
+    id: 10,
+    category: "video",
+    Img: "",
+    href: ""
+  },
+  Floater11: {
+    Title: "https://medialabsciencespo.com",
+    category: "link",
+    Img: "",
+    href: ""
+  }
 };
 function load({ params }) {
   return {

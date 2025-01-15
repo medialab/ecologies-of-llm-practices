@@ -9,11 +9,11 @@
     import { onMount, onDestroy, tick } from "svelte";
     import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 
-
     //The data containes everything passed from the +page.server.js
     export let data
 
     let containers;
+    let scrollContainers;
     let floaters;
     let formattedTime;
     let isProjCover;
@@ -29,6 +29,7 @@
     let scrollableElements;
     
     let selectedCard = "Qualifying";
+    let activeMarker;
     let currentScrollLevel = null;
     let currentCardColor;
 
@@ -69,6 +70,8 @@
                 container.style.transition = ''
             }, 300);
         });
+
+        selectedCard = "Qualifying";
 
         if (floaters) {
             floaters.forEach(floater => {
@@ -149,6 +152,13 @@
 
         containers.forEach((container) => {
             container.addEventListener("click", (event) => {
+                selectedCard = event.target.getAttribute("data-section");
+                openFloaters(floaters);
+            });
+        });
+
+        scrollContainers.forEach((scrollContainer) => {
+            scrollContainer.addEventListener("click", (event) => {
                 selectedCard = event.target.getAttribute("data-section");
                 openFloaters(floaters);
             });
@@ -240,6 +250,17 @@
         });
     };
 
+    const updateSelectedCard = (selectedCard) => {
+        if (selectedCard !== null && selectedCard !== undefined) {
+            activeMarker = selectedCard;
+        } else {
+            //console.log("Marker was null, reverted to:", activeMarker)
+        }
+        //console.log("This is activeMarker", activeMarker )
+    }
+
+    $: updateSelectedCard(selectedCard)
+
     $: alignColor(selectedCard);
 
     onMount(async () => {
@@ -256,13 +277,13 @@
             });
         }
 
-
         updateTime();
         const interval = setInterval(updateTime, 1000);
 
         containers = document.querySelectorAll('.card_container')
         floaters = document.querySelectorAll('.floater_container')
         hostElement = document.querySelector('.host');
+        scrollContainers = document.querySelectorAll('.card_scrollable_container')
 
         tick();
 
@@ -361,10 +382,19 @@
         floaters.forEach((floater, index) => {
             floater.classList.add('grab');
             floater.style.touchAction = 'none';
+            floater.style.transition = 'opacity 0s linear';
+
+            // Delay the appearance of each floater
+            setTimeout(() => {
+                floater.style.opacity = '1';
+            }, 400 + index * 40); 
+
+            floater.style.transformOrigin = 'bottom left';
 
             // Initialize floating animation variables
-            const floatingSpeed = 0.02; // Controls how fast the floating animation moves
-            const floatingRange = 800; // Maximum distance to float (in pixels)
+            const floatingSpeedBase = 0.00005 + Math.random() * 0.0001;
+            const oscillationFrequency = 0.001;
+            const sineOffset = Math.random() * 2 * Math.PI; 
             let floatX = 0;
             let floatY = 0;
             let directionX = Math.random() > 0.5 ? 1 : -1;
@@ -372,31 +402,75 @@
 
             // Start floating animation
             const animateFloating = () => {
+                const time = Date.now(); // Get current time
+
+                // Calculate oscillating speed
+                const floatingSpeed = floatingSpeedBase * (1 + Math.sin(time * oscillationFrequency + sineOffset));
+
+                // Update floating positions
                 floatX += directionX * floatingSpeed;
                 floatY += directionY * floatingSpeed;
 
-                // Reverse direction when reaching the floating range
-                if (Math.abs(floatX) > floatingRange) directionX *= -1;
-                if (Math.abs(floatY) > floatingRange) directionY *= -1;
+                // Get floater dimensions and viewport size
+                const floaterRect = floater.getBoundingClientRect();
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+
+                const floaterBottom = floaterRect.bottom;
+                const floaterLeft = floaterRect.left; 
+
+                const paddingTop = 0; // Padding for the top boundary
+                const paddingRight = 30; // Padding for the right boundary
+
+                // Calculate corners
+                const floaterBottomLeftX = floaterRect.left + floatX;
+                const floaterBottomLeftY = floaterRect.bottom - floatY;
+
+                const floaterBottomRightX = floaterRect.right + floatX;
+                const floaterBottomRightY = floaterRect.bottom - floatY;
+
+                const floaterTopLeftX = floaterRect.left + floatX;
+                const floaterTopLeftY = floaterRect.top - floatY;
+
+                const floaterTopRightX = floaterRect.right + floatX;
+                const floaterTopRightY = floaterRect.top - floatY;
+
+
+                // Prevent offbounding
+                // Left and right boundaries
+                if (floaterBottomLeftX < 0 || floaterBottomRightX > viewportWidth - paddingRight) {
+                    directionX *= -1;
+                    floatX = 0; // Reset to prevent overshooting
+                }
+
+                // Top and bottom boundaries
+                if (floaterTopLeftY < paddingTop || floaterBottomLeftY > viewportHeight) {
+                    directionY *= -1;
+                    floatY = 0; // Reset to prevent overshooting
+                }
 
                 // Apply floating transform
                 const currentX = parseFloat(floater.getAttribute('data-x')) || 0;
                 const currentY = parseFloat(floater.getAttribute('data-y')) || 0;
                 floater.style.transform = `translate(${currentX + floatX}px, ${currentY + floatY}px)`;
 
+                // Store updated coordinates
+                floater.setAttribute('data-x', currentX + floatX);
+                floater.setAttribute('data-y', currentY + floatY);
+
                 requestAnimationFrame(animateFloating);
             };
 
             requestAnimationFrame(animateFloating);
 
+            // Initialize draggable functionality using interact.js
             interact(floater).draggable({
                 inertia: {
-                    resistance: 20,         
-                    minSpeed: 80,           
-                    endSpeed: 10,          
+                    resistance: 20,
+                    minSpeed: 80,
+                    endSpeed: 10,
                     smoothEndDuration: 400,
                 },
-
                 listeners: {
                     start(event) {
                         // Bring the floater to the front
@@ -423,6 +497,7 @@
                         event.target.classList.remove("grab");
                         event.target.style.cursor = "grabbing";
                     },
+
                     move(event) {
                         // Calculate new position during dragging
                         const x = (parseFloat(floater.getAttribute("data-x")) || 0) + event.dx;
@@ -454,6 +529,8 @@
                 inertia: true,
             });
         });
+
+
 
         tick();
 
@@ -493,7 +570,7 @@
 
         <PositionMarkerButton
             data = {data}
-            selectedCardTitle = {selectedCard}
+            selectedCardTitle = {activeMarker}
             currentScrollLevel = {currentScrollLevel}
         />
 
@@ -729,6 +806,8 @@
         font-size: 7.75em; /* 124px */
         font-family: var(--serif-font-family), var(--fallback-serif-font);
         font-weight: 400;
+        user-select: none;
+        touch-action: none;
     }
 
     :global(.h1) {
