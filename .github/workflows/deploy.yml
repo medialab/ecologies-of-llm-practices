@@ -1,4 +1,4 @@
-name: CI
+name: Amazing auto-builder workflow 🚀
 
 on:
   push:
