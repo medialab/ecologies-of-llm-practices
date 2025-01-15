@@ -80,7 +80,7 @@ const cardsDb = {
       },
     ],
     logoImage: logoImage,
-    bgColor: "#97D2FB",
+    bgColor: "#ff00b9",
     isProjCover: false,
   },
   Card2: {
