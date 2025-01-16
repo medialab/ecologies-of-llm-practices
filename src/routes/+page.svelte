@@ -40,6 +40,9 @@
     let hostElement;
     let simplebarContainer;
 
+
+    let isDesktop;
+
     //Functions
 
     const updateTime = () => {
@@ -267,8 +270,18 @@
 
         const interact = (await import('interactjs')).default;
         const simpleBar = (await import('simplebar')).default;
-
         const ResizeObserver = (await import('resize-observer-polyfill')).default;
+
+        const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+        const isMobileDevice = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+
+        // If it's not a mobile device, assume it's desktop
+        isDesktop = !isMobileDevice;
+
+        // Alternatively, check based on screen width
+        if (window.innerWidth > 768) {
+            isDesktop = true;
+        }
 
         if (simplebarContainer) {
             new SimpleBar(simplebarContainer, {
@@ -280,268 +293,272 @@
         updateTime();
         const interval = setInterval(updateTime, 1000);
 
-        containers = document.querySelectorAll('.card_container')
-        floaters = document.querySelectorAll('.floater_container')
-        hostElement = document.querySelector('.host');
-        scrollContainers = document.querySelectorAll('.card_scrollable_container')
-
-        tick();
-
-        // Storing positions
-        containers.forEach((container, index) => {
-            const offset = -30 * index;
-            const centering = 30;
-            const x = offset - centering;
-            const y = offset + centering;
-            initialPositions.push({ x, y });
-
-            container.style.transform = `translate(${x}px, ${y}px)`;
-            container.setAttribute('data-x', x);
-            container.setAttribute('data-y', y);
-            container.style.zIndex = -index;
-
-            container.setAttribute('data-index', index);
-
-            const cardData = Object.values(data.cardsDb)[index];
-
-            if (cardData && cardData.bgColor) {
-                container.style.backgroundColor = cardData.bgColor;
-            }
-
-            container.style.opacity = '0';
+        if (isDesktop) {
             
-            setTimeout(() => {
+
+            containers = document.querySelectorAll('.card_container')
+            floaters = document.querySelectorAll('.floater_container')
+            hostElement = document.querySelector('.host');
+            scrollContainers = document.querySelectorAll('.card_scrollable_container')
+
+            tick();
+
+            // Storing positions
+            containers.forEach((container, index) => {
+                const offset = -30 * index;
+                const centering = 30;
+                const x = offset - centering;
+                const y = offset + centering;
+                initialPositions.push({ x, y });
+
+                container.style.transform = `translate(${x}px, ${y}px)`;
+                container.setAttribute('data-x', x);
+                container.setAttribute('data-y', y);
+                container.style.zIndex = -index;
+
+                container.setAttribute('data-index', index);
+
+                const cardData = Object.values(data.cardsDb)[index];
+
+                if (cardData && cardData.bgColor) {
+                    container.style.backgroundColor = cardData.bgColor;
+                }
+
+                container.style.opacity = '0';
+                
                 setTimeout(() => {
-                container.style.display = 'grid';
-                container.style.opacity = '1';
-            }, index * 125); 
-            }, 500); 
-            
-        });
+                    setTimeout(() => {
+                    container.style.display = 'grid';
+                    container.style.opacity = '1';
+                }, index * 125); 
+                }, 500); 
+                
+            });
 
-        containers.forEach(container => {
-            container.classList.add('grab');
-            container.style.touchAction = 'none';
+            containers.forEach(container => {
+                container.classList.add('grab');
+                container.style.touchAction = 'none';
 
-            interact(container).draggable({
+                interact(container).draggable({
 
-                inertia: {
-                    resistance: 15,
-                    minSpeed: 100,
-                    endSpeed: 20,
-                    smoothEndDuration: 500,
-                },
-
-                listeners: {
-                    start(event) {
-                        close_sidebar();
-                        bringToFront(event);
-
-                        const index = event.target.getAttribute('data-index');
-
-                        const cardData = Object.values(data.cardsDb)[index];
-
-                        // If the cardData exists, update selectedCard with the Title
-                        if (cardData && cardData.Title) {
-                            selectedCard = cardData.Title;
-                            openFloaters(floaters);
-                        }
-
-                        event.target.classList.remove('grab');
-                        event.target.style.cursor = 'grabbing';
-                        
+                    inertia: {
+                        resistance: 15,
+                        minSpeed: 100,
+                        endSpeed: 20,
+                        smoothEndDuration: 500,
                     },
 
-                    move(event) {
-                        const x = (parseFloat(container.getAttribute('data-x')) || 0) + event.dx;
-                        const y = (parseFloat(container.getAttribute('data-y')) || 0) + event.dy;
+                    listeners: {
+                        start(event) {
+                            close_sidebar();
+                            bringToFront(event);
 
-                        container.style.transform = `translate(${x}px, ${y}px)`;
-                        container.setAttribute('data-x', x);
-                        container.setAttribute('data-y', y);
-                        
+                            const index = event.target.getAttribute('data-index');
+
+                            const cardData = Object.values(data.cardsDb)[index];
+
+                            // If the cardData exists, update selectedCard with the Title
+                            if (cardData && cardData.Title) {
+                                selectedCard = cardData.Title;
+                                openFloaters(floaters);
+                            }
+
+                            event.target.classList.remove('grab');
+                            event.target.style.cursor = 'grabbing';
+                            
+                        },
+
+                        move(event) {
+                            const x = (parseFloat(container.getAttribute('data-x')) || 0) + event.dx;
+                            const y = (parseFloat(container.getAttribute('data-y')) || 0) + event.dy;
+
+                            container.style.transform = `translate(${x}px, ${y}px)`;
+                            container.setAttribute('data-x', x);
+                            container.setAttribute('data-y', y);
+                            
+                        },
+
+                        end(event) {
+                            //console.log('Drag ended', event);
+                            event.target.classList.remove('grabbing');
+                            event.target.style.cursor = 'grab';
+                        },
+                        modifiers: [
+                            interact.modifiers.restrict({
+                                restriction: 'parent', // Prevents dragging outside the container's parent
+                                endOnly: true,
+                            }),
+                        ],
+                        inertia: true,
                     },
+                });
+            });
 
-                    end(event) {
-                        //console.log('Drag ended', event);
-                        event.target.classList.remove('grabbing');
-                        event.target.style.cursor = 'grab';
+            // Add draggable functionality to floaters
+            floaters.forEach((floater, index) => {
+                floater.classList.add('grab');
+                floater.style.touchAction = 'none';
+                floater.style.transition = 'opacity 0s linear';
+
+                // Delay the appearance of each floater
+                setTimeout(() => {
+                    floater.style.opacity = '1';
+                }, 400 + index * 40); 
+
+                floater.style.transformOrigin = 'bottom left';
+
+                // Initialize floating animation variables
+                const floatingSpeedBase = 0.00005 + Math.random() * 0.0001;
+                const oscillationFrequency = 0.001;
+                const sineOffset = Math.random() * 2 * Math.PI; 
+                let floatX = 0;
+                let floatY = 0;
+                let directionX = Math.random() > 0.5 ? 1 : -1;
+                let directionY = Math.random() > 0.5 ? 1 : -1;
+
+                // Start floating animation
+                const animateFloating = () => {
+                    const time = Date.now(); // Get current time
+
+                    // Calculate oscillating speed
+                    const floatingSpeed = floatingSpeedBase * (1 + Math.sin(time * oscillationFrequency + sineOffset));
+
+                    // Update floating positions
+                    floatX += directionX * floatingSpeed;
+                    floatY += directionY * floatingSpeed;
+
+                    // Get floater dimensions and viewport size
+                    const floaterRect = floater.getBoundingClientRect();
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+
+                    const floaterBottom = floaterRect.bottom;
+                    const floaterLeft = floaterRect.left; 
+
+                    const paddingTop = 0; // Padding for the top boundary
+                    const paddingRight = 30; // Padding for the right boundary
+
+                    // Calculate corners
+                    const floaterBottomLeftX = floaterRect.left + floatX;
+                    const floaterBottomLeftY = floaterRect.bottom - floatY;
+
+                    const floaterBottomRightX = floaterRect.right + floatX;
+                    const floaterBottomRightY = floaterRect.bottom - floatY;
+
+                    const floaterTopLeftX = floaterRect.left + floatX;
+                    const floaterTopLeftY = floaterRect.top - floatY;
+
+                    const floaterTopRightX = floaterRect.right + floatX;
+                    const floaterTopRightY = floaterRect.top - floatY;
+
+
+                    // Prevent offbounding
+                    // Left and right boundaries
+                    if (floaterBottomLeftX < 0 || floaterBottomRightX > viewportWidth - paddingRight) {
+                        directionX *= -1;
+                        floatX = 0; // Reset to prevent overshooting
+                    }
+
+                    // Top and bottom boundaries
+                    if (floaterTopLeftY < paddingTop || floaterBottomLeftY > viewportHeight) {
+                        directionY *= -1;
+                        floatY = 0; // Reset to prevent overshooting
+                    }
+
+                    // Apply floating transform
+                    const currentX = parseFloat(floater.getAttribute('data-x')) || 0;
+                    const currentY = parseFloat(floater.getAttribute('data-y')) || 0;
+                    floater.style.transform = `translate(${currentX + floatX}px, ${currentY + floatY}px)`;
+
+                    // Store updated coordinates
+                    floater.setAttribute('data-x', currentX + floatX);
+                    floater.setAttribute('data-y', currentY + floatY);
+
+                    requestAnimationFrame(animateFloating);
+                };
+
+                requestAnimationFrame(animateFloating);
+
+                // Initialize draggable functionality using interact.js
+                interact(floater).draggable({
+                    inertia: {
+                        resistance: 20,
+                        minSpeed: 80,
+                        endSpeed: 10,
+                        smoothEndDuration: 400,
+                    },
+                    listeners: {
+                        start(event) {
+                            // Bring the floater to the front
+                            floater.style.zIndex = parseInt(floater.style.zIndex || 1) + 1;
+
+                            // Get current transform values and calculate actual position
+                            const computedStyle = window.getComputedStyle(floater);
+                            const transform = computedStyle.transform;
+
+                            if (transform && transform !== "none") {
+                                const matrix = new DOMMatrix(transform);
+                                const currentX = matrix.m41; // Translate X value
+                                const currentY = matrix.m42; // Translate Y value
+
+                                // Set data attributes for accurate dragging
+                                floater.setAttribute("data-x", currentX);
+                                floater.setAttribute("data-y", currentY);
+                            } else {
+                                // If no transform is applied, set to default (0, 0)
+                                floater.setAttribute("data-x", 0);
+                                floater.setAttribute("data-y", 0);
+                            }
+
+                            event.target.classList.remove("grab");
+                            event.target.style.cursor = "grabbing";
+                        },
+
+                        move(event) {
+                            // Calculate new position during dragging
+                            const x = (parseFloat(floater.getAttribute("data-x")) || 0) + event.dx;
+                            const y = (parseFloat(floater.getAttribute("data-y")) || 0) + event.dy;
+
+                            // Reset floating offsets during drag
+                            floatX = 0;
+                            floatY = 0;
+
+                            // Apply the transformation and update attributes
+                            floater.style.transform = `translate(${x}px, ${y}px)`;
+                            floater.setAttribute("data-x", x);
+                            floater.setAttribute("data-y", y);
+
+                            floaterPositions[index] = { x, y };
+                        },
+                        end(event) {
+                            // Reset cursor after drag ends
+                            event.target.classList.remove("grabbing");
+                            event.target.style.cursor = "grab";
+                        },
                     },
                     modifiers: [
                         interact.modifiers.restrict({
-                            restriction: 'parent', // Prevents dragging outside the container's parent
+                            restriction: "parent",
                             endOnly: true,
                         }),
                     ],
                     inertia: true,
-                },
+                });
             });
-        });
 
-        // Add draggable functionality to floaters
-        floaters.forEach((floater, index) => {
-            floater.classList.add('grab');
-            floater.style.touchAction = 'none';
-            floater.style.transition = 'opacity 0s linear';
+            tick();
 
-            // Delay the appearance of each floater
-            setTimeout(() => {
-                floater.style.opacity = '1';
-            }, 400 + index * 40); 
+            cover = document.querySelector('#cover_description')
+            sidebar = document.querySelector('#sidebar')
+            scrollableElements = document.querySelectorAll('.card_scrollable_container')
 
-            floater.style.transformOrigin = 'bottom left';
+            // Here we are selecting the sections for the marker loader
+            sections = document.querySelectorAll('.section_container');
+            setupMouseDetection();
+            observeSectionsAndContainers();
+        }
 
-            // Initialize floating animation variables
-            const floatingSpeedBase = 0.00005 + Math.random() * 0.0001;
-            const oscillationFrequency = 0.001;
-            const sineOffset = Math.random() * 2 * Math.PI; 
-            let floatX = 0;
-            let floatY = 0;
-            let directionX = Math.random() > 0.5 ? 1 : -1;
-            let directionY = Math.random() > 0.5 ? 1 : -1;
-
-            // Start floating animation
-            const animateFloating = () => {
-                const time = Date.now(); // Get current time
-
-                // Calculate oscillating speed
-                const floatingSpeed = floatingSpeedBase * (1 + Math.sin(time * oscillationFrequency + sineOffset));
-
-                // Update floating positions
-                floatX += directionX * floatingSpeed;
-                floatY += directionY * floatingSpeed;
-
-                // Get floater dimensions and viewport size
-                const floaterRect = floater.getBoundingClientRect();
-                const viewportWidth = window.innerWidth;
-                const viewportHeight = window.innerHeight;
-
-                const floaterBottom = floaterRect.bottom;
-                const floaterLeft = floaterRect.left; 
-
-                const paddingTop = 0; // Padding for the top boundary
-                const paddingRight = 30; // Padding for the right boundary
-
-                // Calculate corners
-                const floaterBottomLeftX = floaterRect.left + floatX;
-                const floaterBottomLeftY = floaterRect.bottom - floatY;
-
-                const floaterBottomRightX = floaterRect.right + floatX;
-                const floaterBottomRightY = floaterRect.bottom - floatY;
-
-                const floaterTopLeftX = floaterRect.left + floatX;
-                const floaterTopLeftY = floaterRect.top - floatY;
-
-                const floaterTopRightX = floaterRect.right + floatX;
-                const floaterTopRightY = floaterRect.top - floatY;
-
-
-                // Prevent offbounding
-                // Left and right boundaries
-                if (floaterBottomLeftX < 0 || floaterBottomRightX > viewportWidth - paddingRight) {
-                    directionX *= -1;
-                    floatX = 0; // Reset to prevent overshooting
-                }
-
-                // Top and bottom boundaries
-                if (floaterTopLeftY < paddingTop || floaterBottomLeftY > viewportHeight) {
-                    directionY *= -1;
-                    floatY = 0; // Reset to prevent overshooting
-                }
-
-                // Apply floating transform
-                const currentX = parseFloat(floater.getAttribute('data-x')) || 0;
-                const currentY = parseFloat(floater.getAttribute('data-y')) || 0;
-                floater.style.transform = `translate(${currentX + floatX}px, ${currentY + floatY}px)`;
-
-                // Store updated coordinates
-                floater.setAttribute('data-x', currentX + floatX);
-                floater.setAttribute('data-y', currentY + floatY);
-
-                requestAnimationFrame(animateFloating);
-            };
-
-            requestAnimationFrame(animateFloating);
-
-            // Initialize draggable functionality using interact.js
-            interact(floater).draggable({
-                inertia: {
-                    resistance: 20,
-                    minSpeed: 80,
-                    endSpeed: 10,
-                    smoothEndDuration: 400,
-                },
-                listeners: {
-                    start(event) {
-                        // Bring the floater to the front
-                        floater.style.zIndex = parseInt(floater.style.zIndex || 1) + 1;
-
-                        // Get current transform values and calculate actual position
-                        const computedStyle = window.getComputedStyle(floater);
-                        const transform = computedStyle.transform;
-
-                        if (transform && transform !== "none") {
-                            const matrix = new DOMMatrix(transform);
-                            const currentX = matrix.m41; // Translate X value
-                            const currentY = matrix.m42; // Translate Y value
-
-                            // Set data attributes for accurate dragging
-                            floater.setAttribute("data-x", currentX);
-                            floater.setAttribute("data-y", currentY);
-                        } else {
-                            // If no transform is applied, set to default (0, 0)
-                            floater.setAttribute("data-x", 0);
-                            floater.setAttribute("data-y", 0);
-                        }
-
-                        event.target.classList.remove("grab");
-                        event.target.style.cursor = "grabbing";
-                    },
-
-                    move(event) {
-                        // Calculate new position during dragging
-                        const x = (parseFloat(floater.getAttribute("data-x")) || 0) + event.dx;
-                        const y = (parseFloat(floater.getAttribute("data-y")) || 0) + event.dy;
-
-                        // Reset floating offsets during drag
-                        floatX = 0;
-                        floatY = 0;
-
-                        // Apply the transformation and update attributes
-                        floater.style.transform = `translate(${x}px, ${y}px)`;
-                        floater.setAttribute("data-x", x);
-                        floater.setAttribute("data-y", y);
-
-                        floaterPositions[index] = { x, y };
-                    },
-                    end(event) {
-                        // Reset cursor after drag ends
-                        event.target.classList.remove("grabbing");
-                        event.target.style.cursor = "grab";
-                    },
-                },
-                modifiers: [
-                    interact.modifiers.restrict({
-                        restriction: "parent",
-                        endOnly: true,
-                    }),
-                ],
-                inertia: true,
-            });
-        });
-
-
-
-        tick();
-
-        cover = document.querySelector('#cover_description')
-        sidebar = document.querySelector('#sidebar')
-        scrollableElements = document.querySelectorAll('.card_scrollable_container')
-
-        // Here we are selecting the sections for the marker loader
-        sections = document.querySelectorAll('.section_container');
-        setupMouseDetection();
-        observeSectionsAndContainers();
+        
         
     }); 
 
@@ -602,8 +619,23 @@
                 color = {currentCardColor}
             />
         {/each}
-        
-        
+
+        <div class="mobile_desc_container">
+            <div class="mobile_text">
+                <p class="s1">
+                    This website is meant to be seen from a desktop device.
+                    <br>
+                    Meanwhile, if you need informations on what EL2MP is, read below:
+                </p>
+            </div>
+    
+            <div class="mobile_description">
+                <p class="p2">
+                    {@html data.projectDescription}
+                </p>
+            </div>
+        </div>
+
     </section>
    
 </div>
@@ -930,6 +962,83 @@
         background-color: var(--full-black);
         color: var(--demi-white);
         transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
+    .mobile_text {
+        display: none;  
+    }
+
+    .mobile_description {
+        display: none;
+    }
+
+    .mobile_desc_container {
+        display: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .closing_icon {
+            display: none;
+        }
+
+        .mobile_text {
+            display: block;
+            height: max-content;
+            width: 100%;
+        }
+
+        .mobile_description {
+            display: block;
+            border: solid 1px black;
+            border-radius: 10px 10px 10px 10px;
+            width: 100%;
+            height: auto;
+            padding: var(--spacing-S);
+            max-height: 70%;
+            overflow-y: scroll;
+            scrollbar-width: 0px;
+            background-color: white;
+        }
+
+        .mobile_description::-webkit-scrollbar {
+            width: 8px; /* Width of the scrollbar */
+            height: 90px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .mobile_description::-webkit-scrollbar-track {
+            background: transparent; /* Background of the scrollbar track */
+            overflow: hidden;
+            border-radius: 10px;
+            height: 90%;
+        }
+
+        .mobile_description::-webkit-scrollbar-thumb {
+            background-color: white; /* Color of the scrollbar thumb */
+            border: 1px solid black; /* Adds space around thumb */
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        .mobile_description::-webkit-scrollbar-thumb:hover {
+            background-color: transparent; /* Darker color when hovered */
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .mobile_desc_container {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            row-gap: var(--spacing-M);
+            align-items: center;
+            padding: var(--spacing-L);
+            padding-top: var(--spacing-2XL);
+
+            width: 100%;
+            height: 100%;
+        }
     }
 
 

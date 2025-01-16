@@ -31,13 +31,7 @@
     <div class="description_scroll">
         
         <p class="p1">
-            The Écologies des Pratiques project explores the transformative impact of Large Language Models (LLMs) on research, creativity, and communication across various domains. Supported by Google through its commitment to advancing ethical and impactful AI practices, this initiative combines cutting-edge technological tools with critical reflection on their implications. <br><br>
-            At the heart of this project lies a collaborative and interdisciplinary approach, engaging researchers, practitioners, and students from diverse fields. By experimenting with LLMs, we seek to understand their potential as catalysts for new forms of knowledge production and dissemination while addressing the ecological and ethical questions they raise.
-            The project delves into three key areas: <br><br>
-            Technological Experimentation: By integrating LLMs into practical workflows, we assess how these tools reshape academic and professional practices. From creative writing to data analysis, the project tests the boundaries of LLMs' generative capabilities.<br><br>
-            Critical Reflection: Alongside experimentation, we foster discussions on the broader societal and ecological implications of LLM adoption. What are the costs and benefits of scaling these technologies? How do they challenge or reinforce existing structures of knowledge and power?<br><br>
-            Community Building: Through workshops, public events, and collaborative platforms, we aim to build a community of thinkers and makers who can collectively imagine and shape the future of AI-driven practices.<br><br>
-            With Google’s support, Écologies des Pratiques not only investigates the possibilities of LLMs but also critically examines their role within contemporary ecological, cultural, and institutional systems. By bridging technological innovation and critical inquiry, this project seeks to illuminate how these powerful tools can contribute responsibly to a sustainable and inclusive future.
+            {@html data.projectDescription}
         </p>
 
         <div class="credits_container">
@@ -175,10 +169,32 @@
 
         height: auto;
         width: 100%;
+    }    
+
+    @media only screen and (max-width: 768px) {
+        .logo_button {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            border-radius: 0px;
+            border-right: 0px;
+            border-top: 0px;
+            border-bottom: solid 1px black;
+            height: max-content; /* Adjust height as needed */
+        }
+
+        .description_scroll {
+            display: none;
+        }
+
+        .header_container {
+            width: 80%;
+            place-content: center;
+            place-self: center;
+            padding-top: var(--spacing-S);
+            padding-bottom: var(--spacing-S);
+        }
     }
-
-    
-
-
+        
 
 </style>

@@ -12,11 +12,28 @@
 <style>
 
     .time_button {
-        border-radius: 0px 0px 0px 5px;
+        position: fixed;
         top: 0;
         right: 0;
+        border-radius: 0px 0px 0px 5px;
         border-right: 0px;
         border-top: 0px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .time_button {
+            position: fixed;
+            bottom: 0;
+            top: auto;
+            width: 100%;
+            border-radius: 0px;
+            border-right: 0px;
+            border-left: 0px;
+            border-bottom: 0px;
+            border-top: solid 1px black;
+            height: max-content; /* Adjust height as needed */
+            place-content: center;
+        }
     }
 
 </style>

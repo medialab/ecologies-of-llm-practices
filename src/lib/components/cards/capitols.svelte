@@ -1,6 +1,6 @@
 
 <script>
-
+import { onMount } from 'svelte';
 export let data
 export let bringToFront
 export let suppressCover
@@ -50,7 +50,7 @@ let isProjCover = data.isProjCover
             <div class="card_scroll_flex" data-section={data.Title}> 
                 
                 {#if data.CoverImg}
-                    <enhanced:img data-sveltekit-preload-data src={data.CoverImg} alt="CoverImg" />
+                    <enhanced:img data-sveltekit-preload-data src={data.CoverImg} alt="CoverImg" class="duotone_image"/>
                 {/if}
                 
                 <!-- Programmatic creation of sections -->
@@ -181,6 +181,12 @@ let isProjCover = data.isProjCover
         border: solid 1px black;
     }
 
+    :global(.duotone_image) {
+        mix-blend-mode: multiply;
+        opacity: 1;
+        display: inline-block;
+    }
+
     .card_container:active {
         cursor: grabbing;
     }
@@ -225,16 +231,6 @@ let isProjCover = data.isProjCover
         gap: var(--spacing-M);
         
     }
-
-    /* .card_scroll_flex > img {
-        background-color: alpha;
-        aspect-ratio: 16 / 9;
-        width: 100%;
-        min-height: 60px;
-        height: auto;
-        image-rendering: optimizeQuality;
-        object-fit: cover;
-    } */
 
     .card_container > .h0 {
         transform: translateY(-40px);
@@ -499,6 +495,14 @@ let isProjCover = data.isProjCover
         overflow-y: scroll;
         scrollbar-width: none;
         -ms-overflow-style: none;
+    }
+
+    :global {
+        @media only screen and (max-width: 768px) {
+            .card_container {
+                display: none;
+            }
+        }
     }
     
 

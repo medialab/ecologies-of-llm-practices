@@ -3,6 +3,8 @@
 export const prerender = true;
 
 export const trailingSlash = "always";
+export const projectDescription =
+  "The Écologies des Pratiques project explores the transformative impact of Large Language Models (LLMs) on research, creativity, and communication across various domains. Supported by Google through its commitment to advancing ethical and impactful AI practices, this initiative combines cutting-edge technological tools with critical reflection on their implications. <br><br>At the heart of this project lies a collaborative and interdisciplinary approach, engaging researchers, practitioners, and students from diverse fields. By experimenting with LLMs, we seek to understand their potential as catalysts for new forms of knowledge production and dissemination while addressing the ecological and ethical questions they raise. The project delves into three key areas: <br><br> Technological Experimentation: By integrating LLMs into practical workflows, we assess how these tools reshape academic and professional practices. From creative writing to data analysis, the project tests the boundaries of LLMs' generative capabilities.<br><br> Critical Reflection: Alongside experimentation, we foster discussions on the broader societal and ecological implications of LLM adoption. What are the costs and benefits of scaling these technologies? How do they challenge or reinforce existing structures of knowledge and power?<br><br> Community Building: Through workshops, public events, and collaborative platforms, we aim to build a community of thinkers and makers who can collectively imagine and shape the future of AI-driven practices.<br><br> With Google’s support, Écologies des Pratiques not only investigates the possibilities of LLMs but also critically examines their role within contemporary ecological, cultural, and institutional systems. By bridging technological innovation and critical inquiry, this project seeks to illuminate how these powerful tools can contribute responsibly to a sustainable and inclusive future.";
 
 import backgroundImage from "$media/Dot_background.png?enhanced";
 import logoImage from "$media/logo_complete.svg";
@@ -32,6 +34,9 @@ import image_18 from "$media/photos/img18.jpg?enhanced";
 import image_19 from "$media/photos/img19.jpg?enhanced";
 import image_20 from "$media/photos/img20.jpg?enhanced";
 import image_21 from "$media/photos/img21.jpg?enhanced";
+
+import cover_1 from "$media/capitols_cover/qualifying.jpg?enhanced";
+
 import { mergeAlias } from "vite";
 import { id } from "date-fns/locale";
 
@@ -41,7 +46,7 @@ const cardsDb = {
     Description:
       "Where do LLMs live in our professional practices, norms and relationships?",
     IndexNum: 1,
-    CoverImg: image_3,
+    CoverImg: cover_1,
     Content: [
       {
         subtitle: "Exercise 1 - Breaking the Ice",
@@ -317,5 +322,6 @@ export function load({ params }) {
     logoImage,
     cardsDb,
     floatersDb,
+    projectDescription,
   };
 }

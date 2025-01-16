@@ -46,5 +46,11 @@
         gap: var(--spacing-S);
     }
 
+    @media only screen and (max-width: 768px) {
+        .position_button {
+            display: none;
+        }
+    }
+
 
 </style>

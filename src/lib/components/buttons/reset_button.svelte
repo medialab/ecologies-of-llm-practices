@@ -25,5 +25,11 @@
         color: var(--demi-white);
     }
 
+    @media only screen and (max-width: 768px) {
+        .reset_button {
+            display: none;
+        }
+    }
+
 
 </style>
