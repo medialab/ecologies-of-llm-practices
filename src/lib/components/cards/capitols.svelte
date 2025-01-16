@@ -220,6 +220,7 @@ let isProjCover = data.isProjCover
     .card_container > .h0 {
         width: max-content;
         word-wrap: nowrap;
+        user-select: none;
     }
 
     .card_scrollable_container {

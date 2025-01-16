@@ -29,7 +29,7 @@ function Capitols($$payload, $$props) {
   if (isProjCover === false) {
     $$payload.out += "<!--[-->";
     const each_array_1 = ensure_array_like(data.Content);
-    $$payload.out += `<section class="card_container svelte-f08zeo" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-f08zeo" style="z-index: 7;">${escape_html(data.Title)}</p> <p class="caption svelte-f08zeo">BLOCK ${escape_html(data.IndexNum)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-f08zeo"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="description_container svelte-f08zeo"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-f08zeo" id="description">${escape_html(data.Description)}</p></div> <div class="card_scrollable_container svelte-f08zeo" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-f08zeo"${attr("data-section", data.Title)}>`;
+    $$payload.out += `<section class="card_container svelte-ix5yqz" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-ix5yqz" style="z-index: 7;">${escape_html(data.Title)}</p> <p class="caption svelte-ix5yqz">BLOCK ${escape_html(data.IndexNum)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-ix5yqz"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="description_container svelte-ix5yqz"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-ix5yqz" id="description">${escape_html(data.Description)}</p></div> <div class="card_scrollable_container svelte-ix5yqz" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-ix5yqz"${attr("data-section", data.Title)}>`;
     if (data.CoverImg) {
       $$payload.out += "<!--[-->";
       $$payload.out += `<div class="duotone_container">`;
@@ -55,7 +55,7 @@ function Capitols($$payload, $$props) {
       $$payload.out += "<!--[-->";
       for (let index = 0, $$length = each_array_1.length; index < $$length; index++) {
         let section = each_array_1[index];
-        $$payload.out += `<div class="section_container svelte-f08zeo" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
+        $$payload.out += `<div class="section_container svelte-ix5yqz" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
         if (section.subtitle) {
           $$payload.out += "<!--[-->";
           $$payload.out += `<p class="h4">${escape_html(section.subtitle)}</p>`;
@@ -67,7 +67,7 @@ function Capitols($$payload, $$props) {
           $$payload.out += "<!--[-->";
           if (typeof section.picture === "string") {
             $$payload.out += "<!--[-->";
-            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-f08zeo"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
+            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-ix5yqz"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
           } else {
             $$payload.out += "<!--[!-->";
             const each_array_2 = ensure_array_like(Object.entries(section.picture.sources));
@@ -76,7 +76,7 @@ function Capitols($$payload, $$props) {
               let [format, srcset] = each_array_2[$$index_1];
               $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)}>`;
             }
-            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-f08zeo"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
+            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-ix5yqz"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
           }
           $$payload.out += `<!--]-->`;
         } else {
@@ -98,7 +98,7 @@ function Capitols($$payload, $$props) {
     $$payload.out += `<!--]--></div></div></section>`;
   } else {
     $$payload.out += "<!--[!-->";
-    $$payload.out += `<section class="card_container svelte-f08zeo" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-f08zeo">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-f08zeo" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-f08zeo"><div class="card_scroll_flex svelte-f08zeo"><p class="h4">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-f08zeo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2"></path></svg></a></section>`;
+    $$payload.out += `<section class="card_container svelte-ix5yqz" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-ix5yqz">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-ix5yqz" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-ix5yqz"><div class="card_scroll_flex svelte-ix5yqz"><p class="h4">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-ix5yqz"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2"></path></svg></a></section>`;
   }
   $$payload.out += `<!--]-->`;
   bind_props($$props, {

@@ -12,6 +12,7 @@ const config = {
     alias: {
       $styles: "/src/lib/styles",
       $media: "src/lib/media",
+      $database: "src/lib/database",
     },
   },
 };

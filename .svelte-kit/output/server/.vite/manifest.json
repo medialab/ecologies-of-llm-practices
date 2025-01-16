@@ -372,20 +372,6 @@
     "src": "src/routes/+page.server.js",
     "isEntry": true,
     "assets": [
-      "_app/immutable/assets/Dot_background.BMWCEQP3.avif",
-      "_app/immutable/assets/Dot_background.BqYuFsFf.avif",
-      "_app/immutable/assets/Dot_background.BF15mkJt.webp",
-      "_app/immutable/assets/Dot_background.C7u_RcRU.webp",
-      "_app/immutable/assets/Dot_background.B3sYNgA-.png",
-      "_app/immutable/assets/Dot_background.CvoK4E8a.png",
-      "_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif",
-      "_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif",
-      "_app/immutable/assets/enhanced_logoImage.Cbf4PYtl.webp",
-      "_app/immutable/assets/enhanced_logoImage.JrAXU7cP.webp",
-      "_app/immutable/assets/enhanced_logoImage.D_eIIOoz.png",
-      "_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png",
-      "_app/immutable/assets/logo_condensed.Cwwx0yWm.svg",
-      "_app/immutable/assets/logo_complete.SEqfJBG_.svg",
       "_app/immutable/assets/img1.DB1WrWcd.avif",
       "_app/immutable/assets/img1.DwgMpDkg.avif",
       "_app/immutable/assets/img1.fGjxAbni.webp",
@@ -517,7 +503,21 @@
       "_app/immutable/assets/qualifying.k8RAWrh3.webp",
       "_app/immutable/assets/qualifying.xyV88Pxw.webp",
       "_app/immutable/assets/qualifying.DbZTSVnW.jpeg",
-      "_app/immutable/assets/qualifying.Dlmd4Baz.jpeg"
+      "_app/immutable/assets/qualifying.Dlmd4Baz.jpeg",
+      "_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif",
+      "_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif",
+      "_app/immutable/assets/enhanced_logoImage.Cbf4PYtl.webp",
+      "_app/immutable/assets/enhanced_logoImage.JrAXU7cP.webp",
+      "_app/immutable/assets/enhanced_logoImage.D_eIIOoz.png",
+      "_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png",
+      "_app/immutable/assets/logo_condensed.Cwwx0yWm.svg",
+      "_app/immutable/assets/logo_complete.SEqfJBG_.svg",
+      "_app/immutable/assets/Dot_background.BMWCEQP3.avif",
+      "_app/immutable/assets/Dot_background.BqYuFsFf.avif",
+      "_app/immutable/assets/Dot_background.BF15mkJt.webp",
+      "_app/immutable/assets/Dot_background.C7u_RcRU.webp",
+      "_app/immutable/assets/Dot_background.B3sYNgA-.png",
+      "_app/immutable/assets/Dot_background.CvoK4E8a.png"
     ]
   },
   "src/routes/+page.svelte": {
@@ -530,7 +530,7 @@
       "_escaping.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.DgDRaCjP.css"
+      "_app/immutable/assets/_page.CCvGm7zw.css"
     ]
   }
 }

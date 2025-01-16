@@ -1,30 +1,4 @@
 import "vite";
-const backgroundImage = {
-  sources: {
-    avif: "/EL2MP/_app/immutable/assets/Dot_background.BMWCEQP3.avif 756w, /EL2MP/_app/immutable/assets/Dot_background.BqYuFsFf.avif 1512w",
-    webp: "/EL2MP/_app/immutable/assets/Dot_background.BF15mkJt.webp 756w, /EL2MP/_app/immutable/assets/Dot_background.C7u_RcRU.webp 1512w",
-    png: "/EL2MP/_app/immutable/assets/Dot_background.B3sYNgA-.png 756w, /EL2MP/_app/immutable/assets/Dot_background.CvoK4E8a.png 1512w"
-  },
-  img: {
-    src: "/EL2MP/_app/immutable/assets/Dot_background.CvoK4E8a.png",
-    w: 1512,
-    h: 982
-  }
-};
-const enhanced_logoImage = {
-  sources: {
-    avif: "/EL2MP/_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif 5213w",
-    webp: "/EL2MP/_app/immutable/assets/enhanced_logoImage.Cbf4PYtl.webp 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.JrAXU7cP.webp 5213w",
-    png: "/EL2MP/_app/immutable/assets/enhanced_logoImage.D_eIIOoz.png 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png 5213w"
-  },
-  img: {
-    src: "/EL2MP/_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png",
-    w: 5213,
-    h: 2259
-  }
-};
-const condensed_logo = "/EL2MP/_app/immutable/assets/logo_condensed.Cwwx0yWm.svg";
-const logoImage = "/EL2MP/_app/immutable/assets/logo_complete.SEqfJBG_.svg";
 const image_1 = {
   sources: {
     avif: "/EL2MP/_app/immutable/assets/img1.DB1WrWcd.avif 3012w, /EL2MP/_app/immutable/assets/img1.DwgMpDkg.avif 6024w",
@@ -289,9 +263,20 @@ const cover_1 = {
     h: 754
   }
 };
-const prerender = true;
-const trailingSlash = "always";
-const projectDescription = "The Écologies des Pratiques project explores the transformative impact of Large Language Models (LLMs) on research, creativity, and communication across various domains. Supported by Google through its commitment to advancing ethical and impactful AI practices, this initiative combines cutting-edge technological tools with critical reflection on their implications. <br><br>At the heart of this project lies a collaborative and interdisciplinary approach, engaging researchers, practitioners, and students from diverse fields. By experimenting with LLMs, we seek to understand their potential as catalysts for new forms of knowledge production and dissemination while addressing the ecological and ethical questions they raise. The project delves into three key areas: <br><br> Technological Experimentation: By integrating LLMs into practical workflows, we assess how these tools reshape academic and professional practices. From creative writing to data analysis, the project tests the boundaries of LLMs' generative capabilities.<br><br> Critical Reflection: Alongside experimentation, we foster discussions on the broader societal and ecological implications of LLM adoption. What are the costs and benefits of scaling these technologies? How do they challenge or reinforce existing structures of knowledge and power?<br><br> Community Building: Through workshops, public events, and collaborative platforms, we aim to build a community of thinkers and makers who can collectively imagine and shape the future of AI-driven practices.<br><br> With Google’s support, Écologies des Pratiques not only investigates the possibilities of LLMs but also critically examines their role within contemporary ecological, cultural, and institutional systems. By bridging technological innovation and critical inquiry, this project seeks to illuminate how these powerful tools can contribute responsibly to a sustainable and inclusive future.";
+const enhanced_logoImage = {
+  sources: {
+    avif: "/EL2MP/_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif 5213w",
+    webp: "/EL2MP/_app/immutable/assets/enhanced_logoImage.Cbf4PYtl.webp 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.JrAXU7cP.webp 5213w",
+    png: "/EL2MP/_app/immutable/assets/enhanced_logoImage.D_eIIOoz.png 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png 5213w"
+  },
+  img: {
+    src: "/EL2MP/_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png",
+    w: 5213,
+    h: 2259
+  }
+};
+const condensed_logo = "/EL2MP/_app/immutable/assets/logo_condensed.Cwwx0yWm.svg";
+const logoImage = "/EL2MP/_app/immutable/assets/logo_complete.SEqfJBG_.svg";
 const cardsDb = {
   Card1: {
     Title: "Qualifying",
@@ -585,6 +570,21 @@ const floatersDb = {
     href: ""
   }
 };
+const projectDescription = "The Écologies des Pratiques project explores the transformative impact of Large Language Models (LLMs) on research, creativity, and communication across various domains. Supported by Google through its commitment to advancing ethical and impactful AI practices, this initiative combines cutting-edge technological tools with critical reflection on their implications. <br><br>At the heart of this project lies a collaborative and interdisciplinary approach, engaging researchers, practitioners, and students from diverse fields. By experimenting with LLMs, we seek to understand their potential as catalysts for new forms of knowledge production and dissemination while addressing the ecological and ethical questions they raise. The project delves into three key areas: <br><br> Technological Experimentation: By integrating LLMs into practical workflows, we assess how these tools reshape academic and professional practices. From creative writing to data analysis, the project tests the boundaries of LLMs' generative capabilities.<br><br> Critical Reflection: Alongside experimentation, we foster discussions on the broader societal and ecological implications of LLM adoption. What are the costs and benefits of scaling these technologies? How do they challenge or reinforce existing structures of knowledge and power?<br><br> Community Building: Through workshops, public events, and collaborative platforms, we aim to build a community of thinkers and makers who can collectively imagine and shape the future of AI-driven practices.<br><br> With Google’s support, Écologies des Pratiques not only investigates the possibilities of LLMs but also critically examines their role within contemporary ecological, cultural, and institutional systems. By bridging technological innovation and critical inquiry, this project seeks to illuminate how these powerful tools can contribute responsibly to a sustainable and inclusive future.";
+const backgroundImage = {
+  sources: {
+    avif: "/EL2MP/_app/immutable/assets/Dot_background.BMWCEQP3.avif 756w, /EL2MP/_app/immutable/assets/Dot_background.BqYuFsFf.avif 1512w",
+    webp: "/EL2MP/_app/immutable/assets/Dot_background.BF15mkJt.webp 756w, /EL2MP/_app/immutable/assets/Dot_background.C7u_RcRU.webp 1512w",
+    png: "/EL2MP/_app/immutable/assets/Dot_background.B3sYNgA-.png 756w, /EL2MP/_app/immutable/assets/Dot_background.CvoK4E8a.png 1512w"
+  },
+  img: {
+    src: "/EL2MP/_app/immutable/assets/Dot_background.CvoK4E8a.png",
+    w: 1512,
+    h: 982
+  }
+};
+const prerender = true;
+const trailingSlash = "always";
 function load({ params }) {
   return {
     backgroundImage,

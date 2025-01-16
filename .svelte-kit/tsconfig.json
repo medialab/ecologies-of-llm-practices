@@ -13,6 +13,12 @@
 			"$media/*": [
 				"../src/lib/media/*"
 			],
+			"$database": [
+				"../src/lib/database"
+			],
+			"$database/*": [
+				"../src/lib/database/*"
+			],
 			"$lib": [
 				"../src/lib"
 			],
