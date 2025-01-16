@@ -596,6 +596,5 @@ function load({ params }) {
 export {
   load,
   prerender,
-  projectDescription,
   trailingSlash
 };
