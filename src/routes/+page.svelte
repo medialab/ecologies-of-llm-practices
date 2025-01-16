@@ -730,11 +730,6 @@
         cursor: pointer;
     }
 
-    :global(button:active) {
-        background-color: var(--full-black);
-        color: var(--demi-white);
-    }
-
     /* Ensure consistent box-sizing across all elements */
         :global(*),
         :global(*::before),
@@ -929,6 +924,12 @@
 
         padding: 0px;
 
+    }
+
+    :global(.closing_icon:active) {
+        background-color: var(--full-black);
+        color: var(--demi-white);
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     }
 
 

@@ -9,7 +9,7 @@
 <div class="logo_button open" id="sidebar">
     <!-- svelte-ignore a11y_click_events_have_key_events -->
     <a class="header_container" on:click={switch_sidebar}>
-        <img class="logo_container" src={data.expanded_logo} alt="Expanded logo version of EL2MP">
+        <img class="logo_container" src={data.logoImage} alt="Expanded logo version of EL2MP">
 
         <!-- <div class="closing_icon">
             <svg

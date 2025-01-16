@@ -151,7 +151,7 @@
 
     :global(.floater_container.open > .floater_image) {
         
-        max-width: 300px;
+        max-width: 200px;
         max-height: 200px;
         transform: translateY(100%);
         
@@ -185,6 +185,7 @@
         opacity: 0; 
 
         display: none; /* Completely hidden by default */
+        
     }
 
     :global(.floater_image > picture) {

@@ -5,9 +5,9 @@ export const prerender = true;
 export const trailingSlash = "always";
 
 import backgroundImage from "$media/Dot_background.png?enhanced";
-import logoImage from "$media/logo.svg";
-import expanded_logo from "$media/expanded_logo.svg";
+import logoImage from "$media/logo_complete.svg";
 import circle_logo from "$media/CIRCLE.svg";
+import enhanced_logoImage from "$media/enhanced_logoImage.png?enhanced";
 
 import CoverImg from "$media/photos/img1.jpg?enhanced";
 
@@ -297,8 +297,16 @@ const floatersDb = {
   },
   Floater11: {
     Title: "https://medialabsciencespo.com",
+    id: 11,
     category: "link",
     Img: "",
+    href: "",
+  },
+  Floater12: {
+    Title: "extended_logo.svg",
+    id: 12,
+    category: "image",
+    Img: enhanced_logoImage,
     href: "",
   },
 };
@@ -307,7 +315,6 @@ export function load({ params }) {
   return {
     backgroundImage,
     logoImage,
-    expanded_logo,
     cardsDb,
     floatersDb,
   };

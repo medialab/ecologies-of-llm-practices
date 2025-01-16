@@ -20,5 +20,10 @@
         border-bottom: 0px;
     }
 
+    :global(.reset_button:active) {
+        background-color: var(--full-black);
+        color: var(--demi-white);
+    }
+
 
 </style>
