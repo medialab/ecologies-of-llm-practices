@@ -24,13 +24,15 @@ function Capitols($$payload, $$props) {
   let bringToFront = $$props["bringToFront"];
   let suppressCover = $$props["suppressCover"];
   let simplebarContainer = $$props["simplebarContainer"];
+  let condensed_logo = $$props["condensed_logo"];
   let isProjCover = data.isProjCover;
   if (isProjCover === false) {
     $$payload.out += "<!--[-->";
     const each_array_1 = ensure_array_like(data.Content);
-    $$payload.out += `<section class="card_container svelte-o3sz5s" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-o3sz5s" style="z-index: 7;">${escape_html(data.Title)}</p> <p class="caption svelte-o3sz5s">BLOCK ${escape_html(data.IndexNum)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-o3sz5s"${attr("src", data.logoImage)} alt="EL2MP Logo"> <div class="description_container svelte-o3sz5s"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-o3sz5s" id="description">${escape_html(data.Description)}</p></div> <div class="card_scrollable_container svelte-o3sz5s" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-o3sz5s"${attr("data-section", data.Title)}>`;
+    $$payload.out += `<section class="card_container svelte-f08zeo" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-f08zeo" style="z-index: 7;">${escape_html(data.Title)}</p> <p class="caption svelte-f08zeo">BLOCK ${escape_html(data.IndexNum)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-f08zeo"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="description_container svelte-f08zeo"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-f08zeo" id="description">${escape_html(data.Description)}</p></div> <div class="card_scrollable_container svelte-f08zeo" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-f08zeo"${attr("data-section", data.Title)}>`;
     if (data.CoverImg) {
       $$payload.out += "<!--[-->";
+      $$payload.out += `<div class="duotone_container">`;
       if (typeof data.CoverImg === "string") {
         $$payload.out += "<!--[-->";
         $$payload.out += `<img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}>`;
@@ -44,7 +46,7 @@ function Capitols($$payload, $$props) {
         }
         $$payload.out += `<!--]--> <img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}></picture>`;
       }
-      $$payload.out += `<!--]-->`;
+      $$payload.out += `<!--]--> <div class="duotone_overlay"${attr("style", `background-color: ${stringify(data.bgColor)};`)}></div></div>`;
     } else {
       $$payload.out += "<!--[!-->";
     }
@@ -53,7 +55,7 @@ function Capitols($$payload, $$props) {
       $$payload.out += "<!--[-->";
       for (let index = 0, $$length = each_array_1.length; index < $$length; index++) {
         let section = each_array_1[index];
-        $$payload.out += `<div class="section_container svelte-o3sz5s" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
+        $$payload.out += `<div class="section_container svelte-f08zeo" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
         if (section.subtitle) {
           $$payload.out += "<!--[-->";
           $$payload.out += `<p class="h4">${escape_html(section.subtitle)}</p>`;
@@ -65,7 +67,7 @@ function Capitols($$payload, $$props) {
           $$payload.out += "<!--[-->";
           if (typeof section.picture === "string") {
             $$payload.out += "<!--[-->";
-            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-o3sz5s"${attr("src", section.picture.img.src)} alt="image"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
+            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-f08zeo"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
           } else {
             $$payload.out += "<!--[!-->";
             const each_array_2 = ensure_array_like(Object.entries(section.picture.sources));
@@ -74,7 +76,7 @@ function Capitols($$payload, $$props) {
               let [format, srcset] = each_array_2[$$index_1];
               $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)}>`;
             }
-            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-o3sz5s"${attr("src", section.picture.img.src)} alt="image"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
+            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-f08zeo"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
           }
           $$payload.out += `<!--]-->`;
         } else {
@@ -96,14 +98,15 @@ function Capitols($$payload, $$props) {
     $$payload.out += `<!--]--></div></div></section>`;
   } else {
     $$payload.out += "<!--[!-->";
-    $$payload.out += `<section class="card_container svelte-o3sz5s" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-o3sz5s">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-o3sz5s" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", data.logoImage)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-o3sz5s"><div class="card_scroll_flex svelte-o3sz5s"><p class="h4">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-o3sz5s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2"></path></svg></a></section>`;
+    $$payload.out += `<section class="card_container svelte-f08zeo" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-f08zeo">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-f08zeo" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-f08zeo"><div class="card_scroll_flex svelte-f08zeo"><p class="h4">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-f08zeo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2"></path></svg></a></section>`;
   }
   $$payload.out += `<!--]-->`;
   bind_props($$props, {
     data,
     bringToFront,
     suppressCover,
-    simplebarContainer
+    simplebarContainer,
+    condensed_logo
   });
   pop();
 }
@@ -317,7 +320,7 @@ function _page($$payload, $$props) {
   const each_array_1 = ensure_array_like(Object.values(data.floatersDb));
   $$payload.out += `<div class="content_container">`;
   Logo_button($$payload, { data, switch_sidebar });
-  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-nr1g7n"><svg width="50px" height="50px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
+  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-b5cb45"><svg width="50px" height="50px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
   Position_marker_button($$payload, {
     data,
     selectedCardTitle: activeMarker,
@@ -334,7 +337,8 @@ function _page($$payload, $$props) {
       data: card,
       bringToFront,
       suppressCover,
-      simplebarContainer
+      simplebarContainer,
+      condensed_logo: data.condensed_logo
     });
   }
   $$payload.out += `<!--]--> <!--[-->`;
@@ -346,7 +350,7 @@ function _page($$payload, $$props) {
       color: currentCardColor
     });
   }
-  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-nr1g7n"><div class="mobile_text svelte-nr1g7n"><p class="s1">This website is meant to be seen from a desktop device. <br> Meanwhile, if you need informations on what EL2MP is, read below:</p></div> <div class="mobile_description svelte-nr1g7n"><p class="p2">${html(data.projectDescription)}</p></div></div></section></div> `;
+  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-b5cb45"><div class="mobile_text svelte-b5cb45"><p class="s1">This website is meant to be seen from a desktop device. <br> Meanwhile, if you need informations on what EL2MP is, read below:</p></div> <div class="mobile_description svelte-b5cb45"><p class="p2">${html(data.projectDescription)}</p></div></div></section></div> `;
   if (typeof data.backgroundImage === "string") {
     $$payload.out += "<!--[-->";
     $$payload.out += `<img class="background_image"${attr("src", data.backgroundImage.img.src)} alt="DotsDotsDots?"${attr("width", data.backgroundImage.img.w)}${attr("height", data.backgroundImage.img.h)}>`;

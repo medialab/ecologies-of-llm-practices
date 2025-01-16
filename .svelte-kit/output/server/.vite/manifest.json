@@ -362,6 +362,10 @@
     "file": "_app/immutable/assets/logo_complete.SEqfJBG_.svg",
     "src": "src/lib/media/logo_complete.svg"
   },
+  "src/lib/media/logo_condensed.svg": {
+    "file": "_app/immutable/assets/logo_condensed.Cwwx0yWm.svg",
+    "src": "src/lib/media/logo_condensed.svg"
+  },
   "src/routes/+page.server.js": {
     "file": "entries/pages/_page.server.js",
     "name": "entries/pages/_page.server",
@@ -374,13 +378,14 @@
       "_app/immutable/assets/Dot_background.C7u_RcRU.webp",
       "_app/immutable/assets/Dot_background.B3sYNgA-.png",
       "_app/immutable/assets/Dot_background.CvoK4E8a.png",
-      "_app/immutable/assets/logo_complete.SEqfJBG_.svg",
       "_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif",
       "_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif",
       "_app/immutable/assets/enhanced_logoImage.Cbf4PYtl.webp",
       "_app/immutable/assets/enhanced_logoImage.JrAXU7cP.webp",
       "_app/immutable/assets/enhanced_logoImage.D_eIIOoz.png",
       "_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png",
+      "_app/immutable/assets/logo_condensed.Cwwx0yWm.svg",
+      "_app/immutable/assets/logo_complete.SEqfJBG_.svg",
       "_app/immutable/assets/img1.DB1WrWcd.avif",
       "_app/immutable/assets/img1.DwgMpDkg.avif",
       "_app/immutable/assets/img1.fGjxAbni.webp",
@@ -525,7 +530,7 @@
       "_escaping.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.BOYj_pOf.css"
+      "_app/immutable/assets/_page.DgDRaCjP.css"
     ]
   }
 }

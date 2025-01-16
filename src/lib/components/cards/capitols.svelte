@@ -5,6 +5,7 @@ export let data
 export let bringToFront
 export let suppressCover
 export let simplebarContainer
+export let condensed_logo
 
 let isProjCover = data.isProjCover
 
@@ -31,7 +32,7 @@ let isProjCover = data.isProjCover
 
         <img data-sveltekit-preload-data
             class="card_corner_logo"
-            src={data.logoImage}
+            src={condensed_logo}
             alt="EL2MP Logo"
         >
 
@@ -50,7 +51,15 @@ let isProjCover = data.isProjCover
             <div class="card_scroll_flex" data-section={data.Title}> 
                 
                 {#if data.CoverImg}
-                    <enhanced:img data-sveltekit-preload-data src={data.CoverImg} alt="CoverImg" class="duotone_image"/>
+                    <div class="duotone_container">
+                        <enhanced:img
+                            data-sveltekit-preload-data
+                            src={data.CoverImg}
+                            alt="CoverImg"
+                            class="duotone_image"
+                        />
+                        <div class="duotone_overlay" style="background-color: {data.bgColor};"></div>
+                    </div>
                 {/if}
                 
                 <!-- Programmatic creation of sections -->
@@ -63,7 +72,7 @@ let isProjCover = data.isProjCover
                     {/if}
 
                     {#if section.picture}
-                        <enhanced:img data-sveltekit-preload-data class="article_image" src={section.picture} alt="image"/>
+                        <enhanced:img data-sveltekit-preload-data class="article_image" src={section.picture} alt="People"/>
                     {/if}
 
                     {#if section.text}
@@ -94,7 +103,7 @@ let isProjCover = data.isProjCover
         <img 
             class="card_corner_logo"
             style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"
-            src={data.logoImage}
+            src={condensed_logo}
             alt="EL2MP Logo"
         >
 
@@ -118,6 +127,7 @@ let isProjCover = data.isProjCover
 
 
 <style>
+    
 
     .description_container {
         width: 99%;
@@ -181,14 +191,35 @@ let isProjCover = data.isProjCover
         border: solid 1px black;
     }
 
+    :global(.duotone_container) {
+        width: 100%;
+        height: max-content;
+    }
+
     :global(.duotone_image) {
-        mix-blend-mode: multiply;
-        opacity: 1;
+        mix-blend-mode: darken;
+        opacity: 0.8;
         display: inline-block;
+        z-index: 1;
+    }
+
+    :global(.duotone_overlay) {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 2;
+        top: 0%;
+        left: 0%;
+        mix-blend-mode: color;
     }
 
     .card_container:active {
         cursor: grabbing;
+    }
+
+    .card_container > .h0 {
+        width: max-content;
+        word-wrap: nowrap;
     }
 
     .card_scrollable_container {
@@ -249,7 +280,7 @@ let isProjCover = data.isProjCover
         position: absolute;
         bottom: var(--spacing-M);
         left: var(--spacing-M);
-        width: 5%;
+        width: 7%;
         height: auto;
         opacity: 1;
     }
@@ -269,6 +300,7 @@ let isProjCover = data.isProjCover
         justify-content: flex-start;
         align-content: flex-start;
         align-items: flex-start;
+        overflow: hidden;
     }
 
     :global(.simplebar-wrapper) {
@@ -320,6 +352,9 @@ let isProjCover = data.isProjCover
         overflow: auto;
         scrollbar-width: none;
         -ms-overflow-style: none;
+        appearance: none; /* Improves compatibility in some browsers */
+        -moz-appearance: none;
+        -webkit-overflow-scrolling: touch;
     }
 
     :global(.simplebar-content-wrapper::-webkit-scrollbar),
@@ -327,6 +362,12 @@ let isProjCover = data.isProjCover
         display: none;
         width: 0;
         height: 0;
+    }
+
+    :global([data-simplebar]::-webkit-scrollbar) {
+        display: none; 
+        scrollbar-width: none;
+        -ms-overflow-style: none;
     }
 
     :global(.simplebar-content:before),
@@ -497,11 +538,9 @@ let isProjCover = data.isProjCover
         -ms-overflow-style: none;
     }
 
-    :global {
-        @media only screen and (max-width: 768px) {
-            .card_container {
-                display: none;
-            }
+    @media only screen and (max-width: 768px) {
+        .card_container {
+            display: none;
         }
     }
     

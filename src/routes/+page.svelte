@@ -603,10 +603,11 @@
 
         {#each Object.values(data.cardsDb) as card (card.IndexNum)}
             <Capitols
-            data={card}
-            bringToFront = {bringToFront}
-            suppressCover = {suppressCover}
-            simplebarContainer = {simplebarContainer}
+                data={card}
+                bringToFront = {bringToFront}
+                suppressCover = {suppressCover}
+                simplebarContainer = {simplebarContainer}
+                condensed_logo = {data.condensed_logo}
             />
 
         {/each}   
@@ -664,7 +665,6 @@
         position: relative;
         z-index: 6;
     }
-
 
     :global(.background_image) {
         width: 100%;
@@ -806,6 +806,22 @@
     :global(*) {
         margin: 0px;
         padding: 0px;
+    }
+
+    @font-face {
+        font-family: 'Instrument Sans';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/InstrumentSans-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'Instrument Serif';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url('/fonts/InstrumentSerif-Regular.ttf') format('truetype');
     }
 
     :global(:root) {

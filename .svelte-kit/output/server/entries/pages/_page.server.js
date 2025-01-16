@@ -11,7 +11,6 @@ const backgroundImage = {
     h: 982
   }
 };
-const logoImage = "/EL2MP/_app/immutable/assets/logo_complete.SEqfJBG_.svg";
 const enhanced_logoImage = {
   sources: {
     avif: "/EL2MP/_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif 5213w",
@@ -24,6 +23,8 @@ const enhanced_logoImage = {
     h: 2259
   }
 };
+const condensed_logo = "/EL2MP/_app/immutable/assets/logo_condensed.Cwwx0yWm.svg";
+const logoImage = "/EL2MP/_app/immutable/assets/logo_complete.SEqfJBG_.svg";
 const image_1 = {
   sources: {
     avif: "/EL2MP/_app/immutable/assets/img1.DB1WrWcd.avif 3012w, /EL2MP/_app/immutable/assets/img1.DwgMpDkg.avif 6024w",
@@ -590,7 +591,8 @@ function load({ params }) {
     logoImage,
     cardsDb,
     floatersDb,
-    projectDescription
+    projectDescription,
+    condensed_logo
   };
 }
 export {
