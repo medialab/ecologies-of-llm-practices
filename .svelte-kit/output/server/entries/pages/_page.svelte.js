@@ -13,6 +13,11 @@ function attr(name, value, is_boolean = false) {
   const assignment = is_boolean ? "" : `="${escape_html(normalized, true)}"`;
   return ` ${name}${assignment}`;
 }
+function html(value) {
+  var html2 = String(value ?? "");
+  var open = "<!---->";
+  return open + html2 + "<!---->";
+}
 function Capitols($$payload, $$props) {
   push();
   let data = $$props["data"];
@@ -23,12 +28,12 @@ function Capitols($$payload, $$props) {
   if (isProjCover === false) {
     $$payload.out += "<!--[-->";
     const each_array_1 = ensure_array_like(data.Content);
-    $$payload.out += `<section class="card_container svelte-efp01l" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-efp01l" style="z-index: 7;">${escape_html(data.Title)}</p> <p class="caption svelte-efp01l">BLOCK ${escape_html(data.IndexNum)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-efp01l"${attr("src", data.logoImage)} alt="EL2MP Logo"> <div class="description_container svelte-efp01l"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-efp01l" id="description">${escape_html(data.Description)}</p></div> <div class="card_scrollable_container svelte-efp01l" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-efp01l"${attr("data-section", data.Title)}>`;
+    $$payload.out += `<section class="card_container svelte-o3sz5s" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-o3sz5s" style="z-index: 7;">${escape_html(data.Title)}</p> <p class="caption svelte-o3sz5s">BLOCK ${escape_html(data.IndexNum)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-o3sz5s"${attr("src", data.logoImage)} alt="EL2MP Logo"> <div class="description_container svelte-o3sz5s"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-o3sz5s" id="description">${escape_html(data.Description)}</p></div> <div class="card_scrollable_container svelte-o3sz5s" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-o3sz5s"${attr("data-section", data.Title)}>`;
     if (data.CoverImg) {
       $$payload.out += "<!--[-->";
       if (typeof data.CoverImg === "string") {
         $$payload.out += "<!--[-->";
-        $$payload.out += `<img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}>`;
+        $$payload.out += `<img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}>`;
       } else {
         $$payload.out += "<!--[!-->";
         const each_array = ensure_array_like(Object.entries(data.CoverImg.sources));
@@ -37,7 +42,7 @@ function Capitols($$payload, $$props) {
           let [format, srcset] = each_array[$$index];
           $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)}>`;
         }
-        $$payload.out += `<!--]--> <img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}></picture>`;
+        $$payload.out += `<!--]--> <img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}></picture>`;
       }
       $$payload.out += `<!--]-->`;
     } else {
@@ -48,7 +53,7 @@ function Capitols($$payload, $$props) {
       $$payload.out += "<!--[-->";
       for (let index = 0, $$length = each_array_1.length; index < $$length; index++) {
         let section = each_array_1[index];
-        $$payload.out += `<div class="section_container svelte-efp01l" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
+        $$payload.out += `<div class="section_container svelte-o3sz5s" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
         if (section.subtitle) {
           $$payload.out += "<!--[-->";
           $$payload.out += `<p class="h4">${escape_html(section.subtitle)}</p>`;
@@ -60,7 +65,7 @@ function Capitols($$payload, $$props) {
           $$payload.out += "<!--[-->";
           if (typeof section.picture === "string") {
             $$payload.out += "<!--[-->";
-            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-efp01l"${attr("src", section.picture.img.src)} alt="image"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
+            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-o3sz5s"${attr("src", section.picture.img.src)} alt="image"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
           } else {
             $$payload.out += "<!--[!-->";
             const each_array_2 = ensure_array_like(Object.entries(section.picture.sources));
@@ -69,7 +74,7 @@ function Capitols($$payload, $$props) {
               let [format, srcset] = each_array_2[$$index_1];
               $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)}>`;
             }
-            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-efp01l"${attr("src", section.picture.img.src)} alt="image"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
+            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-o3sz5s"${attr("src", section.picture.img.src)} alt="image"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
           }
           $$payload.out += `<!--]-->`;
         } else {
@@ -91,7 +96,7 @@ function Capitols($$payload, $$props) {
     $$payload.out += `<!--]--></div></div></section>`;
   } else {
     $$payload.out += "<!--[!-->";
-    $$payload.out += `<section class="card_container svelte-efp01l" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-efp01l">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-efp01l" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", data.logoImage)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-efp01l"><div class="card_scroll_flex svelte-efp01l"><p class="h4">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-efp01l"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2"></path></svg></a></section>`;
+    $$payload.out += `<section class="card_container svelte-o3sz5s" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-o3sz5s">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-o3sz5s" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", data.logoImage)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-o3sz5s"><div class="card_scroll_flex svelte-o3sz5s"><p class="h4">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-o3sz5s"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2"></path></svg></a></section>`;
   }
   $$payload.out += `<!--]-->`;
   bind_props($$props, {
@@ -106,8 +111,7 @@ function Logo_button($$payload, $$props) {
   push();
   let data = $$props["data"];
   let switch_sidebar = $$props["switch_sidebar"];
-  $$payload.out += `<div class="logo_button open" id="sidebar"><a class="header_container"><img class="logo_container"${attr("src", data.expanded_logo)} alt="Expanded logo version of EL2MP"></a>  <div class="description_scroll"><p class="p1">The Écologies des Pratiques project explores the transformative impact of Large Language Models (LLMs) on research, creativity, and communication across various domains. Supported by Google through its commitment to advancing ethical and impactful AI practices, this initiative combines cutting-edge technological tools with critical reflection on their implications. <br><br> At the heart of this project lies a collaborative and interdisciplinary approach, engaging researchers, practitioners, and students from diverse fields. By experimenting with LLMs, we seek to understand their potential as catalysts for new forms of knowledge production and dissemination while addressing the ecological and ethical questions they raise.
-            The project delves into three key areas: <br><br> Technological Experimentation: By integrating LLMs into practical workflows, we assess how these tools reshape academic and professional practices. From creative writing to data analysis, the project tests the boundaries of LLMs' generative capabilities.<br><br> Critical Reflection: Alongside experimentation, we foster discussions on the broader societal and ecological implications of LLM adoption. What are the costs and benefits of scaling these technologies? How do they challenge or reinforce existing structures of knowledge and power?<br><br> Community Building: Through workshops, public events, and collaborative platforms, we aim to build a community of thinkers and makers who can collectively imagine and shape the future of AI-driven practices.<br><br> With Google’s support, Écologies des Pratiques not only investigates the possibilities of LLMs but also critically examines their role within contemporary ecological, cultural, and institutional systems. By bridging technological innovation and critical inquiry, this project seeks to illuminate how these powerful tools can contribute responsibly to a sustainable and inclusive future.</p> <div class="credits_container"><a><p class="h4">Privacy</p></a> <a><p class="h4">Cookie</p></a></div></div></div>`;
+  $$payload.out += `<div class="logo_button open svelte-1cojal7" id="sidebar"><a class="header_container svelte-1cojal7"><img class="logo_container"${attr("src", data.logoImage)} alt="Expanded logo version of EL2MP"></a>  <div class="description_scroll svelte-1cojal7"><p class="p1">${html(data.projectDescription)}</p> <div class="credits_container"><a><p class="h4">Privacy</p></a> <a><p class="h4">Cookie</p></a></div></div></div>`;
   bind_props($$props, { data, switch_sidebar });
   pop();
 }
@@ -121,7 +125,7 @@ function Position_marker_button($$payload, $$props) {
     return allExercises.indexOf(ex) <= currentIndex;
   });
   const each_array = ensure_array_like(exercises);
-  $$payload.out += `<button class="position_button svelte-jsjsbj"><p class="s1">${escape_html(selectedCardTitle)}</p> <p class="s1">/</p> <!--[-->`;
+  $$payload.out += `<button class="position_button svelte-ysxopc"><p class="s1">${escape_html(selectedCardTitle)}</p> <p class="s1">/</p> <!--[-->`;
   for (let index = 0, $$length = each_array.length; index < $$length; index++) {
     let exercise = each_array[index];
     $$payload.out += `<p class="s1">${escape_html(exercise.label)}</p> `;
@@ -138,13 +142,13 @@ function Position_marker_button($$payload, $$props) {
 }
 function Reset_button($$payload, $$props) {
   let reset_function = $$props["reset_function"];
-  $$payload.out += `<button class="reset_button svelte-vfwf76"><p class="s1">Reset everything!</p></button>`;
+  $$payload.out += `<button class="reset_button svelte-w2z4mc"><p class="s1">Reset everything!</p></button>`;
   bind_props($$props, { reset_function });
 }
 function Time_button($$payload, $$props) {
   let time = $$props["time"];
   console.log("Current DateTime:", time);
-  $$payload.out += `<button class="time_button svelte-cjteda"><p class="s1">${escape_html(time)}</p></button>`;
+  $$payload.out += `<button class="time_button svelte-vk8p0k"><p class="s1">${escape_html(time)}</p></button>`;
   bind_props($$props, { time });
 }
 function Floating_card($$payload, $$props) {
@@ -152,46 +156,46 @@ function Floating_card($$payload, $$props) {
   let data = $$props["data"];
   let randomPosition = $$props["randomPosition"];
   let color = $$props["color"];
-  $$payload.out += `<div class="floater_container closed svelte-3ge76f"${attr("style", `top: ${stringify(randomPosition.top)}; left: ${stringify(randomPosition.left)}; z-index: ${stringify(randomPosition.zIndex)}; animation-delay: ${stringify(randomPosition.animationDelay)};`)}>`;
+  $$payload.out += `<div class="floater_container closed svelte-gobgvc"${attr("style", `top: ${stringify(randomPosition.top)}; left: ${stringify(randomPosition.left)}; z-index: ${stringify(randomPosition.zIndex)}; animation-delay: ${stringify(randomPosition.animationDelay)};`)}>`;
   if (data.Img) {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<div class="floater_image svelte-3ge76f">`;
+    $$payload.out += `<div class="floater_image svelte-gobgvc">`;
     if (typeof data.Img === "string") {
       $$payload.out += "<!--[-->";
-      $$payload.out += `<img${attr("src", data.Img.img.src)}${attr("alt", `${stringify(data.Title)} image`)}${attr("width", data.Img.img.w)}${attr("height", data.Img.img.h)} class="svelte-3ge76f">`;
+      $$payload.out += `<img${attr("src", data.Img.img.src)}${attr("alt", `${stringify(data.Title)} image`)}${attr("width", data.Img.img.w)}${attr("height", data.Img.img.h)} class="svelte-gobgvc">`;
     } else {
       $$payload.out += "<!--[!-->";
       const each_array = ensure_array_like(Object.entries(data.Img.sources));
-      $$payload.out += `<picture class="svelte-3ge76f"><!--[-->`;
+      $$payload.out += `<picture class="svelte-gobgvc"><!--[-->`;
       for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
         let [format, srcset] = each_array[$$index];
-        $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)} class="svelte-3ge76f">`;
+        $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)} class="svelte-gobgvc">`;
       }
-      $$payload.out += `<!--]--> <img${attr("src", data.Img.img.src)}${attr("alt", `${stringify(data.Title)} image`)}${attr("width", data.Img.img.w)}${attr("height", data.Img.img.h)} class="svelte-3ge76f"></picture>`;
+      $$payload.out += `<!--]--> <img${attr("src", data.Img.img.src)}${attr("alt", `${stringify(data.Title)} image`)}${attr("width", data.Img.img.w)}${attr("height", data.Img.img.h)} class="svelte-gobgvc"></picture>`;
     }
     $$payload.out += `<!--]--></div>`;
   } else {
     $$payload.out += "<!--[!-->";
   }
-  $$payload.out += `<!--]-->  <a class="floater_bottom svelte-3ge76f"${attr("style", `background-color: ${stringify(color)}`)}>`;
+  $$payload.out += `<!--]-->  <a class="floater_bottom svelte-gobgvc"${attr("style", `background-color: ${stringify(color)}`)}>`;
   if (data.category === "document") {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<div class="category_icon svelte-3ge76f" id="document"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-3ge76f"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z" class="svelte-3ge76f"></path></svg></div>`;
+    $$payload.out += `<div class="category_icon svelte-gobgvc" id="document"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z" class="svelte-gobgvc"></path></svg></div>`;
   } else {
     $$payload.out += "<!--[!-->";
     if (data.category === "image") {
       $$payload.out += "<!--[-->";
-      $$payload.out += `<div class="category_icon svelte-3ge76f" id="image"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-3ge76f"><path d="M212.31-140Q182-140 161-161q-21-21-21-51.31v-535.38Q140-778 161-799q21-21 51.31-21h535.38Q778-820 799-799q21 21 21 51.31v535.38Q820-182 799-161q-21 21-51.31 21H212.31Zm0-60h535.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-535.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v535.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM270-290h423.07L561.54-465.38 449.23-319.23l-80-102.31L270-290Zm-70 90v-560 560Z" class="svelte-3ge76f"></path></svg></div>`;
+      $$payload.out += `<div class="category_icon svelte-gobgvc" id="image"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="M212.31-140Q182-140 161-161q-21-21-21-51.31v-535.38Q140-778 161-799q21-21 51.31-21h535.38Q778-820 799-799q21 21 21 51.31v535.38Q820-182 799-161q-21 21-51.31 21H212.31Zm0-60h535.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-535.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v535.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM270-290h423.07L561.54-465.38 449.23-319.23l-80-102.31L270-290Zm-70 90v-560 560Z" class="svelte-gobgvc"></path></svg></div>`;
     } else {
       $$payload.out += "<!--[!-->";
       if (data.category === "video") {
         $$payload.out += "<!--[-->";
-        $$payload.out += `<div class="category_icon svelte-3ge76f" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-3ge76f"><path d="m172.31-780 70 140h120l-70-140h80l70 140h120l-70-140h80l70 140h120l-70-140h95.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21ZM160-580v327.69q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85V-580H160Zm0 0v340-340Z" class="svelte-3ge76f"></path></svg></div>`;
+        $$payload.out += `<div class="category_icon svelte-gobgvc" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="m172.31-780 70 140h120l-70-140h80l70 140h120l-70-140h80l70 140h120l-70-140h95.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21ZM160-580v327.69q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85V-580H160Zm0 0v340-340Z" class="svelte-gobgvc"></path></svg></div>`;
       } else {
         $$payload.out += "<!--[!-->";
         if (data.category === "link") {
           $$payload.out += "<!--[-->";
-          $$payload.out += `<div class="category_icon svelte-3ge76f" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-3ge76f"><path d="M432.31-298.46H281.54q-75.34 0-128.44-53.1Q100-404.65 100-479.98q0-75.33 53.1-128.44 53.1-53.12 128.44-53.12h150.77v60H281.54q-50.39 0-85.96 35.58Q160-530.38 160-480q0 50.38 35.58 85.96 35.57 35.58 85.96 35.58h150.77v60ZM330-450v-60h300v60H330Zm197.69 151.54v-60h150.77q50.39 0 85.96-35.58Q800-429.62 800-480q0-50.38-35.58-85.96-35.57-35.58-85.96-35.58H527.69v-60h150.77q75.34 0 128.44 53.1Q860-555.35 860-480.02q0 75.33-53.1 128.44-53.1 53.12-128.44 53.12H527.69Z" class="svelte-3ge76f"></path></svg></div>`;
+          $$payload.out += `<div class="category_icon svelte-gobgvc" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="M432.31-298.46H281.54q-75.34 0-128.44-53.1Q100-404.65 100-479.98q0-75.33 53.1-128.44 53.1-53.12 128.44-53.12h150.77v60H281.54q-50.39 0-85.96 35.58Q160-530.38 160-480q0 50.38 35.58 85.96 35.57 35.58 85.96 35.58h150.77v60ZM330-450v-60h300v60H330Zm197.69 151.54v-60h150.77q50.39 0 85.96-35.58Q800-429.62 800-480q0-50.38-35.58-85.96-35.57-35.58-85.96-35.58H527.69v-60h150.77q75.34 0 128.44 53.1Q860-555.35 860-480.02q0 75.33-53.1 128.44-53.1 53.12-128.44 53.12H527.69Z" class="svelte-gobgvc"></path></svg></div>`;
         } else {
           $$payload.out += "<!--[!-->";
         }
@@ -204,7 +208,7 @@ function Floating_card($$payload, $$props) {
   $$payload.out += `<!--]--> `;
   if (data.Title) {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<p class="s2 svelte-3ge76f">${escape_html(data.Title)}</p>`;
+    $$payload.out += `<p class="s2 svelte-gobgvc">${escape_html(data.Title)}</p>`;
   } else {
     $$payload.out += "<!--[!-->";
   }
@@ -313,7 +317,7 @@ function _page($$payload, $$props) {
   const each_array_1 = ensure_array_like(Object.values(data.floatersDb));
   $$payload.out += `<div class="content_container">`;
   Logo_button($$payload, { data, switch_sidebar });
-  $$payload.out += `<!----> <section class="host"><button class="closing_icon"><svg width="50px" height="50px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
+  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-nr1g7n"><svg width="50px" height="50px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
   Position_marker_button($$payload, {
     data,
     selectedCardTitle: activeMarker,
@@ -342,7 +346,7 @@ function _page($$payload, $$props) {
       color: currentCardColor
     });
   }
-  $$payload.out += `<!--]--></section></div> `;
+  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-nr1g7n"><div class="mobile_text svelte-nr1g7n"><p class="s1">This website is meant to be seen from a desktop device. <br> Meanwhile, if you need informations on what EL2MP is, read below:</p></div> <div class="mobile_description svelte-nr1g7n"><p class="p2">${html(data.projectDescription)}</p></div></div></section></div> `;
   if (typeof data.backgroundImage === "string") {
     $$payload.out += "<!--[-->";
     $$payload.out += `<img class="background_image"${attr("src", data.backgroundImage.img.src)} alt="DotsDotsDots?"${attr("width", data.backgroundImage.img.w)}${attr("height", data.backgroundImage.img.h)}>`;
