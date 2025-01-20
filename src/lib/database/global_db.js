@@ -1,4 +1,4 @@
-/* THIS IS GLOBAL_DB.JS */
+/* THIS IS GLOBAL_DB.JS 🚀*/
 import { photos, capitolsCover, general } from "$database/config.js";
 export { cardsDb, floatersDb, projectDescription };
 

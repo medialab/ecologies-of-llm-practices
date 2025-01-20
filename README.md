@@ -2,20 +2,89 @@
 
 The **Écologies des Pratiques (EL2MP)** project explores the transformative impact of Large Language Models (LLMs) on research, creativity, and communication across various domains. Supported by Google through its commitment to advancing ethical and impactful AI practices, this initiative combines cutting-edge technological tools with critical reflection on their implications.
 
-## TO-DO-LIST
+# **TO-DO LIST**
 
-- [] Database
-- [] Visual manipulation on cover images
-- [] Textual animations
-- [] Generic transitions(?)
-- [] Smooth-scrolling?
-- [] Trials with real content
+## **Core Functionality**
 
-## BUG-LIST
+- [x] **Database**
 
-- [] Fixed button z-index
-- [] Floaters squashing to borders of viewport
-- [] Bottom left marker unsync with quick scrolling
+  - Finalize the structure and fields for `cardsDb` and `floatersDb`.
+  - Ensure seamless integration with `global_db.js`.
+
+- [x] **Add symlink for `db.js`**
+
+  - Create a symbolic link pointing to `/src/lib/database/global_db.js`.
+
+- [ ] **Visual Manipulation on Cover Images**
+
+  - Add filters (e.g., grayscale, duotone effects).
+  - Introduce hover-based interactions.
+
+- [ ] **Textual Animations**
+
+  - Implement typewriter or fade-in effects for titles and descriptions.
+  - Ensure compatibility across devices and browsers.
+
+- [ ] **Generic Transitions**
+
+  - Define transition styles for cards and floaters (e.g., fade, slide).
+  - Consider reusable CSS/Svelte animations.
+
+- [ ] **Smooth Scrolling**
+
+  - Enable smooth vertical scrolling for content sections.
+  - Add anchor-based navigation for a seamless user experience.
+
+- [ ] **Trials with Real Content**
+  - Populate the app with finalized data.
+  - Test layout and functionality with real-world assets.
+
+---
+
+## **Enhancements**
+
+- [ ] **Prevent Floaters from Squashing on the Sides**
+
+  - Adjust padding or boundaries for floaters during animations.
+
+- [ ] **Pre-Load Images in Scroll Containers**
+
+  - Use lazy-loading for images but prefetch critical assets.
+
+- [ ] **Improve Sidebar Layout**
+
+  - Enhance spacing, font size, and alignment.
+  - Ensure the sidebar adapts to dynamic content sizes.
+
+- [ ] **Adapt ScrollFlex Layout Based on Database**
+
+  - Dynamically calculate spacing and flex properties based on card content.
+
+- [x] **Bring Buttons on Top**
+
+  - Set higher `z-index` for button layers.
+
+- [ ] **Better Align Cards on Loading**
+
+  - Ensure proper alignment for cards during the initial load animation.
+
+- [x] **Fix Hero-Title Color Triggering**
+
+  - Resolve inconsistent color transitions when switching cards.
+
+- [ ] **Floaters Filtering Based on Card Parenting**
+  - Display relevant floaters when specific cards are selected.
+
+---
+
+## **Content and Design Trials**
+
+- [ ] **Insert GIFs as Images**
+
+  - Test the inclusion of GIFs for content sections or floaters.
+
+- [ ] **Circle Logo Instead of EL2MP Mini Logo**
+  - Replace the small logo with the circle logo in all components.
 
 ## Project Overview
 
