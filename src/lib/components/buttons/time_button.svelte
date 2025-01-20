@@ -19,6 +19,8 @@
         border-right: 0px;
         border-top: 0px;
         z-index: 6000;
+        transition: all 1s ease-in-out;
+        width: max-content;
     }
 
     @media only screen and (max-width: 768px) {

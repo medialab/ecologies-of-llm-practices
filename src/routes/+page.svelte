@@ -307,8 +307,10 @@
             containers.forEach((container, index) => {
                 const offset = -30 * index;
                 const centering = 30;
-                const x = offset - centering;
-                const y = offset + centering;
+                
+                const x = offset - (4 * centering);
+                const y = offset - (0.8 * centering);
+
                 initialPositions.push({ x, y });
 
                 container.style.transform = `translate(${x}px, ${y}px)`;

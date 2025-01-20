@@ -26,9 +26,11 @@ let isProjCover = data.isProjCover
             {data.Title}
         </p>
 
+        <!--
         <p class="caption">
             BLOCK {data.IndexNum}
         </p>
+        -->
 
         <img data-sveltekit-preload-data
             class="card_corner_logo"
@@ -76,7 +78,10 @@ let isProjCover = data.isProjCover
                     {/if}
 
                     {#if section.text}
+                    <div class="double_column_text_article">
                         <p class="p1">{section.text}</p>
+                        <p class="p1">{section.text}</p>
+                    </div>
                     {/if}
                 </div>
                     
@@ -243,6 +248,19 @@ let isProjCover = data.isProjCover
         padding-right: var(--spacing-XS);
     }
 
+    .double_column_text_article {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        column-gap: var(--spacing-M);
+    }
+
+    .double_column_text_article > p {
+        width: 100%;
+        text-justify:distribute;
+    }
+
     .card_scroll_flex {
         display: flex;
         width: 100%;
@@ -291,6 +309,9 @@ let isProjCover = data.isProjCover
         filter: grayscale(100%);
         mix-blend-mode: overlay;
         opacity: 80%;
+        width: 100%;
+        aspect-ratio: 21 / 9;
+        object-fit: cover;
     }
 
     /* Scrollbar stuff */

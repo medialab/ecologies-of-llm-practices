@@ -73,7 +73,11 @@ The **Écologies des Pratiques (EL2MP)** project explores the transformative imp
   - Resolve inconsistent color transitions when switching cards.
 
 - [ ] **Floaters Filtering Based on Card Parenting**
+
   - Display relevant floaters when specific cards are selected.
+
+- [ ] Floaters when reset tends to go over the boundaries
+- [ ] Scrollbar on side-bard is bugged
 
 ---
 
