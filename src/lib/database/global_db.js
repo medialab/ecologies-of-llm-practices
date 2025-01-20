@@ -12,7 +12,7 @@ const cardsDb = {
     Content: [
       {
         subtitle: "Exercise 1 - Breaking the Ice",
-        text: "In this exercise, participants are encouraged to share unique facts about themselves to build rapport. This activity not only helps to set a friendly tone but also fosters connections by highlighting shared interests and experiences among the group. It’s an opportunity for everyone to feel seen and heard in a relaxed setting.",
+        text: "Participants sketch how they think an LLM function and present it to the group.",
         picture: photos.image_1,
       },
       {
