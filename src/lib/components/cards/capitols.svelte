@@ -63,7 +63,7 @@ let isProjCover = data.isProjCover
                 {/if}
                 
                 <!-- Programmatic creation of sections -->
-                {#each data.Content as section, index}
+                {#each data.Content ?? [] as section, index}
 
                 <!-- We assing a programmatic name for the each block sections -->
                 <div class="section_container" data-sveltekit-preload-data data-section={`Ex ${index+1}`}> 
@@ -221,6 +221,7 @@ let isProjCover = data.isProjCover
         width: max-content;
         word-wrap: nowrap;
         user-select: none;
+        pointer-events: none;
     }
 
     .card_scrollable_container {

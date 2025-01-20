@@ -18,6 +18,7 @@
         border-radius: 0px 0px 0px 5px;
         border-right: 0px;
         border-top: 0px;
+        z-index: 6000;
     }
 
     @media only screen and (max-width: 768px) {

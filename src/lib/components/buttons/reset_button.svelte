@@ -18,6 +18,7 @@
         bottom: 0;
         border-right: 0px;
         border-bottom: 0px;
+        z-index: 6000;
     }
 
     :global(.reset_button:active) {

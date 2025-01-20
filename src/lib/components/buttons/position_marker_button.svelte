@@ -44,6 +44,7 @@
         display: inline-flex;
         position: absolute;
         gap: var(--spacing-S);
+        z-index: 6000;
     }
 
     @media only screen and (max-width: 768px) {

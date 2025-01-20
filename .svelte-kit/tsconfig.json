@@ -19,6 +19,12 @@
 			"$database/*": [
 				"../src/lib/database/*"
 			],
+			"$routes": [
+				"../src/routes"
+			],
+			"$routes/*": [
+				"../src/routes/*"
+			],
 			"$lib": [
 				"../src/lib"
 			],

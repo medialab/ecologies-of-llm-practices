@@ -403,7 +403,7 @@
                 // Delay the appearance of each floater
                 setTimeout(() => {
                     floater.style.opacity = '1';
-                }, 400 + index * 40); 
+                }, 1650 + index * 50); 
 
                 floater.style.transformOrigin = 'bottom left';
 
@@ -423,9 +423,12 @@
                     // Calculate oscillating speed
                     const floatingSpeed = floatingSpeedBase * (1 + Math.sin(time * oscillationFrequency + sineOffset));
 
+                    const directionalOscillationX = Math.sin(time * 0.0001);
+                    const directionalOscillationY = Math.cos(time * 0.0001);
+
                     // Update floating positions
-                    floatX += directionX * floatingSpeed;
-                    floatY += directionY * floatingSpeed;
+                    floatX += directionX * floatingSpeed * directionalOscillationX;
+                    floatY += directionY * floatingSpeed * directionalOscillationY;
 
                     // Get floater dimensions and viewport size
                     const floaterRect = floater.getBoundingClientRect();
@@ -452,7 +455,6 @@
                     const floaterTopRightY = floaterRect.top - floatY;
 
 
-                    // Prevent offbounding
                     // Left and right boundaries
                     if (floaterBottomLeftX < 0 || floaterBottomRightX > viewportWidth - paddingRight) {
                         directionX *= -1;
@@ -971,6 +973,7 @@
         border-left: solid 0px black;
 
         padding: 0px;
+        z-index: 6000;
 
     }
 
