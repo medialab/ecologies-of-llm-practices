@@ -7,10 +7,10 @@ function __memo(fn) {
 return {
 	appDir: "_app",
 	appPath: "EL2MP/_app",
-	assets: new Set([".DS_Store","FAVICON.jpg","OpenGraph.jpg","PDF/Benchmarking.pdf","PDF/Ekhprasis.pdf","PDF/InnovationStrategies.pdf","PDF/Qualifying.pdf","favicon.png","fonts/.DS_Store","fonts/InstrumentSans-Regular.ttf","fonts/InstrumentSerif-Regular.ttf","global_db.json","styles/styles.css","styles/variables.css"]),
-	mimeTypes: {".jpg":"image/jpeg",".pdf":"application/pdf",".png":"image/png",".ttf":"font/ttf",".json":"application/json",".css":"text/css",".avif":"image/avif",".webp":"image/webp",".jpeg":"image/jpeg",".svg":"image/svg+xml"},
+	assets: new Set([".DS_Store","FAVICON.jpg","OpenGraph.jpg","PDF/Benchmarking.pdf","PDF/Ekhprasis.pdf","PDF/InnovationStrategies.pdf","PDF/Qualifying.pdf","fonts/.DS_Store","fonts/InstrumentSans-Regular.ttf","fonts/InstrumentSerif-Regular.ttf","global_db.json","styles/styles.css","styles/variables.css"]),
+	mimeTypes: {".jpg":"image/jpeg",".pdf":"application/pdf",".ttf":"font/ttf",".json":"application/json",".css":"text/css",".avif":"image/avif",".webp":"image/webp",".jpeg":"image/jpeg",".svg":"image/svg+xml",".png":"image/png"},
 	_: {
-		client: {"start":"_app/immutable/entry/start.DeOG3i7j.js","app":"_app/immutable/entry/app.DmOdloeF.js","imports":["_app/immutable/entry/start.DeOG3i7j.js","_app/immutable/chunks/entry.JZRwvq34.js","_app/immutable/chunks/runtime.CPZqnB3O.js","_app/immutable/chunks/index-client.CgKQl7V3.js","_app/immutable/entry/app.DmOdloeF.js","_app/immutable/chunks/preload-helper.BKSAkrqI.js","_app/immutable/chunks/runtime.CPZqnB3O.js","_app/immutable/chunks/render.ClV9nQy9.js","_app/immutable/chunks/disclose-version.yRUqBdr1.js","_app/immutable/chunks/index-client.CgKQl7V3.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
+		client: {"start":"_app/immutable/entry/start.DtZvMIkT.js","app":"_app/immutable/entry/app.FEJgJnFG.js","imports":["_app/immutable/entry/start.DtZvMIkT.js","_app/immutable/chunks/entry.BjYePzVE.js","_app/immutable/chunks/runtime.CPZqnB3O.js","_app/immutable/chunks/index-client.CgKQl7V3.js","_app/immutable/entry/app.FEJgJnFG.js","_app/immutable/chunks/preload-helper.BKSAkrqI.js","_app/immutable/chunks/runtime.CPZqnB3O.js","_app/immutable/chunks/render.ClV9nQy9.js","_app/immutable/chunks/disclose-version.yRUqBdr1.js","_app/immutable/chunks/index-client.CgKQl7V3.js"],"stylesheets":[],"fonts":[],"uses_env_dynamic_public":false},
 		nodes: [
 			__memo(() => import('./nodes/0.js')),
 			__memo(() => import('./nodes/1.js')),
