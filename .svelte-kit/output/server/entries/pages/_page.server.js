@@ -264,7 +264,7 @@ const cover_1 = {
     h: 754
   }
 };
-const circle_logo = "/EL2MP/_app/immutable/assets/CIRCLE.CC6PWjGr.svg";
+const circle_logo = "/EL2MP/_app/immutable/assets/CIRCLE.DnMg9Kjx.svg";
 const enhanced_logoImage = {
   sources: {
     avif: "/EL2MP/_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif 2607w, /EL2MP/_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif 5213w",
@@ -331,37 +331,44 @@ const cardsDb = {
     CoverImg: capitolsCover.cover_1,
     Content: [
       {
-        subtitle: "Exercise 1 - Breaking the Ice",
-        text: "In this exercise, participants are encouraged to share unique facts about themselves to build rapport. This activity not only helps to set a friendly tone but also fosters connections by highlighting shared interests and experiences among the group. It’s an opportunity for everyone to feel seen and heard in a relaxed setting.",
-        picture: photos.image_1
+        title: "Exercise 1 - Breaking the Ice",
+        subtitle: "Where do LLMs live in our professional practices, norms and relationships?",
+        picture: photos.image_1,
+        text: "Participants sketch how they think an LLM function and present it to the group."
       },
       {
-        subtitle: "Exercise 2 - Taking Stocks",
+        title: "Exercise 2 - Taking Stocks",
+        subtitle: "",
         text: "This phase involves assessing current strengths and weaknesses. Participants reflect on their achievements, identify growth areas, and discuss obstacles they've faced. Through guided prompts, this exercise promotes self-awareness and sets a foundation for planning future goals. It's a moment for introspection and honest evaluation.",
         picture: photos.image_6
       },
       {
-        subtitle: "Exercise 3 - Bon Anneè",
+        title: "Exercise 3 - Bon Anneè",
+        subtitle: "",
         text: "Celebrate milestones and set goals for the future. Participants take time to appreciate their progress, acknowledge their accomplishments, and craft personal and professional resolutions. This reflective process aims to boost motivation and provide clarity on the next steps in their journey. It’s about starting the new phase with intention and focus.",
         picture: photos.image_15
       },
       {
-        subtitle: "Exercise 4 - Collaborative Challenge",
+        title: "Exercise 4 - Collaborative Challenge",
+        subtitle: "",
         text: "Teams collaborate on solving complex puzzles or scenarios that require creativity and cooperation. The challenges are designed to encourage problem-solving under pressure, fostering teamwork and adaptability. By working together, participants learn to value diverse perspectives and leverage each other's strengths.",
         picture: photos.image_18
       },
       {
-        subtitle: "Exercise 5 - Vision Crafting",
+        title: "Exercise 5 - Vision Crafting",
+        subtitle: "",
         text: "Participants visualize their ideal outcomes and articulate a clear vision for their personal or professional paths. Through guided exercises, they create vision boards or write detailed descriptions of their goals. This process not only fosters inspiration but also provides a tangible roadmap for future action.",
         picture: photos.image_11
       },
       {
-        subtitle: "Exercise 6 - Feedback Loop",
+        title: "Exercise 6 - Feedback Loop",
+        subtitle: "",
         text: "Engage in a structured feedback exchange where participants give and receive constructive insights to encourage improvement. Feedback is framed positively to ensure it is both actionable and supportive. This exercise builds a culture of trust and open communication, emphasizing growth over criticism.",
         picture: photos.image_19
       },
       {
-        subtitle: "Exercise 7 - Reflection and Gratitude",
+        title: "Exercise 7 - Reflection and Gratitude",
+        subtitle: "",
         text: "Participants reflect on their journey, express gratitude for the support they have received, and recognize key lessons learned. Through storytelling and sharing, the group collectively reinforces their achievements. This session closes the exercise series on a high note, with a focus on connection and appreciation.",
         picture: photos.image_13
       }
@@ -377,43 +384,46 @@ const cardsDb = {
     CoverImg: photos.image_6,
     Content: [
       {
-        subtitle: "Exercise 1 - Breaking the Ice",
+        title: "Exercise 1 - Breaking the Ice",
+        subtitle: "",
         text: "Participants share spontaneous descriptions of abstract images to spark creativity and open their minds to new perspectives.",
         picture: photos.image_7
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 2 - Taking Stocks",
+        title: "Exercise 2 - Taking Stocks",
+        subtitle: "",
         text: "This exercise focuses on analyzing visual elements in detail, encouraging participants to articulate their thoughts with precision.",
         picture: photos.image_12
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 3 - Bon Anneè",
+        title: "Exercise 3 - Bon Anneè",
         text: "Reflect on how visual representations influence personal interpretations and compare perspectives within the group.",
         picture: photos.image_3
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 4 - Visual Storytelling",
+        title: "Exercise 4 - Visual Storytelling",
+        subtitle: "",
         text: "Create narratives based on image sequences, blending imagination and structured communication.",
         picture: photos.image_15
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 5 - Collaborative Ekphrasis",
+        title: "Exercise 5 - Collaborative Ekphrasis",
         text: "Work in pairs or teams to construct descriptions of challenging visuals, enhancing collaborative analysis and creativity.",
         picture: photos.image_8
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 6 - Abstract Exploration",
+        title: "Exercise 6 - Abstract Exploration",
         text: "Dive into abstract images and explore how emotions and context affect interpretation.",
         picture: photos.image_21
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 7 - Reflective Wrap-Up",
+        title: "Exercise 7 - Reflective Wrap-Up",
         text: "Participants share their key insights and discuss the power of visual literacy in communication.",
         picture: photos.image_5
         // Randomly chosen
@@ -424,49 +434,49 @@ const cardsDb = {
     isProjCover: false
   },
   Card3: {
-    Title: "Innovation Strategies",
+    Title: "InnovationStrategies",
     Description: "Exploring modern approaches to foster innovation in organizations",
     IndexNum: 3,
     CoverImg: photos.image_8,
     Content: [
       {
-        subtitle: "Exercise 1 - Ideation",
+        title: "Exercise 1 - Ideation",
         text: "Generate a wide array of ideas to solve a problem or enhance a product. This exercise encourages free thinking and helps develop creative solutions.",
         picture: photos.image_10
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 2 - SWOT Analysis",
+        title: "Exercise 2 - SWOT Analysis",
         text: "Evaluate the strengths, weaknesses, opportunities, and threats related to a new business idea or strategy.",
         picture: photos.image_14
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 3 - Brainstorming",
+        title: "Exercise 3 - Brainstorming",
         text: "Collaboratively generate ideas to tackle a specific challenge. This exercise encourages participants to think creatively and build on each other's ideas.",
         picture: photos.image_16
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 4 - Mind Mapping",
+        title: "Exercise 4 - Mind Mapping",
         text: "Create a visual representation of thoughts and ideas to explore connections and generate new perspectives on a topic.",
         picture: photos.image_20
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 5 - Rapid Prototyping",
+        title: "Exercise 5 - Rapid Prototyping",
         text: "Design quick prototypes of ideas to test and iterate rapidly. This exercise promotes agility in the innovation process.",
         picture: photos.image_19
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 6 - User Feedback",
+        title: "Exercise 6 - User Feedback",
         text: "Engage users early to collect feedback on prototypes and ideas. This exercise helps refine and improve solutions.",
         picture: photos.image_9
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 7 - Innovation Pitch",
+        title: "Exercise 7 - Innovation Pitch",
         text: "Present your innovative ideas to stakeholders and gather feedback on their viability and potential for success.",
         picture: photos.image_18
         // Randomly chosen
@@ -477,49 +487,49 @@ const cardsDb = {
     isProjCover: false
   },
   Card4: {
-    Title: "Data Analysis",
+    Title: "Ekhprasis",
     Description: "Understanding and interpreting data for actionable insights",
     IndexNum: 4,
     CoverImg: photos.image_2,
     Content: [
       {
-        subtitle: "Exercise 1 - Data Collection",
+        title: "Exercise 1 - Data Collection",
         text: "Learn how to collect data effectively, ensuring that it is accurate, reliable, and relevant to your analysis goals.",
         picture: photos.image_11
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 2 - Data Cleaning",
+        title: "Exercise 2 - Data Cleaning",
         text: "Explore techniques for cleaning data, handling missing values, and correcting inaccuracies to prepare it for analysis.",
         picture: photos.image_17
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 3 - Exploratory Data Analysis",
+        title: "Exercise 3 - Exploratory Data Analysis",
         text: "Analyze data to uncover patterns, trends, and insights using visualizations and statistical techniques.",
         picture: photos.image_4
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 4 - Predictive Modeling",
+        title: "Exercise 4 - Predictive Modeling",
         text: "Learn how to build and evaluate predictive models to forecast future trends or behaviors based on historical data.",
         picture: photos.image_13
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 5 - Data Visualization",
+        title: "Exercise 5 - Data Visualization",
         text: "Master the art of creating compelling visualizations that communicate data insights clearly and effectively.",
         picture: photos.image_14
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 6 - Data Interpretation",
+        title: "Exercise 6 - Data Interpretation",
         text: "Understand how to interpret the results of data analyses and make data-driven decisions.",
         picture: photos.image_8
         // Randomly chosen
       },
       {
-        subtitle: "Exercise 7 - Reporting Results",
+        title: "Exercise 7 - Reporting Results",
         text: "Learn how to present data findings in a clear and engaging way to stakeholders, ensuring that the insights are actionable.",
         picture: photos.image_12
         // Randomly chosen
@@ -623,6 +633,7 @@ function load({ params }) {
   return {
     backgroundImage,
     logoImage: general.logoImage,
+    circular_logo: general.circle_logo,
     cardsDb,
     floatersDb,
     projectDescription,

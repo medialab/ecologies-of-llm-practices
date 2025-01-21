@@ -355,7 +355,7 @@
     "src": "qualifying.webp"
   },
   "src/lib/media/CIRCLE.svg": {
-    "file": "_app/immutable/assets/CIRCLE.CC6PWjGr.svg",
+    "file": "_app/immutable/assets/CIRCLE.DnMg9Kjx.svg",
     "src": "src/lib/media/CIRCLE.svg"
   },
   "src/lib/media/logo_complete.svg": {
@@ -504,7 +504,7 @@
       "_app/immutable/assets/qualifying.xyV88Pxw.webp",
       "_app/immutable/assets/qualifying.DbZTSVnW.jpeg",
       "_app/immutable/assets/qualifying.Dlmd4Baz.jpeg",
-      "_app/immutable/assets/CIRCLE.CC6PWjGr.svg",
+      "_app/immutable/assets/CIRCLE.DnMg9Kjx.svg",
       "_app/immutable/assets/enhanced_logoImage.BVKc8-Qg.avif",
       "_app/immutable/assets/enhanced_logoImage.Qfmesbrl.avif",
       "_app/immutable/assets/enhanced_logoImage.Cbf4PYtl.webp",
@@ -531,7 +531,7 @@
       "_escaping.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.DBYAb7Al.css"
+      "_app/immutable/assets/_page.6Bh70td-.css"
     ]
   }
 }

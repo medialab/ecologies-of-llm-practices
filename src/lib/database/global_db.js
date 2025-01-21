@@ -108,7 +108,7 @@ const cardsDb = {
     isProjCover: false,
   },
   Card3: {
-    Title: "Innovation Strategies",
+    Title: "InnovationStrategies",
     Description:
       "Exploring modern approaches to foster innovation in organizations",
     IndexNum: 3,
@@ -155,7 +155,7 @@ const cardsDb = {
     isProjCover: false,
   },
   Card4: {
-    Title: "Data Analysis",
+    Title: "Ekhprasis",
     Description: "Understanding and interpreting data for actionable insights",
     IndexNum: 4,
     CoverImg: photos.image_2,
