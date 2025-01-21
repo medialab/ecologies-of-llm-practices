@@ -6,6 +6,7 @@ export let bringToFront
 export let suppressCover
 export let simplebarContainer
 export let condensed_logo
+export let circular_logo
 
 let isProjCover = data.isProjCover
 
@@ -23,14 +24,14 @@ let isProjCover = data.isProjCover
     >
 
         <p class="h0" style="z-index: 7;">
-            {data.Title}
+            {@html data.Title}
         </p>
 
-        <!--
-        <p class="caption">
-            BLOCK {data.IndexNum}
-        </p>
-        -->
+
+        <a class="caption" id="download_button" href="PDF/{data.Title}.pdf" download>
+            <p>DOWNLOAD</p>
+        </a>
+
 
         <img data-sveltekit-preload-data
             class="card_corner_logo"
@@ -40,7 +41,7 @@ let isProjCover = data.isProjCover
 
         <div class="description_container" style="background-color: {data.bgColor}; border: 5px solid {data.bgColor};"> 
             <p class="h4" id="description">
-                {data.Description}
+                {@html data.Description}
             </p>
         </div>
 
@@ -69,8 +70,12 @@ let isProjCover = data.isProjCover
 
                 <!-- We assing a programmatic name for the each block sections -->
                 <div class="section_container" data-sveltekit-preload-data data-section={`Ex ${index+1}`}> 
-                    {#if section.subtitle}
-                        <p class="h4">{section.subtitle}</p>
+                    {#if section.title}
+                        <p class="h4">{@html section.title}</p>
+                    {/if}
+                    
+                    {#if section.subtitle }
+                        <p class="p1" exercise-description >{@html section.subtitle}</p>
                     {/if}
 
                     {#if section.picture}
@@ -156,6 +161,12 @@ let isProjCover = data.isProjCover
         font-size: 1.5em;
     }
 
+    [exercise-description] {
+        width: 80%;
+        font-family: 'Instrument Sans';
+        font-size: 1.2em;
+    }
+
     .x_arrow {
         width: 20px;
         height: 20px;
@@ -198,14 +209,26 @@ let isProjCover = data.isProjCover
 
     :global(.duotone_container) {
         width: 100%;
-        height: max-content;
+        height: 100%;
+        display: block;
+        position: relative;
+    }
+
+    :global(.duotone_container > picture) {
+        height: 100%;
+        width: 100%;
+        display: block;
     }
 
     :global(.duotone_image) {
         mix-blend-mode: darken;
         opacity: 0.8;
-        display: inline-block;
+        display: block;
         z-index: 1;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
     }
 
     :global(.duotone_overlay) {
@@ -213,8 +236,8 @@ let isProjCover = data.isProjCover
         height: 100%;
         position: absolute;
         z-index: 2;
-        top: 0%;
-        left: 0%;
+        top: 0;
+        left: 0;
         mix-blend-mode: color;
     }
 
@@ -253,12 +276,16 @@ let isProjCover = data.isProjCover
         flex-direction: row;
         width: 100%;
         height: 100%;
-        column-gap: var(--spacing-M);
+        column-gap: var(--spacing-L);
     }
 
     .double_column_text_article > p {
         width: 100%;
-        text-justify:distribute;
+        text-align: justify;
+        text-justify: inter-word;
+        hyphens: auto;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     .card_scroll_flex {
@@ -296,14 +323,24 @@ let isProjCover = data.isProjCover
         right: var(--spacing-M);
     }
 
-    .card_corner_logo {
+   /* ### OLD VERSION ### */ .card_corner_logo {
         position: absolute;
-        bottom: var(--spacing-M);
-        left: var(--spacing-M);
+        bottom: var(--spacing-S);
+        left: var(--spacing-S);
         width: 7%;
         height: auto;
         opacity: 1;
-    }
+    } 
+
+    /* ### OLD VERSION ### .card_corner_logo {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 10%;
+        height: auto;
+        opacity: 0.5;
+        mix-blend-mode: darken;
+    } */
 
     .article_image {
         filter: grayscale(100%);

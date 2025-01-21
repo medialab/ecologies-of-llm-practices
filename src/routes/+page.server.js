@@ -5,15 +5,10 @@ export const prerender = true;
 export const trailingSlash = "always";
 
 import { mergeAlias } from "vite";
-
 import { config as configs } from "$database/config.js";
-
 import { onMount } from "svelte";
-
 import backgroundImage from "$media/Dot_background.png?enhanced";
-
 import { id } from "date-fns/locale";
-
 import { photos, capitolsCover, general } from "$database/config.js";
 
 import {
@@ -26,6 +21,7 @@ export function load({ params }) {
   return {
     backgroundImage,
     logoImage: general.logoImage,
+    circular_logo: general.circle_logo,
     cardsDb,
     floatersDb,
     projectDescription,

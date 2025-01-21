@@ -612,6 +612,7 @@
                 suppressCover = {suppressCover}
                 simplebarContainer = {simplebarContainer}
                 condensed_logo = {data.condensed_logo}
+                circular_logo =  {data.circular_logo}
             />
 
         {/each}   
