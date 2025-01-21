@@ -12,6 +12,9 @@
     //The data containes everything passed from the +page.server.js
     export let data
 
+    let width = 0;
+    let height = 0;
+
     let containers;
     let scrollContainers;
     let floaters;
@@ -41,9 +44,58 @@
     let simplebarContainer;
 
 
-    let isDesktop;
+    let isDesktop = null;
+    let isMobileDevice = null;
+    let previousIsDesktop;
 
     //Functions
+
+    const updateWindowSize = () => {
+
+        previousIsDesktop = isDesktop
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        if (width > 768) {
+            isDesktop = true;
+            isMobileDevice = false;
+
+            // Detect transition from mobile to desktop
+            if (previousIsDesktop === false) {
+                console.log("Transitioned from mobile to desktop");
+                reloadWebsite();
+            }
+        } else {
+            isDesktop = false;
+            isMobileDevice = true;
+
+            // Detect transition from desktop to mobile
+            if (previousIsDesktop === true) {
+                console.log("Transitioned from desktop to mobile");
+                hideDesktopStuff();
+            }
+        }
+    };
+
+    const hideDesktopStuff = () => {
+
+        if (containers) {
+            containers.forEach(container => {
+                container.style.display = 'none';
+            });
+        }
+        // Hide all containers
+        
+        if (floaters) {
+            floaters.forEach(floater => {
+            floater.style.display = 'none';
+        });
+        }
+    }
+
+    const reloadWebsite = () => {
+        location.reload();
+    }
 
     const updateTime = () => {
         const now = new Date();
@@ -62,6 +114,7 @@
 
         containers.forEach((container, index) => {
             const { x, y } = initialPositions[index];
+            console.log(x, y)
             container.style.transition = 'transform 0.3s ease-in-out'
             container.style.transform = `translate(${x}px, ${y}px)`;
             
@@ -72,6 +125,7 @@
             setTimeout(() => {
                 container.style.transition = ''
             }, 300);
+            
         });
 
         selectedCard = "Qualifying";
@@ -273,15 +327,10 @@
         const ResizeObserver = (await import('resize-observer-polyfill')).default;
 
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-        const isMobileDevice = /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
 
-        // If it's not a mobile device, assume it's desktop
-        isDesktop = !isMobileDevice;
-
-        // Alternatively, check based on screen width
-        if (window.innerWidth > 768) {
-            isDesktop = true;
-        }
+        // Initialize the size
+        updateWindowSize();
+        window.addEventListener('resize', updateWindowSize);
 
         if (simplebarContainer) {
             new SimpleBar(simplebarContainer, {
@@ -293,26 +342,46 @@
         updateTime();
         const interval = setInterval(updateTime, 1000);
 
+        containers = document.querySelectorAll('.card_container')
+        floaters = document.querySelectorAll('.floater_container')
+        hostElement = document.querySelector('.host');
+        scrollContainers = document.querySelectorAll('.card_scrollable_container')
+
         if (isDesktop) {
-            
 
-            containers = document.querySelectorAll('.card_container')
-            floaters = document.querySelectorAll('.floater_container')
-            hostElement = document.querySelector('.host');
-            scrollContainers = document.querySelectorAll('.card_scrollable_container')
-
-            tick();
+            await tick();
 
             // Storing positions
             containers.forEach((container, index) => {
-                const offset = -30 * index;
-                const centering = 30;
-                
-                const x = offset - (4 * centering);
-                const y = offset - (0.8 * centering);
+                const totalCards = containers.length;
+
+                // Dimensions of the viewport
+                const hostRect = hostElement.getBoundingClientRect();
+                const windowWidth = hostRect.width;
+                const windowHeight = hostRect.height;
+
+                // Define the offset and centering values
+                const offset = -30;
+
+                // Get card dimensions (assuming all cards are the same size)
+                const cardWidth = windowWidth * 0.6;
+                const cardHeight = cardWidth / 1.5
+
+                // Calculate the total block width and height
+                const totalBlockWidth = cardWidth + ((totalCards - 1) * Math.abs(offset));
+                const totalBlockHeight = cardHeight + ((totalCards - 1) * Math.abs(offset));
+
+                // Calculate the starting position (top-left of the first card) to center the block
+                const startX = (windowWidth - totalBlockWidth) / 2;
+                const startY = (windowHeight - totalBlockHeight) / 2;
+
+                // Calculate the position for the current container based on the index
+                let x = startX + index * offset;
+                let y = startY + index * offset;
 
                 initialPositions.push({ x, y });
 
+                // Apply the position to the container
                 container.style.transform = `translate(${x}px, ${y}px)`;
                 container.setAttribute('data-x', x);
                 container.setAttribute('data-y', y);
@@ -327,15 +396,15 @@
                 }
 
                 container.style.opacity = '0';
-                
+
                 setTimeout(() => {
                     setTimeout(() => {
-                    container.style.display = 'grid';
-                    container.style.opacity = '1';
-                }, index * 125); 
-                }, 500); 
-                
+                        container.style.display = 'grid';
+                        container.style.opacity = '1';
+                    }, index * 125);
+                }, 500);
             });
+        
 
             containers.forEach(container => {
                 container.classList.add('grab');
@@ -560,9 +629,16 @@
             sections = document.querySelectorAll('.section_container');
             setupMouseDetection();
             observeSectionsAndContainers();
+
+            tick();
+
         }
 
-        
+
+
+        return () => {
+            window.removeEventListener('resize', updateWindowSize);
+        };
         
     }); 
 

@@ -196,10 +196,13 @@ let isProjCover = data.isProjCover
         padding-right: var(--spacing-M);
         gap: var(--spacing-M);
         background-color: #97D2FB;
-        position: absolute;
+        
         cursor: grab;
-        top: 20%;
-        left: 20%;
+
+        top: 0;
+        left: 0;
+        position: absolute;
+
         user-select: none;
         overflow: hidden;
         align-content: flex-start;
@@ -599,9 +602,10 @@ let isProjCover = data.isProjCover
     }
 
     @media only screen and (max-width: 768px) {
-        .card_container {
+        :global(.card_container ){
             display: none;
         }
+
     }
     
 
