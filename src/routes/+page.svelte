@@ -112,20 +112,54 @@
             return;
         }
 
+        // Dimensions of the viewport
+        const hostRect = hostElement.getBoundingClientRect();
+        const windowWidth = hostRect.width;
+        const windowHeight = hostRect.height;
+
+        // Define the offset and centering values
+        const offset = -30;
+
+        // Get card dimensions (assuming all cards are the same size)
+        const cardWidth = windowWidth * 0.6;
+        const cardHeight = cardWidth / 1.5;
+        console.log("cardHeight", cardHeight)
+
+        // Calculate the total block width and height
+        const totalBlockWidth = cardWidth + ((containers.length - 1) * Math.abs(offset));
+        const totalBlockHeight = cardHeight + ((containers.length - 1) * Math.abs(offset));
+
+        // Calculate the starting position (top-left of the first card) to center the block
+        const startX = ((windowWidth - totalBlockWidth) / 2) - offset * (containers.length - 1);
+        const startY = ((windowHeight - totalBlockHeight) / 2) - offset * (containers.length - 1);
+
+        console.log({ startX, startY, totalBlockWidth, totalBlockHeight });
+
         containers.forEach((container, index) => {
-            const { x, y } = initialPositions[index];
-            console.log(x, y)
-            container.style.transition = 'transform 0.3s ease-in-out'
+            // Calculate the position for the current container based on the index
+            const x = startX + index * offset;
+            const y = startY + index * offset;
+
+            // Update initial positions
+            initialPositions[index] = { x, y };
+
+            // Apply the position to the container
+            container.style.transition = 'transform 0.3s ease-in-out';
+            container.style.transformOrigin = 'top left';
             container.style.transform = `translate(${x}px, ${y}px)`;
-            
+
             container.setAttribute('data-x', x);
             container.setAttribute('data-y', y);
-            container.style.zIndex = -index; 
+            container.style.zIndex = -index;
 
             setTimeout(() => {
-                container.style.transition = ''
+                container.style.transition = '';
             }, 300);
-            
+
+            const cardData = Object.values(data.cardsDb)[index];
+            if (cardData && cardData.bgColor) {
+                container.style.backgroundColor = cardData.bgColor;
+            }
         });
 
         selectedCard = "Qualifying";
@@ -153,6 +187,7 @@
         closeFloaters(floaters);
 
         highestZIndex = 1;
+        
     };
 
     const bringToFront = (event) => {
@@ -480,7 +515,7 @@
                 floater.style.transformOrigin = 'bottom left';
 
                 // Initialize floating animation variables
-                const floatingSpeedBase = 0.00005 + Math.random() * 0.0001;
+                const floatingSpeedBase = 0.00000001 + Math.random() * 0.0001;
                 const oscillationFrequency = 0.001;
                 const sineOffset = Math.random() * 2 * Math.PI; 
                 let floatX = 0;
@@ -928,7 +963,7 @@
     }
 
     :global(.h0) {
-        font-size: 7.75em; /* 124px */
+        font-size: 6.9em; /* 124px */
         font-family: var(--serif-font-family), var(--fallback-serif-font);
         font-weight: 400;
         user-select: none;

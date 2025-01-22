@@ -1,29 +1,86 @@
 <script>
     //This is floating_card.svelte
     import { onMount } from "svelte";
+    import { fade, slide, scale } from "svelte/transition";
 
     export let data
     export let randomPosition;
     export let color;
+    let isClicked = false;
 
-    //console.log("Data:", data)
+    const addClickedClass = (event) => {
+        if (data.category === 'image' || data.category === 'video') {
+                        // Find the closest .floater_container relative to the clicked element
+                    const floaterContainer = event.target.closest('.floater_container');
+
+            if (floaterContainer) {
+                // Remove "clicked" class from all other floater containers
+                /* document.querySelectorAll('.floater_container').forEach(container => {
+                    if (container !== floaterContainer) {
+                        container.classList.remove('clicked');
+                    }
+                }); */
+
+                // Add "clicked" class to the current floater container
+                if (data.category === 'image' || data.category === 'video')
+                    floaterContainer.style.flexDirection = 'column-reverse';
+
+                floaterContainer.classList.add('clicked');
+                isClicked = true;
+                
+                console.log('"clicked" class added to:', floaterContainer);
+            } else {
+                console.warn('No floater container found for the clicked element');
+            }
+        }
+    };
+
+    const removeClickedClass = (event) => {
+        // Find the closest .floater_container relative to the clicked element
+        const floaterContainer = event.target.closest('.floater_container');
+        if (floaterContainer) {
+            floaterContainer.classList.remove('clicked');
+            isClicked = false;
+            console.log('"clicked" class removed from:', floaterContainer);
+        } else {
+            console.warn('No floater container found for the clicked element');
+        }
+    };
+
+    onMount(() => {
+        //cavoli
+    })
 
 </script>
 
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-    <div class="floater_container closed" style="top: {randomPosition.top}; left: {randomPosition.left}; z-index: {randomPosition.zIndex}; animation-delay: {randomPosition.animationDelay};">
+    <div class="floater_container closed"
+        style="top: {randomPosition.top}; left: {randomPosition.left}; z-index: {randomPosition.zIndex}; animation-delay: {randomPosition.animationDelay};"
+    >
 
         {#if data.Img}
-            <div class="floater_image">
-                <enhanced:img src={data.Img} alt="{data.Title} image">
-            </div>
+            {#if isClicked}
+                <div
+                    class="floater_image"
+                >
+
+                    <enhanced:img src={data.Img} alt="{data.Title} image">
+                </div>
+
+                <a class="closer_container" style="background-color: {color}" on:click={removeClickedClass}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m256-236-20-20 224-224-224-224 20-20 224 224 224-224 20 20-224 224 224 224-20 20-224-224-224 224Z"/></svg>
+                </a>
+            {/if}
         {/if}
         
         <!-- svelte-ignore a11y_click_events_have_key_events -->
         <!-- svelte-ignore a11y_missing_attribute -->
         <a
             class="floater_bottom"
-            style="background-color: {color}">
+            style="background-color: {color}"
+            on:click={addClickedClass}
+            >
+
 
             {#if data.category === 'document'}
                 <div class="category_icon" id="document">
@@ -48,21 +105,14 @@
                     {data.Title}
                 </p>
             {/if}
-
-            <!--
-            <a style="transform: rotate(-45deg);">
-                <p class="s2">
-                    →
-                </p>
-            </a>
-            -->
+            
         </a>
     </div>
 
 <style>
     :global(.floater_container) {
-        width: fit-content;
-        height: fit-content;
+        width: auto;
+        height: auto;
 
         position: absolute;
         top: 50%;
@@ -70,7 +120,7 @@
         z-index: 500;
 
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         gap: 0;
         opacity: 0;
 
@@ -78,11 +128,10 @@
         
         will-change: transform, max-height; 
 
-        transition: 
-            max-height 0.3s ease-in-out, 
-            /* box-shadow 1s ease-in-out,  */
+        /* transition: 
+            max-height 0.3s ease-in-out,
             width 1s ease-in-out, 
-            padding 0.3s ease-in-out;
+            padding 0.3s ease-in-out; */
             
         cursor: grab; 
         touch-action: none;
@@ -90,11 +139,7 @@
         transform-origin: bottom left;
 
     }
-
-    :global(.floater_container.open) {
-        max-height: 500px;
-    }
-
+  
     :global(.floater_container > .floater_bottom > p) {
         white-space: nowrap;
         overflow: hidden;
@@ -109,56 +154,16 @@
         display: block;
     }
 
-    :global(.floater_container.closed > .floater_bottom) {
-        padding: var(--spacing-S);
-        transition: padding 0.3s ease-in-out;
-    }
-
     :global(.floater_container.open > .floater_bottom) {
         padding: var(--spacing-S);
-        transition: padding 0.3s ease-in-out;
+        /* transition: width 0.3s ease-in-out; */
         width: 100%;
+        z-index: 4;
     }
 
     :global(.floater_container *), 
     :global(.floater_container a) {
         user-select: none;
-    }
-
-    :global(.floater_container:hover) {
-        animation-play-state: paused; /* Pause the animation on hover */
-        /* box-shadow: 3px 3px 22px 5px rgba(0,0,0,0.12); */
-        transition: box-shadow 0.45s ease-in-out, width 3s ease-in-out, font-size 3s ease-in-out;
-    }
-
-    @keyframes showAndTranslate {
-        0% {
-            display: none;
-            transform: translateY(-120%);
-            opacity: 0;
-        }
-        30% {
-            opacity: 1;
-            transform: translateY(-120%);
-            display: block;
-        }
-        100% {
-            transform: translateY(0); 
-            opacity: 1;
-            display: block;
-        }
-    }
-
-    :global(.floater_container.open > .floater_image) {
-        
-        max-width: 200px;
-        max-height: 200px;
-        transform: translateY(100%);
-        
-        position: relative;
-        display: block;
-
-        animation: showAndTranslate 1.5s ease-in-out forwards;
     }
 
     :global(.floater_container.closed > .floater_image) {
@@ -168,24 +173,23 @@
 
     :global(.floater_image) {
         max-width: 300px;
-        max-height: 200px;
+        max-height: none;
         aspect-ratio: 21 / 9;
         width: 100%;
+        height: 0px;
+        overflow: hidden;
         filter: grayscale(1);
         z-index: 2;
 
         position: relative;
 
-        border-left: dashed 1px black;
-        border-right: dashed 1px black;
-        border-bottom: dashed 1px black;
-
-        transform: translateY(100%); /* Positioned off-screen initially */
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
         
-        opacity: 0; 
+        opacity: 1; 
 
-        display: none; /* Completely hidden by default */
-        
+        display: block;
     }
 
     :global(.floater_image > picture) {
@@ -200,6 +204,9 @@
     :global(.floater_image > picture > img) {
         object-fit: cover;
         object-position: top;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
     }
 
     :global(.floater_bottom) {
@@ -223,6 +230,15 @@
         z-index: 4;
 
         word-wrap: none;
+        /* transition:
+            width 1s ease-in-out,
+            border 1s ease-in-out; */
+    }
+
+    :global(.floater_container.closed > .floater_bottom) {
+        padding: var(--spacing-S);
+        /* transition: width 0.3s ease-in-out; */
+        z-index: 4;
     }
 
     :global(.category_icon) {
@@ -230,6 +246,67 @@
         width: 20px;
         height: 20px;
         fill: black;
+    }
+
+    .closer_container {
+        display: none;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: 4;
+        width: 40px;
+        height: 40px;
+        border: dashed 1px black;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .closer_container > svg {
+        width: 90%;
+        height: 90%;
+        fill: black;
+        place-self: center;
+        place-content: center;
+    }
+
+    :global(.floater_container.open.clicked) {
+        width: 500px;
+        height: 300px;
+        animation-play-state: paused;
+        transform-origin: bottom left;
+        /* transition: width 5s ease-in-out; */
+        
+    }
+
+    :global(.floater_container.open.clicked > .floater_image) {
+
+        height: 85%;
+        width: 100%;
+        max-width: none;
+        max-height: none;
+
+        position: relative;
+        display: block;
+        border-left: dashed 1px black;
+        border-right: dashed 1px black;
+        border-bottom: dashed 1px black;
+    }
+
+    :global(.floater_container.open.clicked > .closer_container) {
+        display: flex;
+    }
+
+    :global(.floater_container.open.clicked > .floater_bottom) {
+        border: dashed 1px black;
+        /* transition:
+            border 1s ease-in-out,
+            width 1s ease-in-out; */
+    }
+
+    :global(.floater_container.open.clicked > .closer_container:active) {
+        border: dashed 1px black;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.1));
     }
 
 </style>

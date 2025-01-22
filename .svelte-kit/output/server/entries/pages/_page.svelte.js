@@ -168,46 +168,35 @@ function Floating_card($$payload, $$props) {
   let data = $$props["data"];
   let randomPosition = $$props["randomPosition"];
   let color = $$props["color"];
-  $$payload.out += `<div class="floater_container closed svelte-gobgvc"${attr("style", `top: ${stringify(randomPosition.top)}; left: ${stringify(randomPosition.left)}; z-index: ${stringify(randomPosition.zIndex)}; animation-delay: ${stringify(randomPosition.animationDelay)};`)}>`;
+  $$payload.out += `<div class="floater_container closed"${attr("style", `top: ${stringify(randomPosition.top)}; left: ${stringify(randomPosition.left)}; z-index: ${stringify(randomPosition.zIndex)}; animation-delay: ${stringify(randomPosition.animationDelay)};`)}>`;
   if (data.Img) {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<div class="floater_image svelte-gobgvc">`;
-    if (typeof data.Img === "string") {
-      $$payload.out += "<!--[-->";
-      $$payload.out += `<img${attr("src", data.Img.img.src)}${attr("alt", `${stringify(data.Title)} image`)}${attr("width", data.Img.img.w)}${attr("height", data.Img.img.h)} class="svelte-gobgvc">`;
-    } else {
+    {
       $$payload.out += "<!--[!-->";
-      const each_array = ensure_array_like(Object.entries(data.Img.sources));
-      $$payload.out += `<picture class="svelte-gobgvc"><!--[-->`;
-      for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
-        let [format, srcset] = each_array[$$index];
-        $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)} class="svelte-gobgvc">`;
-      }
-      $$payload.out += `<!--]--> <img${attr("src", data.Img.img.src)}${attr("alt", `${stringify(data.Title)} image`)}${attr("width", data.Img.img.w)}${attr("height", data.Img.img.h)} class="svelte-gobgvc"></picture>`;
     }
-    $$payload.out += `<!--]--></div>`;
+    $$payload.out += `<!--]-->`;
   } else {
     $$payload.out += "<!--[!-->";
   }
-  $$payload.out += `<!--]-->  <a class="floater_bottom svelte-gobgvc"${attr("style", `background-color: ${stringify(color)}`)}>`;
+  $$payload.out += `<!--]-->  <a class="floater_bottom"${attr("style", `background-color: ${stringify(color)}`)}>`;
   if (data.category === "document") {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<div class="category_icon svelte-gobgvc" id="document"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z" class="svelte-gobgvc"></path></svg></div>`;
+    $$payload.out += `<div class="category_icon" id="document"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z"></path></svg></div>`;
   } else {
     $$payload.out += "<!--[!-->";
     if (data.category === "image") {
       $$payload.out += "<!--[-->";
-      $$payload.out += `<div class="category_icon svelte-gobgvc" id="image"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="M212.31-140Q182-140 161-161q-21-21-21-51.31v-535.38Q140-778 161-799q21-21 51.31-21h535.38Q778-820 799-799q21 21 21 51.31v535.38Q820-182 799-161q-21 21-51.31 21H212.31Zm0-60h535.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-535.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v535.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM270-290h423.07L561.54-465.38 449.23-319.23l-80-102.31L270-290Zm-70 90v-560 560Z" class="svelte-gobgvc"></path></svg></div>`;
+      $$payload.out += `<div class="category_icon" id="image"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M212.31-140Q182-140 161-161q-21-21-21-51.31v-535.38Q140-778 161-799q21-21 51.31-21h535.38Q778-820 799-799q21 21 21 51.31v535.38Q820-182 799-161q-21 21-51.31 21H212.31Zm0-60h535.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-535.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v535.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM270-290h423.07L561.54-465.38 449.23-319.23l-80-102.31L270-290Zm-70 90v-560 560Z"></path></svg></div>`;
     } else {
       $$payload.out += "<!--[!-->";
       if (data.category === "video") {
         $$payload.out += "<!--[-->";
-        $$payload.out += `<div class="category_icon svelte-gobgvc" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="m172.31-780 70 140h120l-70-140h80l70 140h120l-70-140h80l70 140h120l-70-140h95.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21ZM160-580v327.69q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85V-580H160Zm0 0v340-340Z" class="svelte-gobgvc"></path></svg></div>`;
+        $$payload.out += `<div class="category_icon" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m172.31-780 70 140h120l-70-140h80l70 140h120l-70-140h80l70 140h120l-70-140h95.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21ZM160-580v327.69q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85V-580H160Zm0 0v340-340Z"></path></svg></div>`;
       } else {
         $$payload.out += "<!--[!-->";
         if (data.category === "link") {
           $$payload.out += "<!--[-->";
-          $$payload.out += `<div class="category_icon svelte-gobgvc" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="svelte-gobgvc"><path d="M432.31-298.46H281.54q-75.34 0-128.44-53.1Q100-404.65 100-479.98q0-75.33 53.1-128.44 53.1-53.12 128.44-53.12h150.77v60H281.54q-50.39 0-85.96 35.58Q160-530.38 160-480q0 50.38 35.58 85.96 35.57 35.58 85.96 35.58h150.77v60ZM330-450v-60h300v60H330Zm197.69 151.54v-60h150.77q50.39 0 85.96-35.58Q800-429.62 800-480q0-50.38-35.58-85.96-35.57-35.58-85.96-35.58H527.69v-60h150.77q75.34 0 128.44 53.1Q860-555.35 860-480.02q0 75.33-53.1 128.44-53.1 53.12-128.44 53.12H527.69Z" class="svelte-gobgvc"></path></svg></div>`;
+          $$payload.out += `<div class="category_icon" id="video"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M432.31-298.46H281.54q-75.34 0-128.44-53.1Q100-404.65 100-479.98q0-75.33 53.1-128.44 53.1-53.12 128.44-53.12h150.77v60H281.54q-50.39 0-85.96 35.58Q160-530.38 160-480q0 50.38 35.58 85.96 35.57 35.58 85.96 35.58h150.77v60ZM330-450v-60h300v60H330Zm197.69 151.54v-60h150.77q50.39 0 85.96-35.58Q800-429.62 800-480q0-50.38-35.58-85.96-35.57-35.58-85.96-35.58H527.69v-60h150.77q75.34 0 128.44 53.1Q860-555.35 860-480.02q0 75.33-53.1 128.44-53.1 53.12-128.44 53.12H527.69Z"></path></svg></div>`;
         } else {
           $$payload.out += "<!--[!-->";
         }
@@ -220,7 +209,7 @@ function Floating_card($$payload, $$props) {
   $$payload.out += `<!--]--> `;
   if (data.Title) {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<p class="s2 svelte-gobgvc">${escape_html(data.Title)}</p>`;
+    $$payload.out += `<p class="s2">${escape_html(data.Title)}</p>`;
   } else {
     $$payload.out += "<!--[!-->";
   }
@@ -329,7 +318,7 @@ function _page($$payload, $$props) {
   const each_array_1 = ensure_array_like(Object.values(data.floatersDb));
   $$payload.out += `<div class="content_container">`;
   Logo_button($$payload, { data, switch_sidebar });
-  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-hkz2rh"><svg width="50px" height="50px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
+  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-swn7ed"><svg width="50px" height="50px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
   Position_marker_button($$payload, {
     data,
     selectedCardTitle: activeMarker,
@@ -360,7 +349,7 @@ function _page($$payload, $$props) {
       color: currentCardColor
     });
   }
-  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-hkz2rh"><div class="mobile_text svelte-hkz2rh"><p class="s1">This website is meant to be seen from a desktop device. <br> Meanwhile, if you need informations on what EL2MP is, read below:</p></div> <div class="mobile_description svelte-hkz2rh"><p class="p2">${html(data.projectDescription)}</p></div></div></section></div> `;
+  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-swn7ed"><div class="mobile_text svelte-swn7ed"><p class="s1">This website is meant to be seen from a desktop device. <br> Meanwhile, if you need informations on what EL2MP is, read below:</p></div> <div class="mobile_description svelte-swn7ed"><p class="p2">${html(data.projectDescription)}</p></div></div></section></div> `;
   if (typeof data.backgroundImage === "string") {
     $$payload.out += "<!--[-->";
     $$payload.out += `<img class="background_image"${attr("src", data.backgroundImage.img.src)} alt="DotsDotsDots?"${attr("width", data.backgroundImage.img.w)}${attr("height", data.backgroundImage.img.h)}>`;

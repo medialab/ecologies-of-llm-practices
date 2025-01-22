@@ -87,7 +87,7 @@ function mutable_source(initial_value, immutable = false) {
   return s;
 }
 function set(source2, value) {
-  if (active_reaction !== null && is_runes() && (active_reaction.f & (DERIVED | BLOCK_EFFECT)) !== 0 && // If the source was created locally within the current derived, then
+  if (active_reaction !== null && !untracking && is_runes() && (active_reaction.f & (DERIVED | BLOCK_EFFECT)) !== 0 && // If the source was created locally within the current derived, then
   // we allow the mutation.
   (derived_sources === null || !derived_sources.includes(source2))) {
     state_unsafe_mutation();
@@ -100,16 +100,11 @@ function internal_set(source2, value) {
     source2.v = value;
     source2.wv = increment_write_version();
     mark_reactions(source2, DIRTY);
-    if (active_effect !== null && (active_effect.f & CLEAN) !== 0 && (active_effect.f & BRANCH_EFFECT) === 0) {
-      if (new_deps !== null && new_deps.includes(source2)) {
-        set_signal_status(active_effect, DIRTY);
-        schedule_effect(active_effect);
+    if (active_effect !== null && (active_effect.f & CLEAN) !== 0 && (active_effect.f & (BRANCH_EFFECT | ROOT_EFFECT)) === 0) {
+      if (untracked_writes === null) {
+        set_untracked_writes([source2]);
       } else {
-        if (untracked_writes === null) {
-          set_untracked_writes([source2]);
-        } else {
-          untracked_writes.push(source2);
-        }
+        untracked_writes.push(source2);
       }
     }
   }
@@ -303,7 +298,7 @@ function create_effect(type, fn, sync, push2 = true) {
   } else if (fn !== null) {
     schedule_effect(effect2);
   }
-  var inert = sync && effect2.deps === null && effect2.first === null && effect2.nodes_start === null && effect2.teardown === null && (effect2.f & EFFECT_HAS_DERIVED) === 0;
+  var inert = sync && effect2.deps === null && effect2.first === null && effect2.nodes_start === null && effect2.teardown === null && (effect2.f & (EFFECT_HAS_DERIVED | BOUNDARY_EFFECT)) === 0;
   if (!inert && !is_root && push2) {
     if (parent_effect !== null) {
       push_effect(effect2, parent_effect);
@@ -476,6 +471,7 @@ let queued_root_effects = [];
 let flush_count = 0;
 let dev_effect_stack = [];
 let active_reaction = null;
+let untracking = false;
 function set_active_reaction(reaction) {
   active_reaction = reaction;
 }
@@ -584,6 +580,31 @@ function handle_error(error, effect2, previous_effect, component_context2) {
     return;
   }
 }
+function schedule_possible_effect_self_invalidation(signal, effect2, depth = 0) {
+  var reactions = signal.reactions;
+  if (reactions === null) return;
+  for (var i = 0; i < reactions.length; i++) {
+    var reaction = reactions[i];
+    if ((reaction.f & DERIVED) !== 0) {
+      schedule_possible_effect_self_invalidation(
+        /** @type {Derived} */
+        reaction,
+        effect2,
+        depth + 1
+      );
+    } else if (effect2 === reaction) {
+      if (depth === 0) {
+        set_signal_status(reaction, DIRTY);
+      } else if ((reaction.f & CLEAN) !== 0) {
+        set_signal_status(reaction, MAYBE_DIRTY);
+      }
+      schedule_effect(
+        /** @type {Effect} */
+        reaction
+      );
+    }
+  }
+}
 function update_reaction(reaction) {
   var previous_deps = new_deps;
   var previous_skipped_deps = skipped_deps;
@@ -592,6 +613,7 @@ function update_reaction(reaction) {
   var previous_skip_reaction = skip_reaction;
   var prev_derived_sources = derived_sources;
   var previous_component_context = component_context;
+  var previous_untracking = untracking;
   var flags = reaction.f;
   new_deps = /** @type {null | Value[]} */
   null;
@@ -601,6 +623,7 @@ function update_reaction(reaction) {
   skip_reaction = !is_flushing_effect && (flags & UNOWNED) !== 0;
   derived_sources = null;
   component_context = reaction.ctx;
+  untracking = false;
   read_version++;
   try {
     var result = (
@@ -628,6 +651,19 @@ function update_reaction(reaction) {
       remove_reactions(reaction, skipped_deps);
       deps.length = skipped_deps;
     }
+    if (is_runes() && untracked_writes !== null && (reaction.f & (DERIVED | MAYBE_DIRTY | DIRTY)) === 0) {
+      for (i = 0; i < /** @type {Source[]} */
+      untracked_writes.length; i++) {
+        schedule_possible_effect_self_invalidation(
+          untracked_writes[i],
+          /** @type {Effect} */
+          reaction
+        );
+      }
+    }
+    if (previous_reaction !== null) {
+      read_version++;
+    }
     return result;
   } finally {
     new_deps = previous_deps;
@@ -637,6 +673,7 @@ function update_reaction(reaction) {
     skip_reaction = previous_skip_reaction;
     derived_sources = prev_derived_sources;
     component_context = previous_component_context;
+    untracking = previous_untracking;
   }
 }
 function remove_reaction(signal, dependency) {
@@ -889,7 +926,7 @@ function get(signal) {
     );
     return value;
   }
-  if (active_reaction !== null) {
+  if (active_reaction !== null && !untracking) {
     if (derived_sources !== null && derived_sources.includes(signal)) {
       state_unsafe_local_read();
     }
@@ -902,10 +939,6 @@ function get(signal) {
         new_deps = [signal];
       } else {
         new_deps.push(signal);
-      }
-      if (untracked_writes !== null && active_effect !== null && (active_effect.f & CLEAN) !== 0 && (active_effect.f & BRANCH_EFFECT) === 0 && untracked_writes.includes(signal)) {
-        set_signal_status(active_effect, DIRTY);
-        schedule_effect(active_effect);
       }
     }
   } else if (is_derived && /** @type {Derived} */
@@ -1491,7 +1524,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "1ibsnxw"
+  version_hash: "1yuvo53"
 };
 async function get_hooks() {
   let handle;

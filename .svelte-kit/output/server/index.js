@@ -1,5 +1,5 @@
 import { b as base, a as assets, o as override, r as reset, p as public_env, s as safe_public_env, D as DEV, c as read_implementation, d as options, e as set_private_env, f as prerendering, g as set_public_env, h as get_hooks, i as set_safe_public_env, j as set_read_implementation } from "./chunks/internal.js";
-import { m as make_trackable, d as disable_search, w as writable, r as readable, n as normalize_path, a as add_data_suffix, b as resolve, c as decode_pathname, h as has_data_suffix, s as strip_data_suffix, e as decode_params, v as validate_layout_server_exports, f as validate_layout_exports, g as validate_page_server_exports, i as validate_page_exports, j as validate_server_exports } from "./chunks/exports.js";
+import { m as make_trackable, d as disable_search, w as writable, r as readable, n as normalize_path, a as add_data_suffix, b as resolve, h as has_data_suffix, s as strip_data_suffix, c as decode_pathname, e as decode_params, v as validate_layout_server_exports, f as validate_layout_exports, g as validate_page_server_exports, i as validate_page_exports, j as validate_server_exports } from "./chunks/exports.js";
 import * as devalue from "devalue";
 import { parse, serialize } from "cookie";
 import * as set_cookie_parser from "set-cookie-parser";
@@ -2289,7 +2289,7 @@ function get_cookies(request, url, trailing_slash) {
     // sufficient to do so.
     /**
      * @param {string} name
-     * @param {import('cookie').CookieParseOptions} opts
+     * @param {import('cookie').CookieParseOptions} [opts]
      */
     get(name, opts) {
       const c = new_cookies[name];
@@ -2301,7 +2301,7 @@ function get_cookies(request, url, trailing_slash) {
       return cookie;
     },
     /**
-     * @param {import('cookie').CookieParseOptions} opts
+     * @param {import('cookie').CookieParseOptions} [opts]
      */
     getAll(opts) {
       const cookies2 = parse(header, { decode: opts?.decode });
@@ -2561,6 +2561,14 @@ async function respond(request, options2, manifest, state) {
   if (options2.hash_routing && url.pathname !== base + "/" && url.pathname !== "/[fallback]") {
     return text("Not found", { status: 404 });
   }
+  const is_data_request = has_data_suffix(url.pathname);
+  let invalidated_data_nodes;
+  if (is_data_request) {
+    url.pathname = strip_data_suffix(url.pathname) + (url.searchParams.get(TRAILING_SLASH_PARAM) === "1" ? "/" : "") || "/";
+    url.searchParams.delete(TRAILING_SLASH_PARAM);
+    invalidated_data_nodes = url.searchParams.get(INVALIDATED_PARAM)?.split("").map((node) => node === "1");
+    url.searchParams.delete(INVALIDATED_PARAM);
+  }
   let rerouted_path;
   try {
     rerouted_path = options2.hooks.reroute({ url: new URL(url) }) ?? url.pathname;
@@ -2590,15 +2598,6 @@ async function respond(request, options2, manifest, state) {
     const headers22 = new Headers();
     headers22.set("cache-control", "public, max-age=0, must-revalidate");
     return text("Not found", { status: 404, headers: headers22 });
-  }
-  const is_data_request = has_data_suffix(decoded);
-  let invalidated_data_nodes;
-  if (is_data_request) {
-    decoded = strip_data_suffix(decoded) || "/";
-    url.pathname = strip_data_suffix(url.pathname) + (url.searchParams.get(TRAILING_SLASH_PARAM) === "1" ? "/" : "") || "/";
-    url.searchParams.delete(TRAILING_SLASH_PARAM);
-    invalidated_data_nodes = url.searchParams.get(INVALIDATED_PARAM)?.split("").map((node) => node === "1");
-    url.searchParams.delete(INVALIDATED_PARAM);
   }
   if (!state.prerendering?.fallback) {
     const matchers = await manifest._.matchers();
@@ -2879,11 +2878,9 @@ async function respond(request, options2, manifest, state) {
         return response;
       }
       if (state.error && event2.isSubRequest) {
-        return await fetch(request, {
-          headers: {
-            "x-sveltekit-error": "true"
-          }
-        });
+        const headers22 = new Headers(request.headers);
+        headers22.set("x-sveltekit-error", "true");
+        return await fetch(request, { headers: headers22 });
       }
       if (state.error) {
         return text("Internal Server Error", {
