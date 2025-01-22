@@ -326,6 +326,7 @@
         const simpleBar = (await import('simplebar')).default;
         const ResizeObserver = (await import('resize-observer-polyfill')).default;
 
+
         const userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
         // Initialize the size
