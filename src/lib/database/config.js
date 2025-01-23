@@ -29,6 +29,9 @@ import enhanced_logoImage from "$media/enhanced_logoImage.png?enhanced";
 import condensed_logo from "$media/logo_condensed.svg";
 import logoImage from "$media/logo_complete.svg";
 
+import topcamera_1 from "$videos/Topcamera.webm";
+import cardsgame_1 from "$videos/Cardsgame.webm";
+
 // Grouping the assets into objects for easy access
 export const photos = {
   image_1,
@@ -58,6 +61,11 @@ export const capitolsCover = {
   cover_1,
 };
 
+export const videos = {
+  cardsgame_1,
+  topcamera_1,
+};
+
 export const general = {
   circle_logo,
   enhanced_logoImage,
@@ -70,4 +78,5 @@ export default {
   photos,
   capitolsCover,
   general,
+  videos,
 };

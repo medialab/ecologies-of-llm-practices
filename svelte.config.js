@@ -14,6 +14,7 @@ const config = {
       $media: "src/lib/media",
       $database: "src/lib/database",
       $routes: "src/routes",
+      $videos: "src/lib/media/videos",
     },
   },
 };

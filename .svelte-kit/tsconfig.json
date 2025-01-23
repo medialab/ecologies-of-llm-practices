@@ -25,6 +25,12 @@
 			"$routes/*": [
 				"../src/routes/*"
 			],
+			"$videos": [
+				"../src/lib/media/videos"
+			],
+			"$videos/*": [
+				"../src/lib/media/videos/*"
+			],
 			"$lib": [
 				"../src/lib"
 			],

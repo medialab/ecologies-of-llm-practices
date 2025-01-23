@@ -279,6 +279,8 @@ const enhanced_logoImage = {
 };
 const condensed_logo = "/EL2MP/_app/immutable/assets/logo_condensed.Cwwx0yWm.svg";
 const logoImage = "/EL2MP/_app/immutable/assets/logo_complete.SEqfJBG_.svg";
+const topcamera_1 = "/EL2MP/_app/immutable/assets/Topcamera.Cs5dpslX.webm";
+const cardsgame_1 = "/EL2MP/_app/immutable/assets/Cardsgame.DTx2i1g2.webm";
 const photos = {
   image_1,
   image_2,
@@ -304,6 +306,10 @@ const photos = {
 };
 const capitolsCover = {
   cover_1
+};
+const videos = {
+  cardsgame_1,
+  topcamera_1
 };
 const general = {
   circle_logo,
@@ -545,84 +551,84 @@ const floatersDb = {
     Title: "project-plan.pdf",
     id: 1,
     category: "document",
-    Img: "",
-    href: "/documents/project-plan.pdf"
+    media: "",
+    file: "documents/template.pdf"
   },
   Floater2: {
     Title: "tutorial-video.mp4",
     id: 2,
     category: "video",
-    Img: "",
+    media: videos.topcamera_1,
     href: ""
   },
   Floater3: {
     Title: "landscape-photo.jpg",
     id: 3,
     category: "image",
-    Img: photos.image_13,
+    media: photos.image_13,
     href: ""
   },
   Floater4: {
     Title: "team-introduction.mp4",
     id: 4,
     category: "video",
-    Img: "",
+    media: videos.cardsgame_1,
     href: ""
   },
   Floater5: {
     Title: "design-mockup.png",
     id: 5,
     category: "image",
-    Img: photos.image_12,
+    media: photos.image_12,
     href: ""
   },
   Floater6: {
-    Title: "financial-report.xlsx",
+    Title: "page-template.pdf",
     id: 6,
     category: "document",
-    Img: "",
-    href: "/documents/financial-report.xlsx"
+    media: "",
+    file: "documents/template.pdf"
   },
   Floater7: {
     Title: "coding-tutorial.mp4",
     id: 7,
     category: "video",
-    Img: "",
+    media: "",
     href: ""
   },
   Floater8: {
     Title: "company-logo.svg",
     id: 8,
     category: "image",
-    Img: photos.image_3,
+    media: photos.image_3,
     href: ""
   },
   Floater9: {
     Title: "meeting-notes.docx",
     id: 9,
     category: "document",
-    Img: "",
-    href: "/documents/meeting-notes.docx"
+    media: "",
+    file: "documents/template.pdf"
   },
   Floater10: {
     Title: "holiday-slideshow.mp4",
     id: 10,
     category: "video",
-    Img: "",
+    media: "",
     href: ""
   },
   Floater11: {
     Title: "https://medialabsciencespo.com",
     id: 11,
     category: "link",
-    Img: "",
+    media: "",
     href: ""
   },
   Floater12: {
     Title: "extended_logo.svg",
     id: 12,
     category: "image",
-    Img: general.enhanced_logoImage,
+    media: general.enhanced_logoImage,
     href: ""
   }
 };

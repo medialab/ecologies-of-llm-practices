@@ -525,7 +525,7 @@
 
                 // Start floating animation
                 const animateFloating = () => {
-                    const time = Date.now(); // Get current time
+                    const time = Date.now();
 
                     // Calculate oscillating speed
                     const floatingSpeed = floatingSpeedBase * (1 + Math.sin(time * oscillationFrequency + sineOffset));

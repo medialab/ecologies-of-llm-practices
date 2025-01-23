@@ -366,6 +366,14 @@
     "file": "_app/immutable/assets/logo_condensed.Cwwx0yWm.svg",
     "src": "src/lib/media/logo_condensed.svg"
   },
+  "src/lib/media/videos/Cardsgame.webm": {
+    "file": "_app/immutable/assets/Cardsgame.DTx2i1g2.webm",
+    "src": "src/lib/media/videos/Cardsgame.webm"
+  },
+  "src/lib/media/videos/Topcamera.webm": {
+    "file": "_app/immutable/assets/Topcamera.Cs5dpslX.webm",
+    "src": "src/lib/media/videos/Topcamera.webm"
+  },
   "src/routes/+page.server.js": {
     "file": "entries/pages/_page.server.js",
     "name": "entries/pages/_page.server",
@@ -513,6 +521,8 @@
       "_app/immutable/assets/enhanced_logoImage.Cvtx-yvb.png",
       "_app/immutable/assets/logo_condensed.Cwwx0yWm.svg",
       "_app/immutable/assets/logo_complete.SEqfJBG_.svg",
+      "_app/immutable/assets/Topcamera.Cs5dpslX.webm",
+      "_app/immutable/assets/Cardsgame.DTx2i1g2.webm",
       "_app/immutable/assets/Dot_background.BMWCEQP3.avif",
       "_app/immutable/assets/Dot_background.BqYuFsFf.avif",
       "_app/immutable/assets/Dot_background.BF15mkJt.webp",
@@ -531,7 +541,7 @@
       "_escaping.js"
     ],
     "css": [
-      "_app/immutable/assets/_page.W1SmDnTH.css"
+      "_app/immutable/assets/_page.C-wwxxH8.css"
     ]
   }
 }

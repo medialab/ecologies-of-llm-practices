@@ -1,6 +1,6 @@
 
 <script>
-import { onMount } from 'svelte';
+import { onMount, setContext } from 'svelte';
 export let data
 export let bringToFront
 export let suppressCover
@@ -9,6 +9,14 @@ export let condensed_logo
 export let circular_logo
 
 let isProjCover = data.isProjCover
+
+const splitText = (text) => {
+        const midpoint = Math.floor(text.length / 2);
+        const spaceIndex = text.indexOf(' ', midpoint);
+        const splitIndex = spaceIndex === -1 ? midpoint : spaceIndex;
+
+        return [text.slice(0, splitIndex).trim(), text.slice(splitIndex).trim()];
+    };
 
 </script>
 
@@ -28,9 +36,9 @@ let isProjCover = data.isProjCover
         </p>
 
 
-        <a class="caption" id="download_button" href="PDF/{data.Title}.pdf" download>
+        <!-- <a class="caption" id="download_button" href="PDF/{data.Title}.pdf" download>
             <p>DOWNLOAD</p>
-        </a>
+        </a> -->
 
 
         <img data-sveltekit-preload-data
@@ -83,10 +91,9 @@ let isProjCover = data.isProjCover
                     {/if}
 
                     {#if section.text}
-                    <div class="double_column_text_article">
-                        <p class="p1">{section.text}</p>
-                        <p class="p1">{section.text}</p>
-                    </div>
+                        <div class="double_column_text_article">
+                            <p class="p1">{section.text}</p>
+                        </div>
                     {/if}
                 </div>
                     
@@ -275,11 +282,11 @@ let isProjCover = data.isProjCover
     }
 
     .double_column_text_article {
-        display: flex;
-        flex-direction: row;
+        display: block;
+        column-count: 2;
+        column-gap: var(--spacing-L);
         width: 100%;
         height: 100%;
-        column-gap: var(--spacing-L);
     }
 
     .double_column_text_article > p {
@@ -317,13 +324,8 @@ let isProjCover = data.isProjCover
         transform: translateY(-40px);
         position: absolute;
         top: 0;
+        transform-origin: top left;
         left: 0;
-    }
-
-    .card_container > .caption {
-        position: absolute;
-        top: var(--spacing-M);
-        right: var(--spacing-M);
     }
 
    /* ### OLD VERSION ### */ .card_corner_logo {
