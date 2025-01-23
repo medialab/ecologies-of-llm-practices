@@ -137,13 +137,13 @@ function Position_marker_button($$payload, $$props) {
     return allExercises.indexOf(ex) <= currentIndex;
   });
   const each_array = ensure_array_like(exercises);
-  $$payload.out += `<button class="position_button svelte-1c8sxos"><p class="s1">${escape_html(selectedCardTitle)}</p> <p class="s1">/</p> <!--[-->`;
+  $$payload.out += `<button class="position_button svelte-1iikbpv"><p class="s1 svelte-1iikbpv">${escape_html(selectedCardTitle)}</p> <p class="s1 svelte-1iikbpv">/</p> <!--[-->`;
   for (let index = 0, $$length = each_array.length; index < $$length; index++) {
     let exercise = each_array[index];
-    $$payload.out += `<p class="s1">${escape_html(exercise.label)}</p> `;
+    $$payload.out += `<p class="s1 svelte-1iikbpv">${escape_html(exercise.label)}</p> `;
     if (index < exercises.length - 1) {
       $$payload.out += "<!--[-->";
-      $$payload.out += `<p class="s1">/</p>`;
+      $$payload.out += `<p class="s1 svelte-1iikbpv">/</p>`;
     } else {
       $$payload.out += "<!--[!-->";
     }
@@ -181,7 +181,7 @@ function Floating_card($$payload, $$props) {
   $$payload.out += `<!--]-->  <a class="floater_bottom"${attr("style", `background-color: ${stringify(color)}`)}>`;
   if (data.category === "document") {
     $$payload.out += "<!--[-->";
-    $$payload.out += `<div class="category_icon" id="document"${attr("href", data.file || data.href || void 0)}${attr("download", data.file ? data.Title : void 0)}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z"></path></svg></div>`;
+    $$payload.out += `<div class="category_icon" id="document"${attr("href", data.file || data.href || void 0)}${attr("download", data.file ? data.Title : void 0)}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z"></path></svg></div> <div class="darker"></div>`;
   } else {
     $$payload.out += "<!--[!-->";
     if (data.category === "image") {

@@ -1,5 +1,5 @@
 <script>
-    import { fade } from 'svelte/transition';
+    import { fade, slide,  } from 'svelte/transition';
 
 
     export let selectedCardTitle
@@ -26,14 +26,20 @@
     <p class="s1">/</p>
 
     {#each exercises as exercise, index}
-        <p class="s1" in:fade={{ duration: 500 }} out:fade={{ duration: 500 }}>{exercise.label}</p>
+        <p class="s1" in:slide={{ duration: 200, axis: "x"}} out:slide={{ duration: 200, axis: "x"}}>{exercise.label}</p>
         {#if index < exercises.length - 1}
-            <p class="s1" in:fade={{ duration: 500 }} out:fade={{ duration: 500 }}>/</p>
+            <p class="s1" in:slide={{ duration: 200, axis: "x" }} out:slide={{ duration: 200, axis: "x"}}>/</p>
         {/if}
     {/each}
 </button>
 
 <style>
+
+    .position_button > .s1 {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
     .position_button {
         border-radius: 0px 5px 0px 0px;

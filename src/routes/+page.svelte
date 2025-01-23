@@ -237,21 +237,21 @@
 
         sections.forEach((section) => {
             section.addEventListener("mouseenter", (event) => {
-                const sectionId = event.target.getAttribute("data-section");
+                const sectionId = event.currentTarget.getAttribute("data-section");
                 currentScrollLevel = sectionId;
             });
         });
 
         containers.forEach((container) => {
             container.addEventListener("click", (event) => {
-                selectedCard = event.target.getAttribute("data-section");
+                selectedCard = container.getAttribute("data-section");
                 openFloaters(floaters);
             });
         });
 
         scrollContainers.forEach((scrollContainer) => {
             scrollContainer.addEventListener("click", (event) => {
-                selectedCard = event.target.getAttribute("data-section");
+                selectedCard = container.getAttribute("data-section");
                 openFloaters(floaters);
             });
         });

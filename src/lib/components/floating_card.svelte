@@ -49,10 +49,21 @@
 
     let holdTimeout;
     let isHolding = false;
+    let animationFrame = null;
 
     const handleMouseDown = () => {
         if (data.category === "document") {
             isHolding = true;
+
+            const floaterContainer = event.target.closest('.floater_container');
+
+            const darkerElement = floaterContainer.querySelector('.darker');
+
+            if (darkerElement) {
+                // Add the "open" class to start the transition
+                darkerElement.classList.add('open');
+            }
+
             holdTimeout = setTimeout(() => {
                 if (isHolding && data.file) {
                     // Trigger file download
@@ -72,6 +83,16 @@
     const handleMouseUp = () => {
         isHolding = false;
         clearTimeout(holdTimeout);
+        const floaterContainer = event.target.closest('.floater_container');
+        
+        if (floaterContainer) {
+            // Find the .darker element within the scoped floater_container
+            const darkerElement = floaterContainer.querySelector('.darker');
+            if (darkerElement) {
+                // Remove the "open" class to revert the transition
+                darkerElement.classList.remove('open');
+            }
+        }
     };
 
     onMount(() => {
@@ -129,10 +150,16 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z"/></svg>
                 </div>
 
+                <div class="darker">
+
+                </div>
+
                 {:else if data.category === 'image'}
                 <div class="category_icon" id="image">
                     <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 -960 960 960"><path d="M212.31-140Q182-140 161-161q-21-21-21-51.31v-535.38Q140-778 161-799q21-21 51.31-21h535.38Q778-820 799-799q21 21 21 51.31v535.38Q820-182 799-161q-21 21-51.31 21H212.31Zm0-60h535.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-535.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v535.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM270-290h423.07L561.54-465.38 449.23-319.23l-80-102.31L270-290Zm-70 90v-560 560Z"/></svg>
                 </div>
+
+                
 
                 {:else if data.category === 'video'}
                 <div class="category_icon" id="video">
@@ -389,6 +416,23 @@
     :global(.floater_container.open.clicked > .floater_bottom:active) {
         transform: none;
         filter: none;
+    }
+
+    :global(.darker) {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        background-color: black;
+        opacity: 0.2;
+        mix-blend-mode: darken;
+        transform: translateX(-100%);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    :global(.darker.open) {
+        transform: translateX(0%);
+        transition: transform 3s ease-in-out;
     }
 
 </style>
