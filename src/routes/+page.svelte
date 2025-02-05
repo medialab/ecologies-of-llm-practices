@@ -313,12 +313,10 @@
         const selected = Object.values(data.cardsDb).find(card => card.Title === selectedCard);
 
         if (selected) {
-            //console.log("Found matching card:", selected);
-            currentCardColor = selected.bgColor; // Update current color
-            lastCardColor = selected.bgColor;   // Store the last valid color
+            currentCardColor = selected.bgColor;
+            lastCardColor = selected.bgColor;
         } else {
-            //console.log(`No matching card found for ${selectedCard}:`, selectedCard);
-            currentCardColor = lastCardColor;   // Revert to the last valid color
+            currentCardColor = lastCardColor;
         }
     };
 
@@ -342,13 +340,31 @@
         });
     };
 
+    const hideFloaters = () => {
+        if (!floaters) return;
+        
+        floaters.forEach((floater) => {
+        if (activeMarker !== 'all' && floater.dataset.parent !== activeMarker) {
+            floater.style.display = 'none';
+        } else {
+            floater.style.display = '';
+        }
+
+        floater.classList.remove('clicked');
+        floater.classList.add('open');
+
+        });
+    };
+
     const updateSelectedCard = (selectedCard) => {
+
         if (selectedCard !== null && selectedCard !== undefined) {
             activeMarker = selectedCard;
         } else {
             //console.log("Marker was null, reverted to:", activeMarker)
         }
-        //console.log("This is activeMarker", activeMarker )
+
+        hideFloaters();
     }
 
     $: updateSelectedCard(selectedCard)
@@ -686,6 +702,7 @@
     <LogoButton
         data = {data}
         switch_sidebar = {switch_sidebar}
+        simplebarContainer = {simplebarContainer}
     />
 
     <section class="host">
@@ -726,7 +743,6 @@
                 condensed_logo = {data.condensed_logo}
                 circular_logo =  {data.circular_logo}
             />
-
         {/each}   
 
 

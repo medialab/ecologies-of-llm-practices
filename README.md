@@ -20,11 +20,6 @@ The **Écologies des Pratiques (EL2MP)** project explores the transformative imp
   - Add filters (e.g., grayscale, duotone effects).
   - Introduce hover-based interactions.
 
-- [ ] **Textual Animations**
-
-  - Implement typewriter or fade-in effects for titles and descriptions.
-  - Ensure compatibility across devices and browsers.
-
 - [ ] **Generic Transitions**
 
   - Define transition styles for cards and floaters (e.g., fade, slide).
@@ -45,8 +40,6 @@ The **Écologies des Pratiques (EL2MP)** project explores the transformative imp
 
 - [ ] **Prevent Floaters from Squashing on the Sides**
 
-  - Adjust padding or boundaries for floaters during animations.
-
 - [ ] **Pre-Load Images in Scroll Containers**
 
   - Use lazy-loading for images but prefetch critical assets.
@@ -64,7 +57,7 @@ The **Écologies des Pratiques (EL2MP)** project explores the transformative imp
 
   - Set higher `z-index` for button layers.
 
-- [ ] **Better Align Cards on Loading**
+- [x] **Better Align Cards on Loading**
 
   - Ensure proper alignment for cards during the initial load animation.
 
@@ -72,12 +65,12 @@ The **Écologies des Pratiques (EL2MP)** project explores the transformative imp
 
   - Resolve inconsistent color transitions when switching cards.
 
-- [ ] **Floaters Filtering Based on Card Parenting**
+- [x] **Floaters Filtering Based on Card Parenting**
 
-  - Display relevant floaters when specific cards are selected.
+  - Now floaters in the db can be generated with a parent option, if so, they are bounded to the parent
 
 - [ ] Floaters when reset tends to go over the boundaries
-- [ ] Scrollbar on side-bard is bugged
+- [x] **Scrollbar on side-bard is bugged**
 
 ---
 

@@ -260,7 +260,27 @@ const splitText = (text) => {
         word-wrap: nowrap;
         user-select: none;
         pointer-events: none;
+        overflow: hidden;
+        /* animation: title_slide 2s cubic-bezier(0.075, 0.82, 0.165, 1); */
+        transform: '';
     }
+
+    @keyframes title_slide {
+        0% {
+            clip-path: inset(0 0 100% 0);
+            transform: translateY(100px);
+        }
+
+        15% {
+            clip-path: inset(0 0 100% 0);
+            transform: translateY(100px);
+        }
+
+        100% {
+            clip-path: inset(0 0 0 0);
+            transform: translateY(-40px);
+        }
+    } 
 
     .card_scrollable_container {
         display: block;

@@ -209,6 +209,7 @@ const floatersDb = {
     category: "document",
     media: "",
     file: "documents/template.pdf",
+    parent: "Qualifying",
   },
   Floater2: {
     Title: "tutorial-video.mp4",
@@ -216,6 +217,7 @@ const floatersDb = {
     category: "video",
     media: videos.topcamera_1,
     href: "",
+    parent: "Qualifying",
   },
   Floater3: {
     Title: "landscape-photo.jpg",
@@ -223,6 +225,7 @@ const floatersDb = {
     category: "image",
     media: photos.image_13,
     href: "",
+    parent: "Qualifying",
   },
   Floater4: {
     Title: "team-introduction.mp4",
@@ -230,6 +233,7 @@ const floatersDb = {
     category: "video",
     media: videos.cardsgame_1,
     href: "",
+    parent: "Qualifying",
   },
   Floater5: {
     Title: "design-mockup.png",
@@ -237,6 +241,7 @@ const floatersDb = {
     category: "image",
     media: photos.image_12,
     href: "",
+    parent: "Qualifying",
   },
   Floater6: {
     Title: "page-template.pdf",
@@ -244,6 +249,7 @@ const floatersDb = {
     category: "document",
     media: "",
     file: "documents/template.pdf",
+    parent: "Qualifying",
   },
   Floater7: {
     Title: "coding-tutorial.mp4",
@@ -251,6 +257,7 @@ const floatersDb = {
     category: "video",
     media: "",
     href: "",
+    parent: "Qualifying",
   },
   Floater8: {
     Title: "company-logo.svg",
@@ -258,6 +265,7 @@ const floatersDb = {
     category: "image",
     media: photos.image_3,
     href: "",
+    parent: "Qualifying",
   },
   Floater9: {
     Title: "meeting-notes.docx",
@@ -265,6 +273,7 @@ const floatersDb = {
     category: "document",
     media: "",
     file: "documents/template.pdf",
+    parent: "Qualifying",
   },
   Floater10: {
     Title: "holiday-slideshow.mp4",
@@ -272,6 +281,7 @@ const floatersDb = {
     category: "video",
     media: "",
     href: "",
+    parent: "Qualifying",
   },
   Floater11: {
     Title: "https://medialabsciencespo.com",
@@ -279,6 +289,7 @@ const floatersDb = {
     category: "link",
     media: "",
     href: "",
+    parent: "Qualifying",
   },
   Floater12: {
     Title: "extended_logo.svg",
@@ -286,6 +297,23 @@ const floatersDb = {
     category: "image",
     media: general.enhanced_logoImage,
     href: "",
+    parent: "Qualifying",
+  },
+  Floater13: {
+    Title: "extended_logo.svg",
+    id: 13,
+    category: "image",
+    media: general.enhanced_logoImage,
+    href: "",
+    parent: "Benchmarking",
+  },
+  Floater14: {
+    Title: "extended_logo.svg",
+    id: 14,
+    category: "image",
+    media: general.enhanced_logoImage,
+    href: "",
+    parent: "Benchmarking",
   },
 };
 

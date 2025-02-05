@@ -552,84 +552,112 @@ const floatersDb = {
     id: 1,
     category: "document",
     media: "",
-    file: "documents/template.pdf"
+    file: "documents/template.pdf",
+    parent: "Qualifying"
   },
   Floater2: {
     Title: "tutorial-video.mp4",
     id: 2,
     category: "video",
     media: videos.topcamera_1,
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater3: {
     Title: "landscape-photo.jpg",
     id: 3,
     category: "image",
     media: photos.image_13,
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater4: {
     Title: "team-introduction.mp4",
     id: 4,
     category: "video",
     media: videos.cardsgame_1,
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater5: {
     Title: "design-mockup.png",
     id: 5,
     category: "image",
     media: photos.image_12,
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater6: {
     Title: "page-template.pdf",
     id: 6,
     category: "document",
     media: "",
-    file: "documents/template.pdf"
+    file: "documents/template.pdf",
+    parent: "Qualifying"
   },
   Floater7: {
     Title: "coding-tutorial.mp4",
     id: 7,
     category: "video",
     media: "",
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater8: {
     Title: "company-logo.svg",
     id: 8,
     category: "image",
     media: photos.image_3,
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater9: {
     Title: "meeting-notes.docx",
     id: 9,
     category: "document",
     media: "",
-    file: "documents/template.pdf"
+    file: "documents/template.pdf",
+    parent: "Qualifying"
   },
   Floater10: {
     Title: "holiday-slideshow.mp4",
     id: 10,
     category: "video",
     media: "",
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater11: {
     Title: "https://medialabsciencespo.com",
     id: 11,
     category: "link",
     media: "",
-    href: ""
+    href: "",
+    parent: "Qualifying"
   },
   Floater12: {
     Title: "extended_logo.svg",
     id: 12,
     category: "image",
     media: general.enhanced_logoImage,
-    href: ""
+    href: "",
+    parent: "Qualifying"
+  },
+  Floater13: {
+    Title: "extended_logo.svg",
+    id: 13,
+    category: "image",
+    media: general.enhanced_logoImage,
+    href: "",
+    parent: "Benchmarking"
+  },
+  Floater14: {
+    Title: "extended_logo.svg",
+    id: 14,
+    category: "image",
+    media: general.enhanced_logoImage,
+    href: "",
+    parent: "Benchmarking"
   }
 };
 const projectDescription = "The Écologies des Pratiques project explores the transformative impact of Large Language Models (LLMs) on research, creativity, and communication across various domains. Supported by Google through its commitment to advancing ethical and impactful AI practices, this initiative combines cutting-edge technological tools with critical reflection on their implications. <br><br>At the heart of this project lies a collaborative and interdisciplinary approach, engaging researchers, practitioners, and students from diverse fields. By experimenting with LLMs, we seek to understand their potential as catalysts for new forms of knowledge production and dissemination while addressing the ecological and ethical questions they raise. The project delves into three key areas: <br><br> Technological Experimentation: By integrating LLMs into practical workflows, we assess how these tools reshape academic and professional practices. From creative writing to data analysis, the project tests the boundaries of LLMs' generative capabilities.<br><br> Critical Reflection: Alongside experimentation, we foster discussions on the broader societal and ecological implications of LLM adoption. What are the costs and benefits of scaling these technologies? How do they challenge or reinforce existing structures of knowledge and power?<br><br> Community Building: Through workshops, public events, and collaborative platforms, we aim to build a community of thinkers and makers who can collectively imagine and shape the future of AI-driven practices.<br><br> With Google’s support, Écologies des Pratiques not only investigates the possibilities of LLMs but also critically examines their role within contemporary ecological, cultural, and institutional systems. By bridging technological innovation and critical inquiry, this project seeks to illuminate how these powerful tools can contribute responsibly to a sustainable and inclusive future.";

@@ -28,7 +28,6 @@
                 floaterContainer.classList.add('clicked');
                 isClicked = true;
                 
-                console.log('"clicked" class added to:', floaterContainer);
             } else {
                 console.warn('No floater container found for the clicked element');
             }
@@ -103,10 +102,12 @@
 
     <!-- svelte-ignore a11y_no_static_element_interactions -->
     <div class="floater_container closed"
+        data-parent={data.parent}
         style="top: {randomPosition.top};
             left: {randomPosition.left};
             z-index: {randomPosition.zIndex};
             animation-delay: {randomPosition.animationDelay};" >
+            
 
         {#if data.media}
             {#if isClicked}
@@ -138,12 +139,14 @@
             on:mouseup={handleMouseUp}
             on:mouseleave={handleMouseUp}
             
+
             >
 
             {#if data.category === 'document'}
                 <div
                     class="category_icon"
                     id="document"
+                    
                     href={data.file || data.href || undefined}
                     download={data.file ? data.Title : undefined}>
 
