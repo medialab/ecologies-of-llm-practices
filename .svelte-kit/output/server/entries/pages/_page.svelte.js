@@ -30,24 +30,24 @@ function Capitols($$payload, $$props) {
   if (isProjCover === false) {
     $$payload.out += "<!--[-->";
     const each_array_1 = ensure_array_like(data.Content ?? []);
-    $$payload.out += `<section class="card_container svelte-ag1ilp" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-ag1ilp" style="z-index: 7;">${html(data.Title)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-ag1ilp"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="description_container svelte-ag1ilp"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-ag1ilp" id="description">${html(data.Description)}</p></div> <div class="card_scrollable_container svelte-ag1ilp" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-ag1ilp"${attr("data-section", data.Title)}>`;
+    $$payload.out += `<section class="card_container svelte-qoh8n4" draggable="true" aria-label="Draggable Card"${attr("data-section", data.Title)}><p class="h0 svelte-qoh8n4" style="z-index: 7;">${html(data.Title)}</p> <img data-sveltekit-preload-data="" class="card_corner_logo svelte-qoh8n4"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="description_container svelte-qoh8n4"${attr("style", `background-color: ${stringify(data.bgColor)}; border: 5px solid ${stringify(data.bgColor)};`)}><p class="h4 svelte-qoh8n4" id="description">${html(data.Description)}</p></div> <div class="card_scrollable_container svelte-qoh8n4" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><div class="card_scroll_flex svelte-qoh8n4"${attr("data-section", data.Title)}>`;
     if (data.CoverImg) {
       $$payload.out += "<!--[-->";
-      $$payload.out += `<div class="duotone_container svelte-ag1ilp">`;
+      $$payload.out += `<div class="duotone_container svelte-qoh8n4">`;
       if (typeof data.CoverImg === "string") {
         $$payload.out += "<!--[-->";
-        $$payload.out += `<img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image svelte-ag1ilp"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}>`;
+        $$payload.out += `<img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image svelte-qoh8n4"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}>`;
       } else {
         $$payload.out += "<!--[!-->";
         const each_array = ensure_array_like(Object.entries(data.CoverImg.sources));
-        $$payload.out += `<picture class="svelte-ag1ilp"><!--[-->`;
+        $$payload.out += `<picture class="svelte-qoh8n4"><!--[-->`;
         for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
           let [format, srcset] = each_array[$$index];
-          $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)} class="svelte-ag1ilp">`;
+          $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)} class="svelte-qoh8n4">`;
         }
-        $$payload.out += `<!--]--> <img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image svelte-ag1ilp"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}></picture>`;
+        $$payload.out += `<!--]--> <img data-sveltekit-preload-data=""${attr("src", data.CoverImg.img.src)} alt="CoverImg" class="duotone_image svelte-qoh8n4"${attr("width", data.CoverImg.img.w)}${attr("height", data.CoverImg.img.h)}></picture>`;
       }
-      $$payload.out += `<!--]--> <div class="duotone_overlay svelte-ag1ilp"${attr("style", `background-color: ${stringify(data.bgColor)};`)}></div></div>`;
+      $$payload.out += `<!--]--> <div class="duotone_overlay svelte-qoh8n4"${attr("style", `background-color: ${stringify(data.bgColor)};`)}></div></div>`;
     } else {
       $$payload.out += "<!--[!-->";
     }
@@ -56,17 +56,17 @@ function Capitols($$payload, $$props) {
       $$payload.out += "<!--[-->";
       for (let index = 0, $$length = each_array_1.length; index < $$length; index++) {
         let section = each_array_1[index];
-        $$payload.out += `<div class="section_container svelte-ag1ilp" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
+        $$payload.out += `<div class="section_container svelte-qoh8n4" data-sveltekit-preload-data=""${attr("data-section", `Ex ${index + 1}`)}>`;
         if (section.title) {
           $$payload.out += "<!--[-->";
-          $$payload.out += `<p class="h4 svelte-ag1ilp">${html(section.title)}</p>`;
+          $$payload.out += `<p class="h4 svelte-qoh8n4">${html(section.title)}</p>`;
         } else {
           $$payload.out += "<!--[!-->";
         }
         $$payload.out += `<!--]--> `;
         if (section.subtitle) {
           $$payload.out += "<!--[-->";
-          $$payload.out += `<p class="p1 svelte-ag1ilp" exercise-description="">${html(section.subtitle)}</p>`;
+          $$payload.out += `<p class="p1 svelte-qoh8n4" exercise-description="">${html(section.subtitle)}</p>`;
         } else {
           $$payload.out += "<!--[!-->";
         }
@@ -75,16 +75,16 @@ function Capitols($$payload, $$props) {
           $$payload.out += "<!--[-->";
           if (typeof section.picture === "string") {
             $$payload.out += "<!--[-->";
-            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-ag1ilp"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
+            $$payload.out += `<img data-sveltekit-preload-data="" class="article_image svelte-qoh8n4"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}>`;
           } else {
             $$payload.out += "<!--[!-->";
             const each_array_2 = ensure_array_like(Object.entries(section.picture.sources));
-            $$payload.out += `<picture class="svelte-ag1ilp"><!--[-->`;
+            $$payload.out += `<picture class="svelte-qoh8n4"><!--[-->`;
             for (let $$index_1 = 0, $$length2 = each_array_2.length; $$index_1 < $$length2; $$index_1++) {
               let [format, srcset] = each_array_2[$$index_1];
-              $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)} class="svelte-ag1ilp">`;
+              $$payload.out += `<source${attr("srcset", srcset)}${attr("type", "image/" + format)} class="svelte-qoh8n4">`;
             }
-            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-ag1ilp"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
+            $$payload.out += `<!--]--> <img data-sveltekit-preload-data="" class="article_image svelte-qoh8n4"${attr("src", section.picture.img.src)} alt="People"${attr("width", section.picture.img.w)}${attr("height", section.picture.img.h)}></picture>`;
           }
           $$payload.out += `<!--]-->`;
         } else {
@@ -93,7 +93,7 @@ function Capitols($$payload, $$props) {
         $$payload.out += `<!--]--> `;
         if (section.text) {
           $$payload.out += "<!--[-->";
-          $$payload.out += `<div class="double_column_text_article svelte-ag1ilp"><p class="p1 svelte-ag1ilp">${escape_html(section.text)}</p></div>`;
+          $$payload.out += `<div class="double_column_text_article svelte-qoh8n4"><p class="p1 svelte-qoh8n4">${escape_html(section.text)}</p></div>`;
         } else {
           $$payload.out += "<!--[!-->";
         }
@@ -101,12 +101,12 @@ function Capitols($$payload, $$props) {
       }
     } else {
       $$payload.out += "<!--[!-->";
-      $$payload.out += `<p class="svelte-ag1ilp">If you see this we are encountering issues</p>`;
+      $$payload.out += `<p class="svelte-qoh8n4">If you see this we are encountering issues</p>`;
     }
     $$payload.out += `<!--]--></div></div></section>`;
   } else {
     $$payload.out += "<!--[!-->";
-    $$payload.out += `<section class="card_container svelte-ag1ilp" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-ag1ilp">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-ag1ilp" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-ag1ilp"><div class="card_scroll_flex svelte-ag1ilp"><p class="h4 svelte-ag1ilp">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-ag1ilp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none" class="svelte-ag1ilp"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2" class="svelte-ag1ilp"></path></svg></a></section>`;
+    $$payload.out += `<section class="card_container svelte-qoh8n4" id="cover_description" draggable="true" style="color: white;"><p class="h0 svelte-qoh8n4">${escape_html(data.Title)}</p> <img class="card_corner_logo svelte-qoh8n4" style="position: absolute; left: 0; bottom: 0; width: 25%; opacity: 1;"${attr("src", condensed_logo)} alt="EL2MP Logo"> <div class="card_scrollable_container svelte-qoh8n4"><div class="card_scroll_flex svelte-qoh8n4"><p class="h4 svelte-qoh8n4">${escape_html(data.Description)}</p></div></div> <a class="x_arrow svelte-qoh8n4"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 21" fill="none" class="svelte-qoh8n4"><path d="M1 1L20 20M1 20L20 1" stroke="white" stroke-width="2" class="svelte-qoh8n4"></path></svg></a></section>`;
   }
   $$payload.out += `<!--]-->`;
   bind_props($$props, {
@@ -315,11 +315,9 @@ function _page($$payload, $$props) {
   };
   updateSelectedCard(selectedCard);
   alignColor(selectedCard);
-  const each_array = ensure_array_like(Object.values(data.cardsDb));
-  const each_array_1 = ensure_array_like(Object.values(data.floatersDb));
   $$payload.out += `<div class="content_container">`;
   Logo_button($$payload, { data, switch_sidebar, simplebarContainer });
-  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-swn7ed"><svg width="50px" height="50px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
+  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-g82yi5"><svg preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
   Position_marker_button($$payload, {
     data,
     selectedCardTitle: activeMarker,
@@ -329,28 +327,40 @@ function _page($$payload, $$props) {
   Reset_button($$payload, { data, reset_function });
   $$payload.out += `<!----> `;
   Time_button($$payload, { data, time: "Loading..." });
-  $$payload.out += `<!----> <!--[-->`;
-  for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
-    let card = each_array[$$index];
-    Capitols($$payload, {
-      data: card,
-      bringToFront,
-      suppressCover,
-      simplebarContainer,
-      condensed_logo: data.condensed_logo,
-      circular_logo: data.circular_logo
-    });
+  $$payload.out += `<!----> `;
+  {
+    $$payload.out += "<!--[-->";
+    const each_array = ensure_array_like(Object.values(data.cardsDb));
+    $$payload.out += `<!--[-->`;
+    for (let $$index = 0, $$length = each_array.length; $$index < $$length; $$index++) {
+      let card = each_array[$$index];
+      Capitols($$payload, {
+        data: card,
+        bringToFront,
+        suppressCover,
+        simplebarContainer,
+        condensed_logo: data.condensed_logo,
+        circular_logo: data.circular_logo
+      });
+    }
+    $$payload.out += `<!--]-->`;
   }
-  $$payload.out += `<!--]--> <!--[-->`;
-  for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
-    let floater = each_array_1[$$index_1];
-    Floating_card($$payload, {
-      data: floater,
-      randomPosition: calculateRandomPosition(),
-      color: currentCardColor
-    });
+  $$payload.out += `<!--]--> `;
+  {
+    $$payload.out += "<!--[-->";
+    const each_array_1 = ensure_array_like(Object.values(data.floatersDb));
+    $$payload.out += `<!--[-->`;
+    for (let $$index_1 = 0, $$length = each_array_1.length; $$index_1 < $$length; $$index_1++) {
+      let floater = each_array_1[$$index_1];
+      Floating_card($$payload, {
+        data: floater,
+        randomPosition: calculateRandomPosition(),
+        color: currentCardColor
+      });
+    }
+    $$payload.out += `<!--]-->`;
   }
-  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-swn7ed"><div class="mobile_text svelte-swn7ed"><p class="s1">This website is meant to be seen from a desktop device. <br> Meanwhile, if you need informations on what EL2MP is, read below:</p></div> <div class="mobile_description svelte-swn7ed"><p class="p2">${html(data.projectDescription)}</p></div></div></section></div> `;
+  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-g82yi5"><div class="mobile_text svelte-g82yi5"><p class="s1">This website is meant to be seen from a desktop device. <br> <br> In the meantime you read here what we do and why:</p></div> <div class="mobile_description svelte-g82yi5"><p class="p2 svelte-g82yi5">${html(data.projectDescription)}</p></div></div></section></div> `;
   if (typeof data.backgroundImage === "string") {
     $$payload.out += "<!--[-->";
     $$payload.out += `<img class="background_image"${attr("src", data.backgroundImage.img.src)} alt="DotsDotsDots?"${attr("width", data.backgroundImage.img.w)}${attr("height", data.backgroundImage.img.h)}>`;

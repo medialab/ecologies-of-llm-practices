@@ -734,18 +734,20 @@
             time= {formattedTime || "Loading..."}
         />
 
-        {#each Object.values(data.cardsDb) as card (card.IndexNum)}
-            <Capitols
-                data={card}
-                bringToFront = {bringToFront}
-                suppressCover = {suppressCover}
-                simplebarContainer = {simplebarContainer}
-                condensed_logo = {data.condensed_logo}
-                circular_logo =  {data.circular_logo}
-            />
-        {/each}   
+        {#if !isMobileDevice}
+            {#each Object.values(data.cardsDb) as card (card.IndexNum)}
+                <Capitols
+                    data={card}
+                    bringToFront = {bringToFront}
+                    suppressCover = {suppressCover}
+                    simplebarContainer = {simplebarContainer}
+                    condensed_logo = {data.condensed_logo}
+                    circular_logo =  {data.circular_logo}
+                />
+            {/each}   
+        {/if}
 
-        {#if isDesktop}
+        {#if !isMobileDevice}
             {#each Object.values(data.floatersDb) as floater (floater.id)}
                 <FloatingCard
                     data={floater}
@@ -1190,7 +1192,7 @@
             border: solid 1px black;
             border-radius: 10px 10px 10px 10px;
             width: 100%;
-            height: auto;
+            height: 100%;
             padding: var(--spacing-S);
             max-height: 70%;
             overflow-y: scroll;
