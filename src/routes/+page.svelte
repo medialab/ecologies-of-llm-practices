@@ -267,7 +267,7 @@
         observer.observe(document.body, { childList: true, subtree: true });
     };
 
-    const calculateRandomPosition = (floaterWidth = 100, floaterHeight = 40) => {
+    const calculateRandomPosition = (floaterWidth = 100, floaterHeight = 100) => {
         if (typeof window === 'undefined') {
             return { top: "0px", left: "0px", zIndex: 0 };
         }
@@ -311,7 +311,7 @@
 
     const alignColor = (selectedCard) => {
         const selected = Object.values(data.cardsDb).find(card => card.Title === selectedCard);
-
+        
         if (selected) {
             currentCardColor = selected.bgColor;
             lastCardColor = selected.bgColor;
@@ -367,7 +367,33 @@
         hideFloaters();
     }
 
-    
+    const checkFloaterInsideHost = (floater) => {
+        // Make sure we have a host element
+        if (!hostElement) return;
+        
+        const hostRect = hostElement.getBoundingClientRect();
+        const floaterRect = floater.getBoundingClientRect();
+        
+        // Check if the floater is completely inside the host
+        const isInside = (
+            floaterRect.top >= hostRect.top &&
+            floaterRect.left >= hostRect.left &&
+            floaterRect.bottom <= hostRect.bottom &&
+            floaterRect.right <= hostRect.right
+        );
+        
+        // If it's not, recalculate and update its position
+        if (!isInside) {
+            const newPosition = calculateRandomPosition();
+            floater.style.top = newPosition.top;
+            floater.style.left = newPosition.left;
+            floater.style.zIndex = newPosition.zIndex;
+            // Optionally update data attributes
+            floater.setAttribute("data-x", parseFloat(newPosition.left));
+            floater.setAttribute("data-y", parseFloat(newPosition.top));
+        }
+    };
+
 
     $: updateSelectedCard(selectedCard)
 
@@ -533,7 +559,7 @@
                 floater.style.transformOrigin = 'bottom left';
 
                 // Initialize floating animation variables
-                const floatingSpeedBase = 0.00000001 + Math.random() * 0.0001;
+                const floatingSpeedBase = 0.00000001 + Math.random() * 0.0005;
                 const oscillationFrequency = 0.001;
                 const sineOffset = Math.random() * 2 * Math.PI; 
                 let floatX = 0;
