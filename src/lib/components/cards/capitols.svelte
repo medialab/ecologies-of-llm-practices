@@ -162,10 +162,10 @@ const splitText = (text) => {
         padding-left: var(--spacing-XL);
     }
 
-    .description_container > p {
+    .description_container > p { 
         width: 80%;
         font-family: 'Instrument Sans';
-        font-size: 1.5em;
+        
     }
 
     [exercise-description] {
@@ -195,6 +195,11 @@ const splitText = (text) => {
 
     .card_container {
         width: 60vw;
+
+        @media (min-width: 1920px) {
+            width: 50vw;
+        }
+
         height: auto;
         aspect-ratio: 1.5 / 1;
         display: none;
@@ -341,7 +346,7 @@ const splitText = (text) => {
     }
 
     .card_container > .h0 {
-        transform: translateY(-40px);
+        transform: translateY(-24%);
         position: absolute;
         top: 0;
         transform-origin: top left;

@@ -5,10 +5,11 @@
     import ResetButton from "$lib/components/buttons/reset_button.svelte";
     import TimeButton from "$lib/components/buttons/time_button.svelte";
     import FloatingCard from "$lib/components/floating_card.svelte";
+    import ReactionDiffusion from "$lib/components/reactionDiffusion.svelte";
 
     import { onMount, onDestroy, tick } from "svelte";
     import { format, formatDistance, formatRelative, subDays } from 'date-fns'
-
+    
     //The data containes everything passed from the +page.server.js
     export let data
 
@@ -211,7 +212,6 @@
         if (sidebar.classList.contains('open')) {
             sidebar.classList.remove('open');
             sidebar.classList.add('closed');
-
         }
     };
 
@@ -709,8 +709,6 @@
         <!-- svelte-ignore a11y_consider_explicit_label -->
         <button class="closing_icon" on:click={switch_sidebar}>
             <svg
-                width="50px"
-                height="50px"
                 preserveAspectRatio="xMidYMid meet"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960">
@@ -759,7 +757,7 @@
                 <p class="s1">
                     This website is meant to be seen from a desktop device.
                     <br>
-                    Meanwhile, if you need informations on what EL2MP is, read below:
+                    Meanwhile:
                 </p>
             </div>
     
@@ -768,7 +766,11 @@
                     {@html data.projectDescription}
                 </p>
             </div>
+
+            <!-- <ReactionDiffusion /> -->
         </div>
+
+        
 
     </section>
    
@@ -978,8 +980,27 @@
         --spacing-3XL: 15em;   /* 240px */
     }
 
+    @media (min-width: 1920px) {
+        :global(:root) {
+            /* Scale all spacing values by 1.2 */
+            --scaling_var: 1.5;
+            --spacing-XS: calc(0.3125em * var(--scaling_var));  /* 5px * 1.2 */
+            --spacing-S: calc(0.625em * var(--scaling_var));    /* 10px * 1.2 */
+            --spacing-M: calc(0.9375em * var(--scaling_var));   /* 15px * 1.2 */
+            --spacing-L: calc(1.875em * var(--scaling_var));    /* 30px * 1.2 */
+            --spacing-XL: calc(3.75em * var(--scaling_var));    /* 60px * 1.2 */
+            --spacing-2XL: calc(7.5em * var(--scaling_var));    /* 120px * 1.2 */
+            --spacing-3XL: calc(15em * var(--scaling_var));     /* 240px * 1.2 */
+        }
+    }
+
     :global(.h0) {
-        font-size: 6.9em; /* 124px */
+        font-size: 8em;
+
+        @media (min-width: 1920px) {
+            font-size: 12em;
+        }
+
         font-family: var(--serif-font-family), var(--fallback-serif-font);
         font-weight: 400;
         user-select: none;
@@ -987,7 +1008,7 @@
     }
 
     :global(.h1) {
-        font-size: 6em; /* 96px */
+        font-size: 6em;
         font-family: var(--serif-font-family), var(--fallback-serif-font);
         font-weight: 400;
     }
@@ -1005,25 +1026,45 @@
     }
 
     :global(.h4) {
-        font-size: 2.125em; /* 34px */
+        font-size: 1.7em;
+
+        @media (min-width: 1920px) {
+            font-size: 2.4em;
+        }
+        
         font-family: var(--serif-font-family), var(--fallback-serif-font);
         font-weight: 400;
     }
 
     :global(.s1) {
-        font-size: 1.125em; /* 18px */
+        font-size: 1.125em;
+
+        @media (min-width: 1920px) {
+            font-size: 1.5em;
+        }
+
         font-family: var(--sans-font-family), var(--fallback-sans-font);
         font-weight: 400;
     }
 
     :global(.s2) {
         font-size: 0.875em; /* 14px */
+
+        @media (min-width: 1920px) {
+            font-size: 1.2em;
+        }
+
         font-family: var(--sans-font-family), var(--fallback-sans-font);
         font-weight: 400;
     }
 
     :global(.p1) {
-        font-size: 1em; /* 16px */
+        font-size: 1em;
+
+        @media (min-width: 1920px) {
+            font-size: 1.5em;
+        }
+
         font-family: var(--sans-font-family), var(--fallback-sans-font);
         font-weight: 400;
     }
@@ -1085,7 +1126,9 @@
     } */
 
     :global(.closing_icon) {
-        height: 50px;
+        height: 3vw;
+        width: 3vw;
+
         fill: black;
         opacity: 1;
         transform: translateX(-2px) rotate(90deg) ;
@@ -1138,7 +1181,7 @@
         }
 
         .mobile_description {
-            display: block;
+            display: flex;
             border: solid 1px black;
             border-radius: 10px 10px 10px 10px;
             width: 100%;

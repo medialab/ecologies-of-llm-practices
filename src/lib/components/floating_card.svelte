@@ -59,7 +59,6 @@
             const darkerElement = floaterContainer.querySelector('.darker');
 
             if (darkerElement) {
-                // Add the "open" class to start the transition
                 darkerElement.classList.add('open');
             }
 
@@ -75,7 +74,11 @@
 
                     console.log('File downloaded');
                 }
+
+                darkerElement.classList.remove('open');
             }, 3000); // 3 seconds
+
+            
         }
     };
 
@@ -326,8 +329,10 @@
 
     :global(.category_icon) {
         display: block;
-        width: 20px;
-        height: 20px;
+
+        width: 1.25vw;
+        height: 1.25vw;
+
         fill: black;
 
         appearance: none;
@@ -372,8 +377,10 @@
     }
 
     :global(.floater_container.open.clicked) {
-        width: 500px;
-        height: 300px;
+        width: 20vw;
+        aspect-ratio: 16 / 9;
+        height: auto;
+
         animation-play-state: paused;
         transform-origin: bottom left;
         /* transition: width 5s ease-in-out; */
@@ -427,8 +434,8 @@
         height: 100%;
         z-index: 10;
         background-color: black;
-        opacity: 0.2;
-        mix-blend-mode: darken;
+        opacity: 0.9;
+        mix-blend-mode: overlay;
         transform: translateX(-100%);
         transition: transform 0.2s ease-in-out;
     }
