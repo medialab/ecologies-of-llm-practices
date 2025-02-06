@@ -52,8 +52,9 @@
         align-content: flex-start;
         justify-content: space-between;
         width: 20vw;
+        opacity: 1;
 
-        transform: translateX(0vw);
+        transform: translateX(0%);
         transition: all var(--transition-times) var(--transition-curve);
     }
 
@@ -61,67 +62,33 @@
         width: 100%;
     }
 
-    :global(.logo_button.open) {
-        border-radius: 0px 0px 0px 0px;
+    :global(.logo_button) {
+        border-radius: 0;
         top: 0;
         left: 0;
-
-        border: solid 0px black;
-        border-right: solid 1px black;
-
-        width: 28vw;
+        border: 0 solid black;
+        border-right: 1px solid black;
         height: 100%;
-
         z-index: 200;
-
         display: flex;
         flex-direction: column;
-
         padding: var(--spacing-S);
-        padding-right: 0px;
-
         align-items: flex-start;
         gap: var(--spacing-M);
-
         text-align: left;
-
         position: relative;
-        top: 0;
-        left: 0;
-
         background-color: #EAEAEA;
-
         transition: all var(--transition-times) var(--transition-curve);
     }
 
+    :global(.logo_button.open) {
+        width: 28vw;
+        padding-right: 0; 
+    }
+
     :global(.logo_button.closed) {
-        border-radius: 0px 0px 0px 0px;
-        border: solid 0px black;
-        border-right: solid 1px black;
-
-        top: 0;
-        left: 0;
-
         width: 0vw;
-        height: 100%;
-
-        z-index: 200;
-
-        display: flex;
-        flex-direction: column;
-
-        padding: var(--spacing-S);
-
-        align-items: flex-start;
-        gap: var(--spacing-M);
-
-        text-align: left;
-
-        position: relative;
-
-        background-color: #EAEAEA;
-
-        transition: all var(--transition-times) var(--transition-curve);
+        padding-right: 0; 
     }
 
     :global(.description_scroll) {
@@ -132,7 +99,6 @@
         
         gap: var(---spacing-L, 30px);
 
-        align-self: stretch;
         overflow-y: scroll;
         overflow-x: hidden;
         
@@ -140,7 +106,7 @@
         padding-left: var(--spacing-XS);
 
         height: 100%;
-        width: 22vw;
+        width: 100%;
 
         text-align: justify;
         line-height: 1.5;
@@ -162,13 +128,14 @@
 
     :global(.logo_button.closed > .header_container) {
         display: flex;
-        transform: translateX(-24vw);
+        transform: translateX(-160%);
+        opacity: 0;
         transition: all var(--transition-times) var(--transition-curve);
     }
 
     :global(.logo_button.closed > .description_scroll) {
         opacity: 0;
-        transform: translateX(-24vw);
+        padding-right: 0px;
         transition: all var(--transition-times) var(--transition-curve);
     }
 
