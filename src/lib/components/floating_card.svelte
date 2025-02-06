@@ -40,7 +40,7 @@
         if (floaterContainer) {
             floaterContainer.classList.remove('clicked');
             isClicked = false;
-            console.log('"clicked" class removed from:', floaterContainer);
+            //console.log('"clicked" class removed from:', floaterContainer);
         } else {
             console.warn('No floater container found for the clicked element');
         }
@@ -125,24 +125,29 @@
                     {/if}
                 </div>
 
-                <a class="closer_container" style="background-color: {color}" on:click={removeClickedClass}>
+            <button
+                    class="closer_container"
+                    style="background-color: {color}"
+                    on:click={removeClickedClass}
+                    aria-label="Close"
+                    tabindex="0"
+                    >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m256-236-20-20 224-224-224-224 20-20 224 224 224-224 20 20-224 224 224 224-20 20-224-224-224 224Z"/></svg>
-                </a>
+            </button>
             {/if}
         {/if}
         
-        <!-- svelte-ignore a11y_click_events_have_key_events -->
-        <!-- svelte-ignore a11y_missing_attribute -->
         <a
             class="floater_bottom"
             style="background-color: {color}"
+            aria-label="Close"
+            role="button"
             on:click={addClickedClass}
 
             on:mousedown={handleMouseDown}
             on:mouseup={handleMouseUp}
             on:mouseleave={handleMouseUp}
-            
-
+        
             >
 
             {#if data.category === 'document'}
