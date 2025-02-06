@@ -559,7 +559,7 @@
                 floater.style.transformOrigin = 'bottom left';
 
                 // Initialize floating animation variables
-                const floatingSpeedBase = 0.00000001 + Math.random() * 0.0005;
+                const floatingSpeedBase = 0.0000001 + Math.random() * 0.0001;
                 const oscillationFrequency = 0.001;
                 const sineOffset = Math.random() * 2 * Math.PI; 
                 let floatX = 0;
