@@ -25,17 +25,7 @@
 
     @media only screen and (max-width: 768px) {
         .time_button {
-            position: fixed;
-            bottom: 0;
-            top: auto;
-            width: 100%;
-            border-radius: 0px;
-            border-right: 0px;
-            border-left: 0px;
-            border-bottom: 0px;
-            border-top: solid 1px black;
-            height: max-content; /* Adjust height as needed */
-            place-content: center;
+            display: none;
         }
     }
 

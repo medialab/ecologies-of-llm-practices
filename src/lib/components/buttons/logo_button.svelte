@@ -184,7 +184,7 @@
 
     @media only screen and (max-width: 768px) {
         .logo_button {
-            position: fixed;
+            position: static;
             top: 0;
             width: 100%;
             border-radius: 0px;

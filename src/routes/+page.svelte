@@ -758,22 +758,19 @@
         {/if}
 
         <div class="mobile_desc_container">
-            <div class="mobile_text">
-                <p class="s1">
-                    This website is meant to be seen from a desktop device.
-                    <br>
-                    <br>
-                    In the meantime you read here what we do and why:
-                </p>
-            </div>
-    
+
             <div class="mobile_description">
                 <p class="p2">
                     {@html data.projectDescription}
                 </p>
             </div>
 
-            <!-- <ReactionDiffusion /> -->
+            <div class="mobile_description tip">
+                <p class="h4" style="text-align: center;">
+                    Try this website on a  💻  device.
+                </p>
+            </div>
+
         </div>
 
         
@@ -797,6 +794,14 @@
         height: 100vh;
         display: flex;
         flex-direction: row;
+
+        @media (max-width: 760px) {
+            height: 100vh;
+            max-height: 100vh;
+            width: 100%;
+            flex-direction: column;
+            display: flex;
+        }
     }
 
     :global(.host) {
@@ -805,6 +810,12 @@
         overflow: hidden;
         position: relative;
         z-index: 6;
+
+        @media (max-width: 768px) {
+            display: flex;
+            position: static;
+            flex: 1;
+        }
     }
 
     :global(.background_image) {
@@ -844,6 +855,11 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
+
+        @media (max-width: 768px) {
+            height: auto;
+            
+        }
     }
 
     :global(body) {
@@ -859,6 +875,10 @@
         justify-content: flex-start; /* Aligns content at the top */
         overflow: hidden;
         scroll-behavior: none;
+
+        @media (max-width: 768px) {
+            height: 100%;
+        }
     }
 
 
@@ -1188,28 +1208,36 @@
         }
 
         .mobile_description {
-            display: flex;
+            display: block;
             border: solid 1px black;
             border-radius: 10px 10px 10px 10px;
             width: 100%;
             height: 100%;
+
             padding: var(--spacing-S);
-            max-height: 70%;
             overflow-y: scroll;
             scrollbar-width: 0px;
             background-color: white;
             margin-bottom: var(--spacing-S);
         }
 
-        .mobile_description > .p2 {
-            height: 100%;
+        .mobile_description.tip {
+            height: fit-content;
+            overflow: hidden;
         }
 
+        .mobile_description > .p2 {
+            height: 100%;
+            font-size: 1.25rem;
+        }
+
+
         .mobile_description::-webkit-scrollbar {
-            width: 8px; /* Width of the scrollbar */
+            width: 12px; /* Width of the scrollbar */
             height: 90px;
             overflow: hidden;
             border-radius: 10px;
+            
         }
 
         .mobile_description::-webkit-scrollbar-track {
@@ -1234,16 +1262,14 @@
 
         .mobile_desc_container {
             display: flex;
-            flex-direction: column;
-            position: relative;
-            row-gap: var(--spacing-M);
-            align-items: center;
-            padding: var(--spacing-L);
-            padding-top: var(--spacing-2XL);
+            flex: 1;
 
-            width: 100%;
-            height: 100%;
+            position: static;
+            flex-direction: column;
+            justify-content: space-between;
+            margin: var(--spacing-L);
         }
+
     }
 
 
