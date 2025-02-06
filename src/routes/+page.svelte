@@ -367,6 +367,8 @@
         hideFloaters();
     }
 
+    
+
     $: updateSelectedCard(selectedCard)
 
     $: alignColor(selectedCard);
@@ -743,21 +745,23 @@
             />
         {/each}   
 
-
-        {#each Object.values(data.floatersDb) as floater (floater.id)}
-            <FloatingCard
-                data={floater}
-                randomPosition = {calculateRandomPosition()}
-                color = {currentCardColor}
-            />
-        {/each}
+        {#if isDesktop}
+            {#each Object.values(data.floatersDb) as floater (floater.id)}
+                <FloatingCard
+                    data={floater}
+                    randomPosition = {calculateRandomPosition()}
+                    color = {currentCardColor}
+                />
+            {/each}
+        {/if}
 
         <div class="mobile_desc_container">
             <div class="mobile_text">
                 <p class="s1">
                     This website is meant to be seen from a desktop device.
                     <br>
-                    Meanwhile:
+                    <br>
+                    In the meantime you read here what we do and why:
                 </p>
             </div>
     
@@ -812,6 +816,7 @@
         left: 0%;
         user-select: none;
         overflow: hidden;
+        object-fit: cover;
     }
 
     :global(.grab) {
@@ -1191,6 +1196,11 @@
             overflow-y: scroll;
             scrollbar-width: 0px;
             background-color: white;
+            margin-bottom: var(--spacing-S);
+        }
+
+        .mobile_description > .p2 {
+            height: 100%;
         }
 
         .mobile_description::-webkit-scrollbar {

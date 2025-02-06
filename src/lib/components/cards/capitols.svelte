@@ -18,6 +18,7 @@ const splitText = (text) => {
         return [text.slice(0, splitIndex).trim(), text.slice(splitIndex).trim()];
     };
 
+
 </script>
 
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
@@ -36,7 +37,8 @@ const splitText = (text) => {
         </p>
 
 
-        <!-- <a class="caption" id="download_button" href="PDF/{data.Title}.pdf" download>
+        <!-- svelte-ignore a11y_no_static_element_interactions 
+        <a class="caption" id="download_button" on:click={generatePDF}>
             <p>DOWNLOAD</p>
         </a> -->
 
@@ -145,6 +147,12 @@ const splitText = (text) => {
 
 <style>
     
+    .caption {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: var(--spacing-M);
+    }
 
     .description_container {
         width: 99%;
@@ -196,11 +204,11 @@ const splitText = (text) => {
     .card_container {
         width: 60vw;
 
-        @media (min-width: 1920px) {
-            width: 50vw;
-        }
-
         height: auto;
+
+        min-height: calc(60vw * (1 / 1.5));
+        min-width: calc(60vw);
+
         aspect-ratio: 1.5 / 1;
         display: none;
         grid-template-columns: repeat(7, 1fr);
@@ -220,6 +228,10 @@ const splitText = (text) => {
         align-content: flex-start;
         
         border: solid 1px black;
+
+        @media (min-width: 1920px) {
+            width: 50vw;
+        }
     }
 
     :global(.duotone_container) {

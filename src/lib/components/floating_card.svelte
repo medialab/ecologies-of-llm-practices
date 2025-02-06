@@ -216,6 +216,10 @@
         user-select: none;
         transform-origin: bottom left;
 
+        @media (max-width: 320px) {
+            display: none;
+        }
+
     }
   
     :global(.floater_container > .floater_bottom > p) {
