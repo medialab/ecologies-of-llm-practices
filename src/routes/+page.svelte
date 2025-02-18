@@ -52,7 +52,6 @@
     //Functions
 
     const updateWindowSize = () => {
-
         previousIsDesktop = isDesktop
         width = window.innerWidth;
         height = window.innerHeight;
@@ -63,7 +62,7 @@
 
             // Detect transition from mobile to desktop
             if (previousIsDesktop === false) {
-                console.log("Transitioned from mobile to desktop");
+                // console.log("Transitioned from mobile to desktop");
                 reloadWebsite();
             }
         } else {
@@ -72,7 +71,7 @@
 
             // Detect transition from desktop to mobile
             if (previousIsDesktop === true) {
-                console.log("Transitioned from desktop to mobile");
+                // console.log("Transitioned from desktop to mobile");
                 hideDesktopStuff();
             }
         }
@@ -106,8 +105,9 @@
         
     };
 
-    const reset_function = () => {
+    let isFirstReset = true; // Flag to track the first invocation
 
+    const reset_function = () => {
         if (!containers) {
             console.error("No containers found!");
             return;
@@ -124,7 +124,7 @@
         // Get card dimensions (assuming all cards are the same size)
         const cardWidth = windowWidth * 0.6;
         const cardHeight = cardWidth / 1.5;
-        console.log("cardHeight", cardHeight)
+        // console.log("cardHeight", cardHeight)
 
         // Calculate the total block width and height
         const totalBlockWidth = cardWidth + ((containers.length - 1) * Math.abs(offset));
@@ -134,7 +134,7 @@
         const startX = ((windowWidth - totalBlockWidth) / 2) - offset * (containers.length - 1);
         const startY = ((windowHeight - totalBlockHeight) / 2) - offset * (containers.length - 1);
 
-        console.log({ startX, startY, totalBlockWidth, totalBlockHeight });
+        // console.log({ startX, startY, totalBlockWidth, totalBlockHeight });
 
         containers.forEach((container, index) => {
             // Calculate the position for the current container based on the index
@@ -184,11 +184,13 @@
             element.scrollTop = 0;
         });
 
-        close_sidebar();
+        if (!isFirstReset) {
+            close_sidebar();
+        }
         closeFloaters(floaters);
 
         highestZIndex = 1;
-        
+        isFirstReset = false; // Set the flag to false after the first invocation
     };
 
     const bringToFront = (event) => {
@@ -234,7 +236,6 @@
     };
 
     const setupMouseDetection = () => {
-
         sections.forEach((section) => {
             section.addEventListener("mouseenter", (event) => {
                 const sectionId = event.currentTarget.getAttribute("data-section");
@@ -251,7 +252,7 @@
 
         scrollContainers.forEach((scrollContainer) => {
             scrollContainer.addEventListener("click", (event) => {
-                selectedCard = container.getAttribute("data-section");
+                selectedCard = scrollContainer.getAttribute("data-section");
                 openFloaters(floaters);
             });
         });
@@ -357,11 +358,11 @@
     };
 
     const updateSelectedCard = (selectedCard) => {
-
         if (selectedCard !== null && selectedCard !== undefined) {
             activeMarker = selectedCard;
+            // console.log("Active marker set to:", activeMarker)
         } else {
-            //console.log("Marker was null, reverted to:", activeMarker)
+            // console.log("Marker was null, reverted to:", activeMarker)
         }
 
         hideFloaters();
@@ -421,7 +422,6 @@
 
         updateTime();
         const interval = setInterval(updateTime, 1000);
-
         containers = document.querySelectorAll('.card_container')
         floaters = document.querySelectorAll('.floater_container')
         hostElement = document.querySelector('.host');
@@ -703,6 +703,7 @@
 
             cover = document.querySelector('#cover_description')
             sidebar = document.querySelector('#sidebar')
+            console.log(sidebar)
             scrollableElements = document.querySelectorAll('.card_scrollable_container')
 
             // Here we are selecting the sections for the marker loader
@@ -711,6 +712,12 @@
             observeSectionsAndContainers();
 
             tick();
+
+            // Ensure the cards are rendered before positioning
+            await tick(); // Wait for the DOM to update
+
+            // Call the positioning logic here
+            reset_function(); // Call the function that positions the cards
 
         }
 
@@ -731,24 +738,19 @@
         data = {data}
         switch_sidebar = {switch_sidebar}
         simplebarContainer = {simplebarContainer}
+        selectedCardTitle = {activeMarker}
+        currentScrollLevel = {currentScrollLevel}
     />
 
     <section class="host">
         <!-- svelte-ignore a11y_consider_explicit_label -->
-        <button class="closing_icon" on:click={switch_sidebar}>
-            <svg
-                preserveAspectRatio="xMidYMid meet"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 -960 960 960">
-                <path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"/>
-            </svg>
-        </button>
+        
 
-        <PositionMarkerButton
+        <!-- <PositionMarkerButton
             data = {data}
             selectedCardTitle = {activeMarker}
             currentScrollLevel = {currentScrollLevel}
-        />
+        /> -->
 
         <ResetButton
             data = {data}
@@ -838,6 +840,7 @@
         @media (max-width: 768px) {
             display: flex;
             position: static;
+            height: auto;
             flex: 1;
         }
     }
@@ -1175,38 +1178,6 @@
     :global(::-webkit-scrollbar-corner) {
         background: transparent;
     } */
-
-    :global(.closing_icon) {
-        height: 3vw;
-        width: 3vw;
-
-        fill: black;
-        opacity: 1;
-        transform: translateX(-2px) rotate(90deg) ;
-
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-        place-self: center;
-        background-color: #EAEAEA;
-
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        border-radius: 0px 5px 0px 0px;
-        border-left: solid 0px black;
-
-        padding: 0px;
-        z-index: 6000;
-
-    }
-
-    :global(.closing_icon:active) {
-        background-color: var(--full-black);
-        color: var(--demi-white);
-        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    }
 
     .mobile_text {
         display: none;  

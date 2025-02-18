@@ -119,15 +119,6 @@ function Capitols($$payload, $$props) {
   });
   pop();
 }
-function Logo_button($$payload, $$props) {
-  push();
-  let data = $$props["data"];
-  let switch_sidebar = $$props["switch_sidebar"];
-  let simplebarContainer = $$props["simplebarContainer"];
-  $$payload.out += `<div class="logo_button open svelte-mug9ay" id="sidebar"><a class="header_container svelte-mug9ay"><img class="logo_container"${attr("src", data.logoImage)} alt="Expanded logo version of EL2MP"></a>  <div class="description_scroll svelte-mug9ay" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><p class="p1">${html(data.projectDescription)}</p> <div class="credits_container"><a><p class="h4">Privacy</p></a> <a><p class="h4">Cookie</p></a></div></div></div>`;
-  bind_props($$props, { data, switch_sidebar, simplebarContainer });
-  pop();
-}
 function Position_marker_button($$payload, $$props) {
   let selectedCardTitle = $$props["selectedCardTitle"];
   let currentScrollLevel = $$props["currentScrollLevel"];
@@ -138,13 +129,13 @@ function Position_marker_button($$payload, $$props) {
     return allExercises.indexOf(ex) <= currentIndex;
   });
   const each_array = ensure_array_like(exercises);
-  $$payload.out += `<button class="position_button svelte-1iikbpv"><p class="s1 svelte-1iikbpv">${escape_html(selectedCardTitle)}</p> <p class="s1 svelte-1iikbpv">/</p> <!--[-->`;
+  $$payload.out += `<button class="position_button svelte-laknos"><p class="s1 svelte-laknos">${escape_html(selectedCardTitle)}</p> <p class="s1 svelte-laknos">/</p> <!--[-->`;
   for (let index = 0, $$length = each_array.length; index < $$length; index++) {
     let exercise = each_array[index];
-    $$payload.out += `<p class="s1 svelte-1iikbpv">${escape_html(exercise.label)}</p> `;
+    $$payload.out += `<p class="s1 svelte-laknos">${escape_html(exercise.label)}</p> `;
     if (index < exercises.length - 1) {
       $$payload.out += "<!--[-->";
-      $$payload.out += `<p class="s1 svelte-1iikbpv">/</p>`;
+      $$payload.out += `<p class="s1 svelte-laknos">/</p>`;
     } else {
       $$payload.out += "<!--[!-->";
     }
@@ -152,6 +143,25 @@ function Position_marker_button($$payload, $$props) {
   }
   $$payload.out += `<!--]--></button>`;
   bind_props($$props, { selectedCardTitle, currentScrollLevel });
+}
+function Logo_button($$payload, $$props) {
+  push();
+  let data = $$props["data"];
+  let switch_sidebar = $$props["switch_sidebar"];
+  let simplebarContainer = $$props["simplebarContainer"];
+  let selectedCardTitle = $$props["selectedCardTitle"];
+  let currentScrollLevel = $$props["currentScrollLevel"];
+  $$payload.out += `<div class="translation_container open svelte-fbelyk" id="sidebar"><div class="logo_button svelte-fbelyk"><a class="header_container svelte-fbelyk"><img class="logo_container"${attr("src", data.logoImage)} alt="Expanded logo version of EL2MP"></a>  <div class="description_scroll svelte-fbelyk" data-simplebar="" data-simplebar-auto-hide="false"${attr("data-section", data.Title)}><p class="p1">${html(data.projectDescription)}</p> <div class="credits_container"><a><p class="h4">Privacy</p></a> <a><p class="h4">Cookie</p></a></div></div></div> <div class="side_column svelte-fbelyk"><button class="closing_icon"><svg preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
+  Position_marker_button($$payload, { data, selectedCardTitle, currentScrollLevel });
+  $$payload.out += `<!----></div></div>`;
+  bind_props($$props, {
+    data,
+    switch_sidebar,
+    simplebarContainer,
+    selectedCardTitle,
+    currentScrollLevel
+  });
+  pop();
 }
 function Reset_button($$payload, $$props) {
   let reset_function = $$props["reset_function"];
@@ -161,7 +171,7 @@ function Reset_button($$payload, $$props) {
 function Time_button($$payload, $$props) {
   let time = $$props["time"];
   console.log("Current DateTime:", time);
-  $$payload.out += `<button class="time_button svelte-1q6y9k3"><p class="s1">${escape_html(time)}</p></button>`;
+  $$payload.out += `<button class="time_button svelte-vpdzwk"><p class="s1">${escape_html(time)}</p></button>`;
   bind_props($$props, { time });
 }
 function Floating_card($$payload, $$props) {
@@ -179,7 +189,7 @@ function Floating_card($$payload, $$props) {
   } else {
     $$payload.out += "<!--[!-->";
   }
-  $$payload.out += `<!--]-->  <a class="floater_bottom"${attr("style", `background-color: ${stringify(color)}`)}>`;
+  $$payload.out += `<!--]--> <a class="floater_bottom"${attr("style", `background-color: ${stringify(color)}`)} aria-label="Close" role="button">`;
   if (data.category === "document") {
     $$payload.out += "<!--[-->";
     $$payload.out += `<div class="category_icon" id="document"${attr("href", data.file || data.href || void 0)}${attr("download", data.file ? data.Title : void 0)}><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M330-250h300v-60H330v60Zm0-160h300v-60H330v60Zm-77.69 310Q222-100 201-121q-21-21-21-51.31v-615.38Q180-818 201-839q21-21 51.31-21H570l210 210v477.69Q780-142 759-121q-21 21-51.31 21H252.31ZM540-620v-180H252.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v615.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h455.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46V-620H540ZM240-800v180-180V-160v-640Z"></path></svg></div> <div class="darker"></div>`;
@@ -274,7 +284,7 @@ function _page($$payload, $$props) {
       1e3
     );
   };
-  const calculateRandomPosition = (floaterWidth = 100, floaterHeight = 40) => {
+  const calculateRandomPosition = (floaterWidth = 100, floaterHeight = 100) => {
     if (typeof window === "undefined") {
       return { top: "0px", left: "0px", zIndex: 0 };
     }
@@ -316,14 +326,14 @@ function _page($$payload, $$props) {
   updateSelectedCard(selectedCard);
   alignColor(selectedCard);
   $$payload.out += `<div class="content_container">`;
-  Logo_button($$payload, { data, switch_sidebar, simplebarContainer });
-  $$payload.out += `<!----> <section class="host"><button class="closing_icon svelte-g82yi5"><svg preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"></path></svg></button> `;
-  Position_marker_button($$payload, {
+  Logo_button($$payload, {
     data,
+    switch_sidebar,
+    simplebarContainer,
     selectedCardTitle: activeMarker,
     currentScrollLevel
   });
-  $$payload.out += `<!----> `;
+  $$payload.out += `<!----> <section class="host">`;
   Reset_button($$payload, { data, reset_function });
   $$payload.out += `<!----> `;
   Time_button($$payload, { data, time: "Loading..." });
@@ -360,7 +370,7 @@ function _page($$payload, $$props) {
     }
     $$payload.out += `<!--]-->`;
   }
-  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-g82yi5"><div class="mobile_text svelte-g82yi5"><p class="s1">This website is meant to be seen from a desktop device. <br> <br> In the meantime you read here what we do and why:</p></div> <div class="mobile_description svelte-g82yi5"><p class="p2 svelte-g82yi5">${html(data.projectDescription)}</p></div></div></section></div> `;
+  $$payload.out += `<!--]--> <div class="mobile_desc_container svelte-1mwa25i"><div class="mobile_description svelte-1mwa25i"><p class="p2 svelte-1mwa25i">${html(data.projectDescription)}</p></div> <div class="mobile_description tip svelte-1mwa25i"><p class="h4" style="text-align: center;">Try this website on a  💻  device.</p></div></div></section></div> `;
   if (typeof data.backgroundImage === "string") {
     $$payload.out += "<!--[-->";
     $$payload.out += `<img class="background_image"${attr("src", data.backgroundImage.img.src)} alt="DotsDotsDots?"${attr("width", data.backgroundImage.img.w)}${attr("height", data.backgroundImage.img.h)}>`;

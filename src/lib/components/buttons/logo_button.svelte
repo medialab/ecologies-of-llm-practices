@@ -2,44 +2,111 @@
     export let data
     export let switch_sidebar 
     export let simplebarContainer
+    export let selectedCardTitle
+    export let currentScrollLevel
+
+    import PositionMarkerButton from "./position_marker_button.svelte";
 </script>
 
 <!-- svelte-ignore a11y_consider_explicit_label -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <!-- svelte-ignore a11y_missing_attribute -->
-<div class="logo_button open" id="sidebar">
-    <!-- svelte-ignore a11y_click_events_have_key_events -->
-    <a class="header_container" on:click={switch_sidebar}>
-        <img class="logo_container" src={data.logoImage} alt="Expanded logo version of EL2MP">   
-    </a>
-    
-    <!-- svelte-ignore a11y_click_events_have_key_events -->
-    <!-- svelte-ignore a11y_missing_attribute -->
-    <!-- svelte-ignore a11y_consider_explicit_label -->
-    
-    <div class="description_scroll"
-            bind:this={simplebarContainer}
-            data-simplebar
-            data-simplebar-auto-hide="false"
-            data-section={data.Title}>
+ <div class="translation_container open" id="sidebar">
+    <div class="logo_button">
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <a class="header_container" on:click={switch_sidebar}>
+            <img class="logo_container" src={data.logoImage} alt="Expanded logo version of EL2MP">   
+        </a>
         
-        <p class="p1">
-            {@html data.projectDescription}
-        </p>
-
-        <div class="credits_container">
-            <a>
-                <p class="h4"> Privacy </p>
-            </a>
-
-            <a>
-                <p class="h4"> Cookie </p>
-            </a>
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_missing_attribute -->
+        <!-- svelte-ignore a11y_consider_explicit_label -->
+        
+        <div class="description_scroll"
+                bind:this={simplebarContainer}
+                data-simplebar
+                data-simplebar-auto-hide="false"
+                data-section={data.Title}>
+            
+            <p class="p1">
+                {@html data.projectDescription}
+            </p>
+    
+            <div class="credits_container">
+                <a>
+                    <p class="h4"> Privacy </p>
+                </a>
+    
+                <a>
+                    <p class="h4"> Cookie </p>
+                </a>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="side_column">
+        <button class="closing_icon" on:click={switch_sidebar}>
+            <svg
+                preserveAspectRatio="xMidYMid meet"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960">
+                <path d="M480-154.15 328.62-305.54l26.3-26.31L480-206.77l125.08-125.08 26.3 26.31L480-154.15ZM354.92-628.46l-26.3-26.31L480-806.15l151.38 151.38-26.3 26.31L480-753.54 354.92-628.46Z"/>
+            </svg>
+        </button>
+    
+        <PositionMarkerButton
+            data = {data}
+            selectedCardTitle = {selectedCardTitle}
+            currentScrollLevel = {currentScrollLevel}
+        />
+    </div>
+    
+    
+ </div>
 
 <style>
+
+    .side_column {
+        height: 100%;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .translation_container {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        gap: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: fit-content;
+        height: 100%;
+
+        align-items: flex-start;
+        justify-items: flex-start;
+
+        transform: translateX(0px);
+        transition: all var(--transition-times) var(--transition-curve);
+        z-index: 6000;
+        transform-origin: top left;
+    }
+
+    :global(.translation_container.open) {
+        transform: translateX(0px);
+        transition: all var(--transition-times) var(--transition-curve);
+        transform-origin: top left;
+    }
+
+    :global(.translation_container.closed) {
+        transform: translateX(-28vw);
+        transition: all var(--transition-times) var(--transition-curve);
+        transform-origin: top left;
+    }
 
     :global(:root) {
         --transition-times: 1s;
@@ -51,7 +118,7 @@
         flex-direction: row;
         align-content: flex-start;
         justify-content: space-between;
-        width: 20vw;
+        width:90%;
         opacity: 1;
 
         transform: translateX(0%);
@@ -79,6 +146,7 @@
         position: relative;
         background-color: #EAEAEA;
         transition: all var(--transition-times) var(--transition-curve);
+        width: 28vw;
     }
 
     :global(.logo_button.open) {
@@ -126,19 +194,6 @@
         width: 95%;
     }
 
-    :global(.logo_button.closed > .header_container) {
-        display: flex;
-        transform: translateX(-160%);
-        opacity: 0;
-        transition: all var(--transition-times) var(--transition-curve);
-    }
-
-    :global(.logo_button.closed > .description_scroll) {
-        opacity: 0;
-        padding-right: 0px;
-        transition: all var(--transition-times) var(--transition-curve);
-    }
-
     :global(.credits_container){
         display: flex;
         justify-content: space-between;
@@ -149,7 +204,47 @@
         width: 100%;
     }    
 
+    :global(.closing_icon) {
+        height: 3vw;
+        width: 3vw;
+
+        fill: black;
+        opacity: 1;
+        transform: translateX(-1px) rotate(90deg) ;
+
+        cursor: pointer;
+
+        background-color: #EAEAEA;
+
+        position: relative;
+
+        border-radius: 0px 5px 0px 0px;
+        border-left: solid 0px black;
+
+        padding: 0px;
+        z-index: 500;
+
+    }
+
+    :global(.closing_icon:active) {
+        background-color: var(--full-black);
+        color: var(--demi-white);
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    }
+
     @media only screen and (max-width: 768px) {
+
+        .translation_container {
+            height: fit-content;
+            position: static;
+        }
+
+        .translation_container.open {
+            height: fit-content;
+            position: static;
+            flex: 0;
+        }
+        
         .logo_button {
             position: static;
             top: 0;
@@ -171,6 +266,10 @@
             place-self: center;
             padding-top: var(--spacing-S);
             padding-bottom: var(--spacing-S);
+        }
+
+        .side_column {
+            display: none;
         }
     }
 
