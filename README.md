@@ -20,12 +20,12 @@ The **Écologies des Pratiques (EL2MP)** project explores the transformative imp
   - Add filters (e.g., grayscale, duotone effects).
   - Introduce hover-based interactions.
 
-- [ ] **Generic Transitions**
+- [x] **Generic Transitions**
 
   - Define transition styles for cards and floaters (e.g., fade, slide).
   - Consider reusable CSS/Svelte animations.
 
-- [ ] **Smooth Scrolling**
+- [x] **Smooth Scrolling**
 
   - Enable smooth vertical scrolling for content sections.
   - Add anchor-based navigation for a seamless user experience.
