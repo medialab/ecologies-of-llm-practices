@@ -1,5 +1,7 @@
 export default {
   plugins: {
+    'tailwindcss/nesting': {},
+    tailwindcss: {},
     autoprefixer: {
       overrideBrowserslist: [
         '> 1%',
@@ -10,4 +12,4 @@ export default {
       ]
     }
   }
-} 
+}

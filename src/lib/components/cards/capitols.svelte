@@ -15,8 +15,7 @@ import {
   import { text } from '@sveltejs/kit';
   import { writable } from 'svelte/store';
 
-export let data
-export let alterEgoCard
+
 export let bringToFront
 export let simplebarContainer
 export let swapCards
@@ -217,79 +216,6 @@ const isSecureContext = writable(false);
             </div>
 
         </div>
-
-        <!-- From this over is the alter ego card -->
-
-        <div
-            class="altergo_container_inner {$isAlterEgoMode ? 'open' : ''}"
-            style="background-color: {alterEgoCard.bgColor} !important; transition: transform {transitionTime}s {transitionCurve} {transitionDelay}ms;"
-        >
-
-        <div class="block_num" id="altergo_block_num">
-            <!-- <p class="h3" style="color: white;">
-                Card {card.IndexNum}
-            </p>-->
-            <button id="share_button"
-                
-                onclick={(event) => {
-                    event.preventDefault();
-                    
-                    $shareData = ({
-                        title: alterEgoCard.Title,
-                        exTitle: alterEgoCard.Question,
-                        exText: '',
-                        exDescription: alterEgoCard.Description,
-                        exImage: '',
-                        bgColor: alterEgoCard.bgColor,
-                        url: `${window.location.href}`
-                    });
-
-                    console.log($shareData)
-                }}
-
-                tabindex="0"
-                role="button"
-                class="share_button"
-                aria-label="Share content">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M264.62-80Q237-80 218.5-98.5 200-117 200-144.62v-390.76q0-27.62 18.5-46.12Q237-600 264.62-600h84.61v40h-84.61q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v390.76q0 9.24 7.69 16.93 7.69 7.69 7.69 16.93h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-390.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69h-84.61v-40h84.61q27.62 0 46.12 18.5Q760-563 760-535.38v390.76q0 27.62-18.5 46.12Q723-80 695.38-80H264.62ZM460-340v-435.46l-84 84L347.69-720 480-852.31 612.31-720 584-691.46l-84-84V-340h-40Z"/></svg>
-            </button>
-        </div>
-
-            <div class="description_container" style="background-color: {alterEgoCard.bgColor}; border: 5px solid {alterEgoCard.bgColor};"
-            > 
-                <h1 class="h1" style="z-index: 7; line-height: 1;">
-                    {@html alterEgoCard.Title}
-                </h1>
-            </div>
-
-            <div class="card_scrollable_container"
-                >
-                
-                <div class="card_scroll_flex" data-section={alterEgoCard.Title}> 
-
-                    <p class="p1" id="description">
-                        {@html alterEgoCard.Question}
-                    </p>
-
-                    {#if alterEgoCard.Description}
-                        <p
-                        class="p3"
-                        id="description">{@html alterEgoCard.Description}</p>
-                    {/if}
-
-                    {#if alterEgoCard.CoverImg}
-                        <enhanced:img
-                            data-sveltekit-preload-data
-                            src={alterEgoCard.CoverImg}
-                            alt="CoverImg"
-                            class="cover_image_alterego"
-                        />
-                    {/if}
-
-                </div>
-            </div>
-        </div>
-
     </div>
     
 <style>
@@ -434,15 +360,7 @@ const isSecureContext = writable(false);
         object-fit: cover;
     }
 
-    .cover_image_alterego {
-        opacity: 1;
-        display: block;
-        z-index: 1;
-        width: 50%;
-        height: auto;
-        object-fit: contain;
-        margin-bottom: var(--spacing-L);
-    }
+
 
     .card_container:active {
         cursor: grabbing;
@@ -558,32 +476,7 @@ const isSecureContext = writable(false);
         
     }
 
-    .altergo_container_inner {
-        display: grid;
-        position: absolute;
-        align-content: flex-start;
-        top: 0;
-        left: 0;
-        grid-template-columns: repeat(7, 1fr);
-        overflow: hidden;
 
-        transform: translateX(-100%);
-        z-index: 10;
-        
-        width: 100%;
-        height: 100%;
-        min-height: 100%;
-        color: white;
-    }
-
-    :global(.altergo_container_inner.open) {
-        transform: translateX(0%);
-    }
-
-    /* This should work for siblings - when card_container has a child with class "altergo_container_inner.open" */
-    :global(.card_container:has(.altergo_container_inner.open)) .card_container_inner {
-        transform: translateX(100%);
-    }
 
     .article_image {
         opacity: 80%;
@@ -876,9 +769,7 @@ const isSecureContext = writable(false);
             grid-row: 2;
         }
 
-        .altergo_container_inner {
-            grid-template-columns: repeat(1, 1fr);
-        }
+
 
         .card_container_inner {
             grid-template-columns: repeat(1, 1fr);

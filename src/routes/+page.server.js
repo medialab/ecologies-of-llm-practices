@@ -10,7 +10,6 @@ import { onMount } from "svelte";
 
 import backgroundImage from "$media/logos/Dot_background.png?enhanced";
 
-import { id } from "date-fns/locale";
 import { photos, capitolsCover, general } from "$database/config.js";
 
 import { cardsDb, floatersDb, alterEgosDb } from "$database/global_db.js";

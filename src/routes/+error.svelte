@@ -55,8 +55,6 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        top: 50%;
-        left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
         z-index: 1000;
@@ -80,23 +78,6 @@
     * {
         user-select: none;
     }
-
-    :global(html) {
-            box-sizing: border-box; /* Ensures consistent box model */
-            font-size: 16px; /* Sets the root font size */
-            scroll-behavior: smooth; /* Enables smooth scrolling */
-            line-height: 1.5; /* Improves readability */
-            -webkit-font-smoothing: antialiased; /* Improves font rendering on WebKit */
-            -moz-osx-font-smoothing: grayscale; /* Improves font rendering on macOS */
-            overflow: hidden;
-            background-color: white !important;
-            background-image: url('/og_images/background.png');
-            background-size: 1000px;
-            background-position: center;
-            background-repeat: repeat;
-            background-attachment: fixed;
-            font-family: 'Instrument Serif', serif;
-        }
 
         .mobile_description {
             display: flex;
