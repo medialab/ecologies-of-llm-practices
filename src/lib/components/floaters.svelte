@@ -32,7 +32,6 @@
         if (floaterContainer) {
             floaterContainer.classList.remove('clicked');
             isClicked = false;
-            ////console.log('"clicked" class removed from:', floaterContainer);
         } else {
             console.warn('No floater container found for the clicked element');
         }
@@ -59,8 +58,6 @@
                     document.body.appendChild(anchor);
                     anchor.click();
                     document.body.removeChild(anchor);
-
-                    //console.log('File downloaded');
                 }
 
                 darkerElement.classList.remove('open');
@@ -141,7 +138,6 @@
                 class="floater_bottom"
                 style="background-color: {$currentCardColor}"
                 aria-label="Close"
-                role="button"
                 tabindex="0"
                 on:click={addClickedClass}
                 on:keydown={handleKeyDown}
@@ -411,8 +407,6 @@
 
         animation-play-state: paused;
         transform-origin: bottom left;
-        /* transition: width 5s ease-in-out; */
-        
     }
 
     :global(.floater_container.open.clicked > .floater_image) {

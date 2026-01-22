@@ -4,3 +4,39 @@
 @tailwind components;
 @tailwind utilities;
 @plugin "@tailwindcss/typography";
+
+@layer base {
+  h1 {
+    @apply text-5xl md:text-8xl leading-tight;
+  }
+
+  h2 {
+    @apply text-4xl md:text-7xl leading-tight;
+  }
+
+  h3 {
+    @apply text-3xl md:text-6xl leading-tight;
+  }
+
+  p {
+    @apply text-lg md:text-base leading-tight;
+  }
+
+  a > p,
+  button > p {
+    @apply text-base md:text-sm;
+  }
+
+  a,
+  button {
+    @apply cursor-pointer  hover:text-[#3B82F6];
+  }
+
+  .pill {
+    @apply hover:border-dashed border-solid transition-all duration-300 border-black hover:border-[#3B82F6] rounded-2xl border-[1px] flex  bg-white w-fit;
+  }
+
+  * {
+    @apply p-0 m-0;
+  }
+}

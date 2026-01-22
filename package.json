@@ -15,6 +15,7 @@
     "@sveltejs/kit": "^2.16.1",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
     "@tailwindcss/typography": "^0.5.19",
+    "@types/turndown": "^5.0.6",
     "autoprefixer": "^10.4.23",
     "browserslist": "^4.22.2",
     "gh-pages": "^6.3.0",
@@ -25,6 +26,7 @@
     "vite": "^7.3.1"
   },
   "dependencies": {
+    "@adam.plesnik/tailwindcss-scroll-driven-animations": "^0.3.0",
     "@gripeless/pico": "^1.0.1",
     "@sveltejs/amp": "^1.1.4",
     "date-fns": "^4.1.0",
@@ -35,6 +37,7 @@
     "p5": "^1.11.3",
     "prettier": "^3.8.0",
     "resize-observer-polyfill": "^1.5.1",
-    "simplebar": "^6.3.0"
+    "simplebar": "^6.3.0",
+    "turndown": "^7.2.2"
   }
 }

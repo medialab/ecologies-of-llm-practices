@@ -6,7 +6,6 @@ import { writable } from 'svelte/store';
 
 let copierAlert;
 
-// Utility function to truncate text with ellipsis
 const truncateText = (text, maxLength = 200) => {
     if (!text || text.length <= maxLength) return text + '🚀🚀🚀\n';
     return text.substring(0, maxLength - 3).trim() + '...' + '🚀🚀🚀\n';
@@ -192,7 +191,6 @@ const downloadImage = () => {
     } else {
         console.warn('⚠ No image available for download');
     }
-    //closeSharer();
 };
 
 // Reddit share (desktop only)

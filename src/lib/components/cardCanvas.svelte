@@ -4,7 +4,6 @@
     import Capitols from "$lib/components/cards/capitols.svelte"; 
     import LogoButton from "$lib/components/buttons/logo_button.svelte";
     import Floater from "$lib/components/floaters.svelte";
-    import Textbox from "$lib/components/textboxes.svelte";
     import Slider from "$lib/components/buttons/slider.svelte";
     import VademecumFloater from "$lib/components/vademecum_floater.svelte";
     import Sharer from '$lib/components/buttons/sharer.svelte';
@@ -17,7 +16,6 @@
     import vademecumImage from '$lib/media/photos/Vad_cover.png?enhanced';
     import tediumImage from '$lib/media/photos/tedium.png?enhanced';
 
-    // Here we start to implement more stores
     import { currentHash, selectedCard, currentCardColor, highestZIndex, lastCardColor, isDesktop, isMobileDevice, startX, startY, transitionTime, transitionCurve, currentFocus, isPageLoaded, showSharer, shareInfo, sharingTextMobile, sharerVisibility, finalShareData, shareData } from '$lib/stores/globalStores';
 
     let interact, vademecumFloater, tediumFloater;
@@ -26,12 +24,14 @@
     let width = 0;
     let height = 0;
 
+    $: console.log("selectedCard", $selectedCard);
+    $: console.log("floaters", floaters);
+
     let isBurgerMenuOpen = writable(false);
 
     let contentContainer;
 
     let containers;
-    let textBoxes;
     let scrollContainers;
     let floaters;
 
@@ -44,7 +44,6 @@
     let sections = [];
 
     let hostElement;
-    let simplebarContainer;
 
     let holdTimeout;
     let interval;
@@ -58,16 +57,13 @@
 
     const waitForHash = writable(false);
 
-    // Flag that becomes true once updateWindowSize has populated viewport dimensions
     const windowSizeReady = writable(false);
 
     const getCardFlushOrder = (card) => {
         if (typeof document !== 'undefined') {
             const currentCard = document.querySelector(`[data-section="${card?.Title}"]`)
-            //console.log("currentCard", currentCard)
             if (currentCard) {
                 const currentFlushOrder = currentCard.getAttribute('data-flush-order')
-                //console.log("currentFlushOrder", currentFlushOrder)
                 return currentFlushOrder
             }
         }
@@ -81,9 +77,6 @@
        
         isMobileDevice.set(windowWidth <= 768);
         isDesktop.set(windowWidth > 768);
-        //console.log("updateWindowSize", windowWidth, windowHeight);
-
-        // Notify that viewport dimensions are now known
         windowSizeReady.set(true);
     };
 
@@ -181,13 +174,9 @@
             });
     };
 
-    //$: console.log("Current hash is",$currentHash)
     $: if ($shareData && $shareData?.title && svgDoc) generateShareContent();
     
-    //Floaters filtering
-    $: if ($selectedCard && floaters) {
-        //console.log("Filtering floaters for card", $selectedCard);
-
+    $: if ($selectedCard && floaters && floaters.length > 0) {
         floaters.forEach((floater) => {
             if ($selectedCard !== 'all' && floater.dataset.parent !== $selectedCard) {
                 floater.style.display = 'none';
@@ -196,6 +185,7 @@
             }
         });
     }
+    
     
     const placeCards = async (containers) => {
         
@@ -347,12 +337,10 @@
                 clickedCard.style.transform = `translateX(${clickedCardX}px) translateY(${topCardY}px)`;
                 topCard.style.transform = `translateX(${topCardX}px) translateY(${clickedCardY}px)`;
 
-                // Final cleanup after animation
                 setTimeout(() => {
                     clickedCard.setAttribute('data-y', topCardY);
                     topCard.setAttribute('data-y', clickedCardY);
 
-                    // Re-enable pointer events
                     containers.forEach(container => {
                         container.style.pointerEvents = '';
                         container.style.touchAction = '';
@@ -360,9 +348,8 @@
 
                     isSwapping = false;
                     isInteractionLocked = false;
-                    // console.log("Card swap animation complete");
                 }, swapDuration);
-            }, 100); // Small delay before final movement
+            }, 100);
         }, swapDuration);
     };
 
@@ -1062,14 +1049,6 @@
 
     onMount(async () => {
         const interact = (await import('interactjs')).default;
-        const simpleBar = (await import('simplebar')).default;
-
-        if (simplebarContainer) {
-            new SimpleBar(simplebarContainer, {
-                autoHide: false,
-                scrollbarMinSize: 10,
-            });
-        }
 
         await tick();
 
@@ -1077,10 +1056,8 @@
 
         await tick();
 
-        containers = document.querySelectorAll('.card_container')
-        floaters = document.querySelectorAll('.floater_container')
+        containers = document.querySelectorAll('[data-card-container]')
         scrollContainers = document.querySelectorAll('.card_scrollable_container')
-        textBoxes = document.querySelectorAll('.text-box-dx, .text-box-sx');
         scrollableElements = document.querySelectorAll('.card_scrollable_container')
         sections = document.querySelectorAll('.section_container');
 
@@ -1088,6 +1065,162 @@
         navigateToExercise();
         
         await prepareSVG();
+        
+        // Query and initialize floaters after they're rendered in the DOM
+        if ($windowSizeReady && !$isMobileDevice) {
+            await tick(); // Wait for DOM to update
+            floaters = document.querySelectorAll('.floater_container');
+            
+            if (floaters && floaters.length > 0) {
+                floaters.forEach((floater, index) => {
+                    floater.classList.add('grab');
+                    floater.style.touchAction = 'none';
+                    floater.style.transition = 'opacity 0s linear';
+
+                    setTimeout(() => {
+                        floater.style.opacity = '1';
+                    }, 1650 + index * 50); 
+
+                    floater.style.transformOrigin = 'bottom left';
+
+                    // Initialize floating animation variables
+                    const floatingSpeedBase = 0.0000001 + Math.random() * 0.0001;
+                    const oscillationFrequency = 0.001;
+                    const sineOffset = Math.random() * 2 * Math.PI; 
+                    let floatX = 0;
+                    let floatY = 0;
+                    let directionX = Math.random() > 0.5 ? 1 : -1;
+                    let directionY = Math.random() > 0.5 ? 1 : -1;
+
+                    // Start floating animation
+                    const animateFloating = () => {
+                        const time = Date.now();
+
+                        // Calculate oscillating speed
+                        const floatingSpeed = floatingSpeedBase * (1 + Math.sin(time * oscillationFrequency + sineOffset));
+
+                        const directionalOscillationX = Math.sin(time * 0.0001);
+                        const directionalOscillationY = Math.cos(time * 0.0001);
+
+                        // Update floating positions
+                        floatX += directionX * floatingSpeed * directionalOscillationX;
+                        floatY += directionY * floatingSpeed * directionalOscillationY;
+
+                        // Get floater dimensions and viewport size
+                        const floaterRect = floater.getBoundingClientRect();
+                        const viewportWidth = windowWidth;
+                        const viewportHeight = windowHeight;
+
+                        const floaterBottom = floaterRect.bottom;
+                        const floaterLeft = floaterRect.left; 
+
+                        const paddingTop = 0; // Padding for the top boundary
+                        const paddingRight = 30; // Padding for the right boundary
+
+                        // Calculate corners
+                        const floaterBottomLeftX = floaterRect.left + floatX;
+                        const floaterBottomLeftY = floaterRect.bottom - floatY;
+
+                        const floaterBottomRightX = floaterRect.right + floatX;
+                        const floaterBottomRightY = floaterRect.bottom - floatY;
+
+                        const floaterTopLeftX = floaterRect.left + floatX;
+                        const floaterTopLeftY = floaterRect.top - floatY;
+
+                        const floaterTopRightX = floaterRect.right + floatX;
+                        const floaterTopRightY = floaterRect.top - floatY;
+
+
+                        // Left and right boundaries
+                        if (floaterBottomLeftX < 0 || floaterBottomRightX > viewportWidth - paddingRight) {
+                            directionX *= -1;
+                            floatX = 0;
+                        }
+
+                        if (floaterTopLeftY < paddingTop || floaterBottomLeftY > viewportHeight) {
+                            directionY *= -1;
+                            floatY = 0;
+                        }
+
+                        const currentX = parseFloat(floater.getAttribute('data-x')) || 0;
+                        const currentY = parseFloat(floater.getAttribute('data-y')) || 0;
+                        floater.style.transform = `translate(${currentX + floatX}px, ${currentY + floatY}px)`;
+
+                        floater.setAttribute('data-x', currentX + floatX);
+                        floater.setAttribute('data-y', currentY + floatY);
+
+                        requestAnimationFrame(animateFloating);
+                    };
+
+                    requestAnimationFrame(animateFloating);
+
+                    interact(floater).draggable({
+                        inertia: {
+                            resistance: 20,
+                            minSpeed: 80,
+                            endSpeed: 10,
+                            smoothEndDuration: 400,
+                        },
+                        listeners: {
+                            start(event) {
+                                // Bring the floater to the front
+                                floater.style.zIndex = parseInt(floater.style.zIndex || 1) + 1;
+
+                                // Get current transform values and calculate actual position
+                                const computedStyle = window.getComputedStyle(floater);
+                                const transform = computedStyle.transform;
+
+                                if (transform && transform !== "none") {
+                                    const matrix = new DOMMatrix(transform);
+                                    const currentX = matrix.m41; // Translate X value
+                                    const currentY = matrix.m42; // Translate Y value
+
+                                    // Set data attributes for accurate dragging
+                                    floater.setAttribute("data-x", currentX);
+                                    floater.setAttribute("data-y", currentY);
+                                } else {
+                                    // If no transform is applied, set to default (0, 0)
+                                    floater.setAttribute("data-x", 0);
+                                    floater.setAttribute("data-y", 0);
+                                }
+
+                                event.target.classList.remove("grab");
+                                event.target.style.cursor = "grabbing";
+                            },
+
+                            move(event) {
+                                // Calculate new position during dragging
+                                const x = (parseFloat(floater.getAttribute("data-x")) || 0) + event.dx;
+                                const y = (parseFloat(floater.getAttribute("data-y")) || 0) + event.dy;
+
+                                // Reset floating offsets during drag
+                                floatX = 0;
+                                floatY = 0;
+
+                                // Apply the transformation and update attributes
+                                floater.style.transform = `translate(${x}px, ${y}px)`;
+                                floater.setAttribute("data-x", x);
+                                floater.setAttribute("data-y", y);
+
+                                floaterPositions[index] = { x, y };
+                            },
+                            end(event) {
+                                // Reset cursor after drag ends
+                                event.target.classList.remove("grabbing");
+                                event.target.style.cursor = "grab";
+                            },
+                        },
+                        modifiers: [
+                            interact.modifiers.restrict({
+                                restriction: hostElement,
+                                endOnly: true,
+                            }),
+                        ],
+                        inertia: true,
+                    });
+                });
+            }
+        }
         
         if ($isMobileDevice) {
             await containers;
@@ -1172,216 +1305,6 @@
         });
         } else {return}
 
-        if (!$isMobileDevice) {
-            floaters.forEach((floater, index) => {
-                floater.classList.add('grab');
-                floater.style.touchAction = 'none';
-                floater.style.transition = 'opacity 0s linear';
-
-                setTimeout(() => {
-                    floater.style.opacity = '1';
-                }, 1650 + index * 50); 
-
-                floater.style.transformOrigin = 'bottom left';
-
-                // Initialize floating animation variables
-                const floatingSpeedBase = 0.0000001 + Math.random() * 0.0001;
-                const oscillationFrequency = 0.001;
-                const sineOffset = Math.random() * 2 * Math.PI; 
-                let floatX = 0;
-                let floatY = 0;
-                let directionX = Math.random() > 0.5 ? 1 : -1;
-                let directionY = Math.random() > 0.5 ? 1 : -1;
-
-                // Start floating animation
-                const animateFloating = () => {
-                    const time = Date.now();
-
-                    // Calculate oscillating speed
-                    const floatingSpeed = floatingSpeedBase * (1 + Math.sin(time * oscillationFrequency + sineOffset));
-
-                    const directionalOscillationX = Math.sin(time * 0.0001);
-                    const directionalOscillationY = Math.cos(time * 0.0001);
-
-                    // Update floating positions
-                    floatX += directionX * floatingSpeed * directionalOscillationX;
-                    floatY += directionY * floatingSpeed * directionalOscillationY;
-
-                    // Get floater dimensions and viewport size
-                    const floaterRect = floater.getBoundingClientRect();
-                    const viewportWidth = windowWidth;
-                    const viewportHeight = windowHeight;
-
-                    const floaterBottom = floaterRect.bottom;
-                    const floaterLeft = floaterRect.left; 
-
-                    const paddingTop = 0; // Padding for the top boundary
-                    const paddingRight = 30; // Padding for the right boundary
-
-                    // Calculate corners
-                    const floaterBottomLeftX = floaterRect.left + floatX;
-                    const floaterBottomLeftY = floaterRect.bottom - floatY;
-
-                    const floaterBottomRightX = floaterRect.right + floatX;
-                    const floaterBottomRightY = floaterRect.bottom - floatY;
-
-                    const floaterTopLeftX = floaterRect.left + floatX;
-                    const floaterTopLeftY = floaterRect.top - floatY;
-
-                    const floaterTopRightX = floaterRect.right + floatX;
-                    const floaterTopRightY = floaterRect.top - floatY;
-
-
-                    // Left and right boundaries
-                    if (floaterBottomLeftX < 0 || floaterBottomRightX > viewportWidth - paddingRight) {
-                        directionX *= -1;
-                        floatX = 0; // Reset to prevent overshooting
-                    }
-
-                    // Top and bottom boundaries
-                    if (floaterTopLeftY < paddingTop || floaterBottomLeftY > viewportHeight) {
-                        directionY *= -1;
-                        floatY = 0; // Reset to prevent overshooting
-                    }
-
-                    // Apply floating transform
-                    const currentX = parseFloat(floater.getAttribute('data-x')) || 0;
-                    const currentY = parseFloat(floater.getAttribute('data-y')) || 0;
-                    floater.style.transform = `translate(${currentX + floatX}px, ${currentY + floatY}px)`;
-
-                    // Store updated coordinates
-                    floater.setAttribute('data-x', currentX + floatX);
-                    floater.setAttribute('data-y', currentY + floatY);
-
-                    requestAnimationFrame(animateFloating);
-                };
-
-                requestAnimationFrame(animateFloating);
-
-                interact(floater).draggable({
-                    inertia: {
-                        resistance: 20,
-                        minSpeed: 80,
-                        endSpeed: 10,
-                        smoothEndDuration: 400,
-                    },
-                    listeners: {
-                        start(event) {
-                            // Bring the floater to the front
-                            floater.style.zIndex = parseInt(floater.style.zIndex || 1) + 1;
-
-                            // Get current transform values and calculate actual position
-                            const computedStyle = window.getComputedStyle(floater);
-                            const transform = computedStyle.transform;
-
-                            if (transform && transform !== "none") {
-                                const matrix = new DOMMatrix(transform);
-                                const currentX = matrix.m41; // Translate X value
-                                const currentY = matrix.m42; // Translate Y value
-
-                                // Set data attributes for accurate dragging
-                                floater.setAttribute("data-x", currentX);
-                                floater.setAttribute("data-y", currentY);
-                            } else {
-                                // If no transform is applied, set to default (0, 0)
-                                floater.setAttribute("data-x", 0);
-                                floater.setAttribute("data-y", 0);
-                            }
-
-                            event.target.classList.remove("grab");
-                            event.target.style.cursor = "grabbing";
-                        },
-
-                        move(event) {
-                            // Calculate new position during dragging
-                            const x = (parseFloat(floater.getAttribute("data-x")) || 0) + event.dx;
-                            const y = (parseFloat(floater.getAttribute("data-y")) || 0) + event.dy;
-
-                            // Reset floating offsets during drag
-                            floatX = 0;
-                            floatY = 0;
-
-                            // Apply the transformation and update attributes
-                            floater.style.transform = `translate(${x}px, ${y}px)`;
-                            floater.setAttribute("data-x", x);
-                            floater.setAttribute("data-y", y);
-
-                            floaterPositions[index] = { x, y };
-                        },
-                        end(event) {
-                            // Reset cursor after drag ends
-                            event.target.classList.remove("grabbing");
-                            event.target.style.cursor = "grab";
-                        },
-                    },
-                    modifiers: [
-                        interact.modifiers.restrict({
-                            restriction: hostElement,
-                            endOnly: true,
-                        }),
-                    ],
-                    inertia: true,
-                });
-            });
-        } else {return}
-
-        
-
-        if (!$isMobileDevice) {
-            textBoxes.forEach((textBox) => {
-                textBox.classList.add('grab');
-                textBox.style.touchAction = 'none';
-                
-                // Initialize position attributes if not already set
-                if (!textBox.hasAttribute('data-x')) {
-                    textBox.setAttribute('data-x', 0);
-                }
-                if (!textBox.hasAttribute('data-y')) {
-                    textBox.setAttribute('data-y', 0);
-                }
-
-                interact(textBox).draggable({
-                    inertia: {
-                        resistance: 15,
-                        minSpeed: 100,
-                        endSpeed: 20,
-                        smoothEndDuration: 500,
-                    },
-                    listeners: {
-                        start(event) {
-                            bringToFront(event);
-                            event.target.classList.remove("grab");
-                            event.target.style.cursor = "grabbing";
-                            // Remove transition during drag
-                            event.target.style.transition = 'none';
-                        },
-                        move(event) {
-                            const x = (parseFloat(textBox.getAttribute('data-x')) || 0) + event.dx;
-                            const y = (parseFloat(textBox.getAttribute('data-y')) || 0) + event.dy;
-
-                            textBox.style.transform = `translate(${x}px, ${y}px)`;
-                            textBox.setAttribute('data-x', x);
-                            textBox.setAttribute('data-y', y);
-                        },
-                        end(event) {
-                            event.target.classList.remove("grabbing");
-                            event.target.style.cursor = "grab";
-                            // Re-enable transition after drag
-                            event.target.style.transition = 'transform var(--transition-times) var(--transition-curve)';
-                        }
-                    },
-                    modifiers: [
-                        interact.modifiers.restrict({
-                            restriction: hostElement,
-                            endOnly: true,
-                        }),
-                    ],
-                    inertia: true,
-                });
-        });
-        } else {return}
-
-        
     }); 
 
     onDestroy(() => {
@@ -1416,22 +1339,10 @@
                         } catch (e) {
                             // console.log("Could not cleanup floater interact handlers");
                         }
-                        
-                        // Cancel animations and transitions
+
                         if (floater.style) {
                             floater.style.animation = 'none';
                             floater.style.transition = 'none';
-                        }
-                    });
-                }
-                
-                // Clean up text boxes
-                if (textBoxes) {
-                    textBoxes.forEach(textBox => {
-                        try {
-                            interact(textBox).unset();
-                        } catch (e) {
-                            // console.log("Could not cleanup textBox interact handlers");
                         }
                     });
                 }
@@ -1489,10 +1400,8 @@
         const clearReferences = () => {
             containers = null;
             floaters = null;
-            textBoxes = null;
             scrollContainers = null;
             hostElement = null;
-            simplebarContainer = null;
             scrollableElements = null;
             sections = null;
             
@@ -1518,32 +1427,22 @@
 
 
 {#if !$isPageLoaded}
-    <div class="loading_text"
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         out:fade={{ duration: 300 }}
     >
-        <p class="p3">Loading...</p>
+        <p>Loading...</p>
     </div>
 {/if}
 
 
 <Sharer />
 
-<div class="content_container overflow-y-visible" bind:this={contentContainer}>
-
-    <section class="host overflow-y-visible" bind:this={hostElement}>
+<section class="host relative bg-transparent w-screen h-screen overflow-y-visible" bind:this={hostElement}>
         {#if isInteractionLocked}
             <div class="global_interaction_lock" aria-hidden="true"></div>
         {/if}
-
-        <!-- {#if !$isMobileDevice}
-            <Textbox bringToFront={bringToFront}/>
-        {/if} -->
-
         
         {#if $windowSizeReady}
-
-            <!-- <Slider /> -->
-
             {#each Object.values(data.cardsDb) as card (card.IndexNum)}
                 <Capitols
                     {data}
@@ -1551,7 +1450,6 @@
                     transitionDelay = {getCardFlushOrder(card) * 10}
                     bringToFront = {bringToFront}
                     swapCards = {swapCards}
-                    simplebarContainer = {simplebarContainer}
                     logoImage = {data.logoImage}
                     generateShareContent = {generateShareContent()}
                 />
@@ -1565,146 +1463,12 @@
                     />
                 {/each}
             {/if}
-
-            <!--<VademecumFloater 
-                bind:this={vademecumFloater}
-                randomPosition={calculateRandomPosition(vademecumFloater)}
-                title="ARTIFICIAL INQUIRIES"
-                fileRef="/Artificial_Inquiries_Vademecum.pdf"
-                img={vademecumImage}
-                type="download"
-            />
-
-            <VademecumFloater 
-                bind:this={tediumFloater}
-                randomPosition={calculateRandomPosition(tediumFloater)}
-                title="TEDIUM: EXHIBITION"
-                fileRef="/tedium"
-                img={tediumImage}
-                type="navigator"
-            />
-
-            <button class="burger_menu" aria-label="Burger menu" onclick={() => $isBurgerMenuOpen = !$isBurgerMenuOpen}>
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
-            </button>
-
-            {#if $isBurgerMenuOpen}
-                <div class="burger_overlay">
-                    <div class="burger_content">
-                        <div class="burger_index">
-                            <a href="/Artificial_Inquiries_Vademecum.pdf" download data-sveltekit-reload>
-                                <div>
-                                    <h2>
-                                        Download the book
-                                        
-                                    </h2>
-                                    <div class="inline_svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/></svg>
-                                    </div>
-                                </div>
-                                
-                                <p class="p1">
-                                    Download "Artificial Inquiries", the book of exercises which is both the base and the outcome of Ecologies of LLM Practices project.
-                                </p>
-                            </a>
-
-                            <a href="/tedium" onclick={() => goto('/tedium')} data-sveltekit-reload>
-                                <div>
-                                    <h2>
-                                        Tedium:exhibition
-                                        
-                                    </h2>
-                                    <div class="inline_svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M160-80q-33 0-56.5-23.5T80-160v-480q0-33 23.5-56.5T160-720h160l160-160 160 160h160q33 0 56.5 23.5T880-640v480q0 33-23.5 56.5T800-80H160Zm0-80h640v-480H160v480Zm80-80h480L570-440 450-280l-90-120-120 160Zm460-200q25 0 42.5-17.5T760-500q0-25-17.5-42.5T700-560q-25 0-42.5 17.5T640-500q0 25 17.5 42.5T700-440ZM404-720h152l-76-76-76 76ZM160-160v-480 480Z"/></svg>
-                                    </div>
-                                </div>
-                                
-                                <p class="p1">
-                                    Tedium is the exhibition displayed at Hype-Studies conference in Barcelona. It showcases the boredom of daily LLMs usage.
-                                </p>
-                            </a>
-
-                            <a href="#Qualifying_" aria-label="Qualifying" data-sveltekit-reload onclick={() => setTimeout(() => intentionalNavigationToHash(), 100)}>
-                                <div>
-                                    <h2>
-                                        Exercises 
-                                    </h2>
-                                    <div class="inline_svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M440-280H280q-83 0-141.5-58.5T80-480q0-83 58.5-141.5T280-680h160v80H280q-50 0-85 35t-35 85q0 50 35 85t85 35h160v80ZM320-440v-80h320v80H320Zm200 160v-80h160q50 0 85-35t35-85q0-50-35-85t-85-35H520v-80h160q83 0 141.5 58.5T880-480q0 83-58.5 141.5T680-280H520Z"/></svg>
-                                    </div>
-                                </div>
-                                
-                                <p class="p1">
-                                    Access all the exercises abstract of the project, divided in the 5 key blocks. Each of them is designed for replicability, to be paired with the Artificial Inquiries pdf.
-                                </p>
-                            </a>
-
-                            <a href="#Contacts" aria-label="Contacts" data-sveltekit-reload>
-                                <div>
-                                    <h2>
-                                        Contacts 
-                                    </h2>
-                                    <div class="inline_svg">
-                                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" ><path d="M480-400q33 0 56.5-23.5T560-480q0-33-23.5-56.5T480-560q-33 0-56.5 23.5T400-480q0 33 23.5 56.5T480-400ZM320-240h320v-23q0-24-13-44t-36-30q-26-11-53.5-17t-57.5-6q-30 0-57.5 6T369-337q-23 10-36 30t-13 44v23ZM720-80H240q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80Zm0-80v-446L526-800H240v640h480Zm-480 0v-640 640Z"/></svg>
-                                    </div>
-                                </div>
-                                
-                                <p class="p1">
-                                    We are a team of designers and researchers, deeply interested on fostering the dialogue around common integration of LLMs in professional practices.
-                                </p>
-                            </a>
-                        </div>
-                        
-                        <div class="burger_logo">
-                            <img src={data.logoImage} alt="EL2MP Logo">
-                        </div>
-                    </div>
-                    
-                </div>
-
-                
-
-                <div class="burger_bg"></div>
-                
-            {/if}
-
-            <LogoButton
-                logoImage = {data.logoImage}
-            />
-
-        -->
         {/if}
     </section>
-   
-</div>
 
 <style>
-    .content_container {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: row;
-        background-color: transparent;
-
-        @media (max-width: 768px) {
-            height: 100%;
-            width: 100%;
-            max-height: 100vh;
-            max-width: 100vw;
-            display: block;
-            justify-content: start;
-            margin: 0;
-            padding: 0;
-            overflow-y: auto;
-        }
-    }
 
     .host {
-        width: 100%;
-        max-width: 100vw;
-        max-width: 100dvw;
-        max-height: 100vh;
-        height: 100%;
         position: relative;
         z-index: 6;
         background-color: transparent;
@@ -1723,32 +1487,9 @@
         cursor: grab !important;
         
     }
-    /* Further on if we need to customize the grabbing state, we can add a class to the grabbing state */
+
     :global(.grabbing) {
         cursor: grabbing !important;
-    }
-
-    @media (min-width: 1920px) {
-        :root {
-            /* Scale all spacing values by 1.2 */
-            --scaling_var: 1.5;
-            --spacing-XS: calc(0.3125em * var(--scaling_var));  /* 5px * 1.2 */
-            --spacing-S: calc(0.625em * var(--scaling_var));    /* 10px * 1.2 */
-            --spacing-M: calc(0.9375em * var(--scaling_var));   /* 15px * 1.2 */
-            --spacing-L: calc(1.875em * var(--scaling_var));    /* 30px * 1.2 */
-            --spacing-XL: calc(3.75em * var(--scaling_var));    /* 60px * 1.2 */
-            --spacing-2XL: calc(7.5em * var(--scaling_var));    /* 120px * 1.2 */
-            --spacing-3XL: calc(15em * var(--scaling_var));     /* 240px * 1.2 */
-        }
-    }
-
-    .loading_text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-family: var(--sans-font-family), var(--fallback-sans-font);
-        font-weight: 400;
     }
 
     .global_interaction_lock {
@@ -1760,143 +1501,5 @@
         /* Prevent focus while active */
         -webkit-tap-highlight-color: transparent;
     }
-
-    .burger_menu {
-        display: none;
-    }
-    
-    
-
-    @media only screen and (max-width: 768px) {
-
-        h1 {
-            font-size: 48px;
-        }
-
-        h2 {
-            font-size: 22px;
-        }
-
-        .p1 {
-            font-size: 18px;
-        }
-
-        .p2 {
-            font-size: 14px;
-        }
-
-        .p3 {
-            font-size: 14px;
-        }
-
-        .loading_text {
-            display: block;
-        }
-
-        .burger_menu {
-            display: flex;
-            position: fixed;
-            right: 20px;
-            top: 1vh;
-            background-color: #f0f0f0;
-            height: 40px;
-            padding: 10px;
-            border-radius: var(--slider-radius);
-            place-content: center;
-            align-items: center;
-            z-index: 502;
-        }
-
-        .burger_menu > svg {
-            width: 100%;
-            height: auto;
-        }
-
-        .burger_bg {
-            width: 100vw;
-            height: 100vh;
-            z-index: 499;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .burger_overlay {
-            width: auto;
-            height: 88%;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 501;
-            background-color: white;
-            border-radius: var(--slider-radius);
-            border: 1px solid black;
-            margin: 20px;
-            padding: 20px;
-        }
-
-        .burger_content {
-            display: flex;
-            height: 100%;
-            flex-direction: column;
-            row-gap: 20px;
-            position: relative;
-            justify-content: space-between;
-            align-items: flex-start;
-            overflow-y: scroll ;
-        }
-
-        .burger_index {
-            display: flex;
-            flex-direction: column;
-            row-gap: var(--spacing-L);
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
-
-        .burger_index > a {
-            text-decoration: none;
-            color: black;
-            display: flex;
-            flex-direction: column;
-            row-gap: 5px;
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
-
-        .burger_index > a > div {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-start;
-            align-items: center;
-            column-gap: 10px;
-        }
-
-        .burger_index > a > div > h2 {
-            font-size: 32px;
-        }
-
-        .inline_svg {
-            display: inline-block;
-            place-content: center;
-            align-items: center;
-            width: 25px;
-            height: 25px;
-        }
-
-        .inline_svg > svg {
-            fill: rgb(48, 48, 48);
-            align-self: center;
-            place-self: center;
-        }
-
-        .burger_logo {
-            bottom: 10px;
-            width: 50%;
-            object-fit: contain;
-            overflow: hidden;
-            place-self: center;
-        }
-    }
-
 
 </style>

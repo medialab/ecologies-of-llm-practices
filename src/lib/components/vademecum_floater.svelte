@@ -291,15 +291,12 @@
         }
 
         await $isMobileDevice;
-        //console.log($isMobileDevice)
 
         if ($isMobileDevice) {
             $svgFill = "#000000";
         } else {
             $svgFill = "#FFFFFF";
         }
-
-        //console.log($svgFill)
     });
 
     onDestroy(() => {
@@ -395,55 +392,6 @@
     {/if}
 </button>
 {/if}
-<!--
-{#if $isMobileDevice}
-
-<div class="mobile_button_container">
-    <button class="mobile_vd_container"
-        on:click={(e) => downloadFile(e)}
-        on:keydown={handleKeyDown}
-        aria-label="Mobile vademecum download button"
-        style="{!$isDownloaded ? 'background-color: #f0f0f0;' : 'background-color: #2ecc71 !important;'}">
-        <p class="p3" style="font-weight: 700;">GET THE PDF</p>
-        <div class="category-icon">
-            
-            {#if !$isDownloaded}
-               
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 -960 960 960"
-                    fill={$svgFill}
-                    in:slide={{ axis: 'y', y: -20, duration: 200 }}
-                    out:slide={{ axis: 'y', y: 20, duration: 150 }}>
-                    <path d="M480-320 280-520l56-58 104 104v-326h80v326l104-104 56 58-200 200ZM240-160q-33 0-56.5-23.5T160-240v-120h80v120h480v-120h80v120q0 33-23.5 56.5T720-160H240Z"/>
-                </svg>
-            {:else}
-                
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 -960 960 960"
-                    fill={$svgFill}
-                    in:slide={{ axis: 'y', y: -20, duration: 300, delay: 50 }}
-                    out:slide={{ axis: 'y', y: 20, duration: 150 }}>
-                    <path d="M382-320 155-547l57-57 170 170 366-366 57 57-423 423ZM200-160v-80h560v80H200Z"/>
-                </svg>
-            {/if}
-        </div>
-    </button>
-    <button class="mobile_vd_container"
-        on:click={(e) => navigateTo(e)}
-        on:keydown={handleKeyDown}
-        aria-label="Mobile vademecum download button"
-        style="{!$isDownloaded ? 'background-color: #f0f0f0;' : 'background-color: #2ecc71 !important;'}">
-        <p class="p3" style="font-weight: 700;">TEDIUM</p>
-        <div class="category-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill={$svgFill}><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z"/></svg>
-        </div>
-    </button>
-</div>
-
-
-{/if}-->
 
 <style>
 

@@ -1,38 +1,24 @@
 <script>
-import { onMount, setContext, tick } from 'svelte';
-import { cardsDb, alterEgosDb } from '$lib/database/global_db.js';
-import { selectedCard, finalShareData, sharingTextMobile, isAlterEgoMode, transitionTime, isDesktop, isMobileDevice, transitionCurve, currentFocus, showSharer, shareInfo, sharerVisibility, shareData } from '$lib/stores/globalStores';
+import { selectedCard, transitionTime, isDesktop, isMobileDevice, transitionCurve, currentFocus, shareData } from '$lib/stores/globalStores';
 
-import {
-	blur,
-	crossfade,
-	draw,
-	fade,
-	fly,
-	scale,
-	slide
-} from 'svelte/transition';
-  import { text } from '@sveltejs/kit';
-  import { writable } from 'svelte/store';
+import arrowIcon from '$lib/media/shareIcon.svg';
+import forwardIcon from '$lib/media/forwardIcon.svg';
+
+
 
 
 export let bringToFront
-export let simplebarContainer
 export let swapCards
 export let card
 export let transitionDelay
 
-const isSecureContext = writable(false);
 
-    onMount( () => {
-        $isSecureContext = window.isSecureContext;
-        //console.log("isSecureContext", $isSecureContext);
-    });
 
 </script>
 
         <div
-            class="card_container"
+            class="w-[60vw] max-w-[1100px] aspect-[1.5/1] block pr-[var(--spacing-M)] gap-[var(--spacing-M)] cursor-grab absolute select-text overflow-hidden opacity-0 transition-[border] duration-[3s] ease-in-out border-[1.5px] border-white [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:rounded-[var(--slider-radius)] max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none]"
+            data-card-container
             draggable="true"
             onclick={(event) => {
                 if ($isDesktop) {
@@ -62,149 +48,136 @@ const isSecureContext = writable(false);
 
 
         <div
-            class="card_container_inner"
+            class="grid relative content-start grid-cols-7 max-md:grid-cols-1 overflow-hidden w-full h-full min-h-full translate-x-0"
             style="transition: transform {transitionTime}s {transitionCurve} {transitionDelay}ms;"
         >
 
-        <div class="block_num" style="right: {$isMobileDevice ? '10px' : '0px'};">
-            <!--<p class="h3">
-                Block {card.IndexNum}
-            </p>-->
-            <button id="share_button"
-                
-                onclick={(event) => {
-                    event.preventDefault();
+            <div class="w-[50px] h-[50px] max-md:w-[40px] max-md:h-[40px] absolute top-0 max-md:top-[10px] right-[10px] z-20 text-black flex flex-row items-center justify-center fill-[#1f1f1f] p-2" style="right: {$isMobileDevice ? '10px' : '0px'};">
+                <button
                     
-                    $shareData = ({
-                        title: card.Title,
-                        exTitle: card.Question,
-                        exText: '',
-                        exDescription: card.Description,
-                        exImage: card.CoverImg,
-                        bgColor: card.bgColor,
-                        url: `${window.location.href}`
-                    });
+                    onclick={(event) => {
+                        event.preventDefault();
+                        
+                        $shareData = ({
+                            title: card.Title,
+                            exTitle: card.Question,
+                            exText: '',
+                            exDescription: card.Description,
+                            exImage: card.CoverImg,
+                            bgColor: card.bgColor,
+                            url: `${window.location.href}`
+                        });
 
-                    console.log($shareData)
-                }}
+                        console.log($shareData)
+                    }}
 
-                tabindex="0"
-                role="button"
-                class="share_button"
-                aria-label="Share content">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M264.62-80Q237-80 218.5-98.5 200-117 200-144.62v-390.76q0-27.62 18.5-46.12Q237-600 264.62-600h84.61v40h-84.61q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v390.76q0 9.24 7.69 16.93 7.69 7.69 7.69 16.93h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-390.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69h-84.61v-40h84.61q27.62 0 46.12 18.5Q760-563 760-535.38v390.76q0 27.62-18.5 46.12Q723-80 695.38-80H264.62ZM460-340v-435.46l-84 84L347.69-720 480-852.31 612.31-720 584-691.46l-84-84V-340h-40Z"/></svg>
-            </button>
-        </div>
-
-        
-
-            <div class="description_container" style="background-color: {card.bgColor}; border: 5px solid {card.bgColor};"> 
-
-                    <h1 class="h1" style="z-index: 7;">
-                        {@html card.Title}
-                    </h1>
-
+                    tabindex="0"
+                    class="w-full h-full transform scale-100 rotate-0 transition-transform duration-100 ease-in-out flex flex-row items-center justify-center relative rounded-none active:scale-90 hover:scale-105 active:rotate-[5deg]"
+                    aria-label="Share content">
+                    <img src={forwardIcon} alt="" class="w-full h-full object-contain">
+                </button>
             </div>
 
-            <div class="card_scrollable_container"
-                bind:this={simplebarContainer}
-                data-simplebar
-                data-simplebar-auto-hide="false"
+            <div class="w-full h-fit relative flex flex-col col-start-1 col-end-8 max-md:col-start-1 max-md:col-end-2 max-md:row-start-1 z-5 pointer-events-none row-start-1 mb-[3vw] max-md:p-[15px] max-md:mb-[1vw]" style="background-color: {card.bgColor}; border: 5px solid {card.bgColor};"> 
+                <h1 class="text-8xl whitespace-normal select-none pointer-events-auto overflow-visible inline-block mb-[-0.2em] mt-[-0.18em] translate-x-[-0.08em] min-[1920px]:text-[6.5vw] min-[1920px]:mt-[-0.14em]" style="z-index: 7;">
+                    {@html card.Title}
+                </h1>
+            </div>
+
+            <div class="block w-full h-[calc(100%-2px)] col-start-2 col-end-8 max-md:col-start-1 max-md:col-end-2 row-start-2 max-md:row-start-2 bg-transparent mt-[0.1%] pt-[1%] pr-[var(--spacing-XS)] overflow-y-auto overflow-x-hidden z-[1]"
+                data-lenis-prevent
                 data-section={card.Title}>
-
                 
-                <div class="card_scroll_flex" data-section={card.Title}>
-                    
-                    <p class="p1" id="description">
-                        {@html card.Question}
-                    </p>
+                <div class="flex flex-col gap-4 h-fit w-full pr-6" data-section={card.Title}>
 
-                    {#if card.Description}
-                        <p class="p3" id="description">{@html card.Description}</p>
-                    {/if}
+                    <div class="flex flex-col gap-2">
+                        {#if card.Question}
+                            <p class="text-2xl w-2/3">
+                                {@html card.Question}
+                            </p>
+                        {/if}
+
+                        {#if card.Description}
+                            <p class="text-lg w-full">{@html card.Description}</p>
+                        {/if}
+                    </div>
                     
                     {#if card.CoverImg}
-                        <div class="cover_image_container">
-                            <div class="overlay_filter" style="background-color: {card.bgColor};"></div>
+                        <div class="w-full h-auto relative mb-6">
+                            <div class="w-full h-full absolute mix-blend-color" style="background-color: {card.bgColor};"></div>
                             <enhanced:img
-                                data-sveltekit-preload-data
                                 src={card.CoverImg}
                                 alt="CoverImg"
-                                class="cover_image"
+                                class="opacity-100 block z-[1] w-full h-auto aspect-video object-cover"
                             />
                         </div>  
                     {/if}
 
-                    <!-- Programmatic creation of sections -->
-                    {#each card.Content ?? [] as section, index}
-                        <!-- We assing a programmatic name for the each block sections -->
+                    {#each card.Content as section, i}
                         <div
                         role="region"
-                        class="section_container"
-                        data-sveltekit-preload-data
+                        class="flex flex-col gap-4 w-full h-fit mb-6"
                         data-section={`Ex_${section.exNum}`}
                         onmouseenter={() => {
                             if (!$isMobileDevice) {
                                 $currentFocus = `${card.Title}_Ex_${section.exNum}`
-                                console.log($currentFocus)
+                                
                             }
                         }}
                         ontouchstart={() => {
                             if ($isMobileDevice) {
                                 $currentFocus = `${card.Title}_Ex_${section.exNum}`
-                                console.log($currentFocus)
+                                
                             }
                         }}
                         onfocus={() => {
                             $currentFocus = `${card.Title}_Ex_${section.exNum}`
-                            console.log($currentFocus)
                         }}> 
                             {#if section.title}
-                                <div class="flex_header">
-                                    <h2>{@html section.title}</h2>
-
-                                    {#if $isSecureContext}
-                                        <button id="share_button"
-                                            
-                                            onclick={(event) => {
-                                                event.preventDefault();
-                                                
-                                                $shareData = ({
-                                                    title: card.Title,
-                                                    exTitle: section.title,
-                                                    exDescription: section.subtitle,
-                                                    exText: section.text,
-                                                    exImage: section.picture,
-                                                    bgColor: card.bgColor,
-                                                    url: `${window.location.href}`
-                                                });
-                                            }}
-
-                                            tabindex="0"
-                                            role="button"
-                                            aria-label="Share content"
-                                            class="share_button">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M264.62-80Q237-80 218.5-98.5 200-117 200-144.62v-390.76q0-27.62 18.5-46.12Q237-600 264.62-600h84.61v40h-84.61q-9.24 0-16.93 7.69-7.69 7.69-7.69 16.93v390.76q0 9.24 7.69 16.93 7.69 7.69 7.69 16.93h430.76q9.24 0 16.93-7.69 7.69-7.69 7.69-16.93v-390.76q0-9.24-7.69-16.93-7.69-7.69-16.93-7.69h-84.61v-40h84.61q27.62 0 46.12 18.5Q760-563 760-535.38v390.76q0 27.62-18.5 46.12Q723-80 695.38-80H264.62ZM460-340v-435.46l-84 84L347.69-720 480-852.31 612.31-720 584-691.46l-84-84V-340h-40Z"/></svg>
-                                        </button>
-                                    {/if}
+                                <div class="w-full h-fit flex flex-col gap-2">
+                                    <div class="w-full flex flex-row items-center gap-[var(--spacing-M)] max-md:gap-[var(--spacing-XS)]">
+                                        <h2 class="text-5xl max-md:w-fit text-nowrap">{@html section.title}
+                                            <button 
+                                                type="button"
+                                                onclick={(event) => {
+                                                    event.preventDefault();
+                                                    
+                                                    $shareData = ({
+                                                        title: card.Title,
+                                                        exTitle: section.title,
+                                                        exDescription: section.subtitle,
+                                                        exText: section.text,
+                                                        exImage: section.picture,
+                                                        bgColor: card.bgColor,
+                                                        url: `${window.location.href}`
+                                                    });
+                                                }}
+                                                class="inline font-inherit h-[40px] w-auto"
+                                                aria-label="Share {section.title}"
+                                            >
+                                                <img src={arrowIcon} alt="Share this exercise" class="w-full h-full object-contain">
+                                            </button>
+                                        </h2>
+                                    </div>
                                     
+                                    {#if section.subtitle }
+                                        <p class="text-xl w-2/3">{@html section.subtitle}</p>
+                                    {/if}
                                 </div>
                             {/if}
                             
-                            {#if section.subtitle }
-                                <p class="p3" exercise-description >{@html section.subtitle}</p>
-                            {/if}
+                            
 
                             {#if section.picture}
-                                <div class="cover_image_container">
-                                    <div class="overlay_filter" style="background-color: {card.bgColor};"></div>
-                                    <enhanced:img data-sveltekit-preload-data class="article_image" src={section.picture} alt="People"/>
+                                <div class="w-full h-auto relative">
+                                    <div class="absolute w-full h-full mix-blend-color" style="background-color: {card.bgColor};"></div>
+                                    <enhanced:img class="w-full h-auto object-contain" src={section.picture} alt="People"/>
                                 </div>   
                             {/if}
 
-                            {#if section.text}
-                                <div class="double_column_text_article">
-                                    <p class="p3">{@html section.text}</p>
+                             {#if section.text}
+                                <div class="block gap-[var(--spacing-L)] max-md:ga w-full h-full">
+                                    <p class="text-xl w-full  hyphens-auto break-words overflow-wrap-anywhere">{@html section.text}</p>
                                 </div>
                             {/if}
                         </div>
@@ -218,629 +191,3 @@ const isSecureContext = writable(false);
         </div>
     </div>
     
-<style>
-
-    :root {
-        --card-transition-duration: 1s;
-    }
-
-    .block_num {
-        width: 50px;
-        height: 50px;
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        z-index: 20;
-        color: black;
-        background-color: transparent;
-        border: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        fill: #1f1f1f;
-    }
-
-    #altergo_block_num {
-        fill: white;
-    }
-
-    .block_num > .share_button {
-        width: 100%;
-        height: 100%;
-    }
-
-    .description_container {
-        width: 100%;
-        height: fit-content;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        row-gap: 0;
-
-        grid-column: 1 / 8;
-        
-        top: 0;
-        left: 0;
-
-        z-index: 5;
-        pointer-events: none;
-        grid-row: 1;
-        margin-bottom: 3vw;
-    }
-
-    .description_container > h1 {
-        width: fit-content;
-        height: fit-content;
-        font-family: 'Instrument Serif';
-        white-space: normal; /* Changed from nowrap to allow text wrapping */
-        user-select: none;
-        pointer-events: visibleFill;
-        overflow: visible; /* Changed from hidden to show overflow content */
-        line-height: 1;
-        display: inline-block;
-        padding: 0;
-        margin: 0;
-        margin-bottom: -0.2em;
-        margin-top: -0.18em;
-        transform: translateX(-0.08em);
-
-        @media (min-width: 1920px) {
-            font-size: 6.5vw;
-            margin-top: -0.14em;
-    }}
-
-    [exercise-description] {
-        width: 95%;
-        font-family: 'Instrument Sans';
-    }
-
-    .card_container {
-        width: 60vw;
-        max-width: 1100px; 
-        aspect-ratio: 1.5 / 1;
-        
-        display: block;
-        
-        /* padding-left: var(--spacing-M); */
-        padding-right: var(--spacing-M);
-        gap: var(--spacing-M);
-        background-color: '';
-        
-        cursor: grab;
-
-        top: 0;
-        left: 0;
-        position: absolute;
-
-        user-select:text;
-        overflow: hidden;
-        opacity: 0;
-        
-        transition: border 3s ease-in-out;
-        border: 1.5px solid white;
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 5% 100%, 0 94%);
-
-    }
-
-    .card_container_inner {
-        display: grid;
-        position: relative;
-        align-content: flex-start;
-        top: 0;
-        left: 0;
-        grid-template-columns: repeat(7, 1fr);
-        overflow: hidden;
-        
-        width: 100%;
-        height: 100%;
-        min-height: 100%;
-        transform: translateX(0%);
-    }
-
-
-    .cover_image_container {
-        width: 100%;
-        display: block;
-        position: relative;
-        z-index: 1;
-        opacity: 0.85;
-        mix-blend-mode: overlay;
-    }
-    
-    :global(.cover_image) {
-        opacity: 1;
-        display: block;
-        z-index: 1;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
-    }
-
-
-
-    .card_container:active {
-        cursor: grabbing;
-    }
-
-
-    .card_scrollable_container {
-        display: block;
-
-        width: 100%;
-        height: calc(100% - 2px);
-
-        grid-column: 2 / 8;
-        grid-row: 2;
-
-        background-color: transparent;
-
-        margin-top: 0.1%;
-        
-        padding-top: 1%;
-        padding-right: var(--spacing-XS);
-
-        overflow-y: scroll !important;  
-        overflow-x: hidden;
-
-        z-index: 1;
-    }
-
-    .double_column_text_article {
-        display: block;
-        column-count: 2;
-        column-gap: var(--spacing-L);
-        width: 100%;
-        height: 100%;
-    }
-
-    .double_column_text_article > p {
-        width: 100%;
-        text-align: justify;
-        text-justify: inter-word;
-        hyphens: auto;
-        word-break: break-word;
-        overflow-wrap: break-word;
-    }
-
-    .card_scroll_flex {
-        padding-right: 20px;
-        display: flex;
-        width: 100%;
-        height: fit-content;
-        align-items: flex-start;
-        flex-direction: column;
-        gap: var(--spacing-M);
-
-        margin-bottom: var(--spacing-XL);
-        z-index: 0;
-    }
-
-    .flex_header {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: var(--spacing-M);
-    }
-
-
-    .share_button > svg {
-        height: 100%;
-        width: 100%;
-        opacity: 0.5;
-    }
-
-    .share_button {
-        width: 30px;
-        height: 30px;
-        background-color: transparent;
-        transform: scale(1) rotate(0deg);
-        transition: transform 0.1s ease-in-out;
-        background-color: transparent;
-        border: none;
-        transform: scale(1) rotate(0deg);
-        transition: transform 0.1s ease-in-out;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        border-radius: 0%;
-        padding: 0;
-        cursor: pointer;
-    }
-
-    .share_button:active {
-        width: 30px;
-        height: 30px;
-        transform: scale(0.9) rotate(5deg);
-        transition: transform 0.1s ease-in-out;
-    }
-
-    .card_scroll_flex > .p3 {
-        width: 95%;
-    }
-
-    .section_container {
-        display: flex;
-        width: 100%;
-        height: fit-content;
-        align-items: flex-start;
-        flex-direction: column;
-        margin-top: var(--spacing-S);
-        gap: var(--spacing-S);
-        
-    }
-
-
-
-    .article_image {
-        opacity: 80%;
-        width: 100%;
-        aspect-ratio: 21 / 9;
-        object-fit: cover;
-        filter: grayscale(100%);
-        mix-blend-mode: overlay;
-    }
-
-    .overlay_filter {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: '';
-        z-index: 1;
-        opacity: 1;
-        mix-blend-mode: color;
-    }
-
-    /* Scrollbar stuff */
-
-    :global([data-simplebar]) {
-        position: absolute;
-        flex-direction: column;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        align-content: flex-start;
-        align-items: flex-start;
-        overflow: hidden;
-    }
-
-    :global(.simplebar-wrapper) {
-        overflow: hidden;
-        width: inherit;
-        height: inherit;
-        max-width: inherit;
-        max-height: inherit;
-    }
-
-    :global(.simplebar-mask) {
-        direction: inherit;
-        position: absolute;
-        overflow: hidden;
-        padding: 0;
-        margin: 0;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        width: auto !important;
-        height: auto !important;
-        z-index: 0;
-    }
-
-    :global(.simplebar-offset) {
-        direction: inherit !important;
-        box-sizing: inherit !important;
-        resize: none !important;
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: -5vh !important; 
-        right: 0;
-        padding: 0;
-        margin: 0;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    :global(.simplebar-content-wrapper) {
-        direction: inherit;
-        box-sizing: border-box !important;
-        position: relative;
-        display: block;
-        height: 100%; /* Required for horizontal native scrollbar to not appear if parent is taller than natural height */
-        width: auto;
-        max-width: 100%; /* Not required for horizontal scroll to trigger */
-        max-height: 100%; /* Needed for vertical scroll to trigger */
-        overflow: auto;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        appearance: none; /* Improves compatibility in some browsers */
-        -moz-appearance: none;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    :global(.simplebar-content-wrapper::-webkit-scrollbar),
-    :global(.simplebar-hide-scrollbar::-webkit-scrollbar) {
-        display: none;
-        width: 0;
-        height: 0;
-    }
-
-    :global([data-simplebar]::-webkit-scrollbar) {
-        display: none; 
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-
-    :global(.simplebar-content:before),
-    :global(.simplebar-content:after) {
-        content: ' ';
-        display: table;
-    }
-
-    :global(.simplebar-placeholder) {
-        max-height: 100%;
-        max-width: 100%;
-        width: 100%;
-        pointer-events: none;
-    }
-
-    :global(.simplebar-height-auto-observer-wrapper) {
-        box-sizing: inherit !important;
-        height: 100%;
-        width: 100%;
-        max-width: 1px;
-        position: relative;
-        float: left;
-        max-height: 1px;
-        overflow: hidden;
-        z-index: -1;
-        padding: 0;
-        margin: 0;
-        pointer-events: none;
-        flex-grow: inherit;
-        flex-shrink: 0;
-        flex-basis: 0;
-    }
-
-    :global(.simplebar-height-auto-observer) {
-        box-sizing: inherit;
-        display: block;
-        opacity: 0;
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 1000%;
-        width: 1000%;
-        min-height: 1px;
-        min-width: 1px;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: -1;
-    }
-
-    :global(.simplebar-track){
-        z-index: 10;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        pointer-events: none;
-        overflow: visible;
-    }
-
-    :global([data-simplebar].simplebar-dragging) {
-        pointer-events: none;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    :global([data-simplebar].simplebar-dragging .simplebar-content) {
-        pointer-events: none;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    :global([data-simplebar].simplebar-dragging .simplebar-track) {
-        pointer-events: all;
-    }
-
-    :global(.simplebar-scrollbar) {
-        position: absolute;
-        left: 0;
-        right: 0;
-        min-height: 10px;
-    }
-
-    :global(.simplebar-scrollbar:before) {
-        position: absolute;
-        content: '';
-        background: white;
-        border: solid 1px black;
-
-        border-radius: 0px;
-        left: 2px;
-        right: 2px;
-        opacity: 1;
-    }
-
-    :global(.simplebar-scrollbar.simplebar-visible:before) {
-        opacity: 1;
-        transition-delay: 0s;
-        transition-duration: 0s;
-    }
-
-    :global(.simplebar-track.simplebar-vertical) {
-        top: 2px;
-        bottom: 2px;
-        height: 100%;
-        width: var(--spacing-S);
-    }
-
-    :global(.simplebar-scrollbar:before) {
-        top: 0px;
-        bottom: 0px;
-        left: -10px;
-        right: var(--spacing-XS);
-        transform: translateY(5px);
-    }
-
-    :global(.simplebar-track.simplebar-horizontal) {
-        left: 0;
-        height: 11px;
-    }
-
-    :global(.simplebar-track.simplebar-horizontal .simplebar-scrollbar) {
-        right: auto;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        min-height: 0;
-        min-width: 10px;
-        @media (max-width: 768px) {
-            min-width: 5px !important;
-        }
-        width: auto;
-    }
-
-    /* Rtl support */
-        :global([data-simplebar-direction='rtl'] .simplebar-track.simplebar-vertical) {
-        right: auto;
-        left: 0;
-    }
-
-    :global(.simplebar-dummy-scrollbar-size) {
-        direction: rtl;
-        position: fixed;
-        opacity: 0;
-        visibility: hidden;
-        height: 200px;
-        width: 200px;
-        overflow-y: hidden;
-        overflow-x: scroll;
-        -ms-overflow-style: scrollbar !important;
-    }
-
-    :global(.simplebar-dummy-scrollbar-size > div) {
-        width: 100%;
-        height: 100%;
-        margin: 10px 0;
-    }
-
-    :global(.simplebar-hide-scrollbar) {
-        position: fixed;
-        left: 0;
-        visibility: hidden;
-        overflow-y: scroll;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-
-    @media (max-width: 768px) {
-        :global(.card_container){
-            width: 90vw !important;
-            max-height: none;
-            border-radius: var(--slider-radius);
-            padding-right: 0px !important;
-            transition: transform var(--card-transition-duration) ease-in-out;
-            clip-path: none !important;
-        }
-
-        :global(.card_container.down) {
-            transition: transform var(--card-transition-duration) ease-in-out;
-        }
-
-        
-        .card_scrollable_container {
-            grid-column: 1 / 2;
-            grid-row: 2;
-        }
-
-
-
-        .card_container_inner {
-            grid-template-columns: repeat(1, 1fr);
-        }
-
-        .card_scroll_flex {
-            padding-right: 15px;
-            padding-left: 15px;
-            row-gap: 10px;
-        }
-
-        .card_scroll_flex > .p1 {
-            width: 95%;
-        }
-
-        .description_container {
-            grid-column: 1 / 2;
-            grid-row: 1;
-            padding: 15px;
-            margin-bottom: 1vw;
-        }
-
-        .double_column_text_article {
-            column-count: 1;
-            column-gap: 0px;
-
-        }
-
-        .section_container {
-            margin-top: 15px;
-        }
-
-        .flex_header {
-            gap: var(--spacing-XS)
-        }
-
-        .flex_header > h2 {
-            width: fit-content ;
-        }
-        
-
-        .share_button > svg {
-            height: 100%;
-            width: 100%;
-            place-self: center;
-            align-self: center;
-            padding-bottom: 5px;
-        }
-
-        .share_button {
-            width: 30px;
-            height: 30px;
-            background-color: transparent;
-            border: none;
-            transform: scale(1) rotate(0deg);
-            transition: transform 0.1s ease-in-out;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            border-radius: 0%;
-            padding: 0;
-        }
-
-        .block_num { 
-            width: 40px;
-            height: 40px;
-            top: 10px;
-        }
-    }
-    
-
-</style>

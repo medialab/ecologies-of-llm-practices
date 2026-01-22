@@ -1,5 +1,19 @@
-<script>
+<script lang="ts">
   import "../app.css";
+  import Lenis from "lenis";
+  import { onMount } from "svelte";
+  import { lenisStore } from "$lib/stores/globalStores"
+
+  onMount(() => {
+      const lenis = new Lenis({
+          autoRaf: true,
+          lerp: 0.1,
+      });
+
+      lenisStore.set(lenis);
+
+      lenis.start();
+  })
 </script>
 
 <slot />
@@ -114,19 +128,7 @@
     }
   </script>
   
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DHX3VYCYS"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-8DHX3VYCYS');
-  </script>
 </svelte:head>
-
-
-
-
 
 <style>
 :global(* ) {
@@ -145,12 +147,6 @@
     padding: 2px;
     width: fit-content;
     height: fit-content;
-    font-size: 16px;
-
-  }
-
-  :global(button:hover, a:hover) {
-    text-decoration: underline;
   }
 
   :global(html) {
@@ -168,9 +164,7 @@
 
   :global(p) {
     font-family: "Instrument Sans", Helvetica, sans-serif;
-    font-size: 12px;
     font-weight: 400;
-    line-height: 90%;
     letter-spacing: -0.03em;
     text-decoration: none;
     text-underline-position: from-font;
@@ -184,12 +178,24 @@
 
   :global(h1) {
     font-family: "Instrument Serif", 'Times New Roman', Times, serif;
-    font-size: 86px;
     font-weight: 400;
-    line-height: 100%;
     letter-spacing: -0.03em;
     text-decoration: none;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
+  }
+
+  :global(h2) {
+    font-family: "Instrument Serif", 'Times New Roman', Times, serif;
+    line-height: 100%;
+  }
+
+  :global(*) {
+    text-wrap-style: pretty;
+  }
+
+  :global(::selection) {
+    background-color: #3B82F6;
+    color: white;
   }
 </style>

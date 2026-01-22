@@ -1,7 +1,5 @@
 <script>
     import { selectedCard, isAlterEgoMode } from '$lib/stores/globalStores';
-    import { onMount } from 'svelte';
-
 </script>
 
 <button

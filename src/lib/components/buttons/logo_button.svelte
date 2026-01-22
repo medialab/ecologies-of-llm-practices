@@ -23,7 +23,7 @@
     /* For specific interactive elements if needed */
     :global(button:focus),
     :global(a:focus),
-    :global(.card_container:focus),
+    :global([data-card-container]:focus),
     :global(.floater_container:focus) {
         outline: none;
     }
