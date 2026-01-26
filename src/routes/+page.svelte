@@ -4,7 +4,6 @@
     import CardCanvas from "$lib/components/cardCanvas.svelte";
     import Mask from "$lib/components/mask.svelte";
     import CircularLogo from "$lib/media/CIRCULAR.png";
-    import { onMount } from "svelte";
     import TurndownService from "turndown";
 
     /** @type {import('./$types').PageProps} */
@@ -14,8 +13,8 @@
 
     const mainButtons = [
         { label: "Read us on Arxiv!", href: "https://arxiv.org/abs/2512.19189" },
+        { label: "Tedium exhibition", href: "/tedium" },
         { label: "Artificial Inquiries?", href: "https://hal.science/hal-05327878v2" },
-        { label: "Tedium exhibition", href: "https://ecologiesofllm.medialab.sciencespo.fr/tedium" },
     ];
 
     import gptLogo from "$lib/media/Gpt.png"
@@ -81,16 +80,16 @@
     
 </script>
 
-<main class="h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none" scroll-container="main">
-    <Header></Header>
+<main class="h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none gap-4 md:block flex flex-col" scroll-container>
+<Header></Header>
 <Mask></Mask>
     <section class="h-screen w-full bg-transparent relative z-[25] snap-start shrink-0 " id="hero_title">
-        <div class="absolute top-[20%] md:left-[50%] md:translate-x-[-50%] flex flex-col md:gap-0 gap-8 w-full md:w-fit">
-            <h1 class="relative z-20 bg-white p-6 md:text-center">No more <i>ordinary</i> <br> work practices?</h1>
+        <div class="absolute top-[20%] md:left-[50%] md:translate-x-[-50%] flex flex-col md:gap-0 gap-4 w-full md:w-fit">
+            <h1 class="relative z-20 bg-white md:p-6 md:m-0 m-2 p-2 text-center ">No more <i>ordinary</i> <br> work practices?</h1>
 
             <div class="flex md:flex-row flex-col gap-2 w-full h-fit z-20 justify-center items-center">
                 {#each mainButtons as { label, href }}
-                    <button class="pill px-4 py-3" onclick={() => window.open(href, "_blank")}>
+                    <button class="pill " onclick={() => window.open(href, "_blank")}>
                         <p class="text-nowrap uppercase">{label}</p>
                     </button>
                 {/each}
@@ -102,19 +101,19 @@
         {#each usableCards as card, i}
             {#if card?.Title === "Contact" || card?.Title === "Co-Inquirers"}
             {:else}
-                <section id={card.Id} class="h-screen w-full bg-transparent relative z-[25] snap-start shrink-0 flex items-center" >
-                    <div class="flex md:flex-row flex-col w-full justify-between items-start md:gap-6 md:px-12" id="single_card">
-                        <div class="flex flex-col gap-2 bg-white md:p-6 p-4 md:w-2/5 w-full">
+                <section id={card.Id} class="md:h-screen h-fit w-full bg-transparent relative z-[25] snap-start shrink-0 flex items-center md:px-0 px-4 md:bg-transparent bg-white">
+                    <div class="flex md:flex-row flex-col w-full justify-between items-start md:gap-6 gap-2 md:px-12 border-solid md:border-none border-black border rounded-xl md:p-6 px-2 py-4 " id="single_card">
+                        <div class="flex flex-col gap-2 md:bg-white md:w-2/5 w-full md:p-4">
                             <h1>{card?.Title}</h1>
                         </div>
-                        <div class="flex flex-col gap-4 bg-white md:p-6 p-4 md:w-3/5 w-full max-w-none h-fit">
-                            <p class="text-sm leading-tight h-fit text-gray-500">
+                        <div class="flex flex-col gap-4 md:bg-white md:w-3/5 w-full max-w-none h-fit md:p-4">
+                            <p class="text-sm h-fit text-gray-500">
                                 {@html card?.Question}
                             </p>
                             <p class=" overflow-hidden transition-[max-height] duration-500 ease-in-out" id="description-{i}">
                                 {@html card?.Description}
                             </p>
-                            <div class="flex flex-row gap-1">
+                            <div class="flex flex-row md:gap-1 gap-2 flex-wrap">
                                 {#each models as {name, img}, i}
                                     <button class="pill px-4 py-1 flex flex-row gap-2 items-center" onclick={() => askAI(card?.Description, name as 'gpt' | 'claude' | 'mistral')}>
                                         <p class="text-nowrap uppercase">Ask {name}</p>

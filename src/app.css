@@ -7,19 +7,19 @@
 
 @layer base {
   h1 {
-    @apply text-5xl md:text-8xl leading-tight;
+    @apply text-5xl md:text-8xl leading-none;
   }
 
   h2 {
-    @apply text-4xl md:text-7xl leading-tight;
+    @apply text-4xl md:text-7xl leading-none;
   }
 
   h3 {
-    @apply text-3xl md:text-6xl leading-tight;
+    @apply text-3xl md:text-6xl leading-none;
   }
 
   p {
-    @apply text-lg md:text-base leading-tight;
+    @apply text-base leading-[130%];
   }
 
   a > p,
@@ -33,7 +33,11 @@
   }
 
   .pill {
-    @apply hover:border-dashed border-solid transition-all duration-300 border-black hover:border-[#3B82F6] rounded-2xl border-[1px] flex  bg-white w-fit;
+    @apply hover:border-dashed border-solid transition-all duration-300 border-black hover:border-[#3B82F6] rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2;
+  }
+
+  .sharer_icon {
+    @apply flex p-5 w-16 aspect-square cursor-pointer items-center justify-center rounded-xl bg-gray-50 transition duration-150 ease-in-out hover:bg-[#cfcfcf] active:scale-95;
   }
 
   * {

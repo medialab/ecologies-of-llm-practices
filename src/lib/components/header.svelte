@@ -40,10 +40,10 @@
     <a id="header_logo" href="/" class="w-full h-[30px] col-span-1 justify-center">
         <img src={Logo} alt="Ecologies of LLM Logo" class="h-full w-auto">
     </a>
-    <div id="header_right" class="w-full h-fit col-span-1 flex flex-row gap-2 justify-end">
+    <div id="header_right" class="w-full h-fit col-span-1 flex flex-row gap-2 justify-end ">
         {#each anchors as anchor, i}
             {#if i >= 2}
-                <button onclick={() => $lenisStore.scrollTo(anchor.href)}>
+                <button onclick={() => $lenisStore.scrollTo(anchor.href)} class="hidden md:flex">
                     <p>{anchor.label}</p>
                 </button>
             {/if}
