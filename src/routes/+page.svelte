@@ -9,7 +9,7 @@
     /** @type {import('./$types').PageProps} */
 	let { data } = $props();
 
-    $inspect(Object.values(data.cardsDb))
+    //$inspect(Object.values(data.cardsDb))
 
     const mainButtons = [
         { label: "Read us on Arxiv!", href: "https://arxiv.org/abs/2512.19189" },
@@ -66,7 +66,7 @@
         if (model === 'claude') {
             url = `${baseUrls['claude']}/?q=${encoded}`;
         } else if (model === 'mistral') {
-            url = `${baseUrls['mistral']}/?q=${encoded}`;
+            url = `${baseUrls['mistral']}`;
         } else {
             //fallback to gpt
             url = `${baseUrls['gpt']}/?q=${encoded}`;
@@ -80,16 +80,17 @@
     
 </script>
 
-<main class="h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none gap-4 md:block flex flex-col" scroll-container>
+<main class="main_container" 
+id="main" data-scroll-container>
 <Header></Header>
 <Mask></Mask>
-    <section class="h-screen w-full bg-transparent relative z-[25] snap-start shrink-0 " id="hero_title">
-        <div class="absolute top-[20%] md:left-[50%] md:translate-x-[-50%] flex flex-col md:gap-0 gap-4 w-full md:w-fit">
+    <section class="fullsize_section justify-center" id="hero_title">
+        <div class="flex flex-col md:gap-0 gap-4 w-full md:w-fit">
             <h1 class="relative z-20 bg-white md:p-6 md:m-0 m-2 p-2 text-center ">No more <i>ordinary</i> <br> work practices?</h1>
 
             <div class="flex md:flex-row flex-col gap-2 w-full h-fit z-20 justify-center items-center">
                 {#each mainButtons as { label, href }}
-                    <button class="pill " onclick={() => window.open(href, "_blank")}>
+                    <button class="pill" onclick={() => window.open(href, "_blank")}>
                         <p class="text-nowrap uppercase">{label}</p>
                     </button>
                 {/each}
@@ -99,9 +100,9 @@
     {#await data.alterEgosDb then cardsData}
     {@const usableCards: cardValues[]  = Object.values(cardsData)}
         {#each usableCards as card, i}
-            {#if card?.Title === "Contact" || card?.Title === "Co-Inquirers"}
-            {:else}
-                <section id={card.Id} class="md:h-screen h-fit w-full bg-transparent relative z-[25] snap-start shrink-0 flex items-center md:px-0 px-4 md:bg-transparent bg-white">
+            {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
+                <section id={card.Id} class="md:h-screen h-fit w-full bg-transparent relative z-[25] snap-start shrink-0 flex items-center md:px-0 px-4 md:bg-transparent bg-white"
+                data-scroll data-scroll-speed="0.1">
                     <div class="flex md:flex-row flex-col w-full justify-between items-start md:gap-6 gap-2 md:px-12 border-solid md:border-none border-black border rounded-xl md:p-6 px-2 py-4 " id="single_card">
                         <div class="flex flex-col gap-2 md:bg-white md:w-2/5 w-full md:p-4">
                             <h1>{card?.Title}</h1>
@@ -117,7 +118,7 @@
                                 {#each models as {name, img}, i}
                                     <button class="pill px-4 py-1 flex flex-row gap-2 items-center" onclick={() => askAI(card?.Description, name as 'gpt' | 'claude' | 'mistral')}>
                                         <p class="text-nowrap uppercase">Ask {name}</p>
-                                        <img src={img} alt="{name} logo" class="h-4 w-4 object-contain">
+                                        <img src={img} alt="{name} logo" class="h-4 w-4">
                                     </button>
                                 {/each}
                             </div>
@@ -131,9 +132,10 @@
     <div class="z-[5] h-fit w-full absolute left-0 top-[50%]">
     <img src={CircularLogo}
     alt="Fractal logo"
-    class="h-fit w-full object-contain">
+    class="h-fit w-full"
+    data-scroll data-scroll-speed="0.1">
 </div>
-<section id="playground" class="w-screen h-screen z-[35] relative overflow-y-visible">
+<section id="playground" class="w-screen h-screen z-[35] relative overflow-y-visible" data-scroll data-scroll-speed="1">
     <CardCanvas data={data}></CardCanvas>
 </section>
 <Footer></Footer>

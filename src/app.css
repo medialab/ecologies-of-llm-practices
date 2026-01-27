@@ -19,7 +19,7 @@
   }
 
   p {
-    @apply text-base leading-[130%];
+    @apply text-base leading-[140%];
   }
 
   a > p,
@@ -29,11 +29,21 @@
 
   a,
   button {
-    @apply cursor-pointer  hover:text-[#3B82F6];
+    @apply cursor-pointer  hover:text-blue-500;
   }
 
   .pill {
-    @apply hover:border-dashed border-solid transition-all duration-300 border-black hover:border-[#3B82F6] rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2;
+    @apply hover:border-dashed border-solid transition-all duration-75 border-black hover:border-blue-500 rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2;
+  }
+
+  .pill:active {
+    @apply bg-blue-200 border-blue-500 text-blue-500 scale-[98%] duration-75;
+  }
+
+  .pill:hover img,
+  .pill:active img {
+    filter: brightness(0) invert(42%) sepia(93%) saturate(1352%)
+      hue-rotate(208deg) brightness(119%) contrast(119%);
   }
 
   .sharer_icon {
@@ -43,4 +53,70 @@
   * {
     @apply p-0 m-0;
   }
+
+  /* Global Resets & Typography from +layout.svelte */
+  html {
+    @apply bg-[#F2F2F2] w-full min-h-full overflow-x-hidden;
+  }
+
+  body {
+    @apply w-full min-h-full bg-[#F2F2F2];
+  }
+
+  p {
+    @apply font-['Instrument_Sans',_Helvetica,_sans-serif] font-normal tracking-[-0.03em] no-underline decoration-from-font w-fit;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+
+  b {
+    @apply font-medium;
+  }
+
+  h1 {
+    @apply font-['Instrument_Serif',_'Times_New_Roman',_Times,_serif] font-normal tracking-[-0.03em] no-underline decoration-from-font;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+  }
+
+  h2 {
+    @apply font-['Instrument_Serif',_'Times_New_Roman',_Times,_serif] leading-none;
+  }
+
+  button,
+  a {
+    @apply bg-transparent border-none text-inherit cursor-pointer no-underline inline-flex p-[2px] w-fit h-fit;
+  }
+
+  *,
+  ::before,
+  ::after {
+    @apply m-0 p-0;
+    text-wrap-style: pretty;
+  }
+
+  ::selection {
+    @apply bg-[#3B82F6] text-white;
+  }
+
+  .main_container {
+    @apply h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none gap-4 md:block flex flex-col;
+  }
+
+  .fullsize_section {
+    @apply relative h-screen w-screen flex items-center justify-start py-2 z-[30] px-4 snap-start bg-transparent;
+  }
+
+  img {
+    @apply object-contain transition-all duration-150 ease-in-out;
+  }
+}
+
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }

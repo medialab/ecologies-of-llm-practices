@@ -395,211 +395,112 @@
 
 <style>
 
-    
-
     .mobile_vd_container {
-        display: none;
+        @apply hidden;
+        /* Mobile styles moved to media query below */
     }    
 
     .custom-floater-container {
-        width: auto;
-        height: auto;
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        opacity: 0;
+        @apply w-auto h-auto absolute flex flex-col opacity-0 cursor-grab touch-none select-none origin-top-left z-[999] overflow-hidden bg-none border-0 p-0 m-0 max-w-[300px] backdrop-blur-[6px];
         will-change: transform, opacity;
-        cursor: grab;
-        touch-action: none;
-        user-select: none;
-        transform-origin: top left;
-        z-index: 999;
-        overflow: hidden;
-        background: none;
-        border: none;
-        padding: 0;
-        margin: 0;
-        max-width: 300px;
-        backdrop-filter: blur(6px);
-        -webkit-backdrop-filter: blur(6px); /* Safari support */
     }
 
     picture {
-        align-items: center;
-        justify-content: center;
-        display: flex;
-        width: 100%;
-        height: 100%;
+        @apply flex items-center justify-center w-full h-full;
     }
 
     .custom-floater-bottom {
-        width: 250px;
-        height: fit-content;
-        display: flex;
-        padding: var(--spacing-S) var(--spacing-M);
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        background-color: #FF4444 !important;
-        color: white;
-        border: dashed 1px white;
-        line-height: 1.2;
-        z-index: 4;
-        position: relative;
-        overflow: hidden;
+        @apply w-[250px] h-fit flex px-[var(--spacing-M)] py-[var(--spacing-S)] justify-center items-center gap-[10px] bg-[#FF4444] text-white border border-dashed border-white leading-[1.2] z-[4] relative overflow-hidden rounded-[2px];
         transition: transform 1s ease-out, background-color 1s ease, filter 1s ease;
-        border-radius: 2px;
+    }
+
+    /* Force background color with important because it was important in original CSS */
+    .custom-floater-bottom {
+        background-color: #FF4444 !important;
     }
 
     .vademecum-image {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        place-content: center;
-        align-items: center;
+        @apply w-full h-auto object-contain place-content-center items-center;
     }
 
     .vademecum-image-container {
-        width: auto;
-        height: 100%;
+        @apply w-auto h-full border border-dashed border-white overflow-hidden rounded-[2px] max-w-[250px] origin-bottom;
         background-color: rgba(0, 0, 0, 0.1);
-        border: dashed 1px white;
-        overflow: hidden;
-        border-radius: 2px;
-        max-width: 250px;
         transition: transform 1s ease-out, background-color 1s ease, filter 1s ease;
-        transform-origin: bottom;
     }
 
     .custom-floater-container:active > .vademecum-image-container {
-        transform: scale(0.97);
-        transition: transform 0.1s ease-in-out;
-        filter: brightness(0.9);
-        transform-origin: bottom;
+        @apply scale-[0.97] brightness-90 origin-bottom duration-100 ease-in-out;
     }
 
     .custom-floater-container:active > .custom-floater-bottom {
-        transform: scale(0.97);
-        transition: transform 0.1s ease-in-out;
-        filter: brightness(0.9);
-        transform-origin: top;
+        @apply scale-[0.97] brightness-90 origin-top duration-100 ease-in-out;
     }
-
 
     .custom-floater-bottom.downloaded {
         background-color: #2ecc71 !important;
-        transition: background-color 0.8s ease-in-out;
+        @apply duration-[800ms] ease-in-out;
     }
 
     .category-icon {
-        display: block;
-        width: 20px;
-        height: 20px;
-        appearance: none;
+        @apply block w-[20px] h-[20px] appearance-none border-none text-inherit bg-transparent p-0 shrink-0 z-[7] relative;
         line-height: inherit;
-        border: none;
-        text-align: inherit;
-        background-color: transparent;
-        padding: 0;
-        flex-shrink: 0;
-        z-index: 7;
-        position: relative;
     }
 
     .category-icon > svg {
-        display: block;
+        @apply block;
     }
 
     .custom-floater-text {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @apply whitespace-nowrap overflow-hidden text-ellipsis pl-[var(--spacing-S)] font-normal z-[6] relative text-white translate-y-0 duration-[600ms] ease-in-out;
         font-size: 0.875em;
-        padding-left: var(--spacing-S);
         font-family: var(--sans-font-family), var(--fallback-sans-font);
-        font-weight: 400;
-        z-index: 6;
-        position: relative;
-        color: white;
-        transform: translateY(0);
-        transition: transform 0.6s ease-in-out;
     }
 
     .custom-floater-bottom:hover .custom-floater-text-absolute {
-        transform: translateY(0);
-        transition: transform 0.6s ease-in-out;
+        @apply translate-y-0 duration-[600ms] ease-in-out;
     }
 
     .custom-floater-bottom:hover .custom-floater-text {
-        transform: translateY(-200%);
-        transition: transform 0.6s ease-in-out;
+        @apply -translate-y-[200%] duration-[600ms] ease-in-out;
     }
 
     .custom-floater-text-absolute {
-        position: absolute;
+        @apply absolute whitespace-nowrap overflow-hidden text-ellipsis pl-0 ml-0 font-normal z-[6] text-white duration-[600ms] ease-in-out;
         left: calc(var(--spacing-S) * 3);
         transform: translateY(200%);
-        transition: transform 0.6s ease-in-out;
-        padding-left: 0;
-        margin-left: 0;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         font-size: 0.875em;
         font-family: var(--sans-font-family), var(--fallback-sans-font);
-        font-weight: 400;
-        z-index: 6;
-        color: white;
     }
 
     /* Mobile display none to match other floaters */
     @media (max-width: 768px) {
         .custom-floater-container {
-            display: none;
+            @apply hidden;
         }
 
         .mobile_button_container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: fit-content;
-            padding-bottom: var(--spacing-S);
-            padding-right: var(--spacing-L);
-            padding-left: var(--spacing-L);
-            column-gap: var(--spacing-S);
+            @apply flex flex-row items-center justify-center fixed bottom-0 left-0 w-full h-fit pb-[var(--spacing-S)] pr-[var(--spacing-L)] pl-[var(--spacing-L)] gap-x-[var(--spacing-S)];
         }
 
         .mobile_vd_container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            width: 50%;
-            height: auto;
-            pointer-events:visible;
-            user-select: none;
-            touch-action: none;
+            @apply flex flex-row items-center justify-center w-1/2 h-auto pointer-events-auto select-none touch-none static gap-x-[var(--spacing-S)];
             transition: transform 0.135s ease-in-out, background-color 0.835s ease-in;
             transform-origin: left center !important;
-            position: static;
-            column-gap: var(--spacing-S);
         } 
 
         .mobile_vd_container > .p3 {
+            @apply overflow-hidden;
             hyphens: none;
-            overflow: hidden;
         }
 
         :global(.mobile_vd_container:active) {
-            transform: scale(0.95) translateX(-50%) !important;
-            transition: transform 0.135s ease-in-out, background-color 0.135s ease-out;
-            transform-origin: left center !important;
             background-color: #79e3a5 !important;
+            /* transform: scale(0.95) translateX(-50%) !important; */ 
+            /* Note: Original CSS had transform !important, ensuring it propagates */
+             transform: scale(0.95) translateX(-50%) !important;
+             transform-origin: left center !important;
+             transition: transform 0.135s ease-in-out, background-color 0.135s ease-out;
         }
     }
 </style> 

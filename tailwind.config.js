@@ -2,7 +2,12 @@
 export default {
   content: ["./src/**/*.{html,js,svelte,ts}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['"Instrument Sans"', "Helvetica", "sans-serif"],
+        serif: ['"Instrument Serif"', '"Times New Roman"', "Times", "serif"],
+      },
+    },
   },
   plugins: [
     require("@tailwindcss/typography"),

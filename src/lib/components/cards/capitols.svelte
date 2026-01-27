@@ -19,7 +19,6 @@ export let transitionDelay
         <div
             class="w-[60vw] max-w-[1100px] aspect-[1.5/1] pr-[var(--spacing-M)] cursor-grab absolute select-text overflow-clip opacity-0 transition-[border] duration-[3s] ease-in-out border-[1.5px] border-white [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none] rounded-3xl md:rounded-none"
             data-card-container
-            draggable="true"
             onclick={(event) => {
                 if ($isDesktop) {
                     bringToFront(event);
@@ -75,7 +74,7 @@ export let transitionDelay
                     tabindex="0"
                     class="w-full h-full transform transition-transform duration-100 ease-in-out flex items-center justify-center relative rounded-none active:scale-90 hover:scale-105 active:rotate-[5deg]"
                     aria-label="Share content">
-                    <img src={forwardIcon} alt="" class="w-full h-full object-contain">
+                    <img src={forwardIcon} alt="" class="w-full h-full ">
                 </button>
             </div>
 
@@ -156,7 +155,7 @@ export let transitionDelay
                                                 class="inline font-inherit md:h-[40px] h-[30px] w-auto"
                                                 aria-label="Share {section.title}"
                                             >
-                                                <img src={arrowIcon} alt="Share this exercise" class="w-full h-full object-contain">
+                                                <img src={arrowIcon} alt="Share this exercise" class="w-full h-full ">
                                             </button>
                                         </h2>
                                     </div>
@@ -172,7 +171,7 @@ export let transitionDelay
                             {#if section.picture}
                                 <div class="w-full h-auto relative">
                                     <div class="absolute w-full h-full mix-blend-color" style="background-color: {card.bgColor};"></div>
-                                    <enhanced:img class="w-full h-auto object-contain" src={section.picture} alt="People"/>
+                                    <enhanced:img class="w-full h-auto " src={section.picture} alt="People"/>
                                 </div>   
                             {/if}
 

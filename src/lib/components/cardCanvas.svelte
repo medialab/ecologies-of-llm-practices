@@ -4,7 +4,6 @@
     import Capitols from "$lib/components/cards/capitols.svelte"; 
     import LogoButton from "$lib/components/buttons/logo_button.svelte";
     import Floater from "$lib/components/floaters.svelte";
-    import Slider from "$lib/components/buttons/slider.svelte";
     import VademecumFloater from "$lib/components/vademecum_floater.svelte";
     import Sharer from '$lib/components/buttons/sharer.svelte';
     import { onMount, onDestroy, tick } from "svelte";
@@ -1073,7 +1072,7 @@
             
             if (floaters && floaters.length > 0) {
                 floaters.forEach((floater, index) => {
-                    floater.classList.add('grab');
+                    floater.classList.add('cursor-grab');
                     floater.style.touchAction = 'none';
                     floater.style.transition = 'opacity 0s linear';
 
@@ -1184,8 +1183,8 @@
                                     floater.setAttribute("data-y", 0);
                                 }
 
-                                event.target.classList.remove("grab");
-                                event.target.style.cursor = "grabbing";
+                                event.target.classList.remove("cursor-grab");
+                                event.target.classList.add("cursor-grabbing");
                             },
 
                             move(event) {
@@ -1206,8 +1205,8 @@
                             },
                             end(event) {
                                 // Reset cursor after drag ends
-                                event.target.classList.remove("grabbing");
-                                event.target.style.cursor = "grab";
+                                event.target.classList.remove("cursor-grabbing");
+                                event.target.classList.add("cursor-grab");
                             },
                         },
                         modifiers: [
@@ -1247,7 +1246,7 @@
 
         if (!$isMobileDevice) {
             containers.forEach(container => {
-            container.classList.add('grab');
+            container.classList.add('cursor-grab');
             container.style.touchAction = 'none';
 
             interact(container).draggable({
@@ -1271,9 +1270,8 @@
                             $selectedCard = cardData.Title;
                         }
 
-                        event.target.classList.remove('grab');
-                        event.target.classList.add('grabbing');
-                        event.target.style.cursor = 'grabbing';
+                        event.target.classList.remove('cursor-grab');
+                        event.target.classList.add('cursor-grabbing');
                         
                     },
 
@@ -1289,9 +1287,8 @@
 
                     end(event) {
 
-                        event.target.classList.remove('grabbing');
-                        event.target.classList.add('grab');
-                        event.target.style.cursor = 'grab';
+                        event.target.classList.remove('cursor-grabbing');
+                        event.target.classList.add('cursor-grab');
                     },
                 },
                 modifiers: [
@@ -1437,9 +1434,12 @@
 
 <Sharer />
 
-<section class="host relative bg-transparent w-screen h-screen overflow-y-visible" bind:this={hostElement}>
+<section 
+    class="relative z-[6] bg-transparent w-screen h-screen overflow-y-visible 
+           max-md:grid max-md:grid-rows-[auto_1fr] max-md:static max-md:h-[100dvh] max-md:overflow-hidden" 
+    bind:this={hostElement}>
         {#if isInteractionLocked}
-            <div class="global_interaction_lock" aria-hidden="true"></div>
+            <div class="fixed inset-0 z-[10000] bg-transparent pointer-events-auto touch-manipulation tap-highlight-transparent" aria-hidden="true"></div>
         {/if}
         
         {#if $windowSizeReady}
@@ -1455,51 +1455,13 @@
                 />
             {/each}
 
-            {#if !$isMobileDevice}
+            <!--{#if !$isMobileDevice}
                 {#each Object.values(data.floatersDb) as singleFloater, index (singleFloater.id)}
                     <Floater
                         data={singleFloater}
                         randomPosition={calculateRandomPosition(singleFloater)}
                     />
                 {/each}
-            {/if}
+            {/if}-->
         {/if}
     </section>
-
-<style>
-
-    .host {
-        position: relative;
-        z-index: 6;
-        background-color: transparent;
-
-        @media (max-width: 768px) {
-            display: grid;
-            grid-template-rows: auto 1fr; /* LogoButton takes auto height, container takes remaining */
-            position: static;
-            height: 100vh;
-            height: 100dvh; /* Modern viewport height */
-            overflow: hidden;
-        }
-    }
-
-    :global(.grab) {
-        cursor: grab !important;
-        
-    }
-
-    :global(.grabbing) {
-        cursor: grabbing !important;
-    }
-
-    .global_interaction_lock {
-        position: fixed;
-        inset: 0;
-        z-index: 10000;
-        background: transparent;
-        pointer-events: all;
-        /* Prevent focus while active */
-        -webkit-tap-highlight-color: transparent;
-    }
-
-</style>

@@ -93,10 +93,7 @@
 </script>
 
     <!-- svelte-ignore a11y_no_static_element_interactions -->
-        <div class="floater_container"
-            class:alterEgo={$isAlterEgoMode}
-            class:closed={$isAlterEgoMode}
-            class:open={!$isAlterEgoMode}
+        <div class="floater_container open"
 
             data-sveltekit-preload-data="hover"
             data-parent={data.parent}
@@ -106,8 +103,6 @@
                 left: {randomPosition.left};
                 z-index: {randomPosition.zIndex};
                 animation-delay: {randomPosition.animationDelay}s;" >
-                
-
             {#if data.media}
                 {#if isClicked}
                     <div class="floater_image">
@@ -122,7 +117,7 @@
                     </div>
 
                 <button
-                        class="closer_container"
+                        class="closer_container p-2"
                         style="background-color: {$currentCardColor}"
                         on:click={removeClickedClass}
                         aria-label="Close"
@@ -189,277 +184,151 @@
         </div>
 
 <style>
+
     :global(.floater_container) {
-        width: auto;
-        height: auto;
-        
+        @apply absolute top-1/2 left-[80%] z-[500] flex flex-col gap-0 opacity-0 overflow-hidden cursor-grab touch-none select-none origin-bottom-left transition-[width,opacity] duration-300 ease-in-out w-auto h-auto;
+        will-change: transform, max-height;
+    }
 
-        position: absolute;
-        top: 50%;
-        left: 80%;
-        z-index: 500;
-
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        opacity: 0;
-
-        overflow: hidden;
-        
-        will-change: transform, max-height; 
-            
-        cursor: grab; 
-        touch-action: none;
-        user-select: none;
-        transform-origin: bottom left;
-
-        transition: width 0.3s ease-in-out, opacity 0.8s ease-in-out;
-
-        @media (max-width: 768px) {
-            display: none;
+    /* Mobile hidden */
+    @media (max-width: 768px) {
+        :global(.floater_container) {
+            @apply hidden;
         }
-
     }
 
     :global(.floater_bottom) {
-        width: max-content;
-        height: fit-content;
-        display: inline-flex;
-        
-        padding-right: var(--spacing-L);
-        padding-left: var(--spacing-L);
-        padding-top: var(--spacing-S);
-        padding-bottom: var(--spacing-S);
-
-        justify-content: center;
-        align-items: center;
-        gap: 0px;
-
-        background-color: white;
-        color: black;
-        border: dashed 1px black;
-        line-height: 1.2;
-        z-index: 4;
-
-        word-wrap: none;
-        position: static;
-        transition: background-color var(--transition-times) var(--transition-curve);
+        @apply inline-flex w-max h-fit px-[var(--spacing-L)] py-[var(--spacing-S)] justify-center items-center gap-0 bg-white text-black border border-dashed border-black leading-[1.2] z-[4] static transition-colors duration-[var(--transition-times)] ease-[var(--transition-curve)];
+        word-wrap: normal; /* "word-wrap: none" isn't standard, normal is default */
     }
-  
+
     :global(.floater_container > .floater_bottom > p) {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @apply whitespace-nowrap overflow-hidden text-ellipsis;
+    }
+
+    /* Closed State */
+    :global(.floater_container.closed) {
+        @apply transition-opacity duration-300 ease-in-out;
     }
 
     :global(.floater_container.closed > .floater_bottom > p) {
-        display: block;
-        width: 0px;
+        @apply block w-0 pl-0;
         transition: all var(--transition-times) var(--transition-curve);
-        padding-left: 0;
     }
 
-    :global(.floater_container.closed) {
-        transition: opacity 0.8s ease-in-out;
+    /* Open State */
+    :global(.floater_container.open) {
+        @apply w-fit min-w-max;
     }
 
     :global(.floater_container.open > .floater_bottom > p) {
-        display: block;
-        width: fit-content;
+        @apply block w-fit pl-[var(--spacing-S)];
         transition: all var(--transition-times) var(--transition-curve);
-        padding-left: var(--spacing-S);
-    }
-
-    :global(.floater_container.open) {
-        width: fit-content;
-        min-width: max-content;
     }
 
     :global(.floater_container.open > .floater_bottom) {
-        padding: var(--spacing-S);
-        width: 100%;
-        z-index: 4;
-        transform: none;
-        transition: transform 0.1s ease-in-out;
-    }
-    
-    :global(.floater_container.open > .floater_bottom:active) {
-        filter: brightness(0.9);
-        transform: scale(0.97);
-        transition: transform 0.1s ease-in-out;
+        @apply p-[var(--spacing-S)] w-full z-[4] transform-none transition-transform duration-100 ease-in-out;
     }
 
+    :global(.floater_container.open > .floater_bottom:active) {
+        @apply brightness-90 scale-[0.97];
+    }
+
+    /* Interactive Elements inside */
     :global(.floater_container *), 
     :global(.floater_container a) {
-        user-select: none;
+        @apply select-none;
     }
 
     :global(.floater_image) {
-        max-width: 450px;
-        max-height: none;
+        @apply max-w-[450px] w-[300px] h-0 overflow-hidden grayscale z-[2] relative border-0 opacity-100 transition-opacity duration-300 block;
         aspect-ratio: 21 / 9;
-        /* Fallback for browsers without aspect-ratio support */
-        @supports not (aspect-ratio: 1) {
+    }
+
+    @supports not (aspect-ratio: 1) {
+        :global(.floater_image) {
             height: calc(100vw / 21 * 9);
         }
-        width: 300px;
-        height: 0px;
-        overflow: hidden;
-        filter: grayscale(1);
-        z-index: 2;
-
-        position: relative;
-
-        border-left: none;
-        border-right: none;
-        border-bottom: none;
-        
-        opacity: 1; 
-        transition: opacity 0.8s ease-in-out;
-
-        display: block;
     }
 
-    :global(.floater_image > picture) {
-        display: block;
-        height: 100%;
-        width: 100%;
-        overflow: hidden;
-        object-fit: cover;
-        object-position: center;
-    }
-
+    :global(.floater_image > picture),
     :global(.floater_image > picture > img) {
-        object-fit: cover;
-        object-position: center;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
+        @apply block w-full h-full overflow-hidden object-cover object-center z-[1];
     }
 
-    
-
-
+    /* AlterEgo State */
     :global(.floater_container.alterEgo) {
-        opacity: 0 !important;
-        transition: opacity 0.8s ease-in-out;
+        @apply opacity-0 transition-opacity duration-300 ease-in-out !important;
     }
-
 
     :global(.floater_container.closed > .floater_bottom) {
-        padding: var(--spacing-S);
-        z-index: 4;
+        @apply p-[var(--spacing-S)] z-[4];
     }
 
+    /* Category Icons */
     :global(.category_icon) {
-        display: block;
-
-        width: 20px;
-        height: 20px;
-
-        fill: black;
-
-        appearance: none;
-        font-family: none;
+        @apply block w-[20px] h-[20px] fill-black appearance-none border-none bg-transparent p-0 shrink-0 z-[1] static transition-none text-transparent;
+        font-family: inherit;
         line-height: inherit;
-        color: transparent;
-        border: none;
-        border-radius: none;
-        text-align: inherit;
-        background-color: transparent;
-        transition: none;
-        position: static;
-        padding: 0;
-        flex-shrink: 0;
-        z-index: 1;
     }
 
     :global(.category_icon:hover) {
-        background-color: transparent;
+        @apply bg-transparent;
     }
 
     .closer_container {
-        display: none;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        z-index: 4;
-        width: 40px;
-        height: 40px;
-        border: dashed 1px black;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
+        @apply hidden absolute right-0 bottom-0 z-[4] w-[40px] h-[40px] border border-dashed border-black items-center justify-center p-0;
     }
 
     .closer_container > svg {
-        width: 30px;
-        height: 30px;
-        fill: black;
-        place-self: center;
-        place-content: center;
+        @apply w-[30px] h-[30px] fill-black place-self-center place-content-center;
     }
 
+    /* Clicked & Open State - Expanded Floater */
     :global(.floater_container.open.clicked) {
-        width: 20vw;
+        @apply w-[20vw] h-auto origin-bottom-left;
         aspect-ratio: 16 / 9;
-        height: auto;
-
         animation-play-state: paused;
-        transform-origin: bottom left;
     }
 
     :global(.floater_container.open.clicked > .floater_image) {
-
-        height: 85%;
-        width: 100%;
-
-        position: relative;
-        display: block;
-        border-left: dashed 1px black;
-        border-right: dashed 1px black;
-        border-bottom: dashed 1px black;
+        @apply h-[85%] w-full relative block border border-dashed border-black border-l-0 border-r-0 border-b-0; 
+        /* The original CSS had border-left: dashed 1px black... wait, the replacement has border-0 then adds it back?
+           Original: border-left: dashed 1px black; ... 
+           Wait, "border-left: none" was in .floater_image.
+           In .floater_container.open.clicked > .floater_image it sets borders.
+           Let's match original: border-left, right, bottom: dashed 1px black.
+        */
+        @apply border-l border-r border-b border-black border-dashed;
     }
 
     :global(.floater_container.open.clicked > .floater_image > video) {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        background-color: grey;
+        @apply w-full h-full object-cover bg-gray-500;
     }
 
     :global(.floater_container.open.clicked > .closer_container) {
-        display: flex;
+        @apply flex;
     }
 
     :global(.floater_container.open.clicked > .closer_container:active) {
-        filter: brightness(0.9);
+        @apply brightness-90;
     }
 
     :global(.floater_container.open.clicked > .floater_bottom) {
-        border: dashed 1px black;
+        @apply border border-dashed border-black;
     }
 
     :global(.floater_container.open.clicked > .floater_bottom:active) {
-        transform: none;
-        filter: none;
+        @apply transform-none filter-none;
     }
 
+    /* Darker Overlay */
     :global(.darker) {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 10;
-        background-color: black;
-        opacity: 0.9;
-        mix-blend-mode: overlay;
-        transform: translateX(-100%);
-        transition: transform 0.2s ease-in-out;
+        @apply absolute w-full h-full z-[10] bg-black opacity-90 mix-blend-overlay -translate-x-full transition-transform duration-200 ease-in-out;
     }
 
     :global(.darker.open) {
-        transform: translateX(0%);
-        transition: transform 3s ease-in-out;
+        @apply translate-x-0 transition-transform duration-[3000ms] ease-in-out;
     }
 
 </style>

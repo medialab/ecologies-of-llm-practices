@@ -1,18 +1,27 @@
 <script lang="ts">
   import "../app.css";
-  import Lenis from "lenis";
+  import LocomotiveScroll from "locomotive-scroll";
   import { onMount } from "svelte";
-  import { lenisStore } from "$lib/stores/globalStores"
+  import { scrollStore } from "$lib/stores/globalStores"
 
   onMount(() => {
-      const lenis = new Lenis({
-          autoRaf: true,
-          lerp: 0.1,
+      const scroll = new LocomotiveScroll({
+          autoStart: true,
+          lenisOptions: {
+              wrapper: window,
+              content: document.documentElement,
+              lerp: 0.1,
+              duration: 1.2,
+              orientation: 'vertical',
+              gestureOrientation: 'vertical',
+              smoothWheel: true,
+              wheelMultiplier: 1,
+              touchMultiplier: 2,
+              infinite: false,
+          }
       });
 
-      lenisStore.set(lenis);
-
-      lenis.start();
+      scrollStore.set(scroll);
   })
 </script>
 
@@ -129,73 +138,3 @@
   </script>
   
 </svelte:head>
-
-<style>
-:global(* ) {
-  margin: 0;
-  padding: 0;
-}
-
-
-  :global(button, a) {
-    background-color: transparent;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-flex;
-    padding: 2px;
-    width: fit-content;
-    height: fit-content;
-  }
-
-  :global(html) {
-    background-color: #F2F2F2;
-    width: 100%;
-    min-height: 100%;
-    overflow-x: hidden;
-  }
-
-  :global(body) {
-    width: 100%;
-    min-height: 100%;
-    background-color: #F2F2F2;
-  }
-
-  :global(p) {
-    font-family: "Instrument Sans", Helvetica, sans-serif;
-    font-weight: 400;
-    letter-spacing: -0.03em;
-    text-decoration: none;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-    width: fit-content;
-  }
-
-  :global(b) {
-    font-weight: 500;
-  }
-
-  :global(h1) {
-    font-family: "Instrument Serif", 'Times New Roman', Times, serif;
-    font-weight: 400;
-    letter-spacing: -0.03em;
-    text-decoration: none;
-    text-underline-position: from-font;
-    text-decoration-skip-ink: none;
-  }
-
-  :global(h2) {
-    font-family: "Instrument Serif", 'Times New Roman', Times, serif;
-    line-height: 100%;
-  }
-
-  :global(*) {
-    text-wrap-style: pretty;
-  }
-
-  :global(::selection) {
-    background-color: #3B82F6;
-    color: white;
-  }
-</style>

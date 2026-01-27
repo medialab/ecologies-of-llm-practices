@@ -8,6 +8,7 @@ yarn-error.log*
 .pnpm-debug.log*
 .npmrc
 .txt
+.agent
 
 # Build output folders
 /.output/

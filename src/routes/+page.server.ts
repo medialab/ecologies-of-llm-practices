@@ -4,17 +4,13 @@
 export const prerender = true;
 export const trailingSlash = "always";
 
-import { mergeAlias } from "vite";
-import { config as configs } from "$database/config.js";
-import { onMount } from "svelte";
-
 import backgroundImage from "$media/logos/Dot_background.png?enhanced";
 
-import { photos, capitolsCover, general } from "$database/config.js";
+import { general } from "$database/config.js";
 
 import { cardsDb, floatersDb, alterEgosDb } from "$database/global_db.js";
 
-export function load({ params }) {
+export function load() {
   return {
     backgroundImage,
     logoImage: general.logoImage,

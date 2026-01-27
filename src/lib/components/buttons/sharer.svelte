@@ -284,7 +284,8 @@ const shareOnReddit = () => {
                     aria-label="Copy link to clipboard">
                     <svg class="h-full w-full fill-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" ><path d="M362.31-260Q332-260 311-281q-21-21-21-51.31v-455.38Q290-818 311-839q21-21 51.31-21h335.38Q728-860 749-839q21 21 21 51.31v455.38Q770-302 749-281q-21 21-51.31 21H362.31Zm0-60h335.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-455.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H362.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v455.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85Zm-140 200Q192-120 171-141q-21-21-21-51.31v-515.38h60v515.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85h395.38v60H222.31ZM350-320v-480 480Z"/></svg>
                     <div
-                        class="copier_alert absolute left-1/2 bottom-[-20%] flex w-max -translate-x-1/2 scale-[0.4] items-start justify-center rounded-xl border border-black px-2 py-1 opacity-0"
+                        class="absolute left-1/2 bottom-[-20%] flex w-max -translate-x-1/2 scale-[0.4] items-start justify-center rounded-xl border border-black px-2 py-1 opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)]
+                               {copierAlert?.classList.contains('show') ? 'opacity-100 pointer-events-none -translate-x-1/2 scale-100 duration-200' : ''}"
                         bind:this={copierAlert}>
                         <p class="text-[11px] text-center text-black">Link copied!</p>
                     </div>
@@ -293,6 +294,7 @@ const shareOnReddit = () => {
         </div>
         <button
             id="background_overlay"
+            aria-label="Close sharer"
             class="fixed inset-0 z-[200] opacity-70 h-screen w-screen pointer-events-auto"
             style="background-color: {$currentCardColor};"
             in:fade={{ duration: 300 }}
@@ -304,16 +306,9 @@ const shareOnReddit = () => {
 {/if}
 
 <style>
-.copier_alert {
-    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-:global(.copier_alert.show) {
-    opacity: 1;
-    pointer-events: none;
-    transform: translateX(-50%) scale(1);
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+/* 
+   .copier_alert styles converted to Tailwind:
+   - base: absolute left-1/2 bottom-[-20%] w-max -translate-x-1/2 scale-[0.4] ... opacity-0 transition-all duration-300
+   - show: opacity-100 pointer-events-none scale-100 duration-200
+*/
 </style>

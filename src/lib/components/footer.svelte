@@ -1,5 +1,26 @@
 <script>
-import footerLogo from "$lib/media/logos/expanded_logo.svg";
+    import footerLogo from "$lib/media/logos/expanded_logo.svg";
+
+    const footerSections = [
+        {
+            title: "Research Team:",
+            links: [
+                { label: "Donato Ricci", href: "https://medialab.sciencespo.fr/en/people/donato-ricci/" },
+                { label: "Gabriel Alcaras", href: "https://medialab.sciencespo.fr/en/people/gabriel-alcaras/" },
+                { label: "Tommaso Prinetti", href: "https://medialab.sciencespo.fr/en/people/tommaso-prinetti/" },
+                { label: "Zoe de Vries", href: "https://medialab.sciencespo.fr/en/people/zoe-de-vries/" }
+            ]
+        },
+        {
+            title: "The project:",
+            links: [
+                { label: "Data Policy", href: "/" },
+                { label: "Artificial Inquiries?", href: "true" },
+                { label: "Configuration work", href: "/" },
+                { label: "Co-Inquirers", href: "/inquirers" }
+            ]
+        }
+    ];
 </script>
 
 
@@ -12,24 +33,26 @@ import footerLogo from "$lib/media/logos/expanded_logo.svg";
             Their names are <span class="underline hover:text-blue-500 hover:cursor-pointer"> written here ↗︎</span> </p>
         </div>
         <div class="md:w-1/3 w-full flex flex-row gap-6 md:justify-end justify-space-between">
-            <div class="flex flex-col w-fit md:pr-4 md:gap-1 gap-0">
-                <p class="font-medium pb-2">Research Team:</p>
-                <a href="https://medialab.sciencespo.fr/en/people/donato-ricci/" target="_blank"><p>Donato Ricci</p></a>
-                <a href="https://medialab.sciencespo.fr/en/people/gabriel-alcaras/" target="_blank"><p>Gabriel Alcaras</p></a>
-                <a href="https://medialab.sciencespo.fr/en/people/tommaso-prinetti/" target="_blank"><p>Tommaso Prinetti</p></a>
-                <a href="https://medialab.sciencespo.fr/en/people/zoe-de-vries/" target="_blank"><p>Zoe de Vries</p></a>
-            </div>
-            <div class="flex flex-col w-fit md:pr-4 md:gap-1 gap-0">
-                <p class="font-medium pb-2">The project:</p>
-                <a href="/data-policy"><p>Data policy</p></a>
-                <a href="/artificial-inquiries"><p>Artificial Inquiries</p></a>
-                <a href="/configuration-work"><p>Configuration work</p></a>
-                <a href="/markdownLlms"><p>Markdown of this website</p></a>
-            </div>
+            {#each footerSections as section}
+                <div class="flex flex-col w-fit md:pr-4 md:gap-1 gap-0">
+                    <p class="font-medium pb-2">{section.title}</p>
+                    {#each section.links as link}
+                        {#if link.isButton}
+                            <button class="flex flex-col gap-1 items-start text-left">
+                                <p>{link.label}</p>
+                            </button>
+                        {:else}
+                            <a href={link.href} target="_blank">
+                                <p>{link.label}</p>
+                            </a>
+                        {/if}
+                    {/each}
+                </div>
+            {/each}
         </div>
     </div>
     <div class="w-full h-auto opacity-1">
-        <img src={footerLogo} alt="Ecologies of LLM Logo" class="w-full h-auto object-contain">
+        <img src={footerLogo} alt="Ecologies of LLM Logo" class="w-full h-auto">
     </div>
 
 </footer>

@@ -1,14 +1,13 @@
 import { writable } from "svelte/store";
-import type Lenis from "lenis";
 
 export const selectedCard = writable("Qualifying");
-export const isAlterEgoMode = writable(true);
+export const isAlterEgoMode = writable(false);
 
 export const currentCardColor = writable("white");
 export const highestZIndex = writable(4);
 export const lastCardColor = writable(null);
 
-export const lenisStore = writable<Lenis | null>(null);
+export const scrollStore = writable<any>(null);
 
 export const isDesktop = writable(null);
 export const isMobileDevice = writable(null);

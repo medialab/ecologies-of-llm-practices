@@ -3,85 +3,35 @@
 </script>
 
 <button
-    class="text-box-dx"
-    class:closed={!$isAlterEgoMode}
+    class="bg-transparent w-fit box-border absolute z-[1] select-none translate-x-0 transition-hidden text-left border-0 pointer-events-none duration-600 ease-in-out visible m-0 p-0
+           bottom-[15px] right-[15px] text-right
+           max-md:hidden
+           focus:cursor-grabbing
+           transition-all duration-600
+           {!$isAlterEgoMode ? 'text-[#ababab]' : ''}"
 >
-    <p class="p3">
+    <p class="text-[1rem] m-0 leading-[1.5] max-w-[60ch]">
         "How does the use of LLMs hinge itself <br> onto existing work practices?"
     </p>
 </button>
 
 <button
-    class="text-box-sx"
-    class:closed={!$isAlterEgoMode}
+    class="bg-transparent w-fit box-border absolute z-[1] select-none translate-x-0 transition-hidden text-left border-0 pointer-events-none duration-600 ease-in-out visible m-0 p-0
+           top-[15px] left-[15px]
+           max-md:hidden
+           focus:cursor-grabbing
+           transition-all duration-600
+           {!$isAlterEgoMode ? 'text-[#ababab]' : ''}"
 >
-    <p class="p3">
+    <p class="text-[1rem] m-0 leading-[1.5] max-w-[60ch]">
         "What kind of interactions emerge when LLMs <br> are crossed with pre-existing workflows?"
     </p>
 </button>
 
 <style>
-    .text-box-dx,
-    .text-box-sx {
-        background-color: transparent;
-        width: fit-content;
-        box-sizing: border-box;
-        position: absolute; 
-        z-index: 1;
-        user-select: none;
-        transform: translateX(0); 
-        transition: none; 
-        text-align: left; 
-        border: 0px;
-        pointer-events: none;
-        transition: all 0.6s ease-in-out;
-        visibility: visible;
-        margin: 0;
-        padding: 0;
-    }
-
-    .text-box-dx {
-        bottom: 15px; 
-        right: 15px;
-        text-align: right; 
-    }
-
-    .text-box-sx {
-        top: 15px; 
-        left: 15px; 
-    }
-
-    .p3 {
-        font-size: 1rem;
-    }
-
-    :global(.text-box-sx.closed),
-    :global(.text-box-dx.closed) {
-        color: rgb(171, 171, 171);
-        transition: all 0.6s ease-in-out;
-    }
-
-    
-    @media (max-width: 768px) {
-        .text-box-dx,
-        .text-box-sx {
-            display: none;
-        }
-    }
-
-    
-
-    /* Styles for when being dragged (optional, cursor handled by JS) */
-    .text-box-sx:focus,
-    .text-box-dx:focus {
-        cursor: grabbing;
-    }
-
-    p {
-        margin: 0;
-        line-height: 1.5;
-        max-width: 60ch;
-    }
+    /* Tailwind conversion complete. 
+       Note: JS-based drag-positioning styles (transform) are handled by the library/inline styles if any, 
+       but here they seemed static or just relying on these classes. 
+       Checked original CSS: .text-box-sx/dx had transform: translateX(0).
+    */
 </style>
-
-
