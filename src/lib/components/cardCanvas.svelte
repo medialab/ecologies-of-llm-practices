@@ -1,23 +1,20 @@
 <script>
     export let data
 
-    import Capitols from "$lib/components/cards/capitols.svelte"; 
-    import LogoButton from "$lib/components/buttons/logo_button.svelte";
+    import Capitols from "$lib/components/capitols.svelte"; 
     import Floater from "$lib/components/floaters.svelte";
-    import VademecumFloater from "$lib/components/vademecum_floater.svelte";
-    import Sharer from '$lib/components/buttons/sharer.svelte';
+    import Sharer from '$lib/components/sharer.svelte';
     import { onMount, onDestroy, tick } from "svelte";
     import { writable } from "svelte/store";
     import { fade } from "svelte/transition";
     import templateMobileSvg from '$lib/media/template_mobile.svg?raw';
     import templateDesktopSvg from '$lib/media/template_desktop.svg?raw';
 
-    import vademecumImage from '$lib/media/photos/Vad_cover.png?enhanced';
-    import tediumImage from '$lib/media/photos/tedium.png?enhanced';
+
 
     import { currentHash, selectedCard, currentCardColor, highestZIndex, lastCardColor, isDesktop, isMobileDevice, startX, startY, transitionTime, transitionCurve, currentFocus, isPageLoaded, showSharer, shareInfo, sharingTextMobile, sharerVisibility, finalShareData, shareData } from '$lib/stores/globalStores';
 
-    let interact, vademecumFloater, tediumFloater;
+    let interact;
     let totalBlockWidth, totalBlockHeight, x, y, topLeftCornerX, topLeftCornerY, windowWidth, windowHeight, initialsY, topYCorner, bottomYCorner, initialX;
 
     let width = 0;
@@ -26,7 +23,7 @@
     $: console.log("selectedCard", $selectedCard);
     $: console.log("floaters", floaters);
 
-    let isBurgerMenuOpen = writable(false);
+
 
     let contentContainer;
 
@@ -165,7 +162,6 @@
 
     const hideFloaters = () => {
         if (!floaters) return;
-        console.log("hideFloaters");
         
             floaters.forEach((floater) => {
                 floater.classList.remove('clicked');

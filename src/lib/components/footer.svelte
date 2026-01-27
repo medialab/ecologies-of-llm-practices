@@ -15,7 +15,7 @@
             title: "The project:",
             links: [
                 { label: "Data Policy", href: "/" },
-                { label: "Artificial Inquiries?", href: "true" },
+                { label: "Artificial Inquiries?", href: "https://hal.science/hal-05327878v2" },
                 { label: "Configuration work", href: "/" },
                 { label: "Co-Inquirers", href: "/inquirers" }
             ]
@@ -30,7 +30,7 @@
     <div class="w-full md:h-[200px] h-fit flex md:flex-row flex-col gap-12 justify-space-between">
         <div class="md:w-2/3 w-full">
             <p class="text-lg">We would like to thank all co-inquirers who took part in our protocol. <br>Without their participation, our project could not have been developed. <br>
-            Their names are <span class="underline hover:text-blue-500 hover:cursor-pointer"> written here ↗︎</span> </p>
+            Their names are <a href="/inquirers" class="underline hover:text-blue-500 hover:cursor-pointer"> written here ↗︎</a> </p>
         </div>
         <div class="md:w-1/3 w-full flex flex-row gap-6 md:justify-end justify-space-between">
             {#each footerSections as section}

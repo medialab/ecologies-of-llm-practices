@@ -100,11 +100,11 @@
   }
 
   .main_container {
-    @apply h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none gap-4 md:block flex flex-col;
+    @apply h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none md:gap-4 gap-32 md:block flex flex-col;
   }
 
   .fullsize_section {
-    @apply relative h-screen w-screen flex items-center justify-start py-2 z-[30] px-4 snap-start bg-transparent;
+    @apply relative h-screen w-full flex items-center py-2 z-[30] md:px-4 px-4 snap-start bg-transparent min-h-screen;
   }
 
   img {

@@ -1,3 +1,5 @@
+import type LocomotiveScroll from "locomotive-scroll";
+import type { lenisTargetScrollTo } from "locomotive-scroll";
 import { writable } from "svelte/store";
 
 export const selectedCard = writable("Qualifying");
@@ -7,7 +9,7 @@ export const currentCardColor = writable("white");
 export const highestZIndex = writable(4);
 export const lastCardColor = writable(null);
 
-export const scrollStore = writable<any>(null);
+export const scrollStore = writable<LocomotiveScroll>(null);
 
 export const isDesktop = writable(null);
 export const isMobileDevice = writable(null);
@@ -23,7 +25,7 @@ export const startY = writable(null);
 export const currentFocus = writable(null);
 export const currentHash = writable(null);
 
-// Page load tracking stores
+export const burgerOpen = writable(false);
 
 export const isPageLoaded = writable(false);
 export const showSharer = writable(false);

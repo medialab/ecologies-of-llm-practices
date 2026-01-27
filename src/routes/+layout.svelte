@@ -2,7 +2,7 @@
   import "../app.css";
   import LocomotiveScroll from "locomotive-scroll";
   import { onMount } from "svelte";
-  import { scrollStore } from "$lib/stores/globalStores"
+  import { scrollStore, burgerOpen } from "$lib/stores/globalStores"
 
   onMount(() => {
       const scroll = new LocomotiveScroll({
@@ -23,6 +23,15 @@
 
       scrollStore.set(scroll);
   })
+
+  $effect(() => {
+    if ($burgerOpen) {
+        $scrollStore.stop()
+    } else {
+        $scrollStore.start()
+    }
+  })
+
 </script>
 
 <slot />
