@@ -5,6 +5,7 @@
     import { scrollStore } from "$lib/stores/globalStores";
 
     import { pillAnimation } from "$lib/stores/animeJs";
+    import { inquirersAnimation } from "$lib/stores/animeJs";
 
     let data = $props();
 </script>
@@ -50,9 +51,21 @@
         <div class="flex flex-row flex-wrap bg-white gap-2 p-2">
             {#each data.data.inquirers as name, i}
                 {#if i === data.data.inquirers.length - 1}
-                    <h1>{name}.</h1>
+                    <h1
+                        use:inquirersAnimation
+                        id="inquirer_name"
+                        class="transition-all duration-300 ease-in-out"
+                    >
+                        {name}.
+                    </h1>
                 {:else}
-                    <h1>{name},</h1>
+                    <h1
+                        use:inquirersAnimation
+                        id="inquirer_name"
+                        class="transition-all duration-300 ease-in-out"
+                    >
+                        {name},
+                    </h1>
                 {/if}
             {/each}
         </div>
@@ -61,4 +74,15 @@
 </main>
 
 <style>
+    #names > div > h1 {
+        opacity: 1;
+    }
+
+    #names > div > h1:hover {
+        opacity: 1;
+    }
+
+    #names > div > h1:not(:hover) {
+        opacity: 0.1;
+    }
 </style>

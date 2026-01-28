@@ -77,7 +77,7 @@
         model: "gpt" | "claude" | "mistral" | "deepseek" = "gpt",
     ): void {
         const markDownData = htmlToMd(data);
-        const prompt = `Analyze the data coming from ${window.location.href}: ${markDownData} `;
+        const prompt = `Reading the text coming from ${window.location.href}, provide an explanation on what the project is, which are the research questions and the main findings, the team and the project: <content> ${markDownData}</content> `;
         const encoded = encodeURIComponent(prompt);
         const baseUrls = {
             gpt: "https://chat.openai.com",
@@ -226,7 +226,7 @@
                                             )}
                                     >
                                         <p
-                                            class="text-nowrap uppercase hidden group-hover:block group-active:block transition-all duration-500 ease-in-out"
+                                            class="text-nowrap uppercase hidden group-hover:block group-transition-delay-300 group-active:block transition-all duration-500 ease-in-out"
                                         >
                                             Ask
                                         </p>

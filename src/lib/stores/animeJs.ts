@@ -1,4 +1,4 @@
-import { createTimeline, stagger, splitText } from "animejs";
+import { createTimeline, stagger, splitText, animate } from "animejs";
 import { isPageLoaded } from "./globalStores";
 import { get } from "svelte/store";
 
@@ -107,3 +107,49 @@ export const heroAnimation = () => {
         }, isMobile ? 800 : 1200);
     }
 };
+
+export const inquirersAnimation = (el: HTMLElement) => {
+    const words = el;
+
+    const { chars } = splitText(words, {
+        chars: {
+            wrap: "clip",
+            class: "split-word",
+            clone: "bottom",
+        },
+        includeSpaces: true,
+    });
+
+    const timeline = createTimeline({
+        loop: false,
+        autoplay: false,
+        defaults: {
+            duration: 200,
+            ease: "inOut(2)",
+        },
+    }).add(
+        chars,
+        {
+            y: "-100%",
+        },
+        stagger(50, { from: "center" }),
+    );
+
+    const onMouseEnter = () => timeline.play();
+    const onMouseLeave = () => {
+        timeline.reverse();
+        timeline.seek(0);
+    };
+
+    el.addEventListener("mouseenter", onMouseEnter);
+    el.addEventListener("mouseleave", onMouseLeave);
+
+    return {
+        destroy() {
+            el.removeEventListener("mouseenter", onMouseEnter);
+            el.removeEventListener("mouseleave", onMouseLeave);
+        }
+    };
+
+
+}

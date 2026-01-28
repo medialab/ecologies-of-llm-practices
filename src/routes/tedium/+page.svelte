@@ -41,7 +41,7 @@
     <section
         class="fullsize_section justify-center h-fit"
         data-scroll
-        data-scroll-speed="0.03"
+        data-scroll-speed="0.3"
         id="abstract"
     >
         <div
@@ -52,7 +52,12 @@
         </div>
     </section>
 
-    <section class="fullsize_section justify-center h-fit" id="gallery">
+    <section
+        class="fullsize_section justify-center h-fit"
+        id="gallery"
+        data-scroll
+        data-scroll-speed="1"
+    >
         <div
             class="md:p-4 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
         >
@@ -66,7 +71,11 @@
         </div>
     </section>
 
-    <section class="fullsize_section justify-center h-fit">
+    <section
+        class="fullsize_section justify-center h-fit"
+        data-scroll
+        data-scroll-speed="0.5"
+    >
         <div
             class="md:p-4 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
             id="video"
