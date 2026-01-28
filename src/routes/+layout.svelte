@@ -2,40 +2,77 @@
   import "../app.css";
   import LocomotiveScroll from "locomotive-scroll";
   import { onMount } from "svelte";
-  import { scrollStore, burgerOpen } from "$lib/stores/globalStores"
+  import {
+    scrollStore,
+    burgerOpen,
+    pendingScrollTarget,
+    isPageLoaded,
+  } from "$lib/stores/globalStores";
+  import { page } from "$app/stores";
+  import { tick } from "svelte";
+  import { heroAnimation } from "$lib/stores/animeJs";
+  import Mask from "$lib/components/mask.svelte";
+  import BgLogo from "$lib/components/bg-logo.svelte";
 
   onMount(() => {
-      const scroll = new LocomotiveScroll({
-          autoStart: true,
-          lenisOptions: {
-              wrapper: window,
-              content: document.documentElement,
-              lerp: 0.1,
-              duration: 1.2,
-              orientation: 'vertical',
-              gestureOrientation: 'vertical',
-              smoothWheel: true,
-              wheelMultiplier: 1,
-              touchMultiplier: 2,
-              infinite: false,
-          }
-      });
+    const scroll = new LocomotiveScroll({
+      autoStart: true,
+      lenisOptions: {
+        wrapper: window,
+        content: document.documentElement,
+        lerp: 0.1,
+        duration: 1.2,
+        orientation: "vertical",
+        gestureOrientation: "vertical",
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 2,
+        infinite: false,
+      },
+    });
 
-      scrollStore.set(scroll);
-  })
+    scrollStore.set(scroll);
+
+    if (window.location.hash) {
+      pendingScrollTarget.set(window.location.hash);
+    }
+  });
+
+  $effect(() => {
+    const _ = $page.url.pathname;
+
+    tick().then(() => {
+      heroAnimation();
+    });
+  });
 
   $effect(() => {
     if ($burgerOpen) {
-        $scrollStore.stop()
+      $scrollStore?.stop();
     } else {
-        $scrollStore.start()
+      $scrollStore?.start();
     }
-  })
+  });
 
+  $effect(() => {
+    if ($scrollStore && $pendingScrollTarget) {
+      setTimeout(() => {
+        scrollStore.scrollTo($pendingScrollTarget);
+        pendingScrollTarget.set(null);
+      }, 100);
+    }
+  });
+
+  $effect(() => {
+    if ($page.url.hash) {
+      scrollStore.scrollTo($page.url.hash);
+    }
+  });
 </script>
 
 <slot />
-
+<Mask />
+<BgLogo />
 
 <svelte:head>
   <!-- Essential Metadata -->
@@ -44,46 +81,105 @@
   <link rel="canonical" href="https://ecologiesofllm.medialab.sciencespo.fr/" />
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="google-site-verification" content="aCBTb2lNIupPesJ45f0x0AFWx8Wy9VpvWxFBNJnZ4e8" />
-  
+  <meta
+    name="google-site-verification"
+    content="aCBTb2lNIupPesJ45f0x0AFWx8Wy9VpvWxFBNJnZ4e8"
+  />
+
   <!-- SEO Description and Keywords -->
-  <meta name="description" content="A team of sociologists and designers explores how Large Language Models, like ChatGPT, influence professional practices and ordinary knowledge work. Their experimental and qualitative research protocol, 'Artificial Inquiries', is open to replication and appropriation by professionals and researchers alike." />
-  <meta name="keywords" content="Large Language Models, Artificial Intelligence, Work, Professionals, Practices, Sociology, Science and Technology Studies, Research, Design, Qualitative Research, ChatGPT" />
-  <meta name="author" content="Gabriel Alcaras, Donato Ricci, Tommaso Prinetti" />
-  
+  <meta
+    name="description"
+    content="A team of sociologists and designers explores how Large Language Models, like ChatGPT, influence professional practices and ordinary knowledge work. Their experimental and qualitative research protocol, 'Artificial Inquiries', is open to replication and appropriation by professionals and researchers alike."
+  />
+  <meta
+    name="keywords"
+    content="Large Language Models, Artificial Intelligence, Work, Professionals, Practices, Sociology, Science and Technology Studies, Research, Design, Qualitative Research, ChatGPT"
+  />
+  <meta
+    name="author"
+    content="Gabriel Alcaras, Donato Ricci, Tommaso Prinetti"
+  />
+
   <!-- Open Graph Meta Tags -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Ecologies of LLM Practices - Artificial Inquiries" />
-  <meta property="og:description" content="A team of sociologists and designers explores how Large Language Models, like ChatGPT, influence professional practices and ordinary knowledge work. Their experimental and qualitative research protocol, 'Artificial Inquiries', is open to replication and appropriation by professionals and researchers alike." />
-  <meta property="og:url" content="https://ecologiesofllm.medialab.sciencespo.fr/" />
-  <meta property="og:image" content="https://ecologiesofllm.medialab.sciencespo.fr/og_images/opengraph.jpg" />
-  <meta property="og:image:alt" content="EL2MP Logo - Ecologies des Pratiques LLMs" />
-  <meta property="og:logo" content="https://ecologiesofllm.medialab.sciencespo.fr/og_images/enhanced_logoImage.png" />
+  <meta
+    property="og:title"
+    content="Ecologies of LLM Practices - Artificial Inquiries"
+  />
+  <meta
+    property="og:description"
+    content="A team of sociologists and designers explores how Large Language Models, like ChatGPT, influence professional practices and ordinary knowledge work. Their experimental and qualitative research protocol, 'Artificial Inquiries', is open to replication and appropriation by professionals and researchers alike."
+  />
+  <meta
+    property="og:url"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/"
+  />
+  <meta
+    property="og:image"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/og_images/opengraph.jpg"
+  />
+  <meta
+    property="og:image:alt"
+    content="EL2MP Logo - Ecologies des Pratiques LLMs"
+  />
+  <meta
+    property="og:logo"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/og_images/enhanced_logoImage.png"
+  />
   <meta property="og:site_name" content="Ecologies of LLM Practices" />
   <meta property="og:locale" content="en_US" />
   <meta property="og:locale:alternate" content="fr_FR" />
   <meta property="fb:app_id" content="123456789012345" />
 
   <!-- IA Meta Tags -->
-  <meta property="ia:markup_url" content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-markup.json" />
-  <meta property="ia:markup_url_dev" content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-markup-dev.json" />
-  <meta property="ia:rules_url" content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-rules.json" />
-  <meta property="ia:rules_url_dev" content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-rules-dev.json" />
+  <meta
+    property="ia:markup_url"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-markup.json"
+  />
+  <meta
+    property="ia:markup_url_dev"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-markup-dev.json"
+  />
+  <meta
+    property="ia:rules_url"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-rules.json"
+  />
+  <meta
+    property="ia:rules_url_dev"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/ia/ia-rules-dev.json"
+  />
 
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ecologies of LLM Practices - Artificial Inquiries" />
-  <meta name="twitter:description" content="A team of sociologists and designers explores how Large Language Models, like ChatGPT, influence professional practices and ordinary knowledge work. Their experimental and qualitative research protocol, 'Artificial Inquiries', is open to replication and appropriation by professionals and researchers alike." />
-  <meta name="twitter:image" content="https://ecologiesofllm.medialab.sciencespo.fr/og_images/opengraph.jpg" />
-  <meta name="twitter:image:alt" content="EL2MP Logo - Ecologies of LLM Practices" />
+  <meta
+    name="twitter:title"
+    content="Ecologies of LLM Practices - Artificial Inquiries"
+  />
+  <meta
+    name="twitter:description"
+    content="A team of sociologists and designers explores how Large Language Models, like ChatGPT, influence professional practices and ordinary knowledge work. Their experimental and qualitative research protocol, 'Artificial Inquiries', is open to replication and appropriation by professionals and researchers alike."
+  />
+  <meta
+    name="twitter:image"
+    content="https://ecologiesofllm.medialab.sciencespo.fr/og_images/opengraph.jpg"
+  />
+  <meta
+    name="twitter:image:alt"
+    content="EL2MP Logo - Ecologies of LLM Practices"
+  />
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8DHX3VYCYS"></script>
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-8DHX3VYCYS"
+  ></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-    gtag('config', 'G-8DHX3VYCYS');
+    gtag("config", "G-8DHX3VYCYS");
   </script>
 
   <!-- Structured data for better SEO -->
@@ -145,5 +241,4 @@
       ]
     }
   </script>
-  
 </svelte:head>

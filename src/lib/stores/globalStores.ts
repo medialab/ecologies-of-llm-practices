@@ -9,7 +9,32 @@ export const currentCardColor = writable("white");
 export const highestZIndex = writable(4);
 export const lastCardColor = writable(null);
 
-export const scrollStore = writable<LocomotiveScroll>(null);
+
+const createScrollStore = () => {
+  const { subscribe, set, update } = writable<LocomotiveScroll>(null);
+
+  return {
+    subscribe,
+    set,
+    update,
+    scrollTo: (target: string | HTMLElement | number, options = {}) => {
+      update((scroll) => {
+        if (scroll) {
+          scroll.scrollTo(target, options);
+        } else {
+          // If scroll instance is not ready, save it for later
+          if (typeof target === "string") {
+            pendingScrollTarget.set(target);
+          }
+        }
+        return scroll;
+      });
+    },
+  };
+};
+
+export const scrollStore = createScrollStore();
+export const pendingScrollTarget = writable<string | null>(null);
 
 export const isDesktop = writable(null);
 export const isMobileDevice = writable(null);

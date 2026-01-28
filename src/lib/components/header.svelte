@@ -1,70 +1,180 @@
 <script lang="ts">
-
     import Logo from "$lib/media/logos/logo_noicon.svg";
     import BurgerIcon from "$lib/media/burgerIcon.svg";
     import CloseIcon from "$lib/media/CloseIcon.svg";
-    import { scrollStore } from "$lib/stores/globalStores"
-    import { burgerOpen } from "$lib/stores/globalStores"
-    import Burger from "$lib/components/burger.svelte"
+    import { scrollStore } from "$lib/stores/globalStores";
+    import { burgerOpen } from "$lib/stores/globalStores";
+    import Burger from "$lib/components/burger.svelte";
     import { slide } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
 
-    const anchors = [
+    let { currentPage } = $props<"landing" | "tedium">();
+
+    const landingAnchors = [
         {
             label: "PROJECT",
-            href: "#project"
+            href: "#project",
         },
         {
             label: "OBJECTIVE",
-            href: "#objective"
+            href: "#objective",
         },
         {
             label: "METHODOLOGY",
-            href: "#methodology"
+            href: "#methodology",
         },
         {
-            label: "PLAYGROUND",
-            href: "#playground"
+            label: "TEDIUM",
+            url: "/tedium",
+        },
+    ];
+
+    const tediumAnchors = [
+        {
+            label: "ABSTRACT",
+            href: "#abstract",
+        },
+        {
+            label: "GALLERY",
+            href: "#gallery",
+        },
+        {
+            label: "VIDEO",
+            href: "#video",
+        },
+        {
+            label: "HOME",
+            url: "/",
+        },
+    ];
+
+    let anchors = $state(landingAnchors);
+
+    $effect(() => {
+        if (currentPage === "landing") {
+            anchors = landingAnchors;
+        } else if (currentPage === "tedium") {
+            anchors = tediumAnchors;
         }
-    ]
+    });
 
     const switchBurger = () => {
-        $burgerOpen = !$burgerOpen
-    }
-
+        $burgerOpen = !$burgerOpen;
+    };
 </script>
 
-
-<header class="w-full h-fit items-center justify-between border-[#E5E5E5] border-b-[1px] md:pl-6 md:pr-6 p-3 md:grid-cols-3 grid-cols-2 grid bg-white z-[160] fixed top-0 left-0" >
-
-    <div id="header_left" class="w-full h-fit col-span-1 md:flex flex-row gap-2 hidden">
+<header
+    class="w-screen h-fit items-center justify-between border-[#E5E5E5] border-b-[1px] md:pl-6 md:pr-6 p-3 md:grid-cols-3 grid-cols-2 grid bg-white z-[160] fixed top-0 left-0"
+>
+    <div
+        id="header_left"
+        class="w-full h-fit col-span-1 md:flex flex-row gap-2 hidden"
+    >
         {#each anchors as anchor, i}
             {#if i < 2}
-                <button onclick={() => $scrollStore.scrollTo(anchor.href)}>
-                    <p>{anchor.label}</p>
-                </button>
+                {#if anchor.href}
+                    <button onclick={() => scrollStore.scrollTo(anchor.href)}>
+                        <p
+                            transition:slide={{
+                                duration: 200,
+                                easing: cubicInOut,
+                                axis: "y",
+                            }}
+                        >
+                            {anchor.label}
+                        </p>
+                    </button>
+                {:else}
+                    <p
+                        transition:slide={{
+                            duration: 200,
+                            easing: cubicInOut,
+                            axis: "y",
+                        }}
+                    >
+                        {anchor.label}
+                    </p>
+                {/if}
             {/if}
         {/each}
     </div>
-    <a id="header_logo" href="/" onclick={() => { $scrollStore.scrollTo("#main"); $burgerOpen = false; }} class="w-full h-[30px] col-span-1 flex justify-center">
-        <img src={Logo} alt="Ecologies of LLM Logo" class="h-full w-auto">
+    <a
+        id="header_logo"
+        href="/"
+        onclick={() => {
+            scrollStore.scrollTo("#main");
+            $burgerOpen = false;
+        }}
+        class="w-full h-[30px] col-span-1 flex justify-center"
+    >
+        <img src={Logo} alt="Ecologies of LLM Logo" class="h-full w-auto" />
     </a>
-    <div id="header_right" class="w-full md:h-fit h-[28px] col-span-1 flex flex-row gap-2 justify-end ">
+    <div
+        id="header_right"
+        class="w-full md:h-fit h-[28px] col-span-1 flex flex-row gap-2 justify-end"
+    >
         {#each anchors as anchor, i}
             {#if i >= 2}
-                <button onclick={() => $scrollStore.scrollTo(anchor.href)} class="hidden md:flex">
-                    <p>{anchor.label}</p>
-                </button>
+                {#if anchor.href}
+                    <button
+                        onclick={() => scrollStore.scrollTo(anchor.href)}
+                        class="hidden md:flex"
+                    >
+                        <p
+                            transition:slide={{
+                                duration: 200,
+                                easing: cubicInOut,
+                                axis: "y",
+                            }}
+                        >
+                            {anchor.label}
+                        </p>
+                    </button>
+                {:else}
+                    <a href={anchor.url} class="hidden md:flex">
+                        <p
+                            transition:slide={{
+                                duration: 200,
+                                easing: cubicInOut,
+                                axis: "y",
+                            }}
+                        >
+                            {anchor.label}
+                        </p>
+                    </a>
+                {/if}
             {/if}
         {/each}
-        <button class="h-full w-auto aspect-square cursor-pointer p-1" onclick={switchBurger} >
+        <button
+            class="h-full w-auto aspect-square cursor-pointer p-1"
+            onclick={switchBurger}
+        >
             {#if $burgerOpen}
-                <img src={CloseIcon} alt="Burger Menu" class="h-full w-auto md:hidden" id="burger_menu" transition:slide={{duration: 200, easing: cubicInOut, axis: "y"}}>
+                <img
+                    src={CloseIcon}
+                    alt="Burger Menu"
+                    class="h-full w-auto md:hidden"
+                    id="burger_menu"
+                    transition:slide={{
+                        duration: 200,
+                        easing: cubicInOut,
+                        axis: "y",
+                    }}
+                />
             {:else}
-                <img src={BurgerIcon} alt="Burger Menu" class="h-full w-auto md:hidden" id="burger_menu" transition:slide={{duration: 200, easing: cubicInOut, axis: "y"}}>
+                <img
+                    src={BurgerIcon}
+                    alt="Burger Menu"
+                    class="h-full w-auto md:hidden"
+                    id="burger_menu"
+                    transition:slide={{
+                        duration: 200,
+                        easing: cubicInOut,
+                        axis: "y",
+                    }}
+                />
             {/if}
         </button>
     </div>
 </header>
-
 <Burger></Burger>

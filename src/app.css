@@ -7,7 +7,19 @@
 
 @layer base {
   h1 {
-    @apply text-5xl md:text-8xl leading-none;
+    @apply text-5xl md:text-8xl leading-none overflow-clip;
+  }
+
+  #hero-h1 {
+    @apply opacity-0 transition-opacity duration-300;
+  }
+
+  #hero-h1.ready {
+    @apply opacity-100;
+  }
+
+  #hero-h1.ready .split-word {
+    @apply opacity-0;
   }
 
   h2 {
@@ -22,18 +34,22 @@
     @apply text-base leading-[140%];
   }
 
-  a > p,
-  button > p {
+  a>p,
+  button>p {
     @apply text-base md:text-sm;
   }
 
   a,
   button {
-    @apply cursor-pointer  hover:text-blue-500;
+    @apply cursor-pointer hover:text-blue-500;
   }
 
   .pill {
-    @apply hover:border-dashed border-solid transition-all duration-75 border-black hover:border-blue-500 rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2;
+    @apply transition-all duration-75 border-black rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2 place-items-center justify-center;
+  }
+
+  .pill:hover {
+    @apply border-blue-500 border-[1.5px] border-dashed;
   }
 
   .pill:active {
@@ -42,8 +58,7 @@
 
   .pill:hover img,
   .pill:active img {
-    filter: brightness(0) invert(42%) sepia(93%) saturate(1352%)
-      hue-rotate(208deg) brightness(119%) contrast(119%);
+    filter: brightness(0) invert(42%) sepia(93%) saturate(1352%) hue-rotate(208deg) brightness(119%) contrast(119%);
   }
 
   .sharer_icon {
@@ -54,17 +69,16 @@
     @apply p-0 m-0;
   }
 
-  /* Global Resets & Typography from +layout.svelte */
   html {
-    @apply bg-[#F2F2F2] w-full min-h-full overflow-x-hidden;
+    @apply w-full min-h-full overflow-x-hidden transition-all duration-150 ease-in-out;
   }
 
   body {
-    @apply w-full min-h-full bg-[#F2F2F2];
+    @apply w-full min-h-full;
   }
 
   p {
-    @apply font-['Instrument_Sans',_Helvetica,_sans-serif] font-normal tracking-[-0.03em] no-underline decoration-from-font w-fit;
+    @apply font-sans font-normal tracking-[-0.03em] no-underline decoration-from-font w-fit text-base md:text-lg lg:text-xl;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
   }
@@ -74,13 +88,13 @@
   }
 
   h1 {
-    @apply font-['Instrument_Serif',_'Times_New_Roman',_Times,_serif] font-normal tracking-[-0.03em] no-underline decoration-from-font;
+    @apply font-serif font-normal tracking-[-0.03em] no-underline decoration-from-font;
     text-underline-position: from-font;
     text-decoration-skip-ink: none;
   }
 
   h2 {
-    @apply font-['Instrument_Serif',_'Times_New_Roman',_Times,_serif] leading-none;
+    @apply font-serif leading-none;
   }
 
   button,
@@ -100,11 +114,11 @@
   }
 
   .main_container {
-    @apply h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none md:gap-4 gap-32 md:block flex flex-col;
+    @apply h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none md:gap-4 gap-32 flex flex-col items-center;
   }
 
   .fullsize_section {
-    @apply relative h-screen w-full flex items-center py-2 z-[30] md:px-4 px-4 snap-start bg-transparent min-h-screen;
+    @apply relative min-h-screen h-fit w-full max-w-[1920px] flex items-center py-2 z-[30] md:px-4 px-4 snap-start bg-transparent;
   }
 
   img {
