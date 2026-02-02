@@ -1,6 +1,6 @@
 <script>
     import footerLogo from "$lib/media/logos/logo_complete.svg";
-    import googleSupport from "$lib/media/logos/google_support.png";
+    import googleSupport from "$lib/media/logos/google_support.svg";
 
     const footerSections = [
         {

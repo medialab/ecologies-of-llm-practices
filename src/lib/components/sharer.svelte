@@ -254,7 +254,7 @@
 {#if $showSharer}
     <div class="fixed inset-0 z-[1000] flex items-center justify-center px-4">
         <div
-            class="relative md:w-1/4 max-w-[370px] scale-100 md:scale-125 lg:scale-150 w-full h-fit md:aspect-video flex flex-col gap-3 rounded-xl border border-black bg-white py-2 px-4 fill-black transition-all duration-500 ease-in-out z-[300]"
+            class="relative md:w-1/4 max-w-[370px] scale-100 md:scale-125 w-full h-fit md:aspect-video flex flex-col gap-3 rounded-xl border border-black bg-white py-2 px-4 fill-black transition-all duration-500 ease-in-out z-[300]"
             in:scale={{ duration: 400, delay: 200, start: 0, opacity: 0 }}
             out:scale={{ duration: 400, delay: 200, start: 0, opacity: 0 }}
             aria-modal="true"
