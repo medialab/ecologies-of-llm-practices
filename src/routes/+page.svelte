@@ -19,12 +19,12 @@
             status: "new",
             icon: paperIcon,
         },
-        { label: "Tedium", href: "/tedium", icon: noteIcon },
         {
             label: "Artificial Inquiries",
             href: "/artificial_inquiries",
             icon: bookIcon,
         },
+        { label: "Tedium", href: "/tedium", icon: noteIcon },
     ];
 
     import gptLogo from "$lib/media/Gpt.png";
