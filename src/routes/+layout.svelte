@@ -109,6 +109,19 @@
     name="author"
     content="Gabriel Alcaras, Donato Ricci, Tommaso Prinetti"
   />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif:ital@0;1&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="preload"
+    href="/fonts/InstrumentSans-Regular.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  />
 
   <!-- Open Graph Global Meta Tags -->
   <meta property="og:type" content="website" />

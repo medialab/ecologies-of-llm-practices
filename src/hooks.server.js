@@ -7,9 +7,9 @@ export async function handle({ event, resolve }) {
     "default-src 'self'",
     // Allow Google Analytics and Tag Manager scripts
     "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
-    "style-src 'self' 'unsafe-inline'",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com",
-    "font-src 'self'",
+    "font-src 'self' https://fonts.gstatic.com",
     // Allow connections to Google Analytics
     "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com",
     "object-src 'none'",
