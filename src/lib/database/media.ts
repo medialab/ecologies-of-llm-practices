@@ -7,3 +7,13 @@ export const tediumImgs = Object.values(
     },
   }),
 );
+
+export const artificialInquiriesImgs = Object.values(
+  import.meta.glob("$lib/media/artificial_inquiries/*.{png,jpg,jpeg,webp}", {
+    import: "default",
+    eager: true,
+    query: {
+      enhanced: true,
+    },
+  }),
+);

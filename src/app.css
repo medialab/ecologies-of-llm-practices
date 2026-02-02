@@ -7,11 +7,11 @@
 
 @layer base {
   h1 {
-    @apply text-5xl md:text-8xl leading-none overflow-clip;
+    @apply text-5xl md:text-8xl leading-none;
   }
 
   #hero-h1 {
-    @apply opacity-0 transition-opacity duration-300;
+    @apply opacity-0 transition-opacity duration-300 overflow-clip;
   }
 
   #hero-h1.ready {
@@ -45,7 +45,11 @@
   }
 
   .pill {
-    @apply transition-all duration-75 border-black rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2 place-items-center justify-center;
+    @apply transition-all duration-75 border-black rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2 gap-2 place-items-center justify-center items-center;
+  }
+
+  .pill>p {
+    @apply h-full justify-self-center pt-[1px];
   }
 
   .pill:hover {
@@ -54,6 +58,10 @@
 
   .pill:active {
     @apply bg-blue-200 border-blue-500 text-blue-500 scale-[98%] duration-75;
+  }
+
+  .pill img {
+    @apply w-auto h-6;
   }
 
   .pill:hover img,
@@ -70,11 +78,11 @@
   }
 
   html {
-    @apply w-full min-h-full overflow-x-hidden transition-all duration-150 ease-in-out;
+    @apply w-full min-h-full overflow-hidden transition-all duration-150 ease-in-out;
   }
 
   body {
-    @apply w-full min-h-full;
+    @apply w-full min-h-full overflow-x-hidden overflow-y-hidden;
   }
 
   p {
@@ -114,7 +122,7 @@
   }
 
   .main_container {
-    @apply h-full w-full overflow-y-scroll snap-y snap-mandatory bg-transparent scroll-smooth outline-none md:gap-4 gap-32 flex flex-col items-center;
+    @apply h-full w-full overflow-y-scroll bg-transparent scroll-smooth outline-none md:gap-4 gap-32 flex flex-col items-center relative;
   }
 
   .fullsize_section {

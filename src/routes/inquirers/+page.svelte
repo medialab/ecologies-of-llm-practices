@@ -1,23 +1,29 @@
 <script>
-    import Header from "$lib/components/header.svelte";
-
-    import Footer from "$lib/components/footer.svelte";
     import { scrollStore } from "$lib/stores/globalStores";
+    import { researchTeam } from "$database/global_db.js";
 
     import { pillAnimation } from "$lib/stores/animeJs";
     import { inquirersAnimation } from "$lib/stores/animeJs";
 
     let data = $props();
+
+    const buttons = [
+        {
+            label: "Their names",
+            href: "#names",
+        },
+        {
+            label: "Research team",
+            href: "#research_team",
+        },
+    ];
 </script>
 
-<main class="main_container" data-scroll-container>
-    <Header currentPage="tedium"></Header>
-
-    <section
-        id="inquirers_hero"
-        class="fullsize_section flex-col items-start md:items-center justify-center mt-48 md:mt-0"
-    >
-        <div class="flex flex-col md:p-2 p-2 items-center md:w-fit">
+<section
+    id="inquirers_hero"
+    class="fullsize_section flex-col items-start md:items-center justify-center mt-48 md:mt-0"
+>
+        <div class="flex flex-col md:p-2 p-2 items-center md:w-fit w-full">
             <h1 class="md:text-center text-left md:w-max-content p-4 bg-white">
                 This project <i>couldn't have happened</i> <br /><i>without</i> the
                 support of all Co-Inquirers
@@ -36,19 +42,22 @@
                 computational reasoning continuously interlace.
             </p>
             <div class="flex justify-center bg-white p-2 gap-2">
-                <a
-                    use:pillAnimation
-                    class="pill border-solid"
-                    href="#names"
-                    onclick={() => scrollStore.scrollTo("#names")}
-                >
-                    <p class="text-nowrap uppercase">Look up their names</p>
-                </a>
+                {#each buttons as { label, href }}
+                    <a
+                        use:pillAnimation
+                        class="pill border-solid"
+                        {href}
+                        onclick={() => scrollStore.scrollTo(href)}
+                    >
+                        <p class="text-nowrap uppercase">{label}</p>
+                    </a>
+                {/each}
             </div>
         </div>
     </section>
-    <section class="fullsize_section justify-center" id="names">
-        <div class="flex flex-row flex-wrap bg-white gap-2 p-2">
+    <section class="fullsize_section justify-center flex-col" id="names">
+        <p class="bg-white p-4 text-center">The co-inquirers</p>
+        <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
             {#each data.data.inquirers as name, i}
                 {#if i === data.data.inquirers.length - 1}
                     <h1
@@ -70,19 +79,34 @@
             {/each}
         </div>
     </section>
-    <Footer></Footer>
-</main>
-
-<style>
-    #names > div > h1 {
-        opacity: 1;
-    }
-
-    #names > div > h1:hover {
-        opacity: 1;
-    }
-
-    #names > div > h1:not(:hover) {
-        opacity: 0.1;
-    }
-</style>
+    <section
+        class="fullsize_section justify-center flex-col"
+        id="research_team"
+    >
+        <p class="bg-white p-4 text-center">The research team</p>
+        <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
+            {#each researchTeam as { name, role, url }, i}
+                {#if i === researchTeam.length - 1}
+                    <a href={url} target="_blank">
+                        <h1
+                            use:inquirersAnimation
+                            id="inquirer_name"
+                            class="transition-all duration-300 ease-in-out"
+                        >
+                            {name}.
+                        </h1>
+                    </a>
+                {:else}
+                    <a href={url} target="_blank">
+                        <h1
+                            use:inquirersAnimation
+                            id="inquirer_name"
+                            class="transition-all duration-300 ease-in-out"
+                        >
+                            {name},
+                        </h1>
+                    </a>
+                {/if}
+            {/each}
+        </div>
+    </section>

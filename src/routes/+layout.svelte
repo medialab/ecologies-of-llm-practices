@@ -13,6 +13,11 @@
   import { heroAnimation } from "$lib/stores/animeJs";
   import Mask from "$lib/components/mask.svelte";
   import BgLogo from "$lib/components/bg-logo.svelte";
+  import Header from "$lib/components/header.svelte";
+  import Footer from "$lib/components/footer.svelte";
+
+  let headerPage = $state("landing");
+  let isInquirersPage = $state(false);
 
   onMount(() => {
     const scroll = new LocomotiveScroll({
@@ -47,6 +52,11 @@
   });
 
   $effect(() => {
+    headerPage = $page.url.pathname === "/" ? "landing" : "tedium";
+    isInquirersPage = $page.url.pathname === "/inquirers";
+  });
+
+  $effect(() => {
     if ($burgerOpen) {
       $scrollStore?.stop();
     } else {
@@ -70,7 +80,16 @@
   });
 </script>
 
-<slot />
+<main
+  class="main_container"
+  id="main"
+  data-scroll-container
+  data-scroll={isInquirersPage ? true : undefined}
+>
+  <Header currentPage={headerPage} currentPath={$page.url.pathname} />
+  <slot />
+  <Footer />
+</main>
 <Mask />
 <BgLogo />
 

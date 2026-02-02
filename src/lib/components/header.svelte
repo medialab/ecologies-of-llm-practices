@@ -5,10 +5,14 @@
     import { scrollStore } from "$lib/stores/globalStores";
     import { burgerOpen } from "$lib/stores/globalStores";
     import Burger from "$lib/components/burger.svelte";
+    import { onMount, tick } from "svelte";
     import { slide } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
 
-    let { currentPage } = $props<"landing" | "tedium">();
+    let { currentPage, currentPath } = $props<{
+        currentPage: "landing" | "tedium";
+        currentPath: string;
+    }>();
 
     const landingAnchors = [
         {
@@ -48,14 +52,48 @@
         },
     ];
 
+    const inquirersAnchors = [
+        {
+            label: "CO-INQUIRERS",
+            href: "#names",
+        },
+        {
+            label: "RESEARCH TEAM",
+            href: "#research_team",
+        },
+        {
+            label: "HOME",
+            url: "/",
+        },
+    ];
+
+    let baseAnchors = $state(landingAnchors);
     let anchors = $state(landingAnchors);
 
+    const filterAnchors = async () => {
+        if (typeof document === "undefined") return;
+        await tick();
+        anchors = baseAnchors.filter((anchor) => {
+            if (anchor.href && anchor.href.startsWith("#")) {
+                return document.querySelector(anchor.href);
+            }
+            return true;
+        });
+    };
+
     $effect(() => {
-        if (currentPage === "landing") {
-            anchors = landingAnchors;
-        } else if (currentPage === "tedium") {
-            anchors = tediumAnchors;
+        const _ = currentPath;
+        if (currentPath === "/inquirers") {
+            baseAnchors = inquirersAnchors;
+        } else {
+            baseAnchors =
+                currentPage === "landing" ? landingAnchors : tediumAnchors;
         }
+        filterAnchors();
+    });
+
+    onMount(() => {
+        filterAnchors();
     });
 
     const switchBurger = () => {
@@ -84,6 +122,18 @@
                             {anchor.label}
                         </p>
                     </button>
+                {:else if anchor.url}
+                    <a href={anchor.url}>
+                        <p
+                            transition:slide={{
+                                duration: 200,
+                                easing: cubicInOut,
+                                axis: "y",
+                            }}
+                        >
+                            {anchor.label}
+                        </p>
+                    </a>
                 {:else}
                     <p
                         transition:slide={{
@@ -130,7 +180,7 @@
                             {anchor.label}
                         </p>
                     </button>
-                {:else}
+                {:else if anchor.url}
                     <a href={anchor.url} class="hidden md:flex">
                         <p
                             transition:slide={{

@@ -20,7 +20,8 @@
 {#if $isPageLoaded}
     <div
         transition:fade={{ duration: 1000, easing: cubicInOut }}
-        class="z-[5] h-fit w-screen absolute left-0 top-0 overflow-x-clip overflow-y-visible box-border"
+        class="z-[5] h-fit w-screen absolute left-0 top-0 overflow-x-hidden overflow-y-visible"
+        id="bg_logo"
     >
         <img
             src={CircularLogo}

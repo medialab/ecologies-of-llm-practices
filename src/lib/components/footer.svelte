@@ -1,7 +1,18 @@
 <script>
-    import footerLogo from "$lib/media/logos/expanded_logo.svg";
+    import footerLogo from "$lib/media/logos/logo_complete.svg";
+    import googleSupport from "$lib/media/logos/google_support.png";
 
     const footerSections = [
+        {
+            title: "With support from:",
+            links: [
+                {
+                    label: "Google",
+                    img: googleSupport,
+                    url: "https://www.google.org/intl/en_us/",
+                },
+            ],
+        },
         {
             title: "Research Team:",
             links: [
@@ -31,7 +42,10 @@
                     label: "Artificial Inquiries?",
                     url: "https://hal.science/hal-05327878v2",
                 },
-                { label: "Configuration work", href: "/" },
+                {
+                    label: "Configuration work",
+                    url: "https://arxiv.org/abs/2512.19189",
+                },
                 { label: "Co-Inquirers", href: "/inquirers" },
             ],
         },
@@ -39,7 +53,7 @@
 </script>
 
 <footer
-    class="relative z-40 flex h-fit w-full flex-col md:gap-0 gap-12 border-t border-[#D9D9D9] bg-white px-4 pb-4 pt-8 rounded-t-[20px] rounded-r-[20px]"
+    class="relative z-40 flex mt-24 h-fit w-full flex-col md:gap-0 gap-12 border-t border-[#D9D9D9] bg-white px-4 pb-4 pt-8 rounded-t-[20px] rounded-r-[20px] bottom-0"
 >
     <div
         class="w-full md:h-[200px] h-fit flex md:flex-row flex-col gap-12 justify-space-between"
@@ -69,14 +83,22 @@
                             <button
                                 class="flex flex-col gap-1 items-start text-left"
                             >
-                                <p>{link.label}</p>
+                                {#if link.img}
+                                    <img src={link.img} alt={link.label} />
+                                {:else}
+                                    <p>{link.label}</p>
+                                {/if}
                             </button>
                         {:else}
                             <a
                                 href={link?.href || link?.url}
                                 target={link?.url ? "_blank" : "_self"}
                             >
-                                <p>{link.label}</p>
+                                {#if link.img}
+                                    <img src={link.img} alt={link.label} />
+                                {:else}
+                                    <p>{link.label}</p>
+                                {/if}
                             </a>
                         {/if}
                     {/each}
