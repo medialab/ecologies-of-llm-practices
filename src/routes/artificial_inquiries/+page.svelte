@@ -5,6 +5,16 @@
 
     let { data } = $props();
 
+    const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
+    const meta = {
+        title: "Artificial Inquiries - A Vademecum for Workers in the Age of AI",
+        description:
+            "Artificial Inquiries is the exercise book of Ecologies of LLM Practices, a low-tech vademecum guiding participatory inquiry with printable exercises.",
+        url: `${baseUrl}/artificial_inquiries`,
+        image: `${baseUrl}/og_images/opengraph.jpg`,
+        imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
+    };
+
     let images = $derived(data.media ?? []);
 
     let buttons = [
@@ -20,6 +30,21 @@
         },
     ];
 </script>
+
+<svelte:head>
+    <title>{meta.title}</title>
+    <link rel="canonical" href={meta.url} />
+    <meta name="description" content={meta.description} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={meta.url} />
+    <meta property="og:image" content={meta.image} />
+    <meta property="og:image:alt" content={meta.imageAlt} />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={meta.image} />
+    <meta name="twitter:image:alt" content={meta.imageAlt} />
+</svelte:head>
 
 <section
     id="artificial_inquiries_hero"

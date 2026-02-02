@@ -8,8 +8,33 @@
 
     let { data } = $props();
 
+    const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
+    const meta = {
+        title: "Tedium - Archival Exhibition at Hype! Studies",
+        description:
+            "Tedium is an interactive visual exposition presenting the multimodal archive of Ecologies of LLM Practices, shown at the Hype! Studies conference in Barcelona.",
+        url: `${baseUrl}/tedium`,
+        image: `${baseUrl}/og_images/opengraph.jpg`,
+        imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
+    };
+
     let images = $derived(data.media);
 </script>
+
+<svelte:head>
+    <title>{meta.title}</title>
+    <link rel="canonical" href={meta.url} />
+    <meta name="description" content={meta.description} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={meta.url} />
+    <meta property="og:image" content={meta.image} />
+    <meta property="og:image:alt" content={meta.imageAlt} />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={meta.image} />
+    <meta name="twitter:image:alt" content={meta.imageAlt} />
+</svelte:head>
 
 <section id="tedium_hero" class="fullsize_section justify-center">
     <div class="flex flex-col max-w-[100ch] items-center">

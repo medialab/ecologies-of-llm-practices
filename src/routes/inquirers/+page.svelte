@@ -7,6 +7,16 @@
 
     let data = $props();
 
+    const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
+    const meta = {
+        title: "Co-Inquirers and Research Team - Ecologies of LLM Practices",
+        description:
+            "Meet the co-inquirers and research team who shaped the Ecologies of LLM Practices participatory inquiry into LLMs and work.",
+        url: `${baseUrl}/inquirers`,
+        image: `${baseUrl}/og_images/opengraph.jpg`,
+        imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
+    };
+
     const buttons = [
         {
             label: "Their names",
@@ -18,6 +28,21 @@
         },
     ];
 </script>
+
+<svelte:head>
+    <title>{meta.title}</title>
+    <link rel="canonical" href={meta.url} />
+    <meta name="description" content={meta.description} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={meta.url} />
+    <meta property="og:image" content={meta.image} />
+    <meta property="og:image:alt" content={meta.imageAlt} />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={meta.image} />
+    <meta name="twitter:image:alt" content={meta.imageAlt} />
+</svelte:head>
 
 <section
     id="inquirers_hero"

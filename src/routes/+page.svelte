@@ -12,6 +12,16 @@
     /** @type {import('./$types').PageProps} */
     let { data } = $props();
 
+    const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
+    const meta = {
+        title: "Ecologies of LLM Practices - Research on LLMs and Work",
+        description:
+            "Ecologies of LLM Practices is a participatory research project by Sciences Po's medialab exploring how LLMs reshape professional work through inquiry and design.",
+        url: `${baseUrl}/`,
+        image: `${baseUrl}/og_images/opengraph.jpg`,
+        imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
+    };
+
     const mainButtons = [
         {
             label: "Configuration Work",
@@ -102,6 +112,21 @@
         window.open(url, "_blank", "noopener,noreferrer");
     }
 </script>
+
+<svelte:head>
+    <title>{meta.title}</title>
+    <link rel="canonical" href={meta.url} />
+    <meta name="description" content={meta.description} />
+    <meta property="og:title" content={meta.title} />
+    <meta property="og:description" content={meta.description} />
+    <meta property="og:url" content={meta.url} />
+    <meta property="og:image" content={meta.image} />
+    <meta property="og:image:alt" content={meta.imageAlt} />
+    <meta name="twitter:title" content={meta.title} />
+    <meta name="twitter:description" content={meta.description} />
+    <meta name="twitter:image" content={meta.image} />
+    <meta name="twitter:image:alt" content={meta.imageAlt} />
+</svelte:head>
 
 <section
     class="fullsize_section justify-center md:translate-y-[-5%]"
