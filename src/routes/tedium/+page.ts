@@ -7,6 +7,7 @@ export function load() {
     title: tediumData.About.Title,
     subtitle: tediumData.About.Subtitle,
     description: tediumData.About.Description,
+    question: tediumData.About.Questions,
     media: tediumImgs,
   };
 }

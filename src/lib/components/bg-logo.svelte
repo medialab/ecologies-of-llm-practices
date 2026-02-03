@@ -26,7 +26,7 @@
         <img
             src={CircularLogo}
             alt="Fractal logo"
-            class="h-auto w-full md:scale-[1] scale-[2] object-contain object-top pt-80"
+            class="h-auto w-full md:scale-[1] scale-[2] object-cover object-top pt-80"
         />
     </div>
 {/if}

@@ -41,6 +41,7 @@
     import mistralLogo from "$lib/media/Mistral.png";
     import claudeLogo from "$lib/media/Claude.svg";
     import deepseekLogo from "$lib/media/DeepSeek.png";
+    import SectionCard from "$lib/components/section-card.svelte";
 
     const models = [
         {
@@ -129,7 +130,7 @@
 </svelte:head>
 
 <section
-    class="fullsize_section justify-center md:translate-y-[-5%]"
+    class="fullsize_section hero justify-center md:translate-y-[-5%]"
     id="hero_title"
 >
     <div class="flex flex-col md:gap-0 gap-4 w-full md:w-fit">
@@ -217,68 +218,13 @@
     {@const usableCards: cardValues[] = Object.values(cardsData)}
     {#each usableCards as card, i}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
-            <section
-                id={card.Id}
-                class="fullsize_section"
-                data-scroll
-                data-scroll-speed="0.1"
-                data-scroll-call="cardInView"
-            >
-                <div
-                    class="bg-white md:bg-transparent flex md:flex-row flex-col w-full justify-between items-start md:gap-6 gap-4 md:px-12 border-solid md:border-none border-black border rounded-xl md:p-6 px-2 py-4 transition-all duration-200 ease-in-out opacity"
-                    id="single_card"
-                >
-                    <div
-                        class="flex flex-col gap-2 md:bg-white md:w-2/5 w-full md:p-4"
-                    >
-                        <h1>{card?.Title}</h1>
-                    </div>
-                    <div
-                        class="flex flex-col gap-4 md:bg-white md:w-3/5 w-full max-w-none h-fit md:p-4"
-                    >
-                        <p class="h-fit text-gray-500 text-wrap">
-                            {@html card?.Question}
-                        </p>
-                        <p
-                            class="overflow-hidden transition-[max-height] duration-500 ease-in-out"
-                            id="description-{i}"
-                        >
-                            {@html card?.Description}
-                        </p>
-                        <!--AI containers
-                        <div
-                            class="flex flex-row md:gap-1 gap-2 flex-wrap h-[30px]"
-                            id="AI_containers"
-                        >
-                            {#each models as { name, img }, i}
-                                <button
-                                    use:pillAnimation
-                                    class="pill px-4 py-1 flex flex-row gap-2 items-center h-full group"
-                                    onclick={() =>
-                                        askAI(
-                                            card?.Description,
-                                            name as
-                                                | "gpt"
-                                                | "claude"
-                                                | "mistral",
-                                        )}
-                                >
-                                    <p
-                                        class="text-nowrap uppercase hidden group-hover:block group-transition-delay-300 group-active:block transition-all duration-500 ease-in-out"
-                                    >
-                                        Ask
-                                    </p>
-                                    <img
-                                        src={img}
-                                        alt="{name} logo"
-                                        class="h-5 w-5"
-                                    />
-                                </button>
-                            {/each}
-                        </div>-->
-                    </div>
-                </div>
-            </section>
+            <SectionCard
+                id={card?.Id}
+                title={card?.Title}
+                question={card?.Question}
+                description={card?.Description}
+                {i}
+            />
         {/if}
     {/each}
 {/await}

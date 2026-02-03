@@ -5,6 +5,7 @@
     import tediumVideo from "$lib/media/tedium/TEDIUM_LIGHT.mp4";
     import videoPoster from "$lib/media/tedium/TEDIUM_LIGHT_poster.png";
     import videoIcon from "$lib/media/videoIcon.svg";
+    import SectionCard from "$lib/components/section-card.svelte";
 
     let { data } = $props();
 
@@ -36,7 +37,7 @@
     <meta name="twitter:image:alt" content={meta.imageAlt} />
 </svelte:head>
 
-<section id="tedium_hero" class="fullsize_section justify-center">
+<section id="tedium_hero" class="fullsize_section hero justify-center">
     <div class="flex flex-col max-w-[100ch] items-center">
         <div class="bg-white p-4">
             <h1 class="md:text-center text-left">{@html data.title}</h1>
@@ -64,22 +65,13 @@
         </div>
     </div>
 </section>
-<section
-    class="fullsize_section justify-center h-fit"
-    data-scroll
-    data-scroll-speed="0.3"
+<SectionCard
+    title="Is there anything inherently valuable in using large language models
+            (LLMs)?"
+    question={data.question}
+    description={data.description}
     id="abstract"
->
-    <div
-        class="bg-white p-4 md:w-2/3 rounded-xl border-black border-[1px] md:border-0 flex flex-col gap-4"
-    >
-        <h2>
-            Is there anything inherently valuable in using large language models
-            (LLMs)?
-        </h2>
-        <p class="text-xl text-pretty">{@html data.description}</p>
-    </div>
-</section>
+/>
 
 <section
     class="fullsize_section justify-center h-fit"

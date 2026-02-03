@@ -126,7 +126,11 @@
   }
 
   .fullsize_section {
-    @apply relative min-h-screen h-fit w-full max-w-[1920px] flex items-center py-2 z-[30] md:px-4 px-4 snap-start bg-transparent;
+    @apply relative h-fit w-full max-w-[1920px] flex items-center py-2 z-[30] px-4 snap-start bg-transparent md:mt-52 mt-6;
+  }
+
+  .hero {
+    @apply min-h-[100dvh] md:mt-0 mt-0;
   }
 
   img {
