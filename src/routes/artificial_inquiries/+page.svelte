@@ -20,7 +20,7 @@
     let buttons = [
         {
             label: "Download it on <b>HAL</b>",
-            url: "https://hal.science/hal-04434497",
+            url: "https://hal.science/hal-05327878v2",
             icon: downloadIcon,
         },
         {
