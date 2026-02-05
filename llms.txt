@@ -13,7 +13,7 @@ We provide clean **Markdown mirrors** ( `.md` ) of key pages so language-model a
 ## Project Docs
 - [Ecologies of LLM Practices](https://ecologiesofllm.medialab.sciencespo.fr/#Ecologies%20of%20LLM%20Practices): project framing & rationale
 - [Objective](https://ecologiesofllm.medialab.sciencespo.fr/#Objective): research questions & aims
-- [Methodology](https://ecologiesofllm.medialab.sciencespo.fr/#Methodology): protocol & workflow
+- [Protocol](https://ecologiesofllm.medialab.sciencespo.fr/#Methodology): protocol & workflow
 - [Contact](https://ecologiesofllm.medialab.sciencespo.fr/#Contact): team directory & emails
 - [Co-Inquirers](https://ecologiesofllm.medialab.sciencespo.fr/#Co-Inquirers): participant acknowledgements
 
