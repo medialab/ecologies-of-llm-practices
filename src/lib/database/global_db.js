@@ -495,8 +495,9 @@ const researchTeam = [
 const datapolicyData = {
   About: {
     Title: "Data Policy",
-    Subtitle: "Ecologies of LLM Practices Data Protection and Privacy",
+    Subtitle:
+      "How we managed and handle the multimodal <br> data produced during the project.",
     Description:
-      "This section details how we handle the data collected during the Ecologies of LLM Practices project. We are committed to transparency, privacy, and the ethical use of all research materials. <br><br> As per the Sciences Po data policy, all participants remain anonymous and have the right to access, rectify, or request the deletion of their data at any time. The multimodal archive generated is used solely for research and dissemination purposes within the scope of the project.",
+      "We collected multimodal data throughout the project: the printed vademecum and other paper forms, written exercises, photos from sessions, audio and video recordings, screen recordings of work sessions, chat logs and other digital traces of participants’ interactions with LLMs. All data were gathered in compliance with applicable privacy regulations and with informed consent: co-inquirers signed the project information and consent forms, and lead researchers confirmed the processing purposes. Before any public use, materials were anonymised, to remove identifying details; images could be blurred or excluded on request. Anonymised extracts were used for the website, exhibitions and other public outputs.",
   },
 };

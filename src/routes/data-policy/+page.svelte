@@ -34,7 +34,7 @@
         <div class="bg-white p-4">
             <h1 class="md:text-center text-left">{@html data.title}</h1>
         </div>
-        <div class="flex flex-col gap-2 bg-white p-4 md:w-[85ch]">
+        <div class="flex flex-col gap-2 bg-white p-4 max-w-[85ch] items-center justify-center w-fit">
             <p class="md:text-center text-left">{@html data.subtitle}</p>
         </div>
         <div class="flex justify-center bg-white p-2 gap-2">
