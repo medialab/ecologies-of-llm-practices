@@ -3,9 +3,9 @@ import { artificialInquiriesImgs } from "$database/media";
 
 export function load() {
   return {
-    title: "Artificial Inquiries: A <i>Vademecum</i> for <i>Workers</i> in the age of AI",
-    subtitle: `Artificial Inquiries is the exercise book, core of the <b>Ecologie of LLM Practices</b> project.
-      It is a low-tech vademecum designed to guide the participatory inquiry through subsequent exercises, aiming to create a mutual reflection between the user and the various LLMs.`,
+    title:
+      "Artificial Inquiries: A <i>Vademecum</i> for <i>Workers</i> in the age of AI",
+    subtitle: `Artificial Inquiries is the vademecum containing the exercises at the core of the project. <br> It is designed to guide the co-inquirers through the research activities.`,
     description: `<b>Origin</b>: This book was born during the inquiries of the Ecologies of LLM Practices.<br><br>
       <b>Purpose</b>: Its shape and form are designed to create an object of reflection and understanding, detaching the LLM discourse from the screen and the digital medium.<br><br>
       <b>Structure</b>:<br>

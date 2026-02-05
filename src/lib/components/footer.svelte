@@ -29,7 +29,7 @@
                     url: "https://medialab.sciencespo.fr/en/people/tommaso-prinetti/",
                 },
                 {
-                    label: "Zoe de Vries",
+                    label: "Zoé de Vries",
                     url: "https://medialab.sciencespo.fr/en/people/zoe-de-vries/",
                 },
             ],
@@ -60,15 +60,12 @@
     >
         <div class="md:w-2/3 w-full">
             <p class="text-lg">
-                We would like to thank all co-inquirers who took part in our
-                protocol. <br />Without their participation, our project could
-                not have been developed. <br />
-                Their names are
+                We would like to thank all co-inquirers who took part in our protocol. Without their participation, our project could not have been developed. The link is on 
                 <a
                     href="/inquirers"
                     class="underline hover:text-blue-500 hover:cursor-pointer"
                 >
-                    written here ↗︎</a
+                    co-inquirers.</a
                 >
             </p>
         </div>

@@ -5,11 +5,12 @@
 
     let { data } = $props();
 
+    const subtitle = $derived(data.subtitle)
+
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
     const meta = {
         title: "Artificial Inquiries - A Vademecum for Workers in the Age of AI",
-        description:
-            "Artificial Inquiries is the exercise book of Ecologies of LLM Practices, a low-tech vademecum guiding participatory inquiry with printable exercises.",
+        description: subtitle,
         url: `${baseUrl}/artificial_inquiries`,
         image: `${baseUrl}/og_images/opengraph.jpg`,
         imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
@@ -58,7 +59,7 @@
                     {@html data.title}
                 </h1>
             </div>
-            <div class="flex flex-col gap-2 bg-white p-4 md:w-[85ch]">
+            <div class="flex flex-col gap-2 bg-white p-4 md:w-[85ch] justify-center items-center">
                 <p class="md:text-center text-left">
                     {@html data.subtitle}
                 </p>

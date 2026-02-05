@@ -24,8 +24,8 @@
             href: "#objective",
         },
         {
-            label: "METHODOLOGY",
-            href: "#methodology",
+            label: "Protocol",
+            href: "#Protocol",
         },
         {
             label: "TEDIUM",

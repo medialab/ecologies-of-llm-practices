@@ -89,7 +89,7 @@
         model: "gpt" | "claude" | "mistral" | "deepseek" = "gpt",
     ): void {
         const markDownData = htmlToMd(data);
-        const prompt = `Reading the text coming from ${window.location.href}, provide an explanation on what the project is, which are the research questions and the main findings, the team and the project: <content> ${markDownData}</content> `;
+        const prompt = `Based on the text from ${window.location.href}, provide an explanation of the project, including its research questions, main findings, and team: <content> ${markDownData}</content> `;
         const encoded = encodeURIComponent(prompt);
         const baseUrls = {
             gpt: "https://chat.openai.com",

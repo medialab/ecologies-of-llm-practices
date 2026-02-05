@@ -44,7 +44,7 @@
     <meta name="twitter:image:alt" content={meta.imageAlt} />
 </svelte:head>
 
-<section
+<!--<section
     id="inquirers_hero"
     class="fullsize_section flex-col items-start md:items-center justify-center mt-48 md:mt-0"
 >
@@ -53,19 +53,6 @@
                 This project <i>couldn't have happened</i> <br /><i>without</i> the
                 support of all Co-Inquirers
             </h1>
-            <p class="md:text-center text-left md:w-[90ch] bg-white p-4">
-                Ecologies of LLM Practices is a participatory inquiry that
-                explores how people and technologies co-shape one another within
-                emerging landscapes of language models. Through a series of
-                close collaborations with diverse co-inquirers—artists,
-                researchers, developers, and practitioners—the project unfolds
-                as a living system of exchanges. Each contributor, by engaging
-                with the LLM in their own distinctive way, helped define the
-                contours of this research architecture. Their unique usage
-                patterns, interpretive gestures, and experimental approaches
-                became integral components, revealing how creative agency and
-                computational reasoning continuously interlace.
-            </p>
             <div class="flex justify-center bg-white p-2 gap-2">
                 {#each buttons as { label, href }}
                     <a
@@ -79,7 +66,7 @@
                 {/each}
             </div>
         </div>
-    </section>
+    </section>-->
     <section class="fullsize_section justify-center flex-col" id="names">
         <p class="bg-white p-4 text-center">The co-inquirers</p>
         <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
@@ -104,7 +91,7 @@
             {/each}
         </div>
     </section>
-    <section
+    <!--<section
         class="fullsize_section justify-center flex-col"
         id="research_team"
     >
@@ -134,4 +121,4 @@
                 {/if}
             {/each}
         </div>
-    </section>
+    </section>-->

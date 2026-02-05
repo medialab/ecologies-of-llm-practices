@@ -1,11 +1,18 @@
 import { photos, capitolsCover, general, floaters } from "$database/config.js";
-export { cardsDb, floatersDb, alterEgosDb, tediumData, inquirers, researchTeam };
+export {
+  cardsDb,
+  floatersDb,
+  alterEgosDb,
+  tediumData,
+  inquirers,
+  researchTeam,
+};
 
 const cardsDb = {
   Card1: {
     Title: "Qualifying",
     Description:
-      "The first block is about <b>adopting a reflexive posture</b> regarding the use of LLMs. Participants engage in exercises that make them more aware of their practices, attitudes, and assumptions about AI technologies.This block serves as a foundational phase, akin to a practice ground, where participants start to <b>think critically</b> about their relationship with LLMs.",
+      "The first block is about <b>adopting a reflexive posture</b> regarding the use of LLMs. Participants engage in exercises that make them more aware of their practices, attitudes, and assumptions about AI technologies. This block serves as a foundational phase, akin to a practice ground, where participants start to <b>think critically</b> about their relationship with LLMs.",
     Question:
       "Where do LLMs live in our professional practices, norms, and relationships?",
     IndexNum: 1,
@@ -23,7 +30,7 @@ const cardsDb = {
         title: "Ex 2 - Harvesting Tasks",
         subtitle:
           "Participants account for the tasks they perform in their work and how LLMs could assist them.",
-        text: "This exercise helps participants <b>reflect on their existing work</b>, revealing overlooked or underappreciated tasks.They also explore what other work they could do with the assistance of an LLM, generating material for future exercises.",
+        text: "This exercise helps participants <b>reflect on their existing work</b>, revealing overlooked or underappreciated tasks. They also explore what other work they could do with the assistance of an LLM, generating material for future exercises.",
         picture: photos.Ex_2,
         exNum: 2,
       },
@@ -31,7 +38,7 @@ const cardsDb = {
         title: "Ex 3 - Rough Impressions",
         subtitle:
           "Participants review their ChatGPT history to identify usage patterns and what stands out.",
-        text: "This exercise prompts participants to <b>critically assess</b> their LLM interactions through self-evaluation and a structured review of their conversation history.It highlights <b>gaps between perception and actual use</b> to further their understanding of their LLM usage rather than relying on one-off talking points or anecdotes.",
+        text: "This exercise prompts participants to <b>critically assess</b> their LLM interactions through self-evaluation and a structured review of their conversation history. It highlights <b>gaps between perception and actual use</b> to further their understanding of their LLM usage rather than relying on one-off talking points or anecdotes.",
         picture: photos.Ex_3,
         exNum: 3,
       },
@@ -39,7 +46,7 @@ const cardsDb = {
         title: "Ex 4 - Memorable Conversations",
         subtitle:
           "Participants identify what made some conversations with ChatGPT remarkable.",
-        text: "Participants <b>analyze past LLM interactions</b> that stood out due to emotional impact, moral hesitation, or significant outcomes.They rate the model's performance and explore why it performed as it did, fostering awareness about LLM capabilities and professional expectations.",
+        text: "Participants <b>analyze past LLM interactions</b> that stood out due to emotional impact, moral hesitation, or significant outcomes. They rate the model's performance and explore why it performed as it did, fostering awareness about LLM capabilities and professional expectations.",
         picture: photos.Ex_4,
         exNum: 4,
       },
@@ -47,7 +54,7 @@ const cardsDb = {
         title: "Ex 5 - Subtracting the Machine",
         subtitle:
           "Participants describe memorable interactions with ChatGPT without using terms like 'LLM' or 'ChatGPT'.",
-        text: "This thought experiment creates <b>artificial constraints</b> on how participants talk about their use of LLMs.Because they cannot rely on ready-made categories (e.g., 'ChatGPT', 'machine', or 'assistant'), participants need to <b>reconsider their interactions</b> with the models, playing with different metaphors and analogies drawn from their social and professional environments.",
+        text: "This thought experiment creates <b>artificial constraints</b> on how participants talk about their use of LLMs. Because they cannot rely on ready-made categories (e.g., 'ChatGPT', 'machine', or 'assistant'), participants need to <b>reconsider their interactions</b> with the models, playing with different metaphors and analogies drawn from their social and professional environments.",
         picture: photos.Ex_5,
         exNum: 5,
       },
@@ -58,7 +65,7 @@ const cardsDb = {
   Card2: {
     Title: "Benchmarking",
     Description:
-      "In this block, participants are guided through selecting an LLM that <b>best suits their professional needs</b>. They design personal tests comprising specific tasks and evaluate the performance of different models.The goal is to choose a model that aligns with their practical and ethical requirements.",
+      "In this block, participants are guided through selecting an LLM that <b>best suits their professional needs</b>. They design personal tests comprising specific tasks and evaluate the performance of different models. The goal is to choose a model that aligns with their practical and ethical requirements.",
     Question: "How do we assess the value of an LLM?",
     IndexNum: 2,
     CoverImg: capitolsCover.coverBenchmarking,
@@ -67,7 +74,7 @@ const cardsDb = {
         title: "Ex 6 - Design your AI Test",
         subtitle:
           "Participants design a test to assess the usefulness of an LLM, choosing four tasks that are essential or enjoyable parts of their work.",
-        text: "This exercise guides participants through a <b>selection process</b>, drawing from their current work practices and the potential implementation of new tasks. In contrast to standardized benchmarks, which are tailor-made by engineers for LLMs, participants design a test that revolves around <b>their own professional experience</b>. This personalized benchmark aims to assess whether the models can provide <b>practical value</b> that actually matters in a specific professional situation.",
+        text: "This exercise guides participants through a <b>selection process</b>, drawing from their current work practices and the potential implementation of new tasks. In contrast to standardised benchmarks, which are tailor-made by engineers for LLMs, participants design a test that revolves around <b>their own professional experience</b>. This personalised benchmark aims to assess whether the models can provide <b>practical value</b> that actually matters in a specific professional situation.",
         picture: photos.Ex_6,
         exNum: 6,
       },
@@ -75,15 +82,15 @@ const cardsDb = {
         title: "Ex 7 - Setting Up the Test",
         subtitle:
           "Participants write detailed instructions for their tasks and choose four LLMs they wish to test.",
-        text: "By formulating <b>detailed instructions</b>, participants reflect on how they can effectively guide an LLM towards accomplishing a simple or complex task. They are led to reflect on the <b>weight of their own prompt</b> on the final result. By selecting a human or a specialized model, participants explore different avenues of comparison - <b>machine versus machine</b> or <b>human versus machine</b>.",
+        text: "By formulating <b>detailed instructions</b>, participants reflect on how they can effectively guide an LLM towards accomplishing a simple or complex task. They are led to reflect on the <b>weight of their own prompt</b> on the final result. By selecting a human or a specialised model, participants explore different avenues of comparison - <b>machine versus machine</b> or <b>human versus machine</b>.",
         picture: photos.Ex_7,
         exNum: 7,
       },
       {
         title: "Ex 8 - Gathering Evidence",
         subtitle:
-          "Participants ask an acquaintance to collect answers from LLMs and anonymize results to avoid bias.",
-        text: "In this exercise, participants <b>enlist the help</b> of a fellow co-inquirer, a good friend, or a colleague. In addition to anonymizing results and ensuring fairness in the upcoming mock trial, this exercise allows participants to <b>concretely experience</b> the collaborative nature of LLM performance evaluation.",
+          "Participants ask an acquaintance to collect answers from LLMs and anonymise results to avoid bias.",
+        text: "In this exercise, participants <b>enlist the help</b> of a fellow co-inquirer, a good friend, or a colleague. In addition to anonymising results and ensuring fairness in the upcoming mock trial, this exercise allows participants to <b>concretely experience</b> the collaborative nature of LLM performance evaluation.",
         picture: photos.Ex_8,
         exNum: 8,
       },
@@ -91,7 +98,7 @@ const cardsDb = {
         title: "Ex 9 - Judgment Day",
         subtitle:
           "Participants assess the blind results in a mock trial: they rank them, explain on what ground they assessed each performance, and reflect on the testing process.",
-        text: "Participants <b>rank anonymized LLM responses</b> for each task, determine the best-performing model, and <b>critically review</b> the trial's fairness and relevance.This evaluation encourages participants to reflect on what matters in assessing the <b>situated value</b> of LLMs.",
+        text: "Participants <b>rank anonymised LLM responses</b> for each task, determine the best-performing model, and <b>critically review</b> the trial's fairness and relevance. This evaluation encourages participants to reflect on what matters in assessing the <b>situated value</b> of LLMs.",
         picture: photos.Ex_9,
         exNum: 9,
       },
@@ -112,7 +119,7 @@ const cardsDb = {
         title: "Ex 10 - The Art of the Prompt",
         subtitle:
           "Participants explore and refine the way they prompt by experimenting with and reflecting on their interactions with LLMs.",
-        text: "By approaching prompting not as a one-size-fits-all formula, but as a <b>practice of inquiry and iteration,</b>  the series of tasks in this exercise sharpen participants’ prompting skills, and deepen their awareness of their assumptions and expectations. The goal is not just to make the LLM work better, but <b>to understand what “better” really means</b> in the context of one’s own practices.",
+        text: "By approaching prompting not as a one-size-fits-all formula, but as a <b>practice of inquiry and iteration,</b> the series of tasks in this exercise sharpen participants’ prompting skills, and deepen their awareness of their assumptions and expectations. The goal is not just to make the LLM work better, but <b>to understand what “better” really means</b> in the context of one’s own practices.",
         picture: photos.Ex_10,
         exNum: 10,
       },
@@ -132,7 +139,7 @@ const cardsDb = {
   Card4: {
     Title: "Excelling",
     Description:
-      "In this block, participants use their chosen LLM to produce <b>the highest quality work possible</b>. The goal is <b>to push the model's capabilities to the fullest</b>, testing its ability to reach the gold standard in a specialized field.",
+      "In this block, participants use their chosen LLM to produce <b>the highest quality work possible</b>. The goal is <b>to push the model's capabilities to the fullest</b>, testing its ability to reach the gold standard in a specialised field.",
     Question: "How closely can an LLM approach human excellence?",
     IndexNum: 4,
     CoverImg: capitolsCover.coverExcel,
@@ -149,7 +156,7 @@ const cardsDb = {
         title: "Ex 13 - Setting Up the Example",
         subtitle:
           "Participants discuss the place of their chosen work within their professional ecology and explain why it is exemplary.",
-        text: "This exercise contextualizes the chosen exemplary work by examining its <b>professional significance</b>. A radar graph helps assess factors like frequency, expertise required, and error tolerance, while a structured reflection highlights what makes the work <b>exemplary</b> and worth emulating.",
+        text: "This exercise contextualises the chosen exemplary work by examining its <b>professional significance</b>. A radar graph helps assess factors like frequency, expertise required, and error tolerance, while a structured reflection highlights what makes the work <b>exemplary</b> and worth emulating.",
         picture: photos.Ex_13,
         exNum: 13,
       },
@@ -157,7 +164,7 @@ const cardsDb = {
         title: "Ex 14 - Setting Up the Example",
         subtitle:
           "Participants guide an LLM towards reproducing an exemplary text from their professional field.",
-        text: "Participants attempt to recreate a <b>high-quality text</b> using an LLM without providing direct access to the original. This experiment tests the LLM's ability to replicate <b>style, tone, and meaning</b> while challenging participants to refine their prompting strategies.Through 90-minute work sessions interspersed between Exercises 15 and 17, participants document their process and assess the model's capacity to come as close as possible to <b>an exact copy</b> of an exemplary work.",
+        text: "Participants attempt to recreate a <b>high-quality text</b> using an LLM without providing direct access to the original. This experiment tests the LLM's ability to replicate <b>style, tone, and meaning</b> while challenging participants to refine their prompting strategies. Through 90-minute work sessions interspersed between Exercises 15 and 17, participants document their process and assess the model's capacity to come as close as possible to <b>an exact copy</b> of an exemplary work.",
         picture: photos.Ex_14,
         exNum: 14,
       },
@@ -215,53 +222,31 @@ const cardsDb = {
 const alterEgosDb = {
   Card1: {
     Title: "Ecologies of LLM Practices",
-    CoverImg: general.googleSupport,
     Id: "project",
     Description:
       "The booming rise of <b>large language models (LLMs)</b> such as ChatGPT has sparked a rush to produce discourse about these technologies. The quick crystallisation of a shared outlook around a few key themes has <b>narrowed the scope</b> of potential interrogations.<br><br>Public and scientific debates focus on technical issues: algorithmic bias, confabulation, and intellectual property violations. However, the problems and consequences associated with their <b>actual use</b> – for both their users and their professional contexts – remain largely unexplored. This asymmetry fuels a <b>mechanical view</b> of technological development and its effects, as if the technical analysis of these systems were enough to predict their social impact.<br><br>Moreover, these discourses present AI as a <b>monolithic and disruptive</b> entity, dismissing the possibility that it may be aligned with existing practices and that its effects may vary depending on situations encountered in one's job. There is thus an <b>urgent need</b> to move beyond predictions about the future of work, to account for the professional contexts in which LLMs are used, and to identify <b>current issues</b> – not prospective ones.<br><br>How do AI's well-known problems (bias, confabulation, etc.) manifest in established practices? What new, unexpected problems are surfacing? How do LLMs shape individual work practices? And in turn, how do professional environments shape LLMs and their use?",
     Question: "How can we reframe the role of LLMs in ordinary work practices?",
-    IndexNum: 1,
-    bgColor: "#000000",
   },
   Card2: {
     Title: "Objective",
     Id: "objective",
-    CoverImg: general.logoImage_white,
     Question:
       "How do professionals evaluate, adapt to, and perceive LLMs in their work?",
     Description:
       'To answer these questions, the Ecologies of LLM Practices (EL2MP) project creates research areas dedicated to workers for them to document and reflect on their use of LLMs. Our investigation aims to highlight the "savoir-faire", expertise, and values of workers rather than those of AI designers or economic decision-makers.<br><br>The project aims to scrupulously examine how LLMs fit into various professional practices. EL2MP will investigate how users relate to LLMs in terms of:<br><b>Evaluation - </b> How do professionals assess the value LLMs add or remove?<br><b>Effort - </b> What new kinds of work do LLMs require from their users?<br><b>Perception - </b> How do workers evaluate and perceive LLMs over time as they continue working with them?',
-    IndexNum: 2,
-    bgColor: "#1F1F1F",
   },
   Card3: {
-    Title: "Methodology",
-    Id: "methodology",
-    CoverImg: general.logoImage_white,
-    Question: "A necessary project in today's research landscape on LLMs",
+    Title: "Protocol",
+    Question:
+      "A collaboration between sociologists, science and technology researchers (STS), and designers",
     Description:
-      "To carry out the project, we developed an <b>experimental research protocol</b> based on the <b>active involvement</b> of participants. The fruit of a <b>collaboration</b> between sociologists, science and technology researchers (STS), and designers, this protocol aims to create:<br><br><b>Room for hesitation - </b> Through a series of exercises, the protocol provides participants with various means of <b>documenting and reflecting</b> on their use of LLMs. We aim to establish a framework where <b>doubt and hesitation</b> are not only accepted but encouraged. Some exercises introduce <b>deliberate pauses</b> in professional routines, causing participants to take a <b>step back</b> from their own practices: during these pauses, judgment is suspended, giving users enough room to <b>question</b> their instinctive habits and feel unsure about what they once thought was certain. Other exercises aim to <b>intensify the use of LLMs</b> to shed light on what would otherwise remain too subtle to be perceived.<br><br><b>An ecological archive of practices - </b> The digital traces from LLM use serve as the <b>starting point</b> for the exercises we designed. They are <b>analysed, contextualised, and discussed</b> individually and collectively. Through this process, participants progressively build a <b>multimodal archive</b> (audio, photos, videos, drawings, and logbooks) that tangibly reflects their LLMs experience and how they are incorporated into various <b>professional norms</b> and material configurations.<br><br><b>A workbook (vademecum) - </b> The workbook collects all the exercises and their instructions, organized into <b>thematic blocks</b>. Designed as a <b>modular object</b>, where pages can be added or removed as needed, it accompanies each participant throughout the protocol. The vademecum serves as both the <b>material support</b> for the protocol and the project's means of <b>dissemination</b>, as it can be reproduced and adapted in various academic and professional contexts.",
-    IndexNum: 3,
-    bgColor: "#2C2C2C",
+      "To carry out the project, we developed an experimental, participatory, research:<br><br><b>Room for hesitation - </b> Through a series of exercises, the protocol provides participants with various means of <b>documenting and reflecting</b> on their use of LLMs. We aim to establish a framework where <b>doubt and hesitation</b> are not only accepted but encouraged. Some exercises introduce <b>deliberate pauses</b> in professional routines, causing participants to take a <b>step back</b> from their own practices: during these pauses, judgment is suspended, giving users enough room to <b>question</b> their instinctive habits and feel unsure about what they once thought was certain. Other exercises aim to <b>intensify the use of LLMs</b> to shed light on what would otherwise remain too subtle to be perceived.<br><br><b>An ec  ological archive of practices - </b> The digital traces from LLM use serve as the <b>starting point</b> for the exercises we designed. They are <b>analysed, contextualised, and discussed</b> individually and collectively. Through this process, participants progressively build a <b>multimodal archive</b> (audio, photos, videos, drawings, and logbooks) that tangibly reflects their LLMs experience and how they are incorporated into various <b>professional norms</b> and material configurations.<br><br><b>A workbook (vademecum) - </b> The workbook collects all the exercises and their instructions, organised into <b>thematic blocks</b>. Designed as a <b>modular object</b>, where pages can be added or removed as needed, it accompanies each participant throughout the protocol. The vademecum serves as both the <b>material support</b> for the protocol and the project's means of <b>dissemination</b>, as it can be reproduced and adapted in various academic and professional contexts.",
   },
   Card4: {
     Title: "Contact",
-    Id: "contact",
     Question: "Our Team",
     Description:
       '<b>Donato Ricci</b>: <a href="https://medialab.sciencespo.fr/en/people/donato-ricci/" target="_blank" style="text-decoration: underline;">Principal Investigator, Designer</a><br><b>Contact</b>: <a href="mailto:donato.ricci@sciencespo.fr" target="_blank" style="text-decoration: underline;">donato.ricci@sciencespo.fr</a><br><br><b>Gabriel Alcaras</b>: <a href="https://medialab.sciencespo.fr/equipe/gabriel-alcaras/" target="_blank" style="text-decoration: underline;">Postdoctoral researcher, Sociologist</a><br><b>Contact</b>: <a href="mailto:gabriel.alcaras@sciencespo.fr" target="_blank" style="text-decoration: underline;">gabriel.alcaras@sciencespo.fr</a><br><br><b>Tommaso Prinetti</b>: <a href="https://medialab.sciencespo.fr/equipe/tommaso-prinetti/" target="_blank" style="text-decoration: underline;">Research Assistant, Designer</a><br><b>Contact</b>: <a href="mailto:tommaso.prinetti@sciencespo.fr" target="_blank" style="text-decoration: underline;">tommaso.prinetti@sciencespo.fr</a><br><br><b>Zoé de Vries</b>: <a href="https://medialab.sciencespo.fr/equipe/zoe-de-vries/" target="_blank" style="text-decoration: underline;">Research Assistant, Linguist</a><br><b>Contact</b>: <a href="mailto:zoe.devries@sciencespo.fr" target="_blank" style="text-decoration: underline;">zoe.devries@sciencespo.fr</a>',
-    IndexNum: 4,
-    bgColor: "#3A3A3A",
-  },
-
-  Card5: {
-    Title: "Co-Inquirers",
-    Question:
-      "We would like to thank all co-inquirers who took part in our protocol. Without their participation, our project could not have been developed.",
-    Description:
-      "Clara Demarty-Coadic<br>François Lambert<br>Josephine Preißler<br>Léa Stephan<br>Lukas Brand<br>Mathilde Blanchon<br>Thérèse d'Orléans<br>Yajing Hu",
-    IndexNum: 5,
-    bgColor: "#444444",
   },
 };
 
@@ -401,7 +386,7 @@ const tediumData = {
     Title:
       "<i>Tedium:</i> archival exhibition <br>at <i>“Hype! Studies”</i>  Barcelona",
     Subtitle:
-      "Tedium is an interactive visual exposition presented aat the Hype Studies! conference in Barcelona, between 10-12 September 2025. It is a curated exploration of the multimodal archive generated during the Ecologies of LLM Practices project.",
+      "Tedium is an interactive visual exposition presented at the Hype Studies! conference in Barcelona, between 10-12 September 2025. It is a curated exploration of the multimodal archive generated during the Ecologies of LLM Practices project.",
     Description:
       "Do workers engage with these systems differently than managerial narratives of optimisation and cost reduction suggest? And how do they navigate the capacities of these tools, making sense of their results?<br>To answer these questions, we shift our attention away from the perspectives of developers and toward the lived expertise, values, and tactics of workers. We attempted to establish the conditions under which the use of LLMs can be described within the specific professional norms and material conditions—what we refer to as their ecologies. We explore where the need to prompt arises, how outputs are handled, and what it means to engage with LLMs not as tools, but as technologies-in-use. We designed a participatory, experimental research protocol that is open to reproduction and adaptation through collaborations among sociologists, STS scholars, and design researchers. Over six- to eight-month cohorts, we worked with 40 professionals as co-inquirers. Through regular meetings and collaborative exercises, we introduced intentional pauses into everyday routines, creating space for reflection on the role and impact of LLMs. These encounters generated a multimodal archive—comprising audio, images, drawings, and chat logs—that captures the textures of LLMs-in-use.<br>Tedium is a curated exploration of this archive. Composed of five scenes, it follows the arc of our inquiry from the first meeting to the closing conversation. Each scene has a dual structure: a description, featured in the video installation, evokes the rhythms of our weekly sessions; and a commentary, presented in the following pages, offers interpretations, conceptual links, and analytical reflections that extend beyond participants' formulations.<br>What emerges departs sharply from narratives of automation or seamless delegation. LLMs do not simply accommodate users: they require accommodation. They fragment workflows, produce verbose outputs, and introduce new layers of interpretive and evaluative labour. Rather than streamlining work, they often multiply it, flattening nuance and amplifying tedium. While many co-inquirers found LLMs helpful, the promised gains in productivity proved elusive: more work, not necessarily better work. Yet amid these tensions, a quieter form of value appeared. The LLM, alien yet patient, provided a space for “silly work,” for emotional scaffolding, for low-stakes experimentation. Its judgment-free presence created rare permission to hesitate, to play, to think aloud. Far from the hyperbolic claims of disruption and efficiency, this value was grounded in practice, not promise. Anything but hype!",
   },
@@ -434,7 +419,7 @@ const tediumData = {
   Scene3: {
     Title: "January 2024 − “Discretisation”",
     Commentary:
-      "From the onset of the protocol, we asked participants: What tasks do you do with LLMs? What else could you use them for?<br>Most first turned to clearly defined tasks already supported by technological services, such as Google and Wikipedia for research, DeepL for translation, or Stack Overflow for coding. ChatGPT seems to replace them all, akin to a convenience store. Everybody appears to appreciate the time it saved.<br>Some participants relied on what LLMs were “good at”, depending on what they picked up from the media, friends, or colleagues. Nearly everyone used ChatGPT to “paraphrase.” Using it for coding purposes was also widespread. “It’s good at it,” they heard, because it had been trained on a lot of code. But coding was mostly seen as a means to achieve a more valuable end. Constance said she didn’t care if her code was pretty or fast, only that it ran. Tobias went further, rejecting the idea of coding as “creative” work: “I think for me, it’s more like implementing something I've already set out. I did my research design, so I kind of mapped out the process of data collection or data analysis. It feels like I’ve already put the thought into how I wanted to do it, and then I just tell it [ChatGPT] to implement.”<br>Participants also built on the existing division of labour to assign tasks to an LLM. As such, researchers quickly sought to test the accuracy of literature reviews. Yichen found ChatGPT “incredibly efficient, especially in the writing of [quantitative] social science essays since they tend to be standard in format.” At the same time, Charlotte noticed that “they're quite good when it comes to referencing with rigid guidelines. So if there’s something really clear, like a formula for how to do referencing, for example, it usually can do that.” Most agreed that LLMs performed best on standardized tasks, governed by precise rules.<br>Over time, however, participants began to push beyond these obvious use cases. In law, for instance, Alice realised that what she thought of as a single task was too unwieldy for an LLM. What felt like one smooth action to her had to be broken into smaller, more manageable steps: “I think one of the key things to get proper results is really to dissect every part of what you want to reflect on and go step by step. Because even if you give the big picture at the beginning and then try to break it down, it tends to try to do everything at once. I mean, it was really confused.”<br>Camille viewed many of her tasks as long-term processes, cumulative in nature, which didn’t translate well to the kind of short-term, local, iterative problems LLMs seemed able to tackle: “LLMs have difficulty following a progressive and logical approach over the long term. At first, I thought, ‘OK, law mostly relies on logic, and even on reasoning that’s very close to mathematics, so LLMs could be really good at it’. But working with them showed me that it's often very hard for the machine to build on previous versions, to integrate feedback. And since my work required that kind of continuity, sometimes the long process became the most frustrating aspect of the project. [...]<br>That’s a more global kind of reasoning. [...] And I think the LLM doesn’t really do that, because it responds to specific prompts and tasks. So when, at the end, you ask for a global answer, it struggles.”<br>After all, this was a disappointing reminder for participants that their jobs were not so easily automated. “I thought my work would be simpler,” Guillaume reflected. “Something so standardized that an LLM would handle it quickly. But actually, it wasn’t.”<br>Charlotte introduced a metaphor that resonated with many: working with an LLM felt like trying to fit your job into a “small window.” Even the act of framing a task is a hassle: “Yeah, I think… Do you ever feel that too? Because I keep struggling with it, like… The window to put in the information and all the context just feels so small. Like, sometimes, you don’t even know how to fit everything in. The struggle already starts with just trying to frame it.”<br>Fitting information within the “small window” was challenging because it wasn’t just a matter of providing more context to an LLM, as too much context could backfire. Constance noticed that overloading the prompt “creates noise in the response—like it's farther from what I actually want than if I just provide one document with a more precise question.” This insight led her to change strategy: “Now I use way more separate chats to get more precise responses.”",
+      "From the onset of the protocol, we asked participants: What tasks do you do with LLMs? What else could you use them for?<br>Most first turned to clearly defined tasks already supported by technological services, such as Google and Wikipedia for research, DeepL for translation, or Stack Overflow for coding. ChatGPT seems to replace them all, akin to a convenience store. Everybody appears to appreciate the time it saved.<br>Some participants relied on what LLMs were “good at”, depending on what they picked up from the media, friends, or colleagues. Nearly everyone used ChatGPT to “paraphrase.” Using it for coding purposes was also widespread. “It’s good at it,” they heard, because it had been trained on a lot of code. But coding was mostly seen as a means to achieve a more valuable end. Constance said she didn’t care if her code was pretty or fast, only that it ran. Tobias went further, rejecting the idea of coding as “creative” work: “I think for me, it’s more like implementing something I've already set out. I did my research design, so I kind of mapped out the process of data collection or data analysis. It feels like I’ve already put the thought into how I wanted to do it, and then I just tell it [ChatGPT] to implement.”<br>Participants also built on the existing division of labour to assign tasks to an LLM. As such, researchers quickly sought to test the accuracy of literature reviews. Yichen found ChatGPT “incredibly efficient, especially in the writing of [quantitative] social science essays since they tend to be standard in format.” At the same time, Charlotte noticed that “they're quite good when it comes to referencing with rigid guidelines. So if there’s something really clear, like a formula for how to do referencing, for example, it usually can do that.” Most agreed that LLMs performed best on standardised tasks, governed by precise rules.<br>Over time, however, participants began to push beyond these obvious use cases. In law, for instance, Alice realised that what she thought of as a single task was too unwieldy for an LLM. What felt like one smooth action to her had to be broken into smaller, more manageable steps: “I think one of the key things to get proper results is really to dissect every part of what you want to reflect on and go step by step. Because even if you give the big picture at the beginning and then try to break it down, it tends to try to do everything at once. I mean, it was really confused.”<br>Camille viewed many of her tasks as long-term processes, cumulative in nature, which didn’t translate well to the kind of short-term, local, iterative problems LLMs seemed able to tackle: “LLMs have difficulty following a progressive and logical approach over the long term. At first, I thought, ‘OK, law mostly relies on logic, and even on reasoning that’s very close to mathematics, so LLMs could be really good at it’. But working with them showed me that it's often very hard for the machine to build on previous versions, to integrate feedback. And since my work required that kind of continuity, sometimes the long process became the most frustrating aspect of the project. [...]<br>That’s a more global kind of reasoning. [...] And I think the LLM doesn’t really do that, because it responds to specific prompts and tasks. So when, at the end, you ask for a global answer, it struggles.”<br>After all, this was a disappointing reminder for participants that their jobs were not so easily automated. “I thought my work would be simpler,” Guillaume reflected. “Something so standardised that an LLM would handle it quickly. But actually, it wasn’t.”<br>Charlotte introduced a metaphor that resonated with many: working with an LLM felt like trying to fit your job into a “small window.” Even the act of framing a task is a hassle: “Yeah, I think… Do you ever feel that too? Because I keep struggling with it, like… The window to put in the information and all the context just feels so small. Like, sometimes, you don’t even know how to fit everything in. The struggle already starts with just trying to frame it.”<br>Fitting information within the “small window” was challenging because it wasn’t just a matter of providing more context to an LLM, as too much context could backfire. Constance noticed that overloading the prompt “creates noise in the response—like it's farther from what I actually want than if I just provide one document with a more precise question.” This insight led her to change strategy: “Now I use way more separate chats to get more precise responses.”",
     Caption:
       "Even after participants had managed to discretise their work, a deeper challenge remained: getting the LLM to do what they wanted. The issue wasn’t what the model could do in theory, but whether users could control its behaviour in practice. Most settled for outputs that were “good enough,” yet what frustrated them more was the inconsistency. Results felt random and unreliable. The problem was less about capacity than about control. Many assumed this unpredictability was due to their lack of prompting skill. They believed experience would help them tame the system. But mastery came at a cost. Participants had to closely monitor outputs, evaluate responses, and repeatedly adjust prompts. While faster than writing from scratch, this process was cognitively draining.<br>Prompting emerged as the most taxing part. Failures often exposed unspoken assumptions, forcing participants to spell out what they thought was obvious. Translating tacit knowledge or professional intuition into literal prompts proved unexpectedly exhausting, revealing the extent to which workplace communication relies on shared context. And prompting felt uniquely unrewarding. As Agnès described, it was like standing on “shaky ground”. Even well-crafted prompts could produce random-feeling outputs. Minor tweaks rarely led to significant improvements. Many likened ChatGPT to a blunt knife: imprecise and unpredictable.<br>Ultimately, few saw LLM use as skilled labour. While tricks could be learned, there was no clear path to mastery. The model offered little feedback or recognition, making the effort feel futile, like throwing work into a void. Over time, this eroded motivation and discouraged further experimentation.",
   },
@@ -481,28 +466,27 @@ const inquirers = [
 
 const researchTeam = [
   {
-    name: 'Donato Ricci',
-    role: 'Principal Investigator, Designer',
-    contact: 'donato.ricci@sciencespo.fr',
-    url: 'https://medialab.sciencespo.fr/en/people/donato-ricci/',
+    name: "Donato Ricci",
+    role: "Principal Investigator, Designer",
+    contact: "donato.ricci@sciencespo.fr",
+    url: "https://medialab.sciencespo.fr/en/people/donato-ricci/",
   },
   {
-    name: 'Gabriel Alcaras',
-    role: 'Postdoctoral researcher, Sociologist',
-    contact: 'donato.ricci@sciencespo.fr',
-    url: 'https://medialab.sciencespo.fr/equipe/gabriel-alcaras/',
+    name: "Gabriel Alcaras",
+    role: "Postdoctoral researcher, Sociologist",
+    contact: "donato.ricci@sciencespo.fr",
+    url: "https://medialab.sciencespo.fr/equipe/gabriel-alcaras/",
   },
   {
-    name: 'Tommaso Prinetti',
-    role: 'Research Assistant, Designer',
-    contact: 'donato.ricci@sciencespo.fr',
-    url: 'https://medialab.sciencespo.fr/equipe/tommaso-prinetti/',
+    name: "Tommaso Prinetti",
+    role: "Research Assistant, Designer",
+    contact: "donato.ricci@sciencespo.fr",
+    url: "https://medialab.sciencespo.fr/equipe/tommaso-prinetti/",
   },
   {
-    name: 'Zoé de Vries',
-    role: 'Research Assistant, Linguist',
-    contact: 'donato.ricci@sciencespo.fr',
-    url: 'https://medialab.sciencespo.fr/equipe/zoe-de-vries/',
+    name: "Zoé de Vries",
+    role: "Research Assistant, Linguist",
+    contact: "donato.ricci@sciencespo.fr",
+    url: "https://medialab.sciencespo.fr/equipe/zoe-de-vries/",
   },
-
-]
+];
