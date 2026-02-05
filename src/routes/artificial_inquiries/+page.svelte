@@ -8,13 +8,13 @@
     const subtitle = $derived(data.subtitle)
 
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
-    const meta = {
+    const meta = $derived({
         title: "Artificial Inquiries - A Vademecum for Workers in the Age of AI",
         description: subtitle,
         url: `${baseUrl}/artificial_inquiries`,
         image: `${baseUrl}/og_images/opengraph.jpg`,
         imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
-    };
+    });
 
     let images = $derived(data.media ?? []);
 

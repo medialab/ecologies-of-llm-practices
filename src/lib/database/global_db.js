@@ -4,6 +4,7 @@ export {
   floatersDb,
   alterEgosDb,
   tediumData,
+  datapolicyData,
   inquirers,
   researchTeam,
 };
@@ -236,11 +237,11 @@ const alterEgosDb = {
       'To answer these questions, the Ecologies of LLM Practices (EL2MP) project creates research areas dedicated to workers for them to document and reflect on their use of LLMs. Our investigation aims to highlight the "savoir-faire", expertise, and values of workers rather than those of AI designers or economic decision-makers.<br><br>The project aims to scrupulously examine how LLMs fit into various professional practices. EL2MP will investigate how users relate to LLMs in terms of:<br><b>Evaluation - </b> How do professionals assess the value LLMs add or remove?<br><b>Effort - </b> What new kinds of work do LLMs require from their users?<br><b>Perception - </b> How do workers evaluate and perceive LLMs over time as they continue working with them?',
   },
   Card3: {
-    Title: "Protocol",
+    Title: "Methodology",
     Question:
       "A collaboration between sociologists, science and technology researchers (STS), and designers",
     Description:
-      "To carry out the project, we developed an experimental, participatory, research:<br><br><b>Room for hesitation - </b> Through a series of exercises, the protocol provides participants with various means of <b>documenting and reflecting</b> on their use of LLMs. We aim to establish a framework where <b>doubt and hesitation</b> are not only accepted but encouraged. Some exercises introduce <b>deliberate pauses</b> in professional routines, causing participants to take a <b>step back</b> from their own practices: during these pauses, judgment is suspended, giving users enough room to <b>question</b> their instinctive habits and feel unsure about what they once thought was certain. Other exercises aim to <b>intensify the use of LLMs</b> to shed light on what would otherwise remain too subtle to be perceived.<br><br><b>An ec  ological archive of practices - </b> The digital traces from LLM use serve as the <b>starting point</b> for the exercises we designed. They are <b>analysed, contextualised, and discussed</b> individually and collectively. Through this process, participants progressively build a <b>multimodal archive</b> (audio, photos, videos, drawings, and logbooks) that tangibly reflects their LLMs experience and how they are incorporated into various <b>professional norms</b> and material configurations.<br><br><b>A workbook (vademecum) - </b> The workbook collects all the exercises and their instructions, organised into <b>thematic blocks</b>. Designed as a <b>modular object</b>, where pages can be added or removed as needed, it accompanies each participant throughout the protocol. The vademecum serves as both the <b>material support</b> for the protocol and the project's means of <b>dissemination</b>, as it can be reproduced and adapted in various academic and professional contexts.",
+      "To carry out the project, we developed an experimental, participatory, research:<br><br><b>Room for hesitation - </b> Through a series of exercises, the protocol provides participants with various means of <b>documenting and reflecting</b> on their use of LLMs. We aim to establish a framework where <b>doubt and hesitation</b> are not only accepted but encouraged. Some exercises introduce <b>deliberate pauses</b> in professional routines, causing participants to take a <b>step back</b> from their own practices: during these pauses, judgment is suspended, giving users enough room to <b>question</b> their instinctive habits and feel unsure about what they once thought was certain. Other exercises aim to <b>intensify the use of LLMs</b> to shed light on what would otherwise remain too subtle to be perceived.<br><br><b>An ecological archive of practices - </b> The digital traces from LLM use serve as the <b>starting point</b> for the exercises we designed. They are <b>analysed, contextualised, and discussed</b> individually and collectively. Through this process, participants progressively build a <b>multimodal archive</b> (audio, photos, videos, drawings, and logbooks) that tangibly reflects their LLMs experience and how they are incorporated into various <b>professional norms</b> and material configurations.<br><br><b>A workbook (vademecum) - </b> The workbook collects all the exercises and their instructions, organised into <b>thematic blocks</b>. Designed as a <b>modular object</b>, where pages can be added or removed as needed, it accompanies each participant throughout the protocol. The vademecum serves as both the <b>material support</b> for the protocol and the project's means of <b>dissemination</b>, as it can be reproduced and adapted in various academic and professional contexts.",
   },
   Card4: {
     Title: "Contact",
@@ -490,3 +491,12 @@ const researchTeam = [
     url: "https://medialab.sciencespo.fr/equipe/zoe-de-vries/",
   },
 ];
+
+const datapolicyData = {
+  About: {
+    Title: "Data Policy",
+    Subtitle: "Ecologies of LLM Practices Data Protection and Privacy",
+    Description:
+      "This section details how we handle the data collected during the Ecologies of LLM Practices project. We are committed to transparency, privacy, and the ethical use of all research materials. <br><br> As per the Sciences Po data policy, all participants remain anonymous and have the right to access, rectify, or request the deletion of their data at any time. The multimodal archive generated is used solely for research and dissemination purposes within the scope of the project.",
+  },
+};

@@ -5,8 +5,8 @@
 
     const burgerEls = [
         {
-            label: "Protocol",
-            href: "/#Protocol",
+            label: "Methodology",
+            href: "/#Methodology",
         },
         {
             label: "Objective",
