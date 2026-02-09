@@ -468,15 +468,16 @@
     const prepareSVG = async () => {
         if (!preloadFonts) {
             preloadFonts = Promise.all([
-                loadFontAsBase64Cached("/fonts/InstrumentSerif-Regular.ttf"),
-                loadFontAsBase64Cached("/fonts/InstrumentSans-Regular.ttf"),
+                loadFontAsBase64Cached("/fonts/InstrumentSerif-Regular.woff2"),
+                loadFontAsBase64Cached("/fonts/InstrumentSans-Regular.woff2"),
             ]).catch((e) => console.warn("Font pre-load failed:", e));
         }
         await preloadFonts;
         svgText = $isMobileDevice ? templateMobileSvg : templateDesktopSvg;
 
-        instrumentSerifBase64 = fontCache["/fonts/InstrumentSerif-Regular.ttf"];
-        instrumentSansBase64 = fontCache["/fonts/InstrumentSans-Regular.ttf"];
+        instrumentSerifBase64 =
+            fontCache["/fonts/InstrumentSerif-Regular.woff2"];
+        instrumentSansBase64 = fontCache["/fonts/InstrumentSans-Regular.woff2"];
 
         const parser = new DOMParser();
         svgDoc = parser.parseFromString(svgText, "image/svg+xml");
