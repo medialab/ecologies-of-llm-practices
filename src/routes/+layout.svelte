@@ -101,14 +101,8 @@
     name="google-site-verification"
     content="aCBTb2lNIupPesJ45f0x0AFWx8Wy9VpvWxFBNJnZ4e8"
   />
-  <meta
-    name="keywords"
-    content="Large Language Models, Artificial Intelligence, Work, Professionals, Practices, Sociology, Science and Technology Studies, Research, Design, Qualitative Research, ChatGPT"
-  />
-  <meta
-    name="author"
-    content="Gabriel Alcaras, Donato Ricci, Tommaso Prinetti"
-  />
+  <meta name="author" content="Ecologies of LLM Practices Team" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
 
   <!-- Open Graph Global Meta Tags -->
   <meta property="og:type" content="website" />
@@ -171,7 +165,7 @@
           }
         },
         {
-          "@type": "Website",
+          "@type": "WebSite",
           "name": "EL2MP Research Project Website",
           "url": "https://ecologiesofllm.medialab.sciencespo.fr/",
           "publisher": {

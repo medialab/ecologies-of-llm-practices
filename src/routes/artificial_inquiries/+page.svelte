@@ -5,7 +5,9 @@
 
     let { data } = $props();
 
-    const subtitle = $derived(data.subtitle)
+    const stripHtml = (value = "") =>
+        value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+    const subtitle = $derived(stripHtml(data.subtitle ?? ""));
 
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
     const meta = $derived({

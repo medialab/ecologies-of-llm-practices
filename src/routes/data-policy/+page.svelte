@@ -3,12 +3,14 @@
     import { pillAnimation } from "$lib/stores/animeJs";
 
     let { data } = $props();
+    const stripHtml = (value = "") =>
+        value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
     const meta = $derived({
         title: "Data Policy - Ecologies of LLM Practices",
-        description: data.subtitle,
-        url: `${baseUrl}/datapolicy`,
+        description: stripHtml(data.subtitle ?? ""),
+        url: `${baseUrl}/data-policy`,
         image: `${baseUrl}/og_images/opengraph.jpg`,
         imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
     });
