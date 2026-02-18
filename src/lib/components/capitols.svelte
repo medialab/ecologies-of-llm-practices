@@ -9,8 +9,8 @@
         shareData,
     } from "$lib/stores/globalStores";
 
-    import arrowIcon from "$lib/media/shareIcon.svg";
-    import forwardIcon from "$lib/media/forwardIcon.svg";
+    import arrowIcon from "$lib/media/icons/shareIcon.svg";
+    import forwardIcon from "$lib/media/icons/forwardIcon.svg";
 
     export let bringToFront;
     export let swapCards;

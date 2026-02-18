@@ -1,7 +1,7 @@
 <script>
     import { pillAnimation } from "$lib/stores/animeJs";
-    import downloadIcon from "$lib/media/downloadIcon.svg";
-    import editionsAnnexesIcon from "$lib/media/editionsAnnexesIcon.svg";
+    import downloadIcon from "$lib/media/icons/downloadIcon.svg";
+    import editionsAnnexesIcon from "$lib/media/icons/editionsAnnexesIcon.svg";
 
     let { data } = $props();
 

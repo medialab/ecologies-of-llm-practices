@@ -2,9 +2,10 @@
     import { scrollStore } from "$lib/stores/globalStores";
 
     import { pillAnimation } from "$lib/stores/animeJs";
-    import tediumVideo from "$lib/media/tedium/TEDIUM_LIGHT.mp4";
+    import tediumVideo from "$lib/media/tedium/TEDIUM_LIGHT.mov";
     import videoPoster from "$lib/media/tedium/TEDIUM_LIGHT_poster.png";
-    import videoIcon from "$lib/media/videoIcon.svg";
+    import videoIcon from "$lib/media/icons/videoIcon.svg";
+    import galleryIcon from "$lib/media/icons/galleryIcon.svg";
 
     let { data } = $props();
 
@@ -45,6 +46,14 @@
             <p class="md:text-center text-left">{@html data.subtitle}</p>
         </div>
         <div class="flex justify-center bg-white p-2 gap-2">
+            <button
+                class="pill border-solid"
+                onclick={() => scrollStore.scrollTo("#gallery")}
+                use:pillAnimation
+            >
+                <p class="text-nowrap uppercase">Gallery</p>
+                <img src={galleryIcon} alt="" />
+            </button>
             <a
                 use:pillAnimation
                 class="pill border-solid"

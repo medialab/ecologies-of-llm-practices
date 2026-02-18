@@ -69,23 +69,24 @@
   }
 
   .pill {
-    @apply transition-all duration-75 border-black rounded-3xl border-[1px] flex bg-white w-fit px-4 py-2 gap-2 place-items-center justify-center items-center;
+    @apply transition-all duration-75 rounded-3xl inline-flex bg-white w-fit h-auto px-4 py-2 gap-2 justify-center items-center [outline:1px_solid_black] [outline-offset:0px];
   }
 
-  .pill>p {
-    @apply h-full justify-self-center pt-[1px];
+  .pill>* {
+    @apply justify-self-center pt-0;
   }
 
   .pill:hover {
-    @apply border-blue-500 border-[1.5px] border-dashed;
+    @apply [outline:1.5px_dashed_#3b82f6];
   }
 
   .pill:active {
-    @apply bg-blue-200 border-blue-500 text-blue-500 scale-[98%] duration-75;
+    @apply bg-blue-200 outline-blue-500 text-blue-500 scale-[98%] duration-75;
   }
 
   .pill img {
-    @apply w-auto h-6;
+    @apply w-auto h-[1em] max-h-full block;
+    object-fit: contain;
   }
 
   .pill:hover img,

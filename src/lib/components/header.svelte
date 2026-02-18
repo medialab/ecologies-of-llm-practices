@@ -1,7 +1,7 @@
 <script lang="ts">
     import Logo from "$lib/media/logos/logo_noicon.svg";
-    import BurgerIcon from "$lib/media/burgerIcon.svg";
-    import CloseIcon from "$lib/media/CloseIcon.svg";
+    import BurgerIcon from "$lib/media/icons/burgerIcon.svg";
+    import CloseIcon from "$lib/media/icons/CloseIcon.svg";
     import { scrollStore } from "$lib/stores/globalStores";
     import { burgerOpen } from "$lib/stores/globalStores";
     import Burger from "$lib/components/burger.svelte";

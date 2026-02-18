@@ -7,9 +7,9 @@
     import { cubicInOut } from "svelte/easing";
     import { isPageLoaded } from "$lib/stores/globalStores";
     import { pillAnimation } from "$lib/stores/animeJs";
-    import paperIcon from "$lib/media/paperIcon.svg";
-    import bookIcon from "$lib/media/bookIcon.svg";
-    import noteIcon from "$lib/media/noteIcon.svg";
+    import paperIcon from "$lib/media/icons/paperIcon.svg";
+    import bookIcon from "$lib/media/icons/bookIcon.svg";
+    import noteIcon from "$lib/media/icons/noteIcon.svg";
 
     /** @type {import('./$types').PageProps} */
     let { data } = $props();
