@@ -88,7 +88,7 @@
     data-scroll-speed="1"
 >
     <div
-        class="md:p-4 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
+        class="md:p-20 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
     >
         {#each images as image, i}
             <enhanced:img
@@ -106,7 +106,7 @@
     data-scroll-speed="0.5"
 >
     <div
-        class="md:p-4 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
+        class="md:p-20 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
         id="video"
     >
         <video

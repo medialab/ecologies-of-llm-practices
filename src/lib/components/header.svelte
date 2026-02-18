@@ -10,7 +10,7 @@
     import { cubicInOut } from "svelte/easing";
 
     let { currentPage, currentPath } = $props<{
-        currentPage: "landing" | "tedium";
+        currentPage: string | "landing" | "tedium" | "inquirers";
         currentPath: string;
     }>();
 

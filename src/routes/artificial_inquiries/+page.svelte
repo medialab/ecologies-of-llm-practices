@@ -6,7 +6,10 @@
     let { data } = $props();
 
     const stripHtml = (value = "") =>
-        value.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+        value
+            .replace(/<[^>]*>/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
     const subtitle = $derived(stripHtml(data.subtitle ?? ""));
 
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
@@ -49,44 +52,43 @@
     <meta name="twitter:image:alt" content={meta.imageAlt} />
 </svelte:head>
 
-<section
-    id="artificial_inquiries_hero"
-    class="fullsize_section justify-center"
->
-        <div
-            class="flex flex-col md:max-w-[100ch] w-full md:items-center items-start"
-        >
-            <div class="bg-white p-4">
-                <h1 class="md:text-center text-left">
-                    {@html data.title}
-                </h1>
-            </div>
-            <div class="flex flex-col gap-2 bg-white p-4 md:w-[85ch] justify-center items-center">
-                <p class="md:text-center text-left">
-                    {@html data.subtitle}
-                </p>
-            </div>
-            <div
-                class="flex md:justify-center bg-white p-2 gap-2 flex-col md:flex-row"
-            >
-                {#each buttons as b}
-                    <a
-                        use:pillAnimation
-                        class="pill border-solid"
-                        href={b.href || b.url}
-                        target={b.url ? "_blank" : "_self"}
-                    >
-                        <p class="text-nowrap uppercase">{@html b.label}</p>
-                        {#if b.icon}
-                            <img src={b.icon} alt="" />
-                        {/if}
-                    </a>
-                {/each}
-            </div>
+<section id="artificial_inquiries_hero" class="fullsize_section justify-center">
+    <div
+        class="flex flex-col md:max-w-[100ch] w-full md:items-center items-start"
+    >
+        <div class="bg-white p-4">
+            <h1 class="md:text-center text-left">
+                {@html data.title}
+            </h1>
         </div>
-    </section>
+        <div
+            class="flex flex-col gap-2 bg-white p-4 md:w-[85ch] justify-center items-center"
+        >
+            <p class="md:text-center text-left">
+                {@html data.subtitle}
+            </p>
+        </div>
+        <div
+            class="flex md:justify-center bg-white p-2 gap-2 flex-col md:flex-row"
+        >
+            {#each buttons as b}
+                <a
+                    use:pillAnimation
+                    class="pill border-solid"
+                    href={b.href || b.url}
+                    target={b.url ? "_blank" : "_self"}
+                >
+                    <p class="text-nowrap uppercase">{@html b.label}</p>
+                    {#if b.icon}
+                        <img src={b.icon} alt="" />
+                    {/if}
+                </a>
+            {/each}
+        </div>
+    </div>
+</section>
 
-    <section
+<!--<section
         class="fullsize_section justify-center h-fit"
         data-scroll
         data-scroll-speed="0.3"
@@ -116,6 +118,4 @@
                 class="w-fit h-full grayscale md:hover:p-1 hover:grayscale-0 p-4 bg-white"
             ></enhanced:img>
         </div>
-    </section>
-
- 
+    </section>-->

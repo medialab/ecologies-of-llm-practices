@@ -385,7 +385,7 @@ const floatersDb = {
 const tediumData = {
   About: {
     Title:
-      "<i>Tedium:</i> archival exhibition <br>at <i>“Hype! Studies”</i>  Barcelona",
+      "<i>Tedium:</i> a multimodal <br>archival  <i>exploration</i>",
     Subtitle:
       "Tedium is an interactive visual exposition presented at the Hype Studies! conference in Barcelona, between 10-12 September 2025. It is a curated exploration of the multimodal archive generated during the Ecologies of LLM Practices project.",
     Description:

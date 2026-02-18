@@ -56,7 +56,6 @@
     let floaters;
 
     let initialPositions = [];
-    let floaterPositions = [];
 
     let scrollableElements;
 
@@ -64,6 +63,16 @@
     let sections = [];
 
     let hostElement;
+    let floaterAnimationStates = [];
+    let floaterStateMap = new Map();
+    let floaterAnimationRafId = null;
+    let floaterAnimationLastFrame = 0;
+    let floaterPrefersReducedMotion = false;
+    let cleanupFloaterAnimation = null;
+
+    const floaterFrameInterval = 1000 / 30;
+    const floaterPaddingTop = 0;
+    const floaterPaddingRight = 30;
 
     let holdTimeout;
     let interval;
@@ -159,6 +168,152 @@
             left: `${Math.round(left)}px`,
             zIndex: Math.floor(Math.random() * 1000),
             animationDelay: Number(Math.random().toFixed(2)),
+        };
+    };
+
+    const cacheFloaterMetrics = () => {
+        floaterAnimationStates.forEach((state) => {
+            const rect = state.element.getBoundingClientRect();
+            const visualX = state.baseX + state.offsetX;
+            const visualY = state.baseY + state.offsetY;
+
+            state.width = rect.width || state.width || 250;
+            state.height = rect.height || state.height || 150;
+            state.anchorX = rect.left - visualX;
+            state.anchorY = rect.top - visualY;
+        });
+    };
+
+    const stopFloaterAnimation = () => {
+        if (floaterAnimationRafId) {
+            cancelAnimationFrame(floaterAnimationRafId);
+            floaterAnimationRafId = null;
+        }
+        floaterAnimationLastFrame = 0;
+    };
+
+    const stepFloaterAnimation = (now) => {
+        if (!floaterAnimationStates.length) return;
+
+        if (
+            floaterAnimationLastFrame &&
+            now - floaterAnimationLastFrame < floaterFrameInterval
+        ) {
+            floaterAnimationRafId = requestAnimationFrame(stepFloaterAnimation);
+            return;
+        }
+
+        const delta = floaterAnimationLastFrame
+            ? Math.min(2.2, (now - floaterAnimationLastFrame) / 16.67)
+            : 1;
+        floaterAnimationLastFrame = now;
+
+        floaterAnimationStates.forEach((state) => {
+            if (state.isDragging || floaterPrefersReducedMotion) return;
+
+            const speedFactorX = 1 + Math.sin(now * 0.001 + state.phaseX);
+            const speedFactorY = 1 + Math.cos(now * 0.001 + state.phaseY);
+
+            state.offsetX += state.vx * speedFactorX * delta;
+            state.offsetY += state.vy * speedFactorY * delta;
+
+            let nextX = state.baseX + state.offsetX;
+            let nextY = state.baseY + state.offsetY;
+
+            const minX = -state.anchorX;
+            const maxX =
+                windowWidth - state.width - floaterPaddingRight - state.anchorX;
+            const minY = floaterPaddingTop - state.anchorY;
+            const maxY = windowHeight - state.height - state.anchorY;
+
+            if (nextX < minX || nextX > maxX) {
+                state.vx *= -1;
+                nextX = Math.max(minX, Math.min(nextX, maxX));
+                state.offsetX = nextX - state.baseX;
+            }
+
+            if (nextY < minY || nextY > maxY) {
+                state.vy *= -1;
+                nextY = Math.max(minY, Math.min(nextY, maxY));
+                state.offsetY = nextY - state.baseY;
+            }
+
+            state.element.style.transform = `translate(${nextX}px, ${nextY}px)`;
+        });
+
+        floaterAnimationRafId = requestAnimationFrame(stepFloaterAnimation);
+    };
+
+    const startFloaterAnimation = () => {
+        stopFloaterAnimation();
+
+        if (!floaterAnimationStates.length) return;
+
+        floaterAnimationRafId = requestAnimationFrame(stepFloaterAnimation);
+    };
+
+    const initFloaterAnimation = () => {
+        if (!floaters || !floaters.length) return null;
+
+        const motionMedia = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        );
+        floaterPrefersReducedMotion = motionMedia.matches;
+
+        floaterAnimationStates = Array.from(floaters).map((floater) => {
+            const baseX = parseFloat(floater.getAttribute("data-x")) || 0;
+            const baseY = parseFloat(floater.getAttribute("data-y")) || 0;
+            const rect = floater.getBoundingClientRect();
+
+            return {
+                element: floater,
+                baseX,
+                baseY,
+                offsetX: 0,
+                offsetY: 0,
+                width: rect.width || 250,
+                height: rect.height || 150,
+                anchorX: rect.left - baseX,
+                anchorY: rect.top - baseY,
+                vx:
+                    (Math.random() > 0.5 ? 1 : -1) *
+                    (0.08 + Math.random() * 0.15),
+                vy:
+                    (Math.random() > 0.5 ? 1 : -1) *
+                    (0.08 + Math.random() * 0.15),
+                phaseX: Math.random() * Math.PI * 2,
+                phaseY: Math.random() * Math.PI * 2,
+                isDragging: false,
+            };
+        });
+
+        floaterStateMap = new Map(
+            floaterAnimationStates.map((state) => [state.element, state]),
+        );
+
+        const handleMotionChange = () => {
+            floaterPrefersReducedMotion = motionMedia.matches;
+        };
+
+        const handleResize = () => {
+            updateWindowSize();
+            cacheFloaterMetrics();
+        };
+
+        motionMedia.addEventListener?.("change", handleMotionChange);
+        motionMedia.addListener?.(handleMotionChange);
+        window.addEventListener("resize", handleResize, { passive: true });
+
+        cacheFloaterMetrics();
+        startFloaterAnimation();
+
+        return () => {
+            stopFloaterAnimation();
+            window.removeEventListener("resize", handleResize);
+            motionMedia.removeEventListener?.("change", handleMotionChange);
+            motionMedia.removeListener?.(handleMotionChange);
+            floaterAnimationStates = [];
+            floaterStateMap.clear();
         };
     };
 
@@ -1236,188 +1391,146 @@
         // Query and initialize floaters after they're rendered in the DOM
         if ($windowSizeReady && !$isMobileDevice) {
             await tick(); // Wait for DOM to update
+
             floaters = document.querySelectorAll(".floater_container");
 
             if (floaters && floaters.length > 0) {
-                floaters.forEach((floater, index) => {
-                    floater.classList.add("cursor-grab");
-                    floater.style.touchAction = "none";
-                    floater.style.transition = "opacity 0s linear";
+                try {
+                    cleanupFloaterAnimation = initFloaterAnimation();
+                    let floaterFadeStep = 0;
 
-                    setTimeout(
-                        () => {
+                    floaters.forEach((floater) => {
+                        floater.classList.add("cursor-grab");
+                        floater.style.touchAction = "none";
+                        floater.style.transition = "opacity 0s linear";
+
+                        const fadeDelay = 1650 + floaterFadeStep * 50;
+                        floaterFadeStep += 1;
+
+                        setTimeout(() => {
                             floater.style.opacity = "1";
-                        },
-                        1650 + index * 50,
-                    );
+                        }, fadeDelay);
 
-                    floater.style.transformOrigin = "bottom left";
+                        floater.style.transformOrigin = "bottom left";
 
-                    // Initialize floating animation variables
-                    const floatingSpeedBase =
-                        0.0000001 + Math.random() * 0.0001;
-                    const oscillationFrequency = 0.001;
-                    const sineOffset = Math.random() * 2 * Math.PI;
-                    let floatX = 0;
-                    let floatY = 0;
-                    let directionX = Math.random() > 0.5 ? 1 : -1;
-                    let directionY = Math.random() > 0.5 ? 1 : -1;
-
-                    // Start floating animation
-                    const animateFloating = () => {
-                        const time = Date.now();
-
-                        // Calculate oscillating speed
-                        const floatingSpeed =
-                            floatingSpeedBase *
-                            (1 +
-                                Math.sin(
-                                    time * oscillationFrequency + sineOffset,
-                                ));
-
-                        const directionalOscillationX = Math.sin(time * 0.0001);
-                        const directionalOscillationY = Math.cos(time * 0.0001);
-
-                        // Update floating positions
-                        floatX +=
-                            directionX *
-                            floatingSpeed *
-                            directionalOscillationX;
-                        floatY +=
-                            directionY *
-                            floatingSpeed *
-                            directionalOscillationY;
-
-                        // Get floater dimensions and viewport size
-                        const floaterRect = floater.getBoundingClientRect();
-                        const viewportWidth = windowWidth;
-                        const viewportHeight = windowHeight;
-
-                        const floaterBottom = floaterRect.bottom;
-                        const floaterLeft = floaterRect.left;
-
-                        const paddingTop = 0; // Padding for the top boundary
-                        const paddingRight = 30; // Padding for the right boundary
-
-                        // Calculate corners
-                        const floaterBottomLeftX = floaterRect.left + floatX;
-                        const floaterBottomLeftY = floaterRect.bottom - floatY;
-
-                        const floaterBottomRightX = floaterRect.right + floatX;
-                        const floaterBottomRightY = floaterRect.bottom - floatY;
-
-                        const floaterTopLeftX = floaterRect.left + floatX;
-                        const floaterTopLeftY = floaterRect.top - floatY;
-
-                        const floaterTopRightX = floaterRect.right + floatX;
-                        const floaterTopRightY = floaterRect.top - floatY;
-
-                        // Left and right boundaries
-                        if (
-                            floaterBottomLeftX < 0 ||
-                            floaterBottomRightX > viewportWidth - paddingRight
-                        ) {
-                            directionX *= -1;
-                            floatX = 0;
-                        }
-
-                        if (
-                            floaterTopLeftY < paddingTop ||
-                            floaterBottomLeftY > viewportHeight
-                        ) {
-                            directionY *= -1;
-                            floatY = 0;
-                        }
-
-                        const currentX =
-                            parseFloat(floater.getAttribute("data-x")) || 0;
-                        const currentY =
-                            parseFloat(floater.getAttribute("data-y")) || 0;
-                        floater.style.transform = `translate(${currentX + floatX}px, ${currentY + floatY}px)`;
-
-                        floater.setAttribute("data-x", currentX + floatX);
-                        floater.setAttribute("data-y", currentY + floatY);
-
-                        requestAnimationFrame(animateFloating);
-                    };
-
-                    requestAnimationFrame(animateFloating);
-
-                    interact(floater).draggable({
-                        inertia: {
-                            resistance: 20,
-                            minSpeed: 80,
-                            endSpeed: 10,
-                            smoothEndDuration: 400,
-                        },
-                        listeners: {
-                            start(event) {
-                                // Bring the floater to the front
-                                floater.style.zIndex =
-                                    parseInt(floater.style.zIndex || 1) + 1;
-
-                                // Get current transform values and calculate actual position
-                                const computedStyle =
-                                    window.getComputedStyle(floater);
-                                const transform = computedStyle.transform;
-
-                                if (transform && transform !== "none") {
-                                    const matrix = new DOMMatrix(transform);
-                                    const currentX = matrix.m41; // Translate X value
-                                    const currentY = matrix.m42; // Translate Y value
-
-                                    // Set data attributes for accurate dragging
-                                    floater.setAttribute("data-x", currentX);
-                                    floater.setAttribute("data-y", currentY);
-                                } else {
-                                    // If no transform is applied, set to default (0, 0)
-                                    floater.setAttribute("data-x", 0);
-                                    floater.setAttribute("data-y", 0);
-                                }
-
-                                event.target.classList.remove("cursor-grab");
-                                event.target.classList.add("cursor-grabbing");
+                        interact(floater).draggable({
+                            inertia: {
+                                resistance: 20,
+                                minSpeed: 80,
+                                endSpeed: 10,
+                                smoothEndDuration: 400,
                             },
+                            listeners: {
+                                start(event) {
+                                    const state = floaterStateMap.get(floater);
 
-                            move(event) {
-                                // Calculate new position during dragging
-                                const x =
-                                    (parseFloat(
-                                        floater.getAttribute("data-x"),
-                                    ) || 0) + event.dx;
-                                const y =
-                                    (parseFloat(
-                                        floater.getAttribute("data-y"),
-                                    ) || 0) + event.dy;
+                                    // Bring the floater to the front
+                                    floater.style.zIndex =
+                                        parseInt(floater.style.zIndex || 1) + 1;
 
-                                // Reset floating offsets during drag
-                                floatX = 0;
-                                floatY = 0;
+                                    // Get current transform values and calculate actual position
+                                    const computedStyle =
+                                        window.getComputedStyle(floater);
+                                    const transform = computedStyle.transform;
 
-                                // Apply the transformation and update attributes
-                                floater.style.transform = `translate(${x}px, ${y}px)`;
-                                floater.setAttribute("data-x", x);
-                                floater.setAttribute("data-y", y);
+                                    if (transform && transform !== "none") {
+                                        const matrix = new DOMMatrix(transform);
+                                        const currentX = matrix.m41; // Translate X value
+                                        const currentY = matrix.m42; // Translate Y value
 
-                                floaterPositions[index] = { x, y };
+                                        // Set data attributes for accurate dragging
+                                        floater.setAttribute(
+                                            "data-x",
+                                            currentX,
+                                        );
+                                        floater.setAttribute(
+                                            "data-y",
+                                            currentY,
+                                        );
+
+                                        if (state) {
+                                            state.baseX = currentX;
+                                            state.baseY = currentY;
+                                        }
+                                    } else {
+                                        // If no transform is applied, set to default (0, 0)
+                                        floater.setAttribute("data-x", 0);
+                                        floater.setAttribute("data-y", 0);
+
+                                        if (state) {
+                                            state.baseX = 0;
+                                            state.baseY = 0;
+                                        }
+                                    }
+
+                                    if (state) {
+                                        const rect =
+                                            floater.getBoundingClientRect();
+                                        state.offsetX = 0;
+                                        state.offsetY = 0;
+                                        state.width = rect.width || state.width;
+                                        state.height =
+                                            rect.height || state.height;
+                                        state.anchorX = rect.left - state.baseX;
+                                        state.anchorY = rect.top - state.baseY;
+                                        state.isDragging = true;
+                                    }
+
+                                    event.target.classList.remove(
+                                        "cursor-grab",
+                                    );
+                                    event.target.classList.add(
+                                        "cursor-grabbing",
+                                    );
+                                },
+
+                                move(event) {
+                                    const state = floaterStateMap.get(floater);
+                                    // Calculate new position during dragging
+                                    const x =
+                                        (parseFloat(
+                                            floater.getAttribute("data-x"),
+                                        ) || 0) + event.dx;
+                                    const y =
+                                        (parseFloat(
+                                            floater.getAttribute("data-y"),
+                                        ) || 0) + event.dy;
+
+                                    // Apply the transformation and update attributes
+                                    floater.style.transform = `translate(${x}px, ${y}px)`;
+                                    floater.setAttribute("data-x", x);
+                                    floater.setAttribute("data-y", y);
+                                    if (state) {
+                                        state.baseX = x;
+                                        state.baseY = y;
+                                        state.offsetX = 0;
+                                        state.offsetY = 0;
+                                    }
+                                },
+                                end(event) {
+                                    const state = floaterStateMap.get(floater);
+                                    if (state) {
+                                        state.isDragging = false;
+                                    }
+                                    // Reset cursor after drag ends
+                                    event.target.classList.remove(
+                                        "cursor-grabbing",
+                                    );
+                                    event.target.classList.add("cursor-grab");
+                                },
                             },
-                            end(event) {
-                                // Reset cursor after drag ends
-                                event.target.classList.remove(
-                                    "cursor-grabbing",
-                                );
-                                event.target.classList.add("cursor-grab");
-                            },
-                        },
-                        modifiers: [
-                            interact.modifiers.restrict({
-                                restriction: hostElement,
-                                endOnly: true,
-                            }),
-                        ],
-                        inertia: true,
+                            modifiers: [
+                                interact.modifiers.restrict({
+                                    restriction: hostElement,
+                                    endOnly: true,
+                                }),
+                            ],
+                            inertia: true,
+                        });
                     });
-                });
+                } catch (error) {
+                    console.error("Floater initialization failed", error);
+                }
             }
         }
 
@@ -1512,6 +1625,11 @@
             window.removeEventListener("hashchange", navigateToExercise);
         } catch {}
 
+        if (cleanupFloaterAnimation) {
+            cleanupFloaterAnimation();
+            cleanupFloaterAnimation = null;
+        }
+
         // Cancel any animation frames or timeouts
         if (typeof holdTimeout !== "undefined" && holdTimeout) {
             clearTimeout(holdTimeout);
@@ -1604,10 +1722,11 @@
             hostElement = null;
             scrollableElements = null;
             sections = null;
+            floaterAnimationStates = [];
+            floaterStateMap.clear();
 
             // Clear arrays
             initialPositions = [];
-            floaterPositions = [];
 
             // Clear interact reference
             interact = null;
@@ -1635,7 +1754,7 @@
 <Sharer />
 
 <section
-    class="relative z-[6] bg-transparent w-screen h-screen overflow-y-visible
+    class="relative z-[6] bg-transparent w-dvw min-h-dvh overflow-y-visible
            max-md:grid max-md:grid-rows-[auto_1fr] max-md:static max-md:h-[100dvh] max-md:overflow-hidden"
     bind:this={hostElement}
 >
@@ -1660,12 +1779,12 @@
         {/each}
 
         <!--{#if !$isMobileDevice}
-                {#each Object.values(data.floatersDb) as singleFloater, index (singleFloater.id)}
-                    <Floater
-                        data={singleFloater}
-                        randomPosition={calculateRandomPosition(singleFloater)}
-                    />
-                {/each}
-            {/if}-->
+            {#each Object.values(data.floatersDb) as singleFloater (singleFloater.id)}
+                <Floater
+                    data={singleFloater}
+                    randomPosition={calculateRandomPosition(singleFloater)}
+                />
+            {/each}
+        {/if}-->
     {/if}
 </section>

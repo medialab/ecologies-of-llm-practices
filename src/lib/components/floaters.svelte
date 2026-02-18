@@ -1,7 +1,6 @@
 <script>
     //This is floating_card.svelte
-    import { onMount } from "svelte";
-    import { currentCardColor, selectedCard, isAlterEgoMode } from '$lib/stores/globalStores';
+    import { currentCardColor } from '$lib/stores/globalStores';
 
     export let data
     export let randomPosition;
@@ -37,11 +36,12 @@
         }
     };
 
-    const handleMouseDown = () => {
+    const handleMouseDown = (event) => {
         if (data.category === "document") {
             isHolding = true;
 
             const floaterContainer = event.target.closest('.floater_container');
+            if (!floaterContainer) return;
 
             const darkerElement = floaterContainer.querySelector('.darker');
 
@@ -67,7 +67,7 @@
         }
     };
 
-    const handleMouseUp = () => {
+    const handleMouseUp = (event) => {
         isHolding = false;
         clearTimeout(holdTimeout);
         const floaterContainer = event.target.closest('.floater_container');

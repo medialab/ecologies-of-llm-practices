@@ -146,7 +146,7 @@
   }
 
   .main_container {
-    @apply min-h-screen w-full overflow-y-auto md:overflow-y-scroll bg-transparent scroll-smooth outline-none md:gap-4 gap-32 flex flex-col items-center relative touch-pan-y;
+    @apply min-h-screen h-fit w-full overflow-y-auto md:overflow-y-scroll bg-transparent scroll-smooth outline-none md:gap-4 gap-32 flex flex-col items-center relative touch-pan-y;
   }
 
   .fullsize_section {

@@ -1,3 +1,5 @@
+<svelte:options css="injected" />
+
 <script lang="ts">
     import CardCanvas from "$lib/components/cardCanvas.svelte";
     import TurndownService from "turndown";
@@ -285,17 +287,17 @@
 
 <section
     id="playground"
-    class="w-screen h-screen z-[35] relative overflow-y-visible flex flex-col"
+    class="w-screen min-h-dvh h-fit z-[35] relative overflow-y-visible flex flex-col"
     data-scroll
     data-scroll-speed="0.5"
 >
-<div class="flex justify-center">
-<h1
-        class="relative z-20 md:p-6 md:m-0 m-2 p-2 text-center w-fit bg-white"
-    >
-        Protocol
-    </h1>
-</div>
-    
+    <div class="flex justify-center">
+        <h1
+            class="relative z-20 md:p-6 md:m-0 m-2 p-2 text-center w-fit bg-white"
+        >
+            Protocol
+        </h1>
+    </div>
+
     <CardCanvas {data}></CardCanvas>
 </section>

@@ -19,7 +19,7 @@
 </script>
 
 <div
-    class="hover:border-black hover:border-2 w-[60vw] max-w-[1100px] aspect-[1.5/1] cursor-grab absolute select-text overflow-clip opacity-0 transition-[border] border-[1.5px] border-white [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none] rounded-3xl md:rounded-none"
+    class="w-[60vw] max-w-[1100px] aspect-[1.5/1] cursor-grab absolute select-text overflow-clip opacity-0 transition-[outline-color,outline-width] [outline:1.5px_solid_white] hover:[outline:2px_solid_black] [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none] rounded-3xl md:rounded-none"
     data-card-container
     onclick={(event) => {
         if ($isDesktop) {

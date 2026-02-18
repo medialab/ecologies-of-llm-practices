@@ -20,7 +20,7 @@
 {#if $isPageLoaded}
     <div
         transition:fade={{ duration: 1000, easing: cubicInOut }}
-        class="z-[5] h-fit w-screen absolute left-0 top-0 overflow-x-hidden overflow-y-visible"
+        class="pointer-events-none fixed inset-0 z-[5] w-dvw h-dvh overflow-hidden"
         id="bg_logo"
     >
         <img

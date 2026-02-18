@@ -7,8 +7,8 @@
     let { holeSpacing = 13, maskColor = "white", opacity = 1 } = $props();
 
     const holeSizeMax = 5;
-    const animationDuration = 3000;
-    const targetFps = 30;
+    const animationDuration = 1800;
+    const targetFps = 29.7;
 
     let canvasEl: HTMLCanvasElement | null = null;
     let ctx: CanvasRenderingContext2D | null = null;
@@ -184,7 +184,7 @@
 
 <section
     id="mask"
-    class="fixed inset-0 z-[20] pointer-events-none w-screen h-screen overflow-hidden"
+    class="fixed inset-0 z-[20] pointer-events-none w-dvw h-dvh overflow-hidden"
     style:opacity
 >
     <canvas bind:this={canvasEl} class="block h-full w-full"></canvas>

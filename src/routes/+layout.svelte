@@ -19,6 +19,8 @@
   let headerPage = $state("landing");
   let isInquirersPage = $state(false);
 
+  let { children } = $props();
+
   onMount(() => {
     const scroll = new LocomotiveScroll({
       autoStart: true,
@@ -80,16 +82,16 @@
   });
 </script>
 
+<Header currentPage={headerPage} currentPath={$page.url.pathname} />
 <main
   class="main_container"
   id="main"
   data-scroll-container
   data-scroll={isInquirersPage ? true : undefined}
 >
-  <Header currentPage={headerPage} currentPath={$page.url.pathname} />
-  <slot />
-  <Footer />
+  {@render children()}
 </main>
+<Footer />
 <Mask />
 <BgLogo />
 
