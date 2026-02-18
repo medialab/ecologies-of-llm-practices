@@ -57,7 +57,7 @@
                 {#each buttons as { label, href }}
                     <a
                         use:pillAnimation
-                        class="pill border-solid"
+                        class="pill"
                         {href}
                         onclick={() => scrollStore.scrollTo(href)}
                     >
@@ -67,23 +67,27 @@
             </div>
         </div>
     </section>-->
-    <section class="fullsize_section justify-center flex-col" id="names">
-        <p class="bg-white p-4 text-center">The co-inquirers</p>
+    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+    <section
+        class="fullsize_section justify-center flex-col"
+        id="names"
+        tabindex="0"
+        aria-labelledby="inquirers-h1"
+    >
+        <h1 class="bg-white p-4 text-center" id="inquirers-h1">The co-inquirers</h1>
         <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
             {#each data.data.inquirers as name, i}
                 {#if i === data.data.inquirers.length - 1}
                     <h1
                         use:inquirersAnimation
-                        id="inquirer_name"
-                        class="transition-all duration-300 ease-in-out"
+                        class="inquirer_name transition-all duration-300 ease-in-out"
                     >
                         {name}.
                     </h1>
                 {:else}
                     <h1
                         use:inquirersAnimation
-                        id="inquirer_name"
-                        class="transition-all duration-300 ease-in-out"
+                        class="inquirer_name transition-all duration-300 ease-in-out"
                     >
                         {name},
                     </h1>

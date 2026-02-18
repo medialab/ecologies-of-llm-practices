@@ -1,20 +1,14 @@
 <script>
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
-    import { afterNavigate, goto } from '$app/navigation';
+    import { goto } from '$app/navigation';
     
     // Handle 301 redirects
     onMount(() => {
         if ($page.status === 301) {
             window.location.href = 'https://ecologiesofllm.medialab.sciencespo.fr/';
         }
-        console.log('Error page mounted with status:', $page.status);
     });
-
-    afterNavigate(() => {
-        console.log('Navigation completed');
-    });
-    
 </script>
 
 <section class="error_container">
@@ -31,8 +25,8 @@
         <button
             class="button"
             style="width: 100%;"
-            href="/"
-            data-sveltekit-reload>
+            type="button"
+            onclick={() => goto('/')}>
                 <p style="text-align: center; width: 100%; font-size: 26px; margin: 0px;">
                     GO BACK
                 </p>

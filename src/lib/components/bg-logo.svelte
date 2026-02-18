@@ -20,13 +20,27 @@
 {#if $isPageLoaded}
     <div
         transition:fade={{ duration: 1000, easing: cubicInOut }}
-        class="pointer-events-none fixed inset-0 z-[5] w-dvw h-dvh overflow-hidden"
+        class="pointer-events-none fixed inset-0 z-[5] grid place-items-center overflow-hidden"
         id="bg_logo"
     >
         <img
             src={CircularLogo}
             alt="Fractal logo"
-            class="h-auto w-full md:scale-[1] scale-[2] object-contain object-top pt-80"
+            class="h-auto w-full object-contain object-center overflow-visible opacity-20"
         />
     </div>
 {/if}
+
+<style>
+    :global(#bg_logo img) {
+        transform-origin: center;
+        transform: translateY(calc((var(--progress, 0)) * 200px)) scale(3);
+    }
+
+    @media (min-width: 768px) {
+        :global(#bg_logo img) {
+            transform: translateY(calc((var(--progress, 0)) * -1000px))
+                scale(calc(2 + var(--progress, 0) * -2.5));
+        }
+    }
+</style>

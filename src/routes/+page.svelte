@@ -130,9 +130,12 @@
     <meta name="twitter:image:alt" content={meta.imageAlt} />
 </svelte:head>
 
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     class="fullsize_section justify-center md:translate-y-[-5%]"
     id="hero_title"
+    tabindex="0"
+    aria-labelledby="hero-h1"
 >
     <div class="flex flex-col md:gap-0 gap-4 w-full md:w-fit">
         <h1
@@ -181,9 +184,10 @@
                                 easing: cubicInOut,
                                 delay: 100 * i,
                             }}
-                            class="pill relative border-solid"
+                            class="pill relative"
                             href={href || url}
                             target={url ? "_blank" : "_self"}
+                            rel={url ? "noopener noreferrer" : undefined}
                         >
                             {#if showLabel}
                                 <p
@@ -205,7 +209,8 @@
                                         delay: 600,
                                     }}
                                     src={icon}
-                                    alt="icon"
+                                    alt=""
+                                    aria-hidden="true"
                                 />
                             {/if}
                         </a>
@@ -219,21 +224,23 @@
     {@const usableCards: cardValues[] = Object.values(cardsData)}
     {#each usableCards as card, i}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
+            <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
             <section
                 id={card.Id}
                 class="fullsize_section"
                 data-scroll
                 data-scroll-speed="0.1"
                 data-scroll-call="cardInView"
+                tabindex="0"
+                aria-label={`${card?.Title} section`}
             >
                 <div
-                    class="bg-white md:bg-transparent flex md:flex-row flex-col w-full justify-between items-start md:gap-6 gap-4 md:px-12 border-solid md:border-none border-black border rounded-xl md:p-6 px-2 py-4 transition-all duration-200 ease-in-out opacity"
-                    id="single_card"
+                    class="bg-white md:bg-transparent flex md:flex-row flex-col w-full justify-between items-start md:gap-6 gap-4 md:px-12 md:border-none border-black border rounded-xl md:p-6 px-2 py-4 transition-all duration-200 ease-in-out opacity"
                 >
                     <div
                         class="flex flex-col gap-2 md:bg-white md:w-2/5 w-full md:p-4"
                     >
-                        <h1>{card?.Title}</h1>
+                        <h2 class="text-5xl md:text-8xl">{card?.Title}</h2>
                     </div>
                     <div
                         class="flex flex-col gap-4 md:bg-white md:w-3/5 w-full max-w-none h-fit md:p-4"
@@ -243,7 +250,6 @@
                         </p>
                         <p
                             class="overflow-hidden transition-[max-height] duration-500 ease-in-out"
-                            id="description-{i}"
                         >
                             {@html card?.Description}
                         </p>
@@ -285,11 +291,14 @@
     {/each}
 {/await}
 
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     id="playground"
     class="w-screen min-h-dvh h-fit z-[35] relative overflow-y-visible flex flex-col"
     data-scroll
     data-scroll-speed="0.5"
+    tabindex="0"
+    aria-label="Protocol section"
 >
     <div class="flex justify-center">
         <h1

@@ -1,26 +1,19 @@
-# Node.js dependencies
+# Dependencies
 node_modules/
-/node_modules
-/node_modules/**/*
-npm-debug.log
+npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 .npmrc
-.txt
 .agent
-.mp4
-.mov
 
 # Build output folders
-/.output/
-/.vercel/
-/.netlify/
-/.svelte-kit/
-/build/
+.output/
+.vercel/
+.netlify/
+.svelte-kit/
 build/
-/build/**/*
-/dist/
+dist/
 
 # OS-specific files
 .DS_Store
@@ -38,10 +31,10 @@ desktop.ini
 *.njsproj
 *.sln
 *.sw?
-/.cursor/
-/cursor/
+.cursor/
 .cursor.*
-.lightouse
+.lighthouse/
+.lightouse/
 
 # Environment and secrets
 .env
@@ -68,33 +61,18 @@ desktop.ini
 logs
 *.log
 *.tmp
-npm-debug.log*
 .eslintcache
 .cache/
 .temp/
 tsconfig.tsbuildinfo
 
-# Vite configuration (you might want to include some config files if needed for your deployment)
+# Vite cache files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-
-# Images (if you want to ignore them as well)
-#*.jpg
-#*.png
-#*.svg
-#*.pdf
-.env
-*.pem
-*.sqlite
-*.key
 
 # Miscellaneous
 .local/
 .history/
-.github/*.yml
-
-# Ignore any other files or folders that don't need to be tracked
-.lightouse/lighthousereview.json
 
 # Local development TLS certificates
 localhost+*.pem

@@ -10,9 +10,8 @@
         sharingTextMobile,
         sharerVisibility,
     } from "$lib/stores/globalStores";
-    import { fade, scale, fly } from "svelte/transition";
+    import { fade, scale } from "svelte/transition";
     import { cubicOut } from "svelte/easing";
-    import { writable } from "svelte/store";
 
     let copierAlert;
 
@@ -27,8 +26,6 @@
 
     const shareContent = async () => {
         if (!$isDesktop) {
-            console.log("Starting sharer");
-
             if (
                 window.isSecureContext &&
                 navigator.share &&
@@ -39,14 +36,10 @@
                     $finalShareData &&
                     $finalShareData.files &&
                     navigator.canShare({ files: $finalShareData.files });
-                console.log("canShareFiles", canShareFiles);
 
                 if (canShareFiles) {
                     try {
                         await navigator.share($finalShareData);
-                        console.log(
-                            "✅ Content shared successfully with image",
-                        );
                         setTimeout(() => {
                             $sharingTextMobile = "Thanks for sharing!";
                         }, 100);
@@ -59,7 +52,6 @@
                         }, 1000);
                     } catch (error) {
                         if (error.name === "AbortError") {
-                            console.log("ℹ User cancelled sharing");
                             setTimeout(() => {
                                 $sharingTextMobile = "Share cancelled.";
                             }, 100);
@@ -72,9 +64,6 @@
                                 }, 2000);
                             }, 1000);
                         } else if (error.name === "NotAllowedError") {
-                            console.log(
-                                "🚫 Share not allowed (permission denied)",
-                            );
                             setTimeout(() => {
                                 $sharingTextMobile = "Sharing not permitted.";
                             }, 100);
@@ -87,9 +76,6 @@
                                 }, 2000);
                             }, 1000);
                         } else {
-                            console.warn(
-                                "⚠ File sharing failed, trying without image",
-                            );
                             try {
                                 const textOnlyPayload = {
                                     text: truncateText(
@@ -99,7 +85,6 @@
                                     url: $finalShareData.url,
                                 };
                                 navigator.share(textOnlyPayload);
-                                console.log("✅ Text-only share successful");
                                 setTimeout(() => {
                                     $sharingTextMobile = "Thanks for sharing!";
                                 }, 100);
@@ -143,18 +128,14 @@
                             url: $finalShareData.url,
                         };
                         navigator.share(textOnlyPayload);
-                        console.log("✅ Text-only share successful");
                         $sharingTextMobile = "Thanks for sharing!";
 
                         $showSharer = false;
                     } catch (error) {
-                        if (error.name === "AbortError") {
-                            console.log("ℹ User cancelled sharing");
-                        } else if (error.name === "NotAllowedError") {
-                            console.log(
-                                "🚫 Share not allowed (permission denied)",
-                            );
-                        } else {
+                        if (
+                            error.name !== "AbortError" &&
+                            error.name !== "NotAllowedError"
+                        ) {
                             console.error("❌ Text-only share failed:", error);
                         }
                         $sharingTextMobile = "No sharing this time... ok";
@@ -163,9 +144,6 @@
                     }
                 }
             } else {
-                console.warn(
-                    "⚠ Web Share API not supported or insecure context",
-                );
                 $sharingTextMobile = "No sharing this time... ok";
 
                 $showSharer = false;
@@ -174,7 +152,6 @@
     };
 
     const copyToClipboard = () => {
-        console.log("Copied link!");
         try {
             const linkToCopy =
                 $shareInfo.url ||
@@ -231,10 +208,6 @@
             // Cleanup
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
-
-            console.log("✅ Image downloaded:", imageFile.name);
-        } else {
-            console.warn("⚠ No image available for download");
         }
     };
 

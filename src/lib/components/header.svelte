@@ -5,101 +5,95 @@
     import { scrollStore } from "$lib/stores/globalStores";
     import { burgerOpen } from "$lib/stores/globalStores";
     import Burger from "$lib/components/burger.svelte";
-    import { onMount, tick } from "svelte";
-    import { slide } from "svelte/transition";
-    import { cubicInOut } from "svelte/easing";
+    import { goto } from "$app/navigation";
 
-    let { currentPage, currentPath } = $props<{
-        currentPage: string | "landing" | "tedium" | "inquirers";
+    let { currentPath } = $props<{
         currentPath: string;
     }>();
 
-    const landingAnchors = [
-        {
-            label: "PROJECT",
-            href: "#project",
-        },
-        {
-            label: "OBJECTIVE",
-            href: "#objective",
-        },
-        {
-            label: "Methodology",
-            href: "#Methodology",
-        },
-        {
-            label: "TEDIUM",
-            url: "/tedium",
-        },
+    const cyclePages = [
+        { path: "/tedium", label: "Tedium" },
+        { path: "/", label: "Homepage" },
+        { path: "/inquirers", label: "Inquirers" },
+        { path: "/artificial_inquiries", label: "Artificial Inquiries" },
     ];
 
-    const tediumAnchors = [
-        {
-            label: "ABSTRACT",
-            href: "#abstract",
-        },
-        {
-            label: "GALLERY",
-            href: "#gallery",
-        },
-        {
-            label: "VIDEO",
-            href: "#video",
-        },
-        {
-            label: "HOME",
-            url: "/",
-        },
-    ];
+    const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
 
-    const inquirersAnchors = [
-        {
-            label: "CO-INQUIRERS",
-            href: "#names",
-        },
-        {
-            label: "RESEARCH TEAM",
-            href: "#research_team",
-        },
-        {
-            label: "HOME",
-            url: "/",
-        },
-    ];
+    const currentCycleIndex = $derived.by(() => {
+        const normalizedPath = normalizePath(currentPath);
+        const foundIndex = cyclePages.findIndex(
+            ({ path }) => normalizePath(path) === normalizedPath,
+        );
+        return foundIndex === -1 ? 1 : foundIndex;
+    });
 
-    let baseAnchors = $state(landingAnchors);
-    let anchors = $state(landingAnchors);
+    const previousPage = $derived(
+        cyclePages[
+            (currentCycleIndex - 1 + cyclePages.length) % cyclePages.length
+        ],
+    );
 
-    const filterAnchors = async () => {
-        if (typeof document === "undefined") return;
-        await tick();
-        anchors = baseAnchors.filter((anchor) => {
-            if (anchor.href && anchor.href.startsWith("#")) {
-                return document.querySelector(anchor.href);
-            }
-            return true;
-        });
+    const nextPage = $derived(
+        cyclePages[(currentCycleIndex + 1) % cyclePages.length],
+    );
+
+    const goToPage = (path: string) => {
+        $burgerOpen = false;
+        goto(path);
     };
 
-    $effect(() => {
-        const _ = currentPath;
-        if (currentPath === "/inquirers") {
-            baseAnchors = inquirersAnchors;
-        } else {
-            baseAnchors =
-                currentPage === "landing" ? landingAnchors : tediumAnchors;
-        }
-        filterAnchors();
-    });
+    const isDesktopViewport = () =>
+        typeof window !== "undefined" &&
+        window.matchMedia("(min-width: 768px)").matches;
 
-    onMount(() => {
-        filterAnchors();
-    });
+    const shouldIgnoreArrowNavigation = (event: KeyboardEvent) => {
+        if (
+            event.defaultPrevented ||
+            event.repeat ||
+            event.altKey ||
+            event.ctrlKey ||
+            event.metaKey
+        ) {
+            return true;
+        }
+
+        const target = event.target;
+        if (!(target instanceof HTMLElement)) {
+            return false;
+        }
+
+        if (target.isContentEditable) {
+            return true;
+        }
+
+        return Boolean(
+            target.closest(
+                "input, textarea, select, button, a, video, audio, [contenteditable='true'], [role='textbox']",
+            ),
+        );
+    };
+
+    const handlePageCycleKeys = (event: KeyboardEvent) => {
+        if (!isDesktopViewport() || shouldIgnoreArrowNavigation(event)) {
+            return;
+        }
+
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            goToPage(previousPage.path);
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            goToPage(nextPage.path);
+        }
+    };
 
     const switchBurger = () => {
         $burgerOpen = !$burgerOpen;
     };
 </script>
+
+<svelte:window onkeydown={handlePageCycleKeys} />
 
 <header
     class="w-screen h-fit items-center justify-between border-[#E5E5E5] border-b-[1px] md:pl-6 md:pr-6 p-3 md:grid-cols-3 grid-cols-2 grid bg-white z-[160] fixed top-0 left-0 max-h-[60px] md:max-h-none md:h-fit"
@@ -108,45 +102,15 @@
         id="header_left"
         class="w-full h-fit col-span-1 md:flex flex-row gap-2 hidden"
     >
-        {#each anchors as anchor, i}
-            {#if i < 2}
-                {#if anchor.href}
-                    <button onclick={() => scrollStore.scrollTo(anchor.href)}>
-                        <p
-                            transition:slide={{
-                                duration: 200,
-                                easing: cubicInOut,
-                                axis: "y",
-                            }}
-                        >
-                            {anchor.label}
-                        </p>
-                    </button>
-                {:else if anchor.url}
-                    <a href={anchor.url}>
-                        <p
-                            transition:slide={{
-                                duration: 200,
-                                easing: cubicInOut,
-                                axis: "y",
-                            }}
-                        >
-                            {anchor.label}
-                        </p>
-                    </a>
-                {:else}
-                    <p
-                        transition:slide={{
-                            duration: 200,
-                            easing: cubicInOut,
-                            axis: "y",
-                        }}
-                    >
-                        {anchor.label}
-                    </p>
-                {/if}
-            {/if}
-        {/each}
+        <button
+            type="button"
+            class="hidden md:flex text-2xl leading-none"
+            onclick={() => goToPage(previousPage.path)}
+            aria-label={`Go to ${previousPage.label}`}
+            title={`Go to ${previousPage.label}`}
+        >
+            ←
+        </button>
     </div>
     <a
         id="header_logo"
@@ -163,65 +127,33 @@
         id="header_right"
         class="w-full md:h-fit h-[28px] col-span-1 flex flex-row gap-2 justify-end"
     >
-        {#each anchors as anchor, i}
-            {#if i >= 2}
-                {#if anchor.href}
-                    <button
-                        onclick={() => scrollStore.scrollTo(anchor.href)}
-                        class="hidden md:flex"
-                    >
-                        <p
-                            transition:slide={{
-                                duration: 200,
-                                easing: cubicInOut,
-                                axis: "y",
-                            }}
-                        >
-                            {anchor.label}
-                        </p>
-                    </button>
-                {:else if anchor.url}
-                    <a href={anchor.url} class="hidden md:flex">
-                        <p
-                            transition:slide={{
-                                duration: 200,
-                                easing: cubicInOut,
-                                axis: "y",
-                            }}
-                        >
-                            {anchor.label}
-                        </p>
-                    </a>
-                {/if}
-            {/if}
-        {/each}
         <button
-            class="h-full w-auto aspect-square cursor-pointer p-1"
+            type="button"
+            class="hidden md:flex text-2xl leading-none"
+            onclick={() => goToPage(nextPage.path)}
+            aria-label={`Go to ${nextPage.label}`}
+            title={`Go to ${nextPage.label}`}
+        >
+            →
+        </button>
+        <button
+            type="button"
+            class="h-full w-auto aspect-square cursor-pointer p-1 md:hidden"
             onclick={switchBurger}
+            aria-expanded={$burgerOpen}
+            aria-label={$burgerOpen ? "Close menu" : "Open menu"}
         >
             {#if $burgerOpen}
                 <img
                     src={CloseIcon}
-                    alt="Burger Menu"
-                    class="h-full w-auto md:hidden"
-                    id="burger_menu"
-                    transition:slide={{
-                        duration: 200,
-                        easing: cubicInOut,
-                        axis: "y",
-                    }}
+                    alt=""
+                    class="h-full w-auto"
                 />
             {:else}
                 <img
                     src={BurgerIcon}
-                    alt="Burger Menu"
-                    class="h-full w-auto md:hidden"
-                    id="burger_menu"
-                    transition:slide={{
-                        duration: 200,
-                        easing: cubicInOut,
-                        axis: "y",
-                    }}
+                    alt=""
+                    class="h-full w-auto"
                 />
             {/if}
         </button>

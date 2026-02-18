@@ -112,6 +112,14 @@
         windowSizeReady.set(true);
     };
 
+    const handleWindowResize = () => {
+        updateWindowSize();
+
+        if (floaterAnimationStates.length) {
+            cacheFloaterMetrics();
+        }
+    };
+
     const bringToFront = (eventOrElement) => {
         const frontingTarget = eventOrElement.currentTarget || eventOrElement;
         $highestZIndex += 1;
@@ -295,21 +303,14 @@
             floaterPrefersReducedMotion = motionMedia.matches;
         };
 
-        const handleResize = () => {
-            updateWindowSize();
-            cacheFloaterMetrics();
-        };
-
         motionMedia.addEventListener?.("change", handleMotionChange);
         motionMedia.addListener?.(handleMotionChange);
-        window.addEventListener("resize", handleResize, { passive: true });
 
         cacheFloaterMetrics();
         startFloaterAnimation();
 
         return () => {
             stopFloaterAnimation();
-            window.removeEventListener("resize", handleResize);
             motionMedia.removeEventListener?.("change", handleMotionChange);
             motionMedia.removeListener?.(handleMotionChange);
             floaterAnimationStates = [];
@@ -819,7 +820,6 @@
         setTimeout(() => {
             $sharingTextMobile = "Click here to share...";
             $sharerVisibility = true;
-            console.log("sharerVisibility", $sharerVisibility);
         }, 1500);
 
         const workingSvgDoc = svgDoc.cloneNode(true);
@@ -1146,18 +1146,12 @@
             // No image provided - remove the image element and color block completely
             if (targetImage) {
                 targetImage.remove();
-                console.log(
-                    "🖼️ Image element removed from SVG (no image provided)",
-                );
             }
 
             // Also remove the Ex_colorBlock element
             const colorBlock = workingSvgDoc.querySelector("#Ex_colorBlock");
             if (colorBlock) {
                 colorBlock.remove();
-                console.log(
-                    "🎨 Ex_colorBlock element removed from SVG (no image provided)",
-                );
             }
         }
 
@@ -1741,6 +1735,8 @@
         //console.log("Component cleanup complete");
     });
 </script>
+
+<svelte:window onresize={handleWindowResize} />
 
 {#if !$isPageLoaded}
     <div

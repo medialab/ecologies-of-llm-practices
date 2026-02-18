@@ -51,16 +51,20 @@
   }
 
   h3 {
-    @apply text-3xl md:text-6xl leading-none;
+    @apply text-xl md:text-2xl leading-none;
   }
 
   p {
-    @apply text-base leading-[140%];
+    @apply text-base leading-[140%] text-pretty;
   }
 
   a>p,
   button>p {
     @apply text-base md:text-sm;
+  }
+
+  .hero_descr {
+    @apply flex flex-col gap-2 bg-white md:p-4 md:w-[85ch] w-full justify-center items-center pt-0 pb-4 px-4
   }
 
   a,
@@ -69,7 +73,7 @@
   }
 
   .pill {
-    @apply transition-all duration-75 rounded-3xl inline-flex bg-white w-fit h-auto px-4 py-2 gap-2 justify-center items-center [outline:1px_solid_black] [outline-offset:0px];
+    @apply transition-all duration-75 rounded-3xl inline-flex bg-white w-fit h-auto px-4 py-2 gap-2 justify-center items-center outline outline-1 outline-black outline-offset-0;
   }
 
   .pill>* {
@@ -77,11 +81,20 @@
   }
 
   .pill:hover {
-    @apply [outline:1.5px_dashed_#3b82f6];
+    @apply outline-2 outline-dashed outline-blue-500;
   }
 
   .pill:active {
     @apply bg-blue-200 outline-blue-500 text-blue-500 scale-[98%] duration-75;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline-2 outline-dashed outline-blue-500 outline-offset-2;
+  }
+
+  .fullsize_section[tabindex="0"]:focus-visible {
+    @apply outline-2 outline-dashed outline-blue-500 outline-offset-0;
   }
 
   .pill img {
@@ -103,7 +116,7 @@
   }
 
   html {
-    @apply w-full min-h-full overflow-x-hidden overflow-y-auto transition-all duration-150 ease-in-out md:overflow-hidden;
+    @apply w-full min-h-full overflow-x-hidden overflow-y-auto md:overflow-hidden;
   }
 
   body {
@@ -155,7 +168,7 @@
   }
 
   img {
-    @apply object-contain transition-all duration-150 ease-in-out;
+    @apply object-contain;
   }
 }
 

@@ -52,35 +52,40 @@
     <meta name="twitter:image:alt" content={meta.imageAlt} />
 </svelte:head>
 
-<section id="artificial_inquiries_hero" class="fullsize_section justify-center">
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+<section
+    id="artificial_inquiries_hero"
+    class="fullsize_section justify-center"
+    tabindex="0"
+    aria-labelledby="artificial-inquiries-h1"
+>
     <div
         class="flex flex-col md:max-w-[100ch] w-full md:items-center items-start"
     >
         <div class="bg-white p-4">
-            <h1 class="md:text-center text-left">
+            <h1 class="md:text-center text-left" id="artificial-inquiries-h1">
                 {@html data.title}
             </h1>
         </div>
-        <div
-            class="flex flex-col gap-2 bg-white p-4 md:w-[85ch] justify-center items-center"
-        >
+        <div class="hero_descr">
             <p class="md:text-center text-left">
                 {@html data.subtitle}
             </p>
         </div>
         <div
-            class="flex md:justify-center bg-white p-2 gap-2 flex-col md:flex-row"
+            class="flex md:justify-center bg-white p-2 gap-2 flex-col md:flex-row w-fit"
         >
             {#each buttons as b}
                 <a
                     use:pillAnimation
-                    class="pill border-solid"
+                    class="pill"
                     href={b.href || b.url}
                     target={b.url ? "_blank" : "_self"}
+                    rel={b.url ? "noopener noreferrer" : undefined}
                 >
                     <p class="text-nowrap uppercase">{@html b.label}</p>
                     {#if b.icon}
-                        <img src={b.icon} alt="" />
+                        <img src={b.icon} alt="" aria-hidden="true" />
                     {/if}
                 </a>
             {/each}

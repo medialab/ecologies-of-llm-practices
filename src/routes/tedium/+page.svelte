@@ -37,64 +37,81 @@
     <meta name="twitter:image:alt" content={meta.imageAlt} />
 </svelte:head>
 
-<section id="tedium_hero" class="fullsize_section justify-center">
-    <div class="flex flex-col max-w-[100ch] items-center">
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+<section
+    id="tedium_hero"
+    class="fullsize_section justify-center"
+    tabindex="0"
+    aria-labelledby="tedium-h1"
+>
+    <div class="flex flex-col max-w-[100ch] w-full md:w-fit md:items-center">
         <div class="bg-white p-4">
-            <h1 class="md:text-center text-left">{@html data.title}</h1>
+            <h1 class="md:text-center text-left" id="tedium-h1">
+                {@html data.title}
+            </h1>
         </div>
-        <div class="flex flex-col gap-2 bg-white p-4 md:w-[85ch]">
+        <div class="hero_descr">
             <p class="md:text-center text-left">{@html data.subtitle}</p>
         </div>
-        <div class="flex justify-center bg-white p-2 gap-2">
+        <div
+            class="flex md:justify-center bg-white p-2 gap-2 flex-col md:flex-row w-fit"
+        >
             <button
-                class="pill border-solid"
+                type="button"
+                class="pill"
                 onclick={() => scrollStore.scrollTo("#gallery")}
                 use:pillAnimation
             >
                 <p class="text-nowrap uppercase">Gallery</p>
-                <img src={galleryIcon} alt="" />
+                <img src={galleryIcon} alt="" aria-hidden="true" />
             </button>
             <a
                 use:pillAnimation
-                class="pill border-solid"
+                class="pill"
                 href="#abstract"
                 onclick={() => scrollStore.scrollTo("#abstract")}
             >
                 <p class="text-nowrap uppercase">Read more</p>
             </a>
             <button
-                class="pill border-solid"
+                type="button"
+                class="pill"
                 onclick={() => scrollStore.scrollTo("#video")}
                 use:pillAnimation
             >
                 <p class="text-nowrap uppercase">Watch the video</p>
-                <img src={videoIcon} alt="" />
+                <img src={videoIcon} alt="" aria-hidden="true" />
             </button>
         </div>
     </div>
 </section>
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     class="fullsize_section justify-center h-fit"
     data-scroll
     data-scroll-speed="0.3"
     id="abstract"
+    tabindex="0"
+    aria-label="Tedium abstract"
 >
     <div
         class="bg-white p-4 md:w-2/3 rounded-xl border-black border-[1px] md:border-0 flex flex-col gap-4"
     >
         <h2>
-            Is there anything inherently valuable in using large language models
-            (LLMs)?
+            {@html data.SubDescription}
         </h2>
         <p class="text-xl text-pretty">{@html data.description}</p>
     </div>
 </section>
 
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     class="fullsize_section justify-center h-fit"
     id="gallery"
     data-scroll
     data-scroll-speed="1"
+    tabindex="0"
+    aria-label="Tedium gallery"
 >
     <div
         class="md:p-20 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
@@ -102,21 +119,24 @@
         {#each images as image, i}
             <enhanced:img
                 src={image}
-                alt="Tedium img {i}"
+                alt={`Tedium archive image ${i + 1}`}
                 class="w-fit h-full grayscale md:hover:p-1 hover:grayscale-0"
             ></enhanced:img>
         {/each}
     </div>
 </section>
 
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     class="fullsize_section justify-center h-fit"
     data-scroll
     data-scroll-speed="0.5"
+    id="video"
+    tabindex="0"
+    aria-label="Tedium video"
 >
     <div
         class="md:p-20 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
-        id="video"
     >
         <video
             src={tediumVideo}

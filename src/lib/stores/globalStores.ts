@@ -9,6 +9,7 @@ export const currentCardColor = writable("white");
 export const highestZIndex = writable(4);
 export const lastCardColor = writable(null);
 
+export const currentScrollPercentage = writable(0)
 
 const createScrollStore = () => {
   const { subscribe, set, update } = writable<LocomotiveScroll>(null);

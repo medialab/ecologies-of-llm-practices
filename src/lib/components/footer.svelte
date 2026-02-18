@@ -99,6 +99,7 @@
                             <a
                                 href={link?.href || link?.url}
                                 target={link?.url ? "_blank" : "_self"}
+                                rel={link?.url ? "noopener noreferrer" : undefined}
                             >
                                 {#if link.img}
                                     <img src={link.img} alt={link.label} />

@@ -135,6 +135,10 @@
         rafId = requestAnimationFrame(tick);
     };
 
+    const handleWindowResize = () => {
+        resizeCanvas();
+    };
+
     onMount(() => {
         if (!canvasEl) return;
         ctx = canvasEl.getContext("2d", { alpha: true });
@@ -147,20 +151,14 @@
             prefersReducedMotion = media.matches;
         };
 
-        const handleResize = () => {
-            resizeCanvas();
-        };
-
         media.addEventListener?.("change", handleMotionChange);
         media.addListener?.(handleMotionChange);
-        window.addEventListener("resize", handleResize, { passive: true });
 
         resizeCanvas();
         drawMask(currentHoleSize);
 
         return () => {
             if (rafId) cancelAnimationFrame(rafId);
-            window.removeEventListener("resize", handleResize);
             media.removeEventListener?.("change", handleMotionChange);
             media.removeListener?.(handleMotionChange);
         };
@@ -181,6 +179,8 @@
         }
     });
 </script>
+
+<svelte:window onresize={handleWindowResize} />
 
 <section
     id="mask"

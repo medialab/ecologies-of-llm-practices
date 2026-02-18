@@ -68,8 +68,6 @@
                         bgColor: card.bgColor,
                         url: `${window.location.href}`,
                     };
-
-                    console.log($shareData);
                 }}
                 tabindex="0"
                 class="w-full h-full transform transition-transform duration-100 ease-in-out flex items-center justify-center relative rounded-none active:scale-90 hover:scale-105 active:rotate-[5deg]"

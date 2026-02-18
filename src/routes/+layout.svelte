@@ -6,17 +6,16 @@
     scrollStore,
     burgerOpen,
     pendingScrollTarget,
-    isPageLoaded,
   } from "$lib/stores/globalStores";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
   import { tick } from "svelte";
   import { heroAnimation } from "$lib/stores/animeJs";
   import Mask from "$lib/components/mask.svelte";
   import BgLogo from "$lib/components/bg-logo.svelte";
   import Header from "$lib/components/header.svelte";
   import Footer from "$lib/components/footer.svelte";
+  import { on } from "svelte/events";
 
-  let headerPage = $state("landing");
   let isInquirersPage = $state(false);
 
   let { children } = $props();
@@ -27,8 +26,8 @@
       lenisOptions: {
         wrapper: window,
         content: document.documentElement,
-        lerp: 0.1,
-        duration: 1.2,
+        lerp: 0.2,
+        duration: 1,
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
@@ -46,7 +45,7 @@
   });
 
   $effect(() => {
-    const _ = $page.url.pathname;
+    const _ = page.url.pathname;
 
     tick().then(() => {
       heroAnimation();
@@ -54,8 +53,7 @@
   });
 
   $effect(() => {
-    headerPage = $page.url.pathname === "/" ? "landing" : "tedium";
-    isInquirersPage = $page.url.pathname === "/inquirers";
+    isInquirersPage = page.url.pathname === "/inquirers";
   });
 
   $effect(() => {
@@ -76,24 +74,26 @@
   });
 
   $effect(() => {
-    if ($page.url.hash) {
-      scrollStore.scrollTo($page.url.hash);
+    if (page.url.hash) {
+      scrollStore.scrollTo(page.url.hash);
     }
   });
 </script>
 
-<Header currentPage={headerPage} currentPath={$page.url.pathname} />
+<Header currentPath={page.url.pathname} />
 <main
   class="main_container"
   id="main"
+  data-scroll
   data-scroll-container
-  data-scroll={isInquirersPage ? true : undefined}
+  data-scroll-css-progress
 >
   {@render children()}
+  <BgLogo />
 </main>
+
 <Footer />
 <Mask />
-<BgLogo />
 
 <svelte:head>
   <!-- Global Metadata -->

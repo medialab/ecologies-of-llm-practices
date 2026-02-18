@@ -58,6 +58,7 @@
             <a
                 href={el?.href || el?.url}
                 target={el?.url ? "_blank" : "_self"}
+                rel={el?.url ? "noopener noreferrer" : undefined}
                 class="px-4 pointer-events-auto"
                 onclick={() => ($burgerOpen = false)}
             >

@@ -107,7 +107,7 @@
                 {#if isClicked}
                     <div class="floater_image">
                         {#if data.category === 'image'}
-                            <enhanced:img src={data.media} alt="{data.Title} image"/>
+                            <enhanced:img src={data.media} alt={`${data.Title} image`} />
                         {:else if data.category === 'video'}
                             <video autoplay muted loop playsinline>
                                 <source src={data.media} type="video/mp4" />
@@ -121,7 +121,6 @@
                         style="background-color: {$currentCardColor}"
                         on:click={removeClickedClass}
                         aria-label="Close"
-                        tabindex="0"
                         >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="m256-236-20-20 224-224-224-224 20-20 224 224 224-224 20 20-224 224 224 224-20 20-224-224-224 224Z"/></svg>
                 </button>
@@ -132,8 +131,9 @@
                 type="button"
                 class="floater_bottom"
                 style="background-color: {$currentCardColor}"
-                aria-label="Close"
-                tabindex="0"
+                aria-label={data.category === 'document'
+                    ? `Download ${data.Title || 'document'}`
+                    : `Open ${data.Title || 'media item'}`}
                 on:click={addClickedClass}
                 on:keydown={handleKeyDown}
 
@@ -146,7 +146,6 @@
                 {#if data.category === 'document'}
                     <div
                         class="category_icon"
-                        id="document"
                         
                         href={data.file || data.href || undefined}
                         download={data.file ? data.Title : undefined}>
@@ -159,23 +158,23 @@
                     </div>
 
                     {:else if data.category === 'image'}
-                        <div class="category_icon" id="image">
+                        <div class="category_icon">
                             <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 -960 960 960"><path d="M212.31-140Q182-140 161-161q-21-21-21-51.31v-535.38Q140-778 161-799q21-21 51.31-21h535.38Q778-820 799-799q21 21 21 51.31v535.38Q820-182 799-161q-21 21-51.31 21H212.31Zm0-60h535.38q4.62 0 8.46-3.85 3.85-3.84 3.85-8.46v-535.38q0-4.62-3.85-8.46-3.84-3.85-8.46-3.85H212.31q-4.62 0-8.46 3.85-3.85 3.84-3.85 8.46v535.38q0 4.62 3.85 8.46 3.84 3.85 8.46 3.85ZM270-290h423.07L561.54-465.38 449.23-319.23l-80-102.31L270-290Zm-70 90v-560 560Z"/></svg>
                         </div>
 
                     {:else if data.category === 'video'}
-                        <div class="category_icon" id="video">
+                        <div class="category_icon">
                             <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 -960 960 960"><path d="m172.31-780 70 140h120l-70-140h80l70 140h120l-70-140h80l70 140h120l-70-140h95.38Q818-780 839-759q21 21 21 51.31v455.38Q860-222 839-201q-21 21-51.31 21H172.31Q142-180 121-201q-21-21-21-51.31v-455.38Q100-738 121-759q21-21 51.31-21ZM160-580v327.69q0 5.39 3.46 8.85t8.85 3.46h615.38q5.39 0 8.85-3.46t3.46-8.85V-580H160Zm0 0v340-340Z"/></svg>
                         </div>
 
                     {:else if data.category === 'link'}
-                    <div class="category_icon" id="video">
+                    <div class="category_icon">
                         <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 -960 960 960"><path d="M432.31-298.46H281.54q-75.34 0-128.44-53.1Q100-404.65 100-479.98q0-75.33 53.1-128.44 53.1-53.12 128.44-53.12h150.77v60H281.54q-50.39 0-85.96 35.58Q160-530.38 160-480q0 50.38 35.58 85.96 35.57 35.58 85.96 35.58h150.77v60ZM330-450v-60h300v60H330Zm197.69 151.54v-60h150.77q50.39 0 85.96-35.58Q800-429.62 800-480q0-50.38-35.58-85.96-35.57-35.58-85.96-35.58H527.69v-60h150.77q75.34 0 128.44 53.1Q860-555.35 860-480.02q0 75.33-53.1 128.44-53.1 53.12-128.44 53.12H527.69Z"/></svg>
                     </div>
                 {/if}
 
                 {#if data.Title}
-                    <p class="s2" id="floater_text">
+                    <p class="s2">
                         {data.Title}
                     </p>
                 {/if}
