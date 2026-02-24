@@ -77,6 +77,12 @@
     };
 
     const handlePageCycleKeys = (event: KeyboardEvent) => {
+        if (event.key === "Escape" && $burgerOpen) {
+            event.preventDefault();
+            $burgerOpen = false;
+            return;
+        }
+
         if (!isDesktopViewport() || shouldIgnoreArrowNavigation(event)) {
             return;
         }
@@ -93,16 +99,21 @@
     const switchBurger = () => {
         $burgerOpen = !$burgerOpen;
     };
+
+    $effect(() => {
+        currentPath;
+        $burgerOpen = false;
+    });
 </script>
 
 <svelte:window onkeydown={handlePageCycleKeys} />
 
 <header
-    class="w-screen h-fit items-center justify-between border-[#E5E5E5] border-b-[1px] md:pl-6 md:pr-6 p-3 md:grid-cols-3 grid-cols-2 grid bg-white z-[160] fixed top-0 left-0 max-h-[60px] md:max-h-none md:h-fit"
+    class="w-screen h-auto items-center justify-between border-[#E5E5E5] border-b-[1px] md:pl-6 md:pr-6 p-3 md:grid-cols-3 grid-cols-2 grid bg-white z-[160] fixed top-0 left-0 max-h-[60px] md:max-h-none md:h-auto"
 >
     <div
         id="header_left"
-        class="w-full h-fit col-span-1 md:flex flex-row gap-2 hidden"
+        class="w-full h-auto col-span-1 md:flex flex-row gap-2 hidden"
     >
         <button
             type="button"
@@ -127,7 +138,7 @@
     </a>
     <div
         id="header_right"
-        class="w-full md:h-fit h-[28px] col-span-1 flex flex-row gap-2 justify-end"
+        class="w-full md:h-auto h-[28px] col-span-1 flex flex-row gap-2 justify-end"
     >
         <button
             type="button"
