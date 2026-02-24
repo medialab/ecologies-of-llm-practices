@@ -2,31 +2,32 @@
     import { burgerOpen } from "$lib/stores/globalStores";
     import { slide, fade } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
+    import { resolve } from "$app/paths";
 
     const burgerEls = [
         {
             label: "Methodology",
-            href: "/#Methodology",
+            href: `${resolve("/")}#Methodology`,
         },
         {
             label: "Objective",
-            href: "/#objective",
+            href: `${resolve("/")}#objective`,
         },
         {
             label: "Playground",
-            href: "/#playground",
+            href: `${resolve("/")}#playground`,
         },
         {
             label: "Tedium",
-            href: "/tedium",
+            href: resolve("/tedium"),
         },
         {
             label: "Co-Inquirers",
-            href: "/inquirers",
+            href: resolve("/inquirers"),
         },
         {
             label: "Artificial Inquiries",
-            href: "/artificial_inquiries",
+            href: resolve("/artificial_inquiries"),
         },
         {
             label: "Configuration work",

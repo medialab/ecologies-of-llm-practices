@@ -1,5 +1,6 @@
 <script>
     import { goto } from '$app/navigation';
+    import { resolve } from '$app/paths';
 
     let { error, status } = $props();
 </script>
@@ -19,7 +20,7 @@
             class="button"
             style="width: 100%;"
             type="button"
-            onclick={() => goto('/')}>
+            onclick={() => goto(resolve('/'))}>
                 <p style="text-align: center; width: 100%; font-size: 26px; margin: 0px;">
                     GO BACK
                 </p>

@@ -3,6 +3,7 @@
 <script lang="ts">
     import { slide, fade } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
+    import { resolve } from "$app/paths";
     import CardCanvasComponent from "$lib/components/cardCanvas.svelte";
     import { isPageLoaded } from "$lib/stores/globalStores";
     import { pillAnimation } from "$lib/stores/animeJs";
@@ -32,10 +33,10 @@
         },
         {
             label: "Artificial Inquiries",
-            href: "/artificial_inquiries",
+            href: resolve("/artificial_inquiries"),
             icon: bookIcon,
         },
-        { label: "Tedium", href: "/tedium", icon: noteIcon },
+        { label: "Tedium", href: resolve("/tedium"), icon: noteIcon },
     ];
 
     let turndownServicePromise: Promise<any> | null = null;

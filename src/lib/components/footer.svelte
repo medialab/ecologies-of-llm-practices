@@ -1,6 +1,7 @@
 <script>
     import footerLogo from "$lib/media/logos/logo_complete.svg";
     import googleSupport from "$lib/media/logos/google_support.svg";
+    import { resolve } from "$app/paths";
 
     const footerSections = [
         {
@@ -37,7 +38,7 @@
         {
             title: "The project:",
             links: [
-                { label: "Data Policy", href: "/data-policy" },
+                { label: "Data Policy", href: resolve("/data-policy") },
                 {
                     label: "Artificial Inquiries?",
                     url: "https://hal.science/hal-05327878v2",
@@ -46,7 +47,7 @@
                     label: "Configuration work",
                     url: "https://arxiv.org/abs/2512.19189",
                 },
-                { label: "Co-Inquirers", href: "/inquirers" },
+                { label: "Co-Inquirers", href: resolve("/inquirers") },
             ],
         },
     ];
@@ -64,7 +65,7 @@
                 protocol. <br /> Without their participation, our project could
                 not have been developed. <br /> The link is on
                 <a
-                    href="/inquirers"
+                    href={resolve("/inquirers")}
                     class="underline hover:text-blue-500 hover:cursor-pointer"
                 >
                     co-inquirers.</a

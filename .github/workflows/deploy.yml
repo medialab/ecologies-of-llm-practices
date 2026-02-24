@@ -29,7 +29,13 @@ jobs:
         env:
           NODE_ENV: production
 
+      - name: Ensure Pages artifact markers
+        run: |
+          touch build/.nojekyll
+          test -f build/.nojekyll
+
       - name: Deploy to GitHub Pages
+        if: github.event_name != 'pull_request'
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}

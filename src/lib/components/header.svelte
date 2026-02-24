@@ -6,17 +6,18 @@
     import { burgerOpen } from "$lib/stores/globalStores";
     import Burger from "$lib/components/burger.svelte";
     import { goto } from "$app/navigation";
+    import { resolve } from "$app/paths";
 
     let { currentPath } = $props<{
         currentPath: string;
     }>();
 
     const cyclePages = [
-        { path: "/", label: "Homepage" },
-        { path: "/artificial_inquiries", label: "Artificial Inquiries" },
-        { path: "/tedium", label: "Tedium" },
-        { path: "/inquirers", label: "Co-Inquirers" },
-        { path: "/data-policy", label: "Data Policy" },
+        { path: resolve("/"), label: "Homepage" },
+        { path: resolve("/artificial_inquiries"), label: "Artificial Inquiries" },
+        { path: resolve("/tedium"), label: "Tedium" },
+        { path: resolve("/inquirers"), label: "Co-Inquirers" },
+        { path: resolve("/data-policy"), label: "Data Policy" },
     ];
 
     const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
@@ -115,7 +116,7 @@
     </div>
     <a
         id="header_logo"
-        href="/"
+        href={resolve("/")}
         onclick={() => {
             scrollStore.scrollTo("#main");
             $burgerOpen = false;

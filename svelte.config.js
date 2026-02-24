@@ -4,9 +4,11 @@ import adapter from "@sveltejs/adapter-static";
 const config = {
   kit: {
     paths: {
+      // This project deploys on a custom domain at the root.
       base: "",
     },
 
+    // Fully prerendered static output: no SPA fallback file.
     adapter: adapter({}),
 
     alias: {
