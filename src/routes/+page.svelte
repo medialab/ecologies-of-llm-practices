@@ -1,8 +1,7 @@
 <svelte:options css="injected" />
 
 <script lang="ts">
-    import CardCanvas from "$lib/components/cardCanvas.svelte";
-    import TurndownService from "turndown";
+    import { onMount } from "svelte";
     import { slide, fly, fade } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
     import { isPageLoaded } from "$lib/stores/globalStores";
@@ -39,34 +38,6 @@
         { label: "Tedium", href: "/tedium", icon: noteIcon },
     ];
 
-    import gptLogo from "$lib/media/Gpt.png";
-    import mistralLogo from "$lib/media/Mistral.png";
-    import claudeLogo from "$lib/media/Claude.svg";
-    import deepseekLogo from "$lib/media/DeepSeek.png";
-
-    const models = [
-        {
-            name: "gpt",
-            href: "https://chatgpt.com/",
-            img: gptLogo,
-        },
-        {
-            name: "mistral",
-            href: "https://mistral.ai/",
-            img: mistralLogo,
-        },
-        {
-            name: "claude",
-            href: "https://claude.com/",
-            img: claudeLogo,
-        },
-        {
-            name: "deepseek",
-            href: "https://chat.deepseek.com/",
-            img: deepseekLogo,
-        },
-    ];
-
     type cardValues = {
         Title: string;
         CoverImg: string;
@@ -77,20 +48,40 @@
         bgColor: string;
     };
 
-    const htmlToMd = (html: string): string => {
-        const turndownService = new TurndownService({
-            emDelimiter: "*",
-            strongDelimiter: "**",
-        });
+    type HeavyData = {
+        cardsDb: Record<string, unknown>;
+        floatersDb: Record<string, unknown>;
+        alterEgosDb: Record<string, cardValues>;
+    };
 
+    let heavyData = $state<HeavyData | null>(null);
+    let CardCanvasComponent = $state<any>(null);
+    let turndownServicePromise: Promise<any> | null = null;
+
+    const getTurndownService = async () => {
+        if (!turndownServicePromise) {
+            turndownServicePromise = import("turndown").then((module) => {
+                const TurndownService = module.default;
+                return new TurndownService({
+                    emDelimiter: "*",
+                    strongDelimiter: "**",
+                });
+            });
+        }
+
+        return turndownServicePromise;
+    };
+
+    const htmlToMd = async (html: string): Promise<string> => {
+        const turndownService = await getTurndownService();
         return turndownService.turndown(html);
     };
 
-    function askAI(
+    async function askAI(
         data: string,
         model: "gpt" | "claude" | "mistral" | "deepseek" = "gpt",
-    ): void {
-        const markDownData = htmlToMd(data);
+    ): Promise<void> {
+        const markDownData = await htmlToMd(data);
         const prompt = `Based on the text from ${window.location.href}, provide an explanation of the project, including its research questions, main findings, and team: <content> ${markDownData}</content> `;
         const encoded = encodeURIComponent(prompt);
         const baseUrls = {
@@ -113,6 +104,36 @@
 
         window.open(url, "_blank", "noopener,noreferrer");
     }
+
+    onMount(() => {
+        const loadHeavyPageResources = async () => {
+            const [{ cardsDb, floatersDb, alterEgosDb }, cardCanvasModule] =
+                await Promise.all([
+                    import("$database/global_db.js"),
+                    import("$lib/components/cardCanvas.svelte"),
+                ]);
+
+            heavyData = {
+                cardsDb,
+                floatersDb,
+                alterEgosDb,
+            };
+            CardCanvasComponent = cardCanvasModule.default;
+        };
+
+        if ("requestIdleCallback" in window) {
+            (window as any).requestIdleCallback(
+                () => {
+                    void loadHeavyPageResources();
+                },
+                { timeout: 1500 },
+            );
+        } else {
+            setTimeout(() => {
+                void loadHeavyPageResources();
+            }, 0);
+        }
+    });
 </script>
 
 <svelte:head>
@@ -196,7 +217,7 @@
                                         easing: cubicInOut,
                                         delay: 300,
                                     }}
-                                    class="text-nowrap uppercase"
+                                    class="label-caps-nowrap"
                                 >
                                     {label}
                                 </p>
@@ -220,8 +241,8 @@
         </div>
     </div>
 </section>
-{#await data.alterEgosDb then cardsData}
-    {@const usableCards: cardValues[] = Object.values(cardsData)}
+{#if heavyData}
+    {@const usableCards: cardValues[] = Object.values(heavyData.alterEgosDb)}
     {#each usableCards as card, i}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
             <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -272,7 +293,7 @@
                                         )}
                                 >
                                     <p
-                                        class="text-nowrap uppercase hidden group-hover:block group-transition-delay-300 group-active:block transition-all duration-500 ease-in-out"
+                                        class="label-caps-nowrap hidden group-hover:block group-transition-delay-300 group-active:block transition-all duration-500 ease-in-out"
                                     >
                                         Ask
                                     </p>
@@ -289,12 +310,12 @@
             </section>
         {/if}
     {/each}
-{/await}
+{/if}
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     id="playground"
-    class="w-screen min-h-dvh h-fit z-[35] relative overflow-y-visible flex flex-col"
+    class="w-screen min-h-screen min-h-dvh h-fit z-[35] relative overflow-y-visible flex flex-col"
     data-scroll
     data-scroll-speed="0.5"
     tabindex="0"
@@ -308,5 +329,7 @@
         </h1>
     </div>
 
-    <CardCanvas {data}></CardCanvas>
+    {#if CardCanvasComponent && heavyData}
+        <CardCanvasComponent data={{ ...data, ...heavyData }} />
+    {/if}
 </section>

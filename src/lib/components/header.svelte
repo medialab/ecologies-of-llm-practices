@@ -12,10 +12,11 @@
     }>();
 
     const cyclePages = [
-        { path: "/tedium", label: "Tedium" },
         { path: "/", label: "Homepage" },
-        { path: "/inquirers", label: "Inquirers" },
         { path: "/artificial_inquiries", label: "Artificial Inquiries" },
+        { path: "/tedium", label: "Tedium" },
+        { path: "/inquirers", label: "Co-Inquirers" },
+        { path: "/data-policy", label: "Data Policy" },
     ];
 
     const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
@@ -25,7 +26,7 @@
         const foundIndex = cyclePages.findIndex(
             ({ path }) => normalizePath(path) === normalizedPath,
         );
-        return foundIndex === -1 ? 1 : foundIndex;
+        return foundIndex === -1 ? 0 : foundIndex;
     });
 
     const previousPage = $derived(

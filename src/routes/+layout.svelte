@@ -1,6 +1,5 @@
 <script lang="ts">
   import "../app.css";
-  import LocomotiveScroll from "locomotive-scroll";
   import { onMount } from "svelte";
   import {
     scrollStore,
@@ -14,34 +13,44 @@
   import BgLogo from "$lib/components/bg-logo.svelte";
   import Header from "$lib/components/header.svelte";
   import Footer from "$lib/components/footer.svelte";
-  import { on } from "svelte/events";
-
-  let isInquirersPage = $state(false);
 
   let { children } = $props();
 
   onMount(() => {
-    const scroll = new LocomotiveScroll({
-      autoStart: true,
-      lenisOptions: {
-        wrapper: window,
-        content: document.documentElement,
-        lerp: 0.2,
-        duration: 1,
-        orientation: "vertical",
-        gestureOrientation: "vertical",
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2,
-        infinite: false,
-      },
-    });
+    let scroll;
 
-    scrollStore.set(scroll);
+    const initScroll = async () => {
+      const { default: LocomotiveScroll } = await import("locomotive-scroll");
 
-    if (window.location.hash) {
-      pendingScrollTarget.set(window.location.hash);
-    }
+      scroll = new LocomotiveScroll({
+        autoStart: true,
+        lenisOptions: {
+          wrapper: window,
+          content: document.documentElement,
+          lerp: 0.2,
+          duration: 1,
+          orientation: "vertical",
+          gestureOrientation: "vertical",
+          smoothWheel: true,
+          wheelMultiplier: 1,
+          touchMultiplier: 2,
+          infinite: false,
+        },
+      });
+
+      scrollStore.set(scroll);
+
+      if (window.location.hash) {
+        pendingScrollTarget.set(window.location.hash);
+      }
+    };
+
+    void initScroll();
+
+    return () => {
+      scroll?.destroy?.();
+      scrollStore.set(null);
+    };
   });
 
   $effect(() => {
@@ -50,10 +59,6 @@
     tick().then(() => {
       heroAnimation();
     });
-  });
-
-  $effect(() => {
-    isInquirersPage = page.url.pathname === "/inquirers";
   });
 
   $effect(() => {

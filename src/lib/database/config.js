@@ -36,26 +36,26 @@ import googleSupport from "$media/logos/google_support.png?enhanced";
 
 //Floaters_content
 
-import Qualifying_floater_1 from "$lib/media/floaters/qualifying/Floater_qualifying_1.webm";
-import Qualifying_floater_2 from "$lib/media/floaters/qualifying/Floater_qualifying_2.webm";
+import Qualifying_floater_1 from "$lib/media/floaters/qualifying/Floater_qualifying_1.mp4";
+import Qualifying_floater_2 from "$lib/media/floaters/qualifying/Floater_qualifying_2.mp4";
 import Qualifying_floater_3 from "$lib/media/floaters/qualifying/Floater_qualifying_3.jpg?enhanced";
 import Qualifying_floater_4 from "$lib/media/floaters/qualifying/Floater_qualifying_4.jpg?enhanced";
 
 // Prompting floaters
-import Prompting_floater_1 from "$lib/media/floaters/prompting/Floater_prompting_1.webm";
-import Prompting_floater_2 from "$lib/media/floaters/prompting/Floater_prompting_2.webm";
+import Prompting_floater_1 from "$lib/media/floaters/prompting/Floater_prompting_1.mp4";
+import Prompting_floater_2 from "$lib/media/floaters/prompting/Floater_prompting_2.mp4";
 import Prompting_floater_3 from "$lib/media/floaters/prompting/Floater_prompting_3.jpg?enhanced";
 import Prompting_floater_4 from "$lib/media/floaters/prompting/Floater_prompting_4.jpg?enhanced";
 
 // Excelling floaters
 import Excelling_floater_1 from "$lib/media/floaters/excelling/Floater_excelling_1.jpg?enhanced";
-import Excelling_floater_2 from "$lib/media/floaters/excelling/Floater_excelling_2.webm";
-import Excelling_floater_3 from "$lib/media/floaters/excelling/Floater_excelling_3.webm";
-import Excelling_floater_4 from "$lib/media/floaters/excelling/Floater_excelling_4.webm";
+import Excelling_floater_2 from "$lib/media/floaters/excelling/Floater_excelling_2.mp4";
+import Excelling_floater_3 from "$lib/media/floaters/excelling/Floater_excelling_3.mp4";
+import Excelling_floater_4 from "$lib/media/floaters/excelling/Floater_excelling_4.mp4";
 
 // Benchmarking floaters
-import Benchmarking_floater_1 from "$lib/media/floaters/benchmarking/Floater_benchmarking_1.webm";
-import Benchmarking_floater_2 from "$lib/media/floaters/benchmarking/Floater_benchmarking_2.webm";
+import Benchmarking_floater_1 from "$lib/media/floaters/benchmarking/Floater_benchmarking_1.mp4";
+import Benchmarking_floater_2 from "$lib/media/floaters/benchmarking/Floater_benchmarking_2.mp4";
 import Benchmarking_floater_3 from "$lib/media/floaters/benchmarking/Floater_benchmarking_3.jpg?enhanced";
 import Benchmarking_floater_4 from "$lib/media/floaters/benchmarking/Floater_benchmarking_4.jpg?enhanced";
 

@@ -49,7 +49,7 @@
     class="fullsize_section flex-col items-start md:items-center justify-center mt-48 md:mt-0"
 >
         <div class="flex flex-col md:p-2 p-2 items-center md:w-fit w-full">
-            <h1 class="md:text-center text-left md:w-max-content p-4 bg-white">
+            <h1 class="text-responsive-center md:w-max-content p-4 bg-white">
                 This project <i>couldn't have happened</i> <br /><i>without</i> the
                 support of all Co-Inquirers
             </h1>
@@ -61,41 +61,41 @@
                         {href}
                         onclick={() => scrollStore.scrollTo(href)}
                     >
-                        <p class="text-nowrap uppercase">{label}</p>
+                        <p class="label-caps-nowrap">{label}</p>
                     </a>
                 {/each}
             </div>
         </div>
     </section>-->
-    <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-    <section
-        class="fullsize_section justify-center flex-col"
-        id="names"
-        tabindex="0"
-        aria-labelledby="inquirers-h1"
-    >
-        <h1 class="bg-white p-4 text-center" id="inquirers-h1">The co-inquirers</h1>
-        <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
-            {#each data.data.inquirers as name, i}
-                {#if i === data.data.inquirers.length - 1}
-                    <h1
-                        use:inquirersAnimation
-                        class="inquirer_name transition-all duration-300 ease-in-out"
-                    >
-                        {name}.
-                    </h1>
-                {:else}
-                    <h1
-                        use:inquirersAnimation
-                        class="inquirer_name transition-all duration-300 ease-in-out"
-                    >
-                        {name},
-                    </h1>
-                {/if}
-            {/each}
-        </div>
-    </section>
-    <!--<section
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+<section
+    class="fullsize_section justify-center flex-col"
+    id="names"
+    tabindex="0"
+    aria-labelledby="inquirers-h1"
+>
+    <h3 class="bg-white p-4 text-center" id="inquirers-h1">The co-inquirers</h3>
+    <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
+        {#each data.data.inquirers as name, i}
+            {#if i === data.data.inquirers.length - 1}
+                <h1
+                    use:inquirersAnimation
+                    class="inquirer_name transition-all duration-300 ease-in-out"
+                >
+                    {name}.
+                </h1>
+            {:else}
+                <h1
+                    use:inquirersAnimation
+                    class="inquirer_name transition-all duration-300 ease-in-out"
+                >
+                    {name},
+                </h1>
+            {/if}
+        {/each}
+    </div>
+</section>
+<!--<section
         class="fullsize_section justify-center flex-col"
         id="research_team"
     >

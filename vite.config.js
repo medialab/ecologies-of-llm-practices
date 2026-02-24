@@ -25,6 +25,7 @@ export default defineConfig({
     port: 3000, // Change this number to your desired port
   },
   build: {
+    target: ["chrome100", "edge100", "firefox102", "safari15"],
     rollupOptions: {
       // Nothing to see here
     },

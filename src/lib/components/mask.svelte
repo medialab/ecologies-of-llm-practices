@@ -184,7 +184,7 @@
 
 <section
     id="mask"
-    class="fixed inset-0 z-[20] pointer-events-none w-dvw h-dvh overflow-hidden"
+    class="fixed inset-0 z-[20] pointer-events-none w-screen h-screen w-dvw h-dvh overflow-hidden"
     style:opacity
 >
     <canvas bind:this={canvasEl} class="block h-full w-full"></canvas>

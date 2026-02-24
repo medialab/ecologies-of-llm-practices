@@ -2,22 +2,17 @@
 /** @type {import('./$types').PageLoad} */
 
 export const prerender = true;
-export const trailingSlash = "always";
 
 import backgroundImage from "$media/logos/Dot_background.png?enhanced";
-
-import { general } from "$database/config.js";
-
-import { cardsDb, floatersDb, alterEgosDb } from "$database/global_db.js";
+import logoImage from "$lib/media/logos/logo_complete.svg";
+import condensed_logo from "$lib/media/logos/logo_condensed.svg";
+import condensed_logo_white from "$lib/media/logos/logo_condensed_white.svg";
 
 export function load() {
   return {
     backgroundImage,
-    logoImage: general.logoImage,
-    cardsDb,
-    floatersDb,
-    alterEgosDb,
-    condensed_logo: general.condensed_logo,
-    condensed_logo_white: general.condensed_logo_white,
+    logoImage,
+    condensed_logo,
+    condensed_logo_white,
   };
 }

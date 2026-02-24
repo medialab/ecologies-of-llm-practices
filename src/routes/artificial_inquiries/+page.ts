@@ -1,6 +1,4 @@
 /** @type {import('./$types').PageLoad} */
-import { artificialInquiriesImgs } from "$database/media";
-
 export function load() {
   return {
     title:
@@ -19,6 +17,5 @@ export function load() {
       <b>Use</b>: It can be read in the most common order, or distilled and shared.<br><br>
       <b>Graphic project</b>: Born from the need for something printable on common office paper to maximize the circulation of the volume, while reminding us to stay humble and simple when designing paper interfaces for users.<br><br>
       <b>Intent</b>: A pedagogic entity that strives for clarity and ease of use, and that wants to remain in the user's memory, creating a point of friction between LLMs and UX.`,
-    media: artificialInquiriesImgs,
   };
 }

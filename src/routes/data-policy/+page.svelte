@@ -44,12 +44,12 @@
 >
     <div class="flex flex-col max-w-[100ch] w-full items-center">
         <div class="bg-white p-4">
-            <h1 class="md:text-center text-left" id="datapolicy-h1">
+            <h1 class="text-responsive-center" id="datapolicy-h1">
                 {@html data.title}
             </h1>
         </div>
         <div class="hero_descr">
-            <p class="md:text-center text-left">{@html data.subtitle}</p>
+            <p class="text-responsive-center">{@html data.subtitle}</p>
         </div>
         <div class="flex justify-center bg-white p-2 gap-2">
             <a
@@ -58,7 +58,7 @@
                 href="#abstract"
                 onclick={() => scrollStore.scrollTo("#abstract")}
             >
-                <p class="text-nowrap uppercase">Read the policy</p>
+                <p class="label-caps-nowrap">Read the policy</p>
             </a>
         </div>
     </div>
@@ -66,7 +66,7 @@
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
-    class="fullsize_section justify-center h-fit md:pb-30 pb-12"
+    class="fullsize_section section-fit-center md:pb-30 pb-12 max-w-[60%]"
     data-scroll
     data-scroll-speed="0.3"
     id="abstract"
@@ -76,9 +76,9 @@
     <div class="md:w-2/3 flex flex-col gap-4">
         {#each policySections as section}
             <div
-                class="bg-white p-4 rounded-xl border-black border-[1px] md:border-0 flex gap-4 flex-col"
+                class="content-card"
             >
-                <h2 class="font-bold">{section.title}</h2>
+                <h3 class="font-semibold">{section.title}</h3>
                 <p class="whitespace-pre-line">
                     {@html section.text}
                 </p>

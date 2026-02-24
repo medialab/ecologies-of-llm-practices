@@ -253,7 +253,7 @@ const alterEgosDb = {
 
 const floatersDb = {
   Floater1: {
-    Title: "cards_presentation.webm",
+    Title: "cards_presentation.mp4",
     id: 1,
     category: "video",
     media: floaters.Prompting_floater_1,
@@ -261,7 +261,7 @@ const floatersDb = {
     parent: "Prompting",
   },
   Floater2: {
-    Title: "card_closeup.webm",
+    Title: "card_closeup.mp4",
     id: 2,
     category: "video",
     media: floaters.Prompting_floater_2,
@@ -285,7 +285,7 @@ const floatersDb = {
     parent: "Prompting",
   },
   Floater5: {
-    Title: "collective_work.webm",
+    Title: "collective_work.mp4",
     id: 5,
     category: "video",
     media: floaters.Qualifying_floater_1,
@@ -293,7 +293,7 @@ const floatersDb = {
     parent: "Qualifying",
   },
   Floater6: {
-    Title: "first_session.webm",
+    Title: "first_session.mp4",
     id: 6,
     category: "video",
     media: floaters.Qualifying_floater_2,
@@ -325,7 +325,7 @@ const floatersDb = {
     parent: "Excelling",
   },
   Floater10: {
-    Title: "sharing_notes.webm",
+    Title: "sharing_notes.mp4",
     id: 10,
     category: "video",
     media: floaters.Excelling_floater_2,
@@ -333,7 +333,7 @@ const floatersDb = {
     parent: "Excelling",
   },
   Floater11: {
-    Title: "working_together.webm",
+    Title: "working_together.mp4",
     id: 11,
     category: "video",
     media: floaters.Excelling_floater_3,
@@ -341,7 +341,7 @@ const floatersDb = {
     parent: "Excelling",
   },
   Floater12: {
-    Title: "explaining_the_exercise.webm",
+    Title: "explaining_the_exercise.mp4",
     id: 12,
     category: "video",
     media: floaters.Excelling_floater_4,
@@ -349,7 +349,7 @@ const floatersDb = {
     parent: "Excelling",
   },
   Floater13: {
-    Title: "judgment_session.webm",
+    Title: "judgment_session.mp4",
     id: 13,
     category: "video",
     media: floaters.Benchmarking_floater_1,
@@ -357,7 +357,7 @@ const floatersDb = {
     parent: "Benchmarking",
   },
   Floater14: {
-    Title: "commenting_the_playground.webm",
+    Title: "commenting_the_playground.mp4",
     id: 14,
     category: "video",
     media: floaters.Benchmarking_floater_2,

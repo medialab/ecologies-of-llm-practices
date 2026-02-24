@@ -94,8 +94,6 @@
 
     <!-- svelte-ignore a11y_no_static_element_interactions -->
         <div class="floater_container open"
-
-            data-sveltekit-preload-data="hover"
             data-parent={data.parent}
             data-identifier={data.parent}_{data.id}
             style="
@@ -323,11 +321,17 @@
 
     /* Darker Overlay */
     :global(.darker) {
-        @apply absolute w-full h-full z-[10] bg-black opacity-90 mix-blend-overlay -translate-x-full transition-transform duration-200 ease-in-out;
+        @apply absolute w-full h-full z-[10] bg-black opacity-35 -translate-x-full transition-transform duration-200 ease-in-out;
     }
 
     :global(.darker.open) {
         @apply translate-x-0 transition-transform duration-[3000ms] ease-in-out;
+    }
+
+    @supports (mix-blend-mode: overlay) {
+        :global(.darker) {
+            @apply opacity-90 mix-blend-overlay;
+        }
     }
 
 </style>

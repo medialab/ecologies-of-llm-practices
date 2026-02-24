@@ -374,10 +374,8 @@
         });
     }
 
-    const placeCards = async (containers) => {
-        setTimeout(async () => {
-            await containers;
-
+    const placeCards = (containers) => {
+        setTimeout(() => {
             if (containers && containers.length > 0) {
                 const firstCard = containers[0];
 
@@ -420,7 +418,7 @@
                         offset * (containers.length - 1);
                 }
 
-                containers.forEach(async (container, index) => {
+                containers.forEach((container, index) => {
                     if ($isDesktop) {
                         x = $startX + index * offset;
                         y = $startY + index * offset;
@@ -821,6 +819,13 @@
             $sharingTextMobile = "Click here to share...";
             $sharerVisibility = true;
         }, 1500);
+
+        if (!svgDoc) {
+            await prepareSVG();
+        }
+        if (!svgDoc) {
+            return;
+        }
 
         const workingSvgDoc = svgDoc.cloneNode(true);
 
@@ -1362,8 +1367,6 @@
     onMount(async () => {
         const interact = (await import("interactjs")).default;
 
-        await tick();
-
         updateWindowSize();
 
         await tick();
@@ -1380,7 +1383,21 @@
         placeCards(containers);
         navigateToExercise();
 
-        await prepareSVG();
+        if (
+            "requestIdleCallback" in window &&
+            typeof window.requestIdleCallback === "function"
+        ) {
+            window.requestIdleCallback(
+                () => {
+                    void prepareSVG();
+                },
+                { timeout: 1500 },
+            );
+        } else {
+            setTimeout(() => {
+                void prepareSVG();
+            }, 0);
+        }
 
         // Query and initialize floaters after they're rendered in the DOM
         if ($windowSizeReady && !$isMobileDevice) {
@@ -1529,8 +1546,6 @@
         }
 
         if ($isMobileDevice) {
-            await containers;
-
             const containerYCorners = new Map();
             const containersIds = new Map();
 
@@ -1750,8 +1765,8 @@
 <Sharer />
 
 <section
-    class="relative z-[6] bg-transparent w-dvw min-h-dvh overflow-y-visible
-           max-md:grid max-md:grid-rows-[auto_1fr] max-md:static max-md:h-[100dvh] max-md:overflow-hidden"
+    class="relative z-[6] bg-transparent w-screen w-dvw min-h-screen min-h-dvh overflow-y-visible
+           max-md:grid max-md:grid-rows-[auto_1fr] max-md:static max-md:h-screen max-md:h-[100dvh] max-md:overflow-hidden"
     bind:this={hostElement}
 >
     {#if isInteractionLocked}

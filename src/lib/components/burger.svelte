@@ -52,7 +52,7 @@
         in:fade={{ duration: 125, easing: cubicInOut }}
         out:fade={{ duration: 125, easing: cubicInOut, delay: 250 }}
         id="burger"
-        class="flex flex-col gap-2 h-dvh w-full bg-white z-[150] fixed top-0 left-0 right-0 bottom-0 align-center justify-center"
+        class="flex flex-col gap-2 h-screen h-dvh w-full bg-white z-[150] fixed top-0 left-0 right-0 bottom-0 align-center justify-center"
     >
         {#each burgerEls as el, i}
             <a

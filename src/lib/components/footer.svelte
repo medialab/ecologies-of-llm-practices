@@ -53,10 +53,10 @@
 </script>
 
 <footer
-    class="relative z-40 flex h-fit w-full flex-col md:gap-0 gap-12 border-t border-[#D9D9D9] bg-white px-4 pb-4 pt-8 rounded-t-[20px] rounded-r-[20px] bottom-0"
+    class="site-footer relative z-40 flex h-fit w-full flex-col md:gap-0 gap-12 border-t border-[#D9D9D9] bg-white px-4 pb-4 pt-8 rounded-t-[20px] rounded-r-[20px] bottom-0"
 >
     <div
-        class="w-full md:h-[200px] h-fit flex md:flex-row flex-col gap-12 justify-space-between"
+        class="w-full md:h-[200px] h-fit flex md:flex-row flex-col gap-12 justify-between"
     >
         <div class="md:w-2/3 w-full">
             <p class="text-lg">
@@ -79,7 +79,7 @@
             </div>
         </div>
         <div
-            class="md:w-1/3 w-full flex flex-row gap-6 md:justify-end justify-space-between"
+            class="md:w-1/3 w-full flex flex-row gap-6 md:justify-end justify-between"
         >
             {#each footerSections as section}
                 <div class="flex flex-col w-fit md:pr-4 md:gap-1 gap-0">
@@ -121,25 +121,3 @@
         />
     </div>
 </footer>
-
-<style>
-    footer {
-        position: relative;
-        animation: slide-up linear;
-        animation-timeline: scroll(root block);
-        animation-range: entry 100%; /* Starts exactly at 100% scroll */
-        animation-delay: 1s; /* 1s delay after trigger */
-    }
-
-    @keyframes slide-up {
-        0% {
-            transform: translateY(500px);
-        }
-        89% {
-            transform: translateY(500px);
-        }
-        90% {
-            transform: translateY(0);
-        }
-    }
-</style>

@@ -63,17 +63,17 @@
         class="flex flex-col md:max-w-[100ch] w-full md:items-center items-start"
     >
         <div class="bg-white p-4">
-            <h1 class="md:text-center text-left" id="artificial-inquiries-h1">
+            <h1 class="text-responsive-center" id="artificial-inquiries-h1">
                 {@html data.title}
             </h1>
         </div>
         <div class="hero_descr">
-            <p class="md:text-center text-left">
+            <p class="text-responsive-center">
                 {@html data.subtitle}
             </p>
         </div>
         <div
-            class="flex md:justify-center bg-white p-2 gap-2 flex-col md:flex-row w-fit"
+            class="cta-row-responsive"
         >
             {#each buttons as b}
                 <a
@@ -83,7 +83,7 @@
                     target={b.url ? "_blank" : "_self"}
                     rel={b.url ? "noopener noreferrer" : undefined}
                 >
-                    <p class="text-nowrap uppercase">{@html b.label}</p>
+                    <p class="label-caps-nowrap">{@html b.label}</p>
                     {#if b.icon}
                         <img src={b.icon} alt="" aria-hidden="true" />
                     {/if}
@@ -94,22 +94,22 @@
 </section>
 
 <!--<section
-        class="fullsize_section justify-center h-fit"
+        class="fullsize_section section-fit-center"
         data-scroll
         data-scroll-speed="0.3"
         id="abstract"
     >
         <div
-            class="bg-white p-4 md:w-2/3 rounded-xl border-black border-[1px] md:border-0 flex flex-col gap-4"
+            class="content-card md:w-2/3"
         >
             <h2>A Book Made to Reflect</h2>
-            <p class="text-pretty">{@html data.description}</p>
+            <p>{@html data.description}</p>
             <enhanced:img src={images[1]} alt="" class="md:p-16 p-4" />
         </div>
     </section>
 
     <section
-        class="fullsize_section justify-center h-fit"
+        class="fullsize_section section-fit-center"
         id="gallery"
         data-scroll
         data-scroll-speed="1"

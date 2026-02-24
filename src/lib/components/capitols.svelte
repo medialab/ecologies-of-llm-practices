@@ -19,7 +19,7 @@
 </script>
 
 <div
-    class="w-[60vw] max-w-[1100px] aspect-[1.5/1] cursor-grab absolute select-text overflow-clip opacity-0 transition-[outline-color,outline-width] [outline:1.5px_solid_white] hover:[outline:2px_solid_black] [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none] rounded-3xl md:rounded-none"
+    class="w-[60vw] max-w-[1100px] aspect-[1.5/1] cursor-grab absolute select-text overflow-hidden overflow-clip opacity-0 transition-[outline-color,outline-width] [outline:1.5px_solid_white] hover:[outline:2px_solid_black] [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none] rounded-3xl md:rounded-none"
     data-card-container
     onclick={(event) => {
         if ($isDesktop) {
@@ -117,12 +117,14 @@
                 {#if card.CoverImg}
                     <div class="w-full h-auto relative mb-6">
                         <div
-                            class="w-full h-full absolute mix-blend-color"
+                            class="media-tint w-full h-full absolute"
                             style="background-color: {card.bgColor};"
                         ></div>
                         <enhanced:img
                             src={card.CoverImg}
                             alt="CoverImg"
+                            loading="lazy"
+                            decoding="async"
                             class="opacity-100 block z-[1] w-full h-auto aspect-video object-cover"
                         />
                     </div>
@@ -195,13 +197,15 @@
                         {#if section.picture}
                             <div class="w-full h-auto relative">
                                 <div
-                                    class="absolute w-full h-full mix-blend-color"
+                                    class="media-tint absolute w-full h-full"
                                     style="background-color: {card.bgColor};"
                                 ></div>
                                 <enhanced:img
                                     class="w-full h-auto"
                                     src={section.picture}
                                     alt="People"
+                                    loading="lazy"
+                                    decoding="async"
                                 />
                             </div>
                         {/if}

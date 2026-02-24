@@ -84,7 +84,7 @@
                                     ),
                                     url: $finalShareData.url,
                                 };
-                                navigator.share(textOnlyPayload);
+                                await navigator.share(textOnlyPayload);
                                 setTimeout(() => {
                                     $sharingTextMobile = "Thanks for sharing!";
                                 }, 100);
@@ -127,7 +127,7 @@
                             text: truncateText($finalShareData.text),
                             url: $finalShareData.url,
                         };
-                        navigator.share(textOnlyPayload);
+                        await navigator.share(textOnlyPayload);
                         $sharingTextMobile = "Thanks for sharing!";
 
                         $showSharer = false;
@@ -151,12 +151,12 @@
         }
     };
 
-    const copyToClipboard = () => {
+    const copyToClipboard = async () => {
         try {
             const linkToCopy =
                 $shareInfo.url ||
-                `https://ecologiesofllm.medialab.sciencespo.fr/${$currentHash}`;
-            navigator.clipboard.writeText(linkToCopy);
+                    `https://ecologiesofllm.medialab.sciencespo.fr/${$currentHash}`;
+            await navigator.clipboard.writeText(linkToCopy);
         } catch (error) {
             console.error("Failed to copy to clipboard:", error);
         }
@@ -165,6 +165,13 @@
         setTimeout(() => {
             copierAlert.classList.remove("show");
         }, 1000);
+    };
+
+    const copyToClipboardFromKeyboard = async (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            await copyToClipboard();
+        }
     };
 
     const openWindow = (url) => {
@@ -304,7 +311,7 @@
                     class="sharer_icon"
                 >
                     <svg
-                        class="h-full w-full fill-black"
+                        class="icon-fill-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 280 280"
                     >
@@ -322,7 +329,7 @@
                     class="sharer_icon"
                 >
                     <svg
-                        class="h-full w-full fill-black"
+                        class="icon-fill-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 280 280"
                     >
@@ -350,7 +357,7 @@
                     class="sharer_icon"
                 >
                     <svg
-                        class="h-full w-full fill-black"
+                        class="icon-fill-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 -960 960 960"
                         ><path
@@ -366,7 +373,7 @@
                     class="sharer_icon"
                 >
                     <svg
-                        class="h-full w-full fill-black"
+                        class="icon-fill-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 318 280"
                     >
@@ -390,15 +397,13 @@
                     </p>
                 </div>
                 <button
-                    class="sharer_icon h-full relative w-12 p-3 !border border-black border-width-[1px]"
+                    class="sharer_icon h-full relative w-12 p-3 !border-[1px] border-black"
                     onclick={copyToClipboard}
-                    onkeydown={copyToClipboard}
-                    onpointerdown={copyToClipboard}
-                    ontouchstart={copyToClipboard}
+                    onkeydown={copyToClipboardFromKeyboard}
                     aria-label="Copy link to clipboard"
                 >
                     <svg
-                        class="h-full w-full fill-black"
+                        class="icon-fill-black"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 -960 960 960"
                         ><path
@@ -422,7 +427,7 @@
         <button
             id="background_overlay"
             aria-label="Close sharer"
-            class="fixed inset-0 z-[200] opacity-70 h-screen w-screen pointer-events-auto"
+            class="fixed inset-0 z-[200] opacity-70 pointer-events-auto"
             style="background-color: {$currentCardColor};"
             in:fade={{ duration: 300 }}
             out:fade={{ duration: 1500 }}
