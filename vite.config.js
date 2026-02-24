@@ -8,14 +8,11 @@ export default defineConfig({
   plugins: [
     enhancedImages({
       imagetools: {
-        defaultDirectives: (url) => {
-          console.log("🖼️ Processing image:", url.pathname);
-          const params = new URLSearchParams({
+        defaultDirectives: () => {
+          return new URLSearchParams({
             format: "jpg",
             quality: "80",
           });
-          console.log("📐 Applied directives:", params.toString());
-          return params;
         },
       },
     }),
@@ -28,11 +25,6 @@ export default defineConfig({
     target: ["chrome100", "edge100", "firefox102", "safari15"],
     rollupOptions: {
       // Nothing to see here
-    },
-  },
-  kit: {
-    prerender: {
-      handleHttpError: "warn",
     },
   },
 });

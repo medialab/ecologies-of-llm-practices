@@ -1,4 +1,4 @@
-import { createTimeline, stagger, splitText, animate } from "animejs";
+import { createTimeline, stagger, splitText } from "animejs";
 import { isPageLoaded } from "./globalStores";
 import { get } from "svelte/store";
 

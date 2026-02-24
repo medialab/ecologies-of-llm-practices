@@ -39,8 +39,7 @@
 
     @media (min-width: 768px) {
         :global(#bg_logo img) {
-            transform: translateY(calc((var(--progress, 0)) * -1000px))
-                scale(calc(2 + var(--progress, 0) * -2.5));
+            transform: translateY(calc((var(--progress, 0)) * -1000px)) scale(1);
         }
     }
 </style>

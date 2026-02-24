@@ -19,9 +19,6 @@
 
                 floaterContainer.classList.add('clicked');
                 isClicked = true;
-                
-            } else {
-                console.warn('No floater container found for the clicked element');
             }
         }
     };
@@ -31,8 +28,6 @@
         if (floaterContainer) {
             floaterContainer.classList.remove('clicked');
             isClicked = false;
-        } else {
-            console.warn('No floater container found for the clicked element');
         }
     };
 

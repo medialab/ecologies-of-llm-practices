@@ -332,7 +332,6 @@
     };
 
     const openFloaters = (floaters) => {
-        //console.log("openFloaters");
         floaters.forEach((floater) => {
             if (floater.classList.contains("closed")) {
                 floater.classList.remove("closed");
@@ -482,7 +481,6 @@
         const cubicBezier = ".1,.0,.0,.1";
 
         if (!topCard || isSwapping) {
-            // console.log("Swap not possible - either no top card or swap in progress");
             return;
         }
 
@@ -624,7 +622,7 @@
             preloadFonts = Promise.all([
                 loadFontAsBase64Cached("/fonts/InstrumentSerif-Regular.woff2"),
                 loadFontAsBase64Cached("/fonts/InstrumentSans-Regular.woff2"),
-            ]).catch((e) => console.warn("Font pre-load failed:", e));
+            ]).catch(() => {});
         }
         await preloadFonts;
         svgText = $isMobileDevice ? templateMobileSvg : templateDesktopSvg;
@@ -1539,9 +1537,7 @@
                             inertia: true,
                         });
                     });
-                } catch (error) {
-                    console.error("Floater initialization failed", error);
-                }
+                } catch {}
             }
         }
 
@@ -1652,9 +1648,7 @@
                     containers.forEach((container) => {
                         try {
                             interact(container).unset();
-                        } catch (e) {
-                            // console.log("Could not cleanup container interact handlers");
-                        }
+                        } catch (e) {}
                     });
                 }
 
@@ -1663,9 +1657,7 @@
                     floaters.forEach((floater) => {
                         try {
                             interact(floater).unset();
-                        } catch (e) {
-                            // console.log("Could not cleanup floater interact handlers");
-                        }
+                        } catch (e) {}
 
                         if (floater.style) {
                             floater.style.animation = "none";
@@ -1683,9 +1675,7 @@
                 sections.forEach((section) => {
                     try {
                         section.removeEventListener("mouseenter", null);
-                    } catch (e) {
-                        // console.log("Could not remove mouseenter listener");
-                    }
+                    } catch (e) {}
                 });
             }
 
@@ -1694,9 +1684,7 @@
                 containers.forEach((container) => {
                     try {
                         container.removeEventListener("click", null);
-                    } catch (e) {
-                        // console.log("Could not remove click listener from container");
-                    }
+                    } catch (e) {}
                 });
             }
 
@@ -1705,9 +1693,7 @@
                 scrollContainers.forEach((scrollContainer) => {
                     try {
                         scrollContainer.removeEventListener("click", null);
-                    } catch (e) {
-                        // console.log("Could not remove click listener from scroll container");
-                    }
+                    } catch (e) {}
                 });
             }
         };
@@ -1717,9 +1703,7 @@
             if (currentObserver) {
                 try {
                     currentObserver.disconnect();
-                } catch (e) {
-                    // console.log("Could not disconnect observer");
-                }
+                } catch (e) {}
             }
         };
 
@@ -1746,8 +1730,6 @@
         cleanupEventListeners();
         cleanupObservers();
         clearReferences();
-
-        //console.log("Component cleanup complete");
     });
 </script>
 

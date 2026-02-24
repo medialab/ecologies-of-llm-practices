@@ -2,7 +2,7 @@
 
 <script lang="ts">
     import { onMount } from "svelte";
-    import { slide, fly, fade } from "svelte/transition";
+    import { slide, fade } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
     import { isPageLoaded } from "$lib/stores/globalStores";
     import { pillAnimation } from "$lib/stores/animeJs";
@@ -51,7 +51,7 @@
     type HeavyData = {
         cardsDb: Record<string, unknown>;
         floatersDb: Record<string, unknown>;
-        alterEgosDb: Record<string, cardValues>;
+        alterEgosDb: Record<string, Partial<cardValues>>;
     };
 
     let heavyData = $state<HeavyData | null>(null);
@@ -242,7 +242,7 @@
     </div>
 </section>
 {#if heavyData}
-    {@const usableCards: cardValues[] = Object.values(heavyData.alterEgosDb)}
+    {@const usableCards = Object.values(heavyData.alterEgosDb)}
     {#each usableCards as card, i}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
             <!-- svelte-ignore a11y_no_noninteractive_tabindex -->

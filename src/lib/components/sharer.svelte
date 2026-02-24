@@ -101,10 +101,7 @@
                                     err2.name !== "AbortError" &&
                                     err2.name !== "NotAllowedError"
                                 ) {
-                                    console.error(
-                                        "❌ Text-only share failed:",
-                                        err2,
-                                    );
+                                    // Intentionally silent in production and development UI flow.
                                 }
                                 setTimeout(() => {
                                     $sharingTextMobile =
@@ -136,7 +133,7 @@
                             error.name !== "AbortError" &&
                             error.name !== "NotAllowedError"
                         ) {
-                            console.error("❌ Text-only share failed:", error);
+                            // Intentionally silent in production and development UI flow.
                         }
                         $sharingTextMobile = "No sharing this time... ok";
 
@@ -157,9 +154,7 @@
                 $shareInfo.url ||
                     `https://ecologiesofllm.medialab.sciencespo.fr/${$currentHash}`;
             await navigator.clipboard.writeText(linkToCopy);
-        } catch (error) {
-            console.error("Failed to copy to clipboard:", error);
-        }
+        } catch {}
         copierAlert.classList.add("show");
 
         setTimeout(() => {
