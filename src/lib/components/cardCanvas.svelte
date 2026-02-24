@@ -1668,36 +1668,6 @@
             }
         };
 
-        // Clean up event listeners on DOM elements
-        const cleanupEventListeners = () => {
-            // Clean up section event listeners
-            if (sections) {
-                sections.forEach((section) => {
-                    try {
-                        section.removeEventListener("mouseenter", null);
-                    } catch (e) {}
-                });
-            }
-
-            // Clean up container event listeners
-            if (containers) {
-                containers.forEach((container) => {
-                    try {
-                        container.removeEventListener("click", null);
-                    } catch (e) {}
-                });
-            }
-
-            // Clean up scroll container event listeners
-            if (scrollContainers) {
-                scrollContainers.forEach((scrollContainer) => {
-                    try {
-                        scrollContainer.removeEventListener("click", null);
-                    } catch (e) {}
-                });
-            }
-        };
-
         // Clean up any observers
         const cleanupObservers = () => {
             if (currentObserver) {
@@ -1727,7 +1697,6 @@
 
         // Execute all cleanup functions
         cleanupInteract();
-        cleanupEventListeners();
         cleanupObservers();
         clearReferences();
     });

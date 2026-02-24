@@ -1,14 +1,7 @@
 <script>
-    import { page } from '$app/stores';
-    import { onMount } from 'svelte';
     import { goto } from '$app/navigation';
-    
-    // Handle 301 redirects
-    onMount(() => {
-        if ($page.status === 301) {
-            window.location.href = 'https://ecologiesofllm.medialab.sciencespo.fr/';
-        }
-    });
+
+    let { error, status } = $props();
 </script>
 
 <section class="error_container">
@@ -16,7 +9,7 @@
         <p class="h1" style="font-size: 26px;">
             🙈
         </p>
-        <h1>{$page.status}: {$page.error?.message || 'An error occurred'}</h1>
+        <h1>{status}: {error?.message || 'An error occurred'}</h1>
         <p class="h4">
             If you're here, something went wrong. <br>
             Let's go back to the home page.

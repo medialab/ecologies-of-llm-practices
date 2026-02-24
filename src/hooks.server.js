@@ -30,9 +30,9 @@ export async function handle({ event, resolve }) {
     "max-age=31536000; includeSubDomains; preload"
   );
 
-  // Add recommended isolation headers for enhanced security
+  // Keep opener isolation, but avoid strict embedder isolation to
+  // prevent blocking third-party analytics/embed assets.
   response.headers.set("Cross-Origin-Opener-Policy", "same-origin");
-  response.headers.set("Cross-Origin-Embedder-Policy", "require-corp");
 
   return response;
 }

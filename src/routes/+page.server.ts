@@ -7,6 +7,7 @@ import backgroundImage from "$media/logos/Dot_background.png?enhanced";
 import logoImage from "$lib/media/logos/logo_complete.svg";
 import condensed_logo from "$lib/media/logos/logo_condensed.svg";
 import condensed_logo_white from "$lib/media/logos/logo_condensed_white.svg";
+import { cardsDb, floatersDb, alterEgosDb } from "$database/global_db.js";
 
 export function load() {
   return {
@@ -14,5 +15,8 @@ export function load() {
     logoImage,
     condensed_logo,
     condensed_logo_white,
+    cardsDb,
+    floatersDb,
+    alterEgosDb,
   };
 }

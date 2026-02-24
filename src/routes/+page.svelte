@@ -1,9 +1,9 @@
 <svelte:options css="injected" />
 
 <script lang="ts">
-    import { onMount } from "svelte";
     import { slide, fade } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
+    import CardCanvasComponent from "$lib/components/cardCanvas.svelte";
     import { isPageLoaded } from "$lib/stores/globalStores";
     import { pillAnimation } from "$lib/stores/animeJs";
     import paperIcon from "$lib/media/icons/paperIcon.svg";
@@ -38,24 +38,6 @@
         { label: "Tedium", href: "/tedium", icon: noteIcon },
     ];
 
-    type cardValues = {
-        Title: string;
-        CoverImg: string;
-        Id: string;
-        Description: string;
-        Question: string;
-        IndexNum: number;
-        bgColor: string;
-    };
-
-    type HeavyData = {
-        cardsDb: Record<string, unknown>;
-        floatersDb: Record<string, unknown>;
-        alterEgosDb: Record<string, Partial<cardValues>>;
-    };
-
-    let heavyData = $state<HeavyData | null>(null);
-    let CardCanvasComponent = $state<any>(null);
     let turndownServicePromise: Promise<any> | null = null;
 
     const getTurndownService = async () => {
@@ -105,35 +87,6 @@
         window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    onMount(() => {
-        const loadHeavyPageResources = async () => {
-            const [{ cardsDb, floatersDb, alterEgosDb }, cardCanvasModule] =
-                await Promise.all([
-                    import("$database/global_db.js"),
-                    import("$lib/components/cardCanvas.svelte"),
-                ]);
-
-            heavyData = {
-                cardsDb,
-                floatersDb,
-                alterEgosDb,
-            };
-            CardCanvasComponent = cardCanvasModule.default;
-        };
-
-        if ("requestIdleCallback" in window) {
-            (window as any).requestIdleCallback(
-                () => {
-                    void loadHeavyPageResources();
-                },
-                { timeout: 1500 },
-            );
-        } else {
-            setTimeout(() => {
-                void loadHeavyPageResources();
-            }, 0);
-        }
-    });
 </script>
 
 <svelte:head>
@@ -241,8 +194,8 @@
         </div>
     </div>
 </section>
-{#if heavyData}
-    {@const usableCards = Object.values(heavyData.alterEgosDb)}
+{#if data?.alterEgosDb}
+    {@const usableCards = Object.values(data.alterEgosDb)}
     {#each usableCards as card, i}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
             <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -329,7 +282,7 @@
         </h1>
     </div>
 
-    {#if CardCanvasComponent && heavyData}
-        <CardCanvasComponent data={{ ...data, ...heavyData }} />
+    {#if data?.cardsDb && data?.floatersDb && data?.alterEgosDb}
+        <CardCanvasComponent {data} />
     {/if}
 </section>

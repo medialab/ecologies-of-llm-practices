@@ -55,10 +55,17 @@
 
   $effect(() => {
     const _ = page.url.pathname;
+    let cancelled = false;
 
     tick().then(() => {
-      heroAnimation();
+      if (!cancelled) {
+        heroAnimation();
+      }
     });
+
+    return () => {
+      cancelled = true;
+    };
   });
 
   $effect(() => {
@@ -71,10 +78,14 @@
 
   $effect(() => {
     if ($scrollStore && $pendingScrollTarget) {
-      setTimeout(() => {
+      const timeoutId = setTimeout(() => {
         scrollStore.scrollTo($pendingScrollTarget);
         pendingScrollTarget.set(null);
       }, 100);
+
+      return () => {
+        clearTimeout(timeoutId);
+      };
     }
   });
 
