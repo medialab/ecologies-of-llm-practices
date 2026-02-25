@@ -10,9 +10,17 @@
     import paperIcon from "$lib/media/icons/paperIcon.svg";
     import bookIcon from "$lib/media/icons/bookIcon.svg";
     import noteIcon from "$lib/media/icons/noteIcon.svg";
+  import HeroLogo from "$lib/components/hero-logo.svelte";
 
     /** @type {import('./$types').PageProps} */
     let { data } = $props();
+
+    type alterEgoCard = {
+        Title: string,
+        Description: string,
+        Question: string,
+        Id: string,
+    }
 
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
     const meta = {
@@ -113,6 +121,7 @@
     aria-labelledby="hero-h1"
 >
     <div class="flex flex-col md:gap-0 gap-4 w-full md:w-fit">
+        <HeroLogo/>   
         <h1
             id="hero-h1"
             class="relative z-20 md:p-6 md:m-0 m-2 p-2 text-center bg-white"
@@ -196,8 +205,9 @@
     </div>
 </section>
 {#if data?.alterEgosDb}
-    {@const usableCards = Object.values(data.alterEgosDb)}
-    {#each usableCards as card, i}
+    {@const usableCards: alterEgoCard[] = Object.values(data.alterEgosDb)}
+    {#each usableCards as c, i}
+    {@const card: alterEgoCard = c}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
             <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
             <section
@@ -215,7 +225,7 @@
                     <div
                         class="flex flex-col gap-2 md:bg-white md:w-2/5 w-full md:p-4"
                     >
-                        <h2 class="text-5xl md:text-8xl">{card?.Title}</h2>
+                        <h2 class="text-5xl md:text-6xl">{card?.Title}</h2>
                     </div>
                     <div
                         class="flex flex-col gap-4 md:bg-white md:w-3/5 w-full max-w-none h-fit md:p-4"
@@ -276,11 +286,11 @@
     aria-label="Protocol section"
 >
     <div class="flex justify-center">
-        <h1
+        <h2
             class="relative z-20 md:p-6 md:m-0 m-2 p-2 text-center w-fit bg-white"
         >
             Protocol
-        </h1>
+        </h2>
     </div>
 
     {#if data?.cardsDb && data?.floatersDb && data?.alterEgosDb}

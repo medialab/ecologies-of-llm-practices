@@ -2,6 +2,7 @@
     import { pillAnimation } from "$lib/stores/animeJs";
     import downloadIcon from "$lib/media/icons/downloadIcon.svg";
     import editionsAnnexesIcon from "$lib/media/icons/editionsAnnexesIcon.svg";
+    import HeroLogo from "$lib/components/hero-logo.svelte";
 
     let { data } = $props();
 
@@ -61,9 +62,9 @@
 >
     <div
         class="flex flex-col md:max-w-[100ch] w-full md:items-center items-start"
-    >
+    > <HeroLogo/>   
         <div class="bg-white p-4">
-            <h1 class="text-responsive-center" id="hero-h1">
+            <h1 class="text-responsive-center py-2" id="hero-h1">
                 {@html data.title}
             </h1>
         </div>

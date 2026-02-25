@@ -60,13 +60,13 @@
     hyphens: auto;
   }
 
-  a>p,
-  button>p {
+  a > p,
+  button > p {
     @apply text-base md:text-sm;
   }
 
   .hero_descr {
-    @apply flex flex-col gap-2 bg-white md:p-4 md:w-[85ch] w-full justify-center items-center pt-0 pb-4 px-4
+    @apply flex flex-col gap-2 bg-white md:px-4 md:w-[85ch] w-full justify-center items-center pt-0 pb-4 px-4;
   }
 
   a,
@@ -78,7 +78,7 @@
     @apply transition-all duration-75 rounded-3xl inline-flex bg-white w-fit h-auto px-4 py-2 gap-2 justify-center items-center outline outline-1 outline-black outline-offset-0;
   }
 
-  .pill>* {
+  .pill > * {
     @apply justify-self-center pt-0;
   }
 
@@ -106,7 +106,8 @@
 
   .pill:hover img,
   .pill:active img {
-    filter: brightness(0) invert(42%) sepia(93%) saturate(1352%) hue-rotate(208deg) brightness(119%) contrast(119%);
+    filter: brightness(0) invert(42%) sepia(93%) saturate(1352%)
+      hue-rotate(208deg) brightness(119%) contrast(119%);
   }
 
   .sharer_icon {

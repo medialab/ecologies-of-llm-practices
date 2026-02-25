@@ -5,87 +5,23 @@
     let { error, status } = $props();
 </script>
 
-<section class="error_container">
-    <div class="mobile_description">
-        <p class="h1" style="font-size: 26px;">
+<section class="w-1/3 h-fit absolute top-1/2 bottom-1/2 left-1/2 right-1/2 -translate-x-1/2 -translate-y-1/2 outline z-30 flex flex-col items-center bg-white rounded-2xl p-4 overflow-hidden gap-4">
+        <h3 class="text-center">
             🙈
-        </p>
-        <h1>{status}: {error?.message || 'An error occurred'}</h1>
-        <p class="h4">
+        </h3>
+        <h1 class="text-center leading-[80%]">An error occurred</h1>
+        <p class="text-center">
             If you're here, something went wrong. <br>
             Let's go back to the home page.
         </p>
 
         <button
-            class="button"
-            style="width: 100%;"
+            class="pill"
             type="button"
             onclick={() => goto(resolve('/'))}>
-                <p style="text-align: center; width: 100%; font-size: 26px; margin: 0px;">
+                <p class="text-center place-self-center px-2">
                     GO BACK
                 </p>
         </button>
-    </div>
-    
-    
 </section>
 
-
-
-
-<style>
-
-    .error_container {
-        width: fit-content;
-        display: flex;
-        flex-direction: column;
-        row-gap: 20px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        z-index: 1000;
-    }
-
-    .button {
-        position: static;
-        width: 60% !important;
-        margin-top: 20px !important;
-        text-align: center !important;
-        padding: 5px !important;
-        transform: scale(1);
-        transition: all 0.4s ease-in-out;
-    }
-
-    button:active {
-        transform: scale(0.97);
-        transition: all 0.1s ease-in-out;
-    }
-
-    * {
-        user-select: none;
-    }
-
-        .mobile_description {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border: solid 1px black;
-            border-radius: 10px 10px 10px 10px;
-            width: 40ch;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            overflow-y: hidden;
-            scrollbar-width: 0px;
-            background-color: white;
-            height: fit-content;
-            position: static;
-        }
-
-        .mobile_description > * {
-            margin: 0;
-            padding: 0;
-        }
-</style>

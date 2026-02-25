@@ -1,6 +1,7 @@
 <script>
     import { scrollStore } from "$lib/stores/globalStores";
     import { pillAnimation } from "$lib/stores/animeJs";
+    import HeroLogo from "$lib/components/hero-logo.svelte";
 
     let { data } = $props();
     const policySections = $derived(Object.values(data.textPolicy ?? {}));
@@ -43,8 +44,9 @@
     aria-labelledby="datapolicy-h1"
 >
     <div class="flex flex-col max-w-[100ch] w-full items-center">
+         <HeroLogo/>   
         <div class="bg-white p-4">
-            <h1 class="text-responsive-center" id="hero-h1">
+            <h1 class="text-responsive-center py-2" id="hero-h1">
                 {@html data.title}
             </h1>
         </div>

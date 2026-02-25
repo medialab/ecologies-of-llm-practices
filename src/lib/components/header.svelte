@@ -5,7 +5,7 @@
     import { scrollStore } from "$lib/stores/globalStores";
     import { burgerOpen } from "$lib/stores/globalStores";
     import Burger from "$lib/components/burger.svelte";
-    import { goto } from "$app/navigation";
+    import { goto, invalidateAll } from "$app/navigation";
     import { resolve } from "$app/paths";
 
     let { currentPath } = $props<{
@@ -40,9 +40,28 @@
         cyclePages[(currentCycleIndex + 1) % cyclePages.length],
     );
 
-    const goToPage = (path: string) => {
+    const goToPage = async (path: string) => {
         $burgerOpen = false;
-        goto(path);
+        const normalizedTarget = normalizePath(path);
+        const normalizedCurrent = normalizePath(currentPath);
+
+        if (normalizedTarget === normalizedCurrent) {
+            scrollStore.scrollTo(0);
+            await invalidateAll();
+            return;
+        }
+
+        await goto(path, {
+            noScroll: true,
+            keepFocus: false,
+            invalidateAll: true,
+        });
+        scrollStore.scrollTo(0);
+    };
+
+    const goHome = async (event: MouseEvent) => {
+        event.preventDefault();
+        await goToPage(resolve("/"));
     };
 
     const isDesktopViewport = () =>
@@ -109,7 +128,7 @@
 <svelte:window onkeydown={handlePageCycleKeys} />
 
 <header
-    class="w-screen h-auto items-center justify-between border-[#E5E5E5] border-b-[1px] md:pl-6 md:pr-6 p-3 md:grid-cols-3 grid-cols-2 grid bg-white z-[160] fixed top-0 left-0 max-h-[60px] md:max-h-none md:h-auto"
+    class="w-screen h-auto items-center justify-between border-[#E5E5E5] md:border-none border-b-[1px] md:pl-6 md:pr-6 p-3 md:grid-cols-2 grid-cols-2 grid bg-white md:bg-transparent z-[160] fixed top-0 md:top-1/2 md:-translate-y-1/2 left-0 max-h-[60px] md:max-h-none md:h-auto"
 >
     <div
         id="header_left"
@@ -117,22 +136,20 @@
     >
         <button
             type="button"
-            class="hidden md:flex text-2xl leading-none"
+            class="hidden md:flex text-2xl leading-none gap-2 bg-white p-1"
             onclick={() => goToPage(previousPage.path)}
             aria-label={`Go to ${previousPage.label}`}
             title={`Go to ${previousPage.label}`}
         >
-            ←
+            <p>←</p>
+            <p>{previousPage.label}</p>
         </button>
     </div>
     <a
         id="header_logo"
         href={resolve("/")}
-        onclick={() => {
-            scrollStore.scrollTo("#main");
-            $burgerOpen = false;
-        }}
-        class="w-full h-[30px] col-span-1 flex justify-center"
+        onclick={goHome}
+        class="w-full h-[30px] col-span-1 flex justify-center md:hidden"
     >
         <img src={Logo} alt="Ecologies of LLM Logo" class="h-full w-auto" />
     </a>
@@ -142,12 +159,14 @@
     >
         <button
             type="button"
-            class="hidden md:flex text-2xl leading-none"
+            class="hidden md:flex text-2xl leading-none gap-2 bg-white p-1"
             onclick={() => goToPage(nextPage.path)}
             aria-label={`Go to ${nextPage.label}`}
             title={`Go to ${nextPage.label}`}
         >
-            →
+        <p>{nextPage.label}</p>
+        <p>→</p>
+            
         </button>
         <button
             type="button"

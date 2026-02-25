@@ -1,11 +1,12 @@
 <script>
-    import { scrollStore } from "$lib/stores/globalStores";
+    import { isPageLoaded, scrollStore } from "$lib/stores/globalStores";
 
     import { pillAnimation } from "$lib/stores/animeJs";
     import tediumVideoMp4 from "$lib/media/tedium/TEDIUM_LIGHT.mp4";
     import videoPoster from "$lib/media/tedium/TEDIUM_LIGHT_poster.png";
     import videoIcon from "$lib/media/icons/videoIcon.svg";
     import galleryIcon from "$lib/media/icons/galleryIcon.svg";
+    import HeroLogo from "$lib/components/hero-logo.svelte";
 
     let { data } = $props();
 
@@ -45,44 +46,45 @@
     aria-labelledby="tedium-h1"
 >
     <div class="flex flex-col max-w-[100ch] w-full md:w-fit md:items-center">
+        <HeroLogo/>   
         <div class="bg-white p-4">
-            <h1 class="text-responsive-center" id="hero-h1">
+            <h1 class="text-responsive-center py-2" id="hero-h1">
                 {@html data.title}
             </h1>
         </div>
-        <div class="hero_descr">
-            <p class="text-responsive-center">{@html data.subtitle}</p>
-        </div>
-        <div
-            class="cta-row-responsive"
-        >
-            <button
-                type="button"
-                class="pill"
-                onclick={() => scrollStore.scrollTo("#gallery")}
-                use:pillAnimation
+            <div class="hero_descr">
+                <p class="text-responsive-center">{@html data.subtitle}</p>
+            </div>
+            <div
+                class="cta-row-responsive"
             >
-                <p class="label-caps-nowrap">Gallery</p>
-                <img src={galleryIcon} alt="" aria-hidden="true" />
-            </button>
-            <a
-                use:pillAnimation
-                class="pill"
-                href="#abstract"
-                onclick={() => scrollStore.scrollTo("#abstract")}
-            >
-                <p class="label-caps-nowrap">Read more</p>
-            </a>
-            <button
-                type="button"
-                class="pill"
-                onclick={() => scrollStore.scrollTo("#video")}
-                use:pillAnimation
-            >
-                <p class="label-caps-nowrap">Watch the video</p>
-                <img src={videoIcon} alt="" aria-hidden="true" />
-            </button>
-        </div>
+                <button
+                    type="button"
+                    class="pill"
+                    onclick={() => scrollStore.scrollTo("#gallery")}
+                    use:pillAnimation
+                >
+                    <p class="label-caps-nowrap">Gallery</p>
+                    <img src={galleryIcon} alt="" aria-hidden="true" />
+                </button>
+                <a
+                    use:pillAnimation
+                    class="pill"
+                    href="#abstract"
+                    onclick={() => scrollStore.scrollTo("#abstract")}
+                >
+                    <p class="label-caps-nowrap">Read more</p>
+                </a>
+                <button
+                    type="button"
+                    class="pill"
+                    onclick={() => scrollStore.scrollTo("#video")}
+                    use:pillAnimation
+                >
+                    <p class="label-caps-nowrap">Watch the video</p>
+                    <img src={videoIcon} alt="" aria-hidden="true" />
+                </button>
+            </div>
     </div>
 </section>
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -122,7 +124,7 @@
                 alt={`Tedium archive image ${i + 1}`}
                 loading="lazy"
                 decoding="async"
-                class="w-fit h-full grayscale md:hover:p-1 hover:grayscale-0"
+                class="w-fit h-full grayscale hover:grayscale-0"
             ></enhanced:img>
         {/each}
     </div>
@@ -148,7 +150,7 @@
             playsinline
             muted={false}
             poster={videoPoster}
-            class="rounded-2xl overflow-hidden overflow-clip"
+            class="rounded-2xl overflow-hidden"
         >
             <source src={tediumVideoMp4} type="video/mp4" />
         </video>

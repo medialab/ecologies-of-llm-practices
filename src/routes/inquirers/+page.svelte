@@ -4,6 +4,7 @@
 
     import { pillAnimation } from "$lib/stores/animeJs";
     import { inquirersAnimation } from "$lib/stores/animeJs";
+    import HeroLogo from "$lib/components/hero-logo.svelte";
 
     let data = $props();
 
@@ -46,12 +47,12 @@
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
-    class="fullsize_section justify-center flex-col md:px-20 my-20"
+    class="fullsize_section justify-center flex-col md:px-20 md:my-0 my-20"
     id="names"
     tabindex="0"
     aria-labelledby="inquirers-h1"
 >
-    <h3 class="bg-white p-4 text-center" id="inquirers-h1">The co-inquirers</h3>
+    <HeroLogo/>
     <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
         {#each data.data.inquirers as name, i}
             {#if i === data.data.inquirers.length - 1}
