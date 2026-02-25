@@ -54,7 +54,7 @@
 </script>
 
 <footer
-    class="site-footer relative z-40 flex h-fit w-full flex-col md:gap-0 gap-12 border-t border-[#D9D9D9] bg-white px-4 pb-4 pt-8 rounded-t-[20px] rounded-r-[20px] bottom-0"
+    class="site-footer relative z-40 flex h-fit w-full flex-col md:gap-0 gap-12 border-t border-[#D9D9D9] bg-white px-4 pb-8 pt-8 mt-8 rounded-t-[20px] rounded-r-[20px] bottom-0"
 >
     <div
         class="w-full md:h-[200px] h-fit flex md:flex-row flex-col gap-12 justify-between"
@@ -71,7 +71,7 @@
                     co-inquirers.</a
                 >
             </p>
-            <div class="w-1/3 h-auto opacity-1 hidden md:block pt-4">
+            <div class="w-2/5 h-auto opacity-1 hidden md:block pt-4">
                 <img
                     src={footerLogo}
                     alt="Ecologies of LLM Logo"
@@ -80,7 +80,7 @@
             </div>
         </div>
         <div
-            class="md:w-1/3 w-full flex flex-row gap-6 md:justify-end justify-between"
+            class="md:w-2/3 w-full flex md:flex-row flex-col gap-6 md:justify-end justify-between"
         >
             {#each footerSections as section}
                 <div class="flex flex-col w-fit md:pr-4 md:gap-1 gap-0">

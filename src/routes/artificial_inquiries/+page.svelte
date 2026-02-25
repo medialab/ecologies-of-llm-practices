@@ -63,7 +63,7 @@
         class="flex flex-col md:max-w-[100ch] w-full md:items-center items-start"
     >
         <div class="bg-white p-4">
-            <h1 class="text-responsive-center" id="artificial-inquiries-h1">
+            <h1 class="text-responsive-center" id="hero-h1">
                 {@html data.title}
             </h1>
         </div>

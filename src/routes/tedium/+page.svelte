@@ -46,7 +46,7 @@
 >
     <div class="flex flex-col max-w-[100ch] w-full md:w-fit md:items-center">
         <div class="bg-white p-4">
-            <h1 class="text-responsive-center" id="tedium-h1">
+            <h1 class="text-responsive-center" id="hero-h1">
                 {@html data.title}
             </h1>
         </div>

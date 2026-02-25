@@ -19,7 +19,7 @@
 </script>
 
 <div
-    class="w-[60vw] max-w-[1100px] aspect-[1.5/1] cursor-grab absolute select-text overflow-hidden overflow-clip opacity-0 transition-[outline-color,outline-width] [outline:1.5px_solid_white] hover:[outline:2px_solid_black] [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none] rounded-3xl md:rounded-none"
+    class="w-[60vw] max-w-[1100px] aspect-[1.5/1] cursor-grab absolute select-text overflow-hidden opacity-0 transition-[outline-color,outline-width] [outline:1.5px_solid_white] hover:[outline:2px_solid_black] [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%,0_94%)] max-md:w-[90vw] max-md:max-h-none max-md:pr-0 max-md:transition-transform max-md:duration-[var(--card-transition-duration)] max-md:ease-in-out max-md:[clip-path:none] rounded-3xl md:rounded-none"
     data-card-container
     onclick={(event) => {
         if ($isDesktop) {
@@ -90,7 +90,7 @@
         </div>
 
         <div
-            class="w-full h-[calc(100%-2px)] md:col-start-2 md:col-end-8 max-md:col-start-1 max-md:col-end-2 row-start-2 max-md:row-start-2 mt-[0.1%] pt-[1%] pr-[var(--spacing-XS)] overflow-y-auto overflow-x-hidden z-[1]"
+            class="w-full h-[calc(100%-2px)] md:col-start-2 md:col-end-8 max-md:col-start-1 max-md:col-end-2 row-start-2 max-md:row-start-2 mt-[0.1%] pt-[1%] pr-[var(--spacing-XS)] overflow-y-auto overflow-x-hidden z-[1] overscroll-none"
             data-lenis-prevent
             data-section={card.Title}
         >
@@ -101,7 +101,7 @@
                 <div class="flex flex-col gap-2">
                     {#if card.Question}
                         <p
-                            class="md:text-2xl text-xl md:w-2/3 w-full leading-[120%]"
+                            class="md:text-2xl text-xl md:w-3/4 w-full leading-[120%]"
                         >
                             {@html card.Question}
                         </p>

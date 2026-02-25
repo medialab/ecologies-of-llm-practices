@@ -44,7 +44,7 @@
 >
     <div class="flex flex-col max-w-[100ch] w-full items-center">
         <div class="bg-white p-4">
-            <h1 class="text-responsive-center" id="datapolicy-h1">
+            <h1 class="text-responsive-center" id="hero-h1">
                 {@html data.title}
             </h1>
         </div>
@@ -58,7 +58,7 @@
                 href="#abstract"
                 onclick={() => scrollStore.scrollTo("#abstract")}
             >
-                <p class="label-caps-nowrap">Read the policy</p>
+                <p class="label-caps-nowrap">Read all</p>
             </a>
         </div>
     </div>
@@ -86,3 +86,12 @@
         {/each}
     </div>
 </section>
+
+<style>
+    :global(.content-card a) {
+        text-decoration: underline;
+        text-underline-offset: 1px;
+        text-underline-position: below;
+        text-decoration-thickness: 1px;
+    }
+</style>

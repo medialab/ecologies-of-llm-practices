@@ -384,13 +384,11 @@ const floatersDb = {
 
 const tediumData = {
   About: {
-    Title:
-      "<i>Tedium:</i> a multimodal <br>archival  <i>exploration</i>",
+    Title: "<i>Tedium:</i> a multimodal <br>archival  <i>exploration</i>",
     Subtitle:
       "Tedium is an interactive visual exposition presented at the Hype Studies! conference in Barcelona, between 10-12 September 2025. It is a curated exploration of the multimodal archive generated during the Ecologies of LLM Practices project.",
     SubDescription: "Tedium: effects and consequences of LLM boredom",
-    Description:
-      `What does a workday with a large language model actually look like, hour after hour, prompt after prompt?<br><br>
+    Description: `What does a workday with a large language model actually look like, hour after hour, prompt after prompt?<br><br>
       <i>Tedium</i>, a video installation developed within the <a href="https://ecologiesofllm.medialab.sciencespo.fr/" target="_blank" style="text-decoration: underline;">Ecologies of LLM Practices (EL2MP)</a> at <a href="https://medialab.sciencespo.fr/" target="_blank" style="text-decoration: underline;">Sciences Po’s médialab</a>, answers by staying close to the ordinary. It documents mundane, situated interactions between professionals and LLMs across diverse fields, drawing on EL2MP’s multimodal archive of audio recordings, photos, video, sketches, and chat logs to capture the texture of LLMs-in-use.<br><br>
       <i>Tedium</i> returns to this archive and reorganises it into scenes, each staging a distinct relational mode between generative AI and professional practice. The scenes account for new forms of work taking shape: prompt crafting, error evaluation, and the discretisation of formerly continuous workflows.<br><br>
       They examine how LLMs decompose actions into steps, how workers must domesticate these systems to fit existing routines, and how the systems sometimes resist integration altogether. They also follow what this accommodation costs and yields: how LLMs amplify or compress the temporal, spatial, and cognitive demands of different tasks.<br><br>
@@ -500,8 +498,7 @@ const researchTeam = [
 const datapolicyData = {
   About: {
     Title: "Data Policy",
-    Subtitle:
-      "How we managed and handle the multimodal <br> data produced during the project.",
+    Subtitle: "Privacy management, data management and data protection.",
     Description:
       "We collected multimodal data throughout the project: the printed vademecum and other paper forms, written exercises, photos from sessions, audio and video recordings, screen recordings of work sessions, chat logs and other digital traces of participants’ interactions with LLMs. All data were gathered in compliance with applicable privacy regulations and with informed consent: co-inquirers signed the project information and consent forms, and lead researchers confirmed the processing purposes. Before any public use, materials were anonymised, to remove identifying details; images could be blurred or excluded on request. Anonymised extracts were used for the website, exhibitions and other public outputs.",
   },
