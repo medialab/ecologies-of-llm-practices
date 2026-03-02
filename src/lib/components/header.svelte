@@ -14,10 +14,12 @@
 
     const cyclePages = [
         { path: resolve("/"), label: "Homepage" },
-        { path: resolve("/artificial_inquiries"), label: "Artificial Inquiries" },
+        {
+            path: resolve("/artificial_inquiries"),
+            label: "Artificial Inquiries",
+        },
         { path: resolve("/tedium"), label: "Tedium" },
         { path: resolve("/inquirers"), label: "Co-Inquirers" },
-        { path: resolve("/data-policy"), label: "Data Policy" },
     ];
 
     const normalizePath = (path: string) => path.replace(/\/+$/, "") || "/";
@@ -164,9 +166,8 @@
             aria-label={`Go to ${nextPage.label}`}
             title={`Go to ${nextPage.label}`}
         >
-        <p>{nextPage.label}</p>
-        <p>→</p>
-            
+            <p>{nextPage.label}</p>
+            <p>→</p>
         </button>
         <button
             type="button"
@@ -176,17 +177,9 @@
             aria-label={$burgerOpen ? "Close menu" : "Open menu"}
         >
             {#if $burgerOpen}
-                <img
-                    src={CloseIcon}
-                    alt=""
-                    class="h-full w-auto"
-                />
+                <img src={CloseIcon} alt="" class="h-full w-auto" />
             {:else}
-                <img
-                    src={BurgerIcon}
-                    alt=""
-                    class="h-full w-auto"
-                />
+                <img src={BurgerIcon} alt="" class="h-full w-auto" />
             {/if}
         </button>
     </div>

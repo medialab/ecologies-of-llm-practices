@@ -38,7 +38,10 @@
         {
             title: "The project:",
             links: [
-                { label: "Data Policy", href: resolve("/data-policy") },
+                {
+                    label: "Mentions legales",
+                    href: resolve("/MentionsLegales"),
+                },
                 {
                     label: "Artificial Inquiries?",
                     url: "https://hal.science/hal-05327878v2",
@@ -100,7 +103,9 @@
                             <a
                                 href={link?.href || link?.url}
                                 target={link?.url ? "_blank" : "_self"}
-                                rel={link?.url ? "noopener noreferrer" : undefined}
+                                rel={link?.url
+                                    ? "noopener noreferrer"
+                                    : undefined}
                             >
                                 {#if link.img}
                                     <img src={link.img} alt={link.label} />

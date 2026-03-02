@@ -13,9 +13,9 @@
 
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
     const meta = $derived({
-        title: "Data Policy - Ecologies of LLM Practices",
+        title: "Mentions legales - Ecologies of LLM Practices",
         description: stripHtml(data.subtitle ?? ""),
-        url: `${baseUrl}/data-policy`,
+        url: `${baseUrl}/MentionsLegales`,
         image: `${baseUrl}/og_images/opengraph.jpg`,
         imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
     });
@@ -44,7 +44,7 @@
     aria-labelledby="datapolicy-h1"
 >
     <div class="flex flex-col max-w-[100ch] w-full items-center">
-         <HeroLogo/>   
+        <HeroLogo />
         <div class="bg-white p-4">
             <h1 class="text-responsive-center py-2" id="hero-h1">
                 {@html data.title}
@@ -73,13 +73,11 @@
     data-scroll-speed="0.3"
     id="abstract"
     tabindex="0"
-    aria-label="Data policy content"
+    aria-label="Mentions legales content"
 >
     <div class="md:w-2/3 flex flex-col gap-4">
         {#each policySections as section}
-            <div
-                class="content-card"
-            >
+            <div class="content-card">
                 <h3 class="font-semibold">{section.title}</h3>
                 <p class="whitespace-pre-line">
                     {@html section.text}

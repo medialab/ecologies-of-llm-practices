@@ -497,7 +497,7 @@ const researchTeam = [
 
 const datapolicyData = {
   About: {
-    Title: "Data Policy",
+    Title: "Mentions legales",
     Subtitle: "Privacy management, data management and data protection.",
     Description:
       "We collected multimodal data throughout the project: the printed vademecum and other paper forms, written exercises, photos from sessions, audio and video recordings, screen recordings of work sessions, chat logs and other digital traces of participants’ interactions with LLMs. All data were gathered in compliance with applicable privacy regulations and with informed consent: co-inquirers signed the project information and consent forms, and lead researchers confirmed the processing purposes. Before any public use, materials were anonymised, to remove identifying details; images could be blurred or excluded on request. Anonymised extracts were used for the website, exhibitions and other public outputs.",
