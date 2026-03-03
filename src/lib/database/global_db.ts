@@ -1,4 +1,14 @@
-import { photos, capitolsCover, general, floaters } from "$database/config.js";
+import { photos, capitolsCover, general, floaters } from "$database/config";
+import type {
+  CardsDb,
+  AlterEgosDb,
+  FloatersDb,
+  TediumData,
+  DatapolicyData,
+  Inquirers,
+  ResearchTeam,
+} from "$lib/stores/types";
+
 export {
   cardsDb,
   floatersDb,
@@ -9,7 +19,7 @@ export {
   researchTeam,
 };
 
-const cardsDb = {
+const cardsDb: CardsDb = {
   Card1: {
     Title: "Qualifying",
     Description:
@@ -220,7 +230,7 @@ const cardsDb = {
   },
 };
 
-const alterEgosDb = {
+const alterEgosDb: AlterEgosDb = {
   Card1: {
     Title: "Ecologies of LLM Practices",
     Id: "project",
@@ -251,7 +261,7 @@ const alterEgosDb = {
   },
 };
 
-const floatersDb = {
+const floatersDb: FloatersDb = {
   Floater1: {
     Title: "cards_presentation.mp4",
     id: 1,
@@ -382,7 +392,7 @@ const floatersDb = {
   },
 };
 
-const tediumData = {
+const tediumData: TediumData = {
   About: {
     Title: "<i>Tedium:</i> a multimodal <br>archival  <i>exploration</i>",
     Subtitle:
@@ -443,7 +453,7 @@ const tediumData = {
   },
 };
 
-const inquirers = [
+const inquirers: Inquirers = [
   "Anna lèa Vrinat",
   "Enora Floc'h",
   "Faîza Said",
@@ -468,7 +478,7 @@ const inquirers = [
   "Yajing Hu",
 ];
 
-const researchTeam = [
+const researchTeam: ResearchTeam = [
   {
     name: "Donato Ricci",
     role: "Principal Investigator, Designer",
@@ -495,7 +505,7 @@ const researchTeam = [
   },
 ];
 
-const datapolicyData = {
+const datapolicyData: DatapolicyData = {
   About: {
     Title: "Mentions legales",
     Subtitle: "Privacy management, data management and data protection.",

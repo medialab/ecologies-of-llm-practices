@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { scrollStore } from "$lib/stores/globalStores";
     import { pillAnimation } from "$lib/stores/animeJs";
     import HeroLogo from "$lib/components/hero-logo.svelte";

@@ -1,8 +1,4 @@
-<script>
-    import { scrollStore } from "$lib/stores/globalStores";
-    import { researchTeam } from "$database/global_db.js";
-
-    import { pillAnimation } from "$lib/stores/animeJs";
+<script lang="ts">
     import { inquirersAnimation } from "$lib/stores/animeJs";
     import HeroLogo from "$lib/components/hero-logo.svelte";
 

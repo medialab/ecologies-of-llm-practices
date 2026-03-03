@@ -1,5 +1,5 @@
 /** @type {import('./$types').PageLoad} */
-import { datapolicyData } from "$database/global_db.js";
+import { datapolicyData } from "$database/global_db";
 
 const textPolicy = {
   introduction: {

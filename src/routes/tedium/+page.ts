@@ -1,6 +1,6 @@
 /** @type {import('./$types').PageLoad} */
-import { tediumData } from "$database/global_db.js";
-import { getTediumImgs } from "$database/media.js";
+import { tediumData } from "$database/global_db";
+import { getTediumImgs } from "$database/media";
 
 export async function load() {
   const media = await getTediumImgs();

@@ -1,5 +1,5 @@
-<script>
-    import { isPageLoaded, scrollStore } from "$lib/stores/globalStores";
+<script lang="ts">
+    import { scrollStore } from "$lib/stores/globalStores";
 
     import { pillAnimation } from "$lib/stores/animeJs";
     import tediumVideoMp4 from "$lib/media/tedium/TEDIUM_LIGHT.mp4";
@@ -7,8 +7,9 @@
     import videoIcon from "$lib/media/icons/videoIcon.svg";
     import galleryIcon from "$lib/media/icons/galleryIcon.svg";
     import HeroLogo from "$lib/components/hero-logo.svelte";
+    import type { PageData } from "$lib/stores/types";
 
-    let { data } = $props();
+    let { data }: { data: PageData } = $props();
 
     const baseUrl = "https://ecologiesofllm.medialab.sciencespo.fr";
     const meta = {
@@ -20,7 +21,7 @@
         imageAlt: "EL2MP Logo - Ecologies of LLM Practices",
     };
 
-    let images = $derived(data.media);
+    let images = $derived(data.media ?? []);
 </script>
 
 <svelte:head>

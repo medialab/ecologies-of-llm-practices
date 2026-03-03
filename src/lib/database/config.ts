@@ -1,5 +1,8 @@
-// config.js
+// config.ts
 // Importing assets from the media folder using Vite's URL resolution
+import type { EnhancedImgModule, MediaImport, VideoImport } from "$lib/stores/types";
+
+// Exercise photos
 import Ex_1 from "$media/photos/Ex_1.jpg?enhanced";
 import Ex_2 from "$media/photos/Ex_2.jpg?enhanced";
 import Ex_3 from "$media/photos/Ex_3.jpg?enhanced";
@@ -35,7 +38,6 @@ import logoImage_white from "$media/logos/logo_complete_white.png?enhanced";
 import googleSupport from "$media/logos/google_support.png?enhanced";
 
 //Floaters_content
-
 import Qualifying_floater_1 from "$lib/media/floaters/qualifying/Floater_qualifying_1.mp4";
 import Qualifying_floater_2 from "$lib/media/floaters/qualifying/Floater_qualifying_2.mp4";
 import Qualifying_floater_3 from "$lib/media/floaters/qualifying/Floater_qualifying_3.jpg?enhanced";
@@ -59,66 +61,124 @@ import Benchmarking_floater_2 from "$lib/media/floaters/benchmarking/Floater_ben
 import Benchmarking_floater_3 from "$lib/media/floaters/benchmarking/Floater_benchmarking_3.jpg?enhanced";
 import Benchmarking_floater_4 from "$lib/media/floaters/benchmarking/Floater_benchmarking_4.jpg?enhanced";
 
+// Type interfaces for exports
+export interface Photos {
+	Ex_1: EnhancedImgModule;
+	Ex_2: EnhancedImgModule;
+	Ex_3: EnhancedImgModule;
+	Ex_4: EnhancedImgModule;
+	Ex_5: EnhancedImgModule;
+	Ex_6: EnhancedImgModule;
+	Ex_7: EnhancedImgModule;
+	Ex_8: EnhancedImgModule;
+	Ex_9: EnhancedImgModule;
+	Ex_10: EnhancedImgModule;
+	Ex_11: EnhancedImgModule;
+	Ex_12: EnhancedImgModule;
+	Ex_13: EnhancedImgModule;
+	Ex_14: EnhancedImgModule;
+	Ex_15: EnhancedImgModule;
+	Ex_16: EnhancedImgModule;
+	Ex_17: EnhancedImgModule;
+	Ex_18: EnhancedImgModule;
+}
+
+export interface CapitolsCover {
+	coverQualifying: EnhancedImgModule;
+	coverBenchmarking: EnhancedImgModule;
+	coverPrompting: EnhancedImgModule;
+	coverExcel: EnhancedImgModule;
+	coverDistilling: EnhancedImgModule;
+}
+
+export interface Floaters {
+	Qualifying_floater_1: VideoImport;
+	Qualifying_floater_2: VideoImport;
+	Qualifying_floater_3: EnhancedImgModule;
+	Qualifying_floater_4: EnhancedImgModule;
+	Prompting_floater_1: VideoImport;
+	Prompting_floater_2: VideoImport;
+	Prompting_floater_3: EnhancedImgModule;
+	Prompting_floater_4: EnhancedImgModule;
+	Excelling_floater_1: EnhancedImgModule;
+	Excelling_floater_2: VideoImport;
+	Excelling_floater_3: VideoImport;
+	Excelling_floater_4: VideoImport;
+	Benchmarking_floater_1: VideoImport;
+	Benchmarking_floater_2: VideoImport;
+	Benchmarking_floater_3: EnhancedImgModule;
+	Benchmarking_floater_4: EnhancedImgModule;
+}
+
+export interface General {
+	enhanced_logoImage: EnhancedImgModule;
+	condensed_logo: MediaImport;
+	condensed_logo_white: MediaImport;
+	logoImage: MediaImport;
+	logoImage_white: EnhancedImgModule;
+	googleSupport: EnhancedImgModule;
+}
+
 // Grouping the assets into objects for easy access
-export const photos = {
-  Ex_1,
-  Ex_2,
-  Ex_3,
-  Ex_4,
-  Ex_5,
-  Ex_6,
-  Ex_7,
-  Ex_8,
-  Ex_9,
-  Ex_10,
-  Ex_11,
-  Ex_12,
-  Ex_13,
-  Ex_14,
-  Ex_15,
-  Ex_16,
-  Ex_17,
-  Ex_18,
+export const photos: Photos = {
+	Ex_1,
+	Ex_2,
+	Ex_3,
+	Ex_4,
+	Ex_5,
+	Ex_6,
+	Ex_7,
+	Ex_8,
+	Ex_9,
+	Ex_10,
+	Ex_11,
+	Ex_12,
+	Ex_13,
+	Ex_14,
+	Ex_15,
+	Ex_16,
+	Ex_17,
+	Ex_18,
 };
 
-export const capitolsCover = {
-  coverQualifying,
-  coverBenchmarking,
-  coverPrompting,
-  coverExcel,
-  coverDistilling,
+export const capitolsCover: CapitolsCover = {
+	coverQualifying,
+	coverBenchmarking,
+	coverPrompting,
+	coverExcel,
+	coverDistilling,
 };
 
-export const floaters = {
-  Qualifying_floater_1,
-  Qualifying_floater_2,
-  Qualifying_floater_3,
-  Qualifying_floater_4,
-  Prompting_floater_1,
-  Prompting_floater_2,
-  Prompting_floater_3,
-  Prompting_floater_4,
-  Excelling_floater_1,
-  Excelling_floater_2,
-  Excelling_floater_3,
-  Excelling_floater_4,
-  Benchmarking_floater_1,
-  Benchmarking_floater_2,
-  Benchmarking_floater_3,
-  Benchmarking_floater_4,
+export const floaters: Floaters = {
+	Qualifying_floater_1,
+	Qualifying_floater_2,
+	Qualifying_floater_3,
+	Qualifying_floater_4,
+	Prompting_floater_1,
+	Prompting_floater_2,
+	Prompting_floater_3,
+	Prompting_floater_4,
+	Excelling_floater_1,
+	Excelling_floater_2,
+	Excelling_floater_3,
+	Excelling_floater_4,
+	Benchmarking_floater_1,
+	Benchmarking_floater_2,
+	Benchmarking_floater_3,
+	Benchmarking_floater_4,
 };
 
-export const general = {
-  enhanced_logoImage,
-  condensed_logo,
-  condensed_logo_white,
-  logoImage,
-  logoImage_white,
-  googleSupport,
+export const general: General = {
+	enhanced_logoImage,
+	condensed_logo,
+	condensed_logo_white,
+	logoImage,
+	logoImage_white,
+	googleSupport,
 };
 
 export default {
-  photos,
-  capitolsCover,
-  general,
+	photos,
+	capitolsCover,
+	general,
 };

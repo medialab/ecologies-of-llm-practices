@@ -1,5 +1,5 @@
 /** @type {import('./$types').PageLoad} */
-import { inquirers } from "$database/global_db.js";
+import { inquirers } from "$database/global_db";
 
 export function load({ params }) {
   return {

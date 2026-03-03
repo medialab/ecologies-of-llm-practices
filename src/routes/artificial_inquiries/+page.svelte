@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
     import { pillAnimation } from "$lib/stores/animeJs";
     import downloadIcon from "$lib/media/icons/downloadIcon.svg";
     import editionsAnnexesIcon from "$lib/media/icons/editionsAnnexesIcon.svg";
     import HeroLogo from "$lib/components/hero-logo.svelte";
+    import type { PageData } from "$lib/stores/types";
 
-    let { data } = $props();
+    let { data }: { data: PageData } = $props();
 
     const stripHtml = (value = "") =>
         value
@@ -32,7 +33,7 @@
         },
         {
             label: "See it on Editions Annexes",
-            href: "#",
+            url: "https://medialab.github.io/editions-annexes/editions/Artificial%20Inquiries",
             icon: editionsAnnexesIcon,
         },
     ];
@@ -80,9 +81,9 @@
                 <a
                     use:pillAnimation
                     class="pill"
-                    href={b.href || b.url}
-                    target={b.url ? "_blank" : "_self"}
-                    rel={b.url ? "noopener noreferrer" : undefined}
+                    href={b.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                 >
                     <p class="label-caps-nowrap">{@html b.label}</p>
                     {#if b.icon}

@@ -205,9 +205,9 @@
     </div>
 </section>
 {#if data?.alterEgosDb}
-    {@const usableCards: alterEgoCard[] = Object.values(data.alterEgosDb)}
+    {@const usableCards: import("$lib/stores/types").AlterEgoCard[] = Object.values(data.alterEgosDb)}
     {#each usableCards as c, i}
-    {@const card: alterEgoCard = c}
+    {@const card: import("$lib/stores/types").AlterEgoCard = c}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
             <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
             <section

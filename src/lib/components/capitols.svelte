@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import {
         selectedCard,
         transitionTime,
@@ -8,14 +8,24 @@
         currentFocus,
         shareData,
     } from "$lib/stores/globalStores";
+    import type { CardData } from "$lib/stores/types";
 
     import arrowIcon from "$lib/media/icons/shareIcon.svg";
-    import forwardIcon from "$lib/media/icons/forwardIcon.svg";
+    import forwardIcon from "$lib/media/icons/shareIcon.svg";
 
-    export let bringToFront;
-    export let swapCards;
-    export let card;
-    export let transitionDelay;
+    interface Props {
+        bringToFront: (event: MouseEvent | KeyboardEvent) => void;
+        swapCards: (target: HTMLElement) => void;
+        card: CardData;
+        transitionDelay: number;
+    }
+
+    let {
+        bringToFront,
+        swapCards,
+        card,
+        transitionDelay
+    }: Props = $props();
 </script>
 
 <div
@@ -42,7 +52,7 @@
     tabindex="0"
     role="button"
     data-flush-order={card.IndexNum}
-    id={card.IndexNum}
+    id={String(card.IndexNum)}
     aria-label="Draggable Card"
     data-section={card.Title}
 >
@@ -101,7 +111,7 @@
                 <div class="flex flex-col gap-2">
                     {#if card.Question}
                         <p
-                            class="md:text-2xl text-xl md:w-3/4 w-full leading-[120%]"
+                            class="md:text-2xl text-xl w-full leading-[120%]"
                         >
                             {@html card.Question}
                         </p>

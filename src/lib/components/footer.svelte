@@ -1,9 +1,17 @@
-<script>
+<script lang="ts">
     import footerLogo from "$lib/media/logos/logo_complete.svg";
     import googleSupport from "$lib/media/logos/google_support.svg";
     import { resolve } from "$app/paths";
 
-    const footerSections = [
+    type FooterLink = {
+        label: string;
+        img?: string;
+        url?: string;
+        href?: string;
+        isButton?: boolean;
+    };
+
+    const footerSections: { title: string; links: FooterLink[] }[] = [
         {
             title: "With support from:",
             links: [
@@ -43,7 +51,7 @@
                     href: resolve("/MentionsLegales"),
                 },
                 {
-                    label: "Artificial Inquiries?",
+                    label: "Artificial Inquiries",
                     url: "https://hal.science/hal-05327878v2",
                 },
                 {
@@ -86,35 +94,41 @@
             class="md:w-2/3 w-full flex md:flex-row flex-col gap-6 md:justify-end justify-between"
         >
             {#each footerSections as section}
-                <div class="flex flex-col w-fit md:pr-4 md:gap-1 gap-0">
-                    <p class="font-medium pb-2">{section.title}</p>
-                    {#each section.links as link}
+                <div class="flex flex-col md:w-fit w-full md:pr-4 md:gap-1 gap-0">
+                    <p class="font-bold! w-full pb-1">{section.title}</p>
+                    <div class="flex md:flex-col flex-row flex-wrap gap-1 md:w-fit w-full">
+                    {#each section.links as link, i}
                         {#if link.isButton}
                             <button
-                                class="flex flex-col gap-1 items-start text-left"
+                                class="flex flex-col gap-1 items-start text-left p-0"
                             >
                                 {#if link.img}
                                     <img src={link.img} alt={link.label} />
                                 {:else}
-                                    <p>{link.label}</p>
+                                    <p class="text-nowrap">{link.label}</p>
                                 {/if}
                             </button>
                         {:else}
                             <a
                                 href={link?.href || link?.url}
                                 target={link?.url ? "_blank" : "_self"}
-                                rel={link?.url
-                                    ? "noopener noreferrer"
-                                    : undefined}
+                                rel={link?.url ? "noopener noreferrer" : undefined}
                             >
                                 {#if link.img}
                                     <img src={link.img} alt={link.label} />
                                 {:else}
-                                    <p>{link.label}</p>
+                                    {#if i < section.links.length - 1}
+                                        <p class="text-nowrap md:block hidden">{link.label}</p>
+                                        <p class="text-nowrap md:hidden block">{link.label},</p>
+                                    {:else}
+                                        <p class="text-nowrap md:block hidden">{link.label}</p>
+                                        <p class="text-nowrap md:hidden block">{link.label}.</p>
+                                    {/if}
                                 {/if}
                             </a>
                         {/if}
                     {/each}
+                    </div>
                 </div>
             {/each}
         </div>

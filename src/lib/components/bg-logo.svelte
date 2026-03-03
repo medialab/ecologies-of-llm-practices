@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import CircularLogo from "$lib/media/CIRCULAR.png";
     import { isPageLoaded } from "$lib/stores/globalStores";
     import { fade } from "svelte/transition";

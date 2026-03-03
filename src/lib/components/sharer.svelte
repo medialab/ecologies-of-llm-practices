@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import {
         currentCardColor,
         finalShareData,
@@ -13,7 +13,7 @@
     import { fade, scale } from "svelte/transition";
     import { cubicOut } from "svelte/easing";
 
-    let copierAlert;
+    let copierAlert = $state<HTMLElement | undefined>();
 
     const truncateText = (text, maxLength = 200) => {
         if (!text || text.length <= maxLength) return text + "🚀🚀🚀\n";
@@ -155,10 +155,10 @@
                     `https://ecologiesofllm.medialab.sciencespo.fr/${$currentHash}`;
             await navigator.clipboard.writeText(linkToCopy);
         } catch {}
-        copierAlert.classList.add("show");
+        copierAlert?.classList.add("show");
 
         setTimeout(() => {
-            copierAlert.classList.remove("show");
+            copierAlert?.classList.remove("show");
         }, 1000);
     };
 
@@ -407,7 +407,7 @@
                     >
                     <div
                         class="absolute left-1/2 bottom-[-20%] flex w-max -translate-x-1/2 scale-[0.4] items-start justify-center rounded-xl border border-black px-2 py-1 opacity-0 transition-all duration-[800ms] ease-[cubic-bezier(0.4,0,0.2,1)]
-                               {copierAlert?.classList.contains('show')
+                               {(copierAlert?.classList.contains('show') ?? false)
                             ? 'opacity-100 pointer-events-none -translate-x-1/2 scale-100 duration-200'
                             : ''}"
                         bind:this={copierAlert}
@@ -432,10 +432,4 @@
     </div>
 {/if}
 
-<style>
-    /* 
-   .copier_alert styles converted to Tailwind:
-   - base: absolute left-1/2 bottom-[-20%] w-max -translate-x-1/2 scale-[0.4] ... opacity-0 transition-all duration-300
-   - show: opacity-100 pointer-events-none scale-100 duration-200
-*/
-</style>
+

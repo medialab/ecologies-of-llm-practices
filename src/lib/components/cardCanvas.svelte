@@ -1,5 +1,7 @@
-<script>
-    export let data;
+<script lang="ts">
+    import type { PageData } from "$lib/stores/types";
+    
+    let { data }: { data: PageData } = $props();
 
     import Capitols from "$lib/components/capitols.svelte";
     import Floater from "$lib/components/floaters.svelte";
@@ -32,6 +34,8 @@
         shareData,
     } from "$lib/stores/globalStores";
 
+    $inspect("data.floatersDb", Object.values(data.floatersDb))
+
     let interact;
     let totalBlockWidth,
         totalBlockHeight,
@@ -49,36 +53,25 @@
     let width = 0;
     let height = 0;
 
-    let contentContainer;
+    let contentContainer: HTMLElement | undefined;
 
-    let containers;
-    let scrollContainers;
-    let floaters;
+    let containers: NodeListOf<HTMLElement> | undefined;
+    let scrollContainers: NodeListOf<HTMLElement> | undefined;
 
-    let initialPositions = [];
+    let initialPositions: { x: number; y: number }[] = [];
 
-    let scrollableElements;
+    let scrollableElements: NodeListOf<HTMLElement> | undefined;
 
-    let currentObserver;
-    let sections = [];
+    let currentObserver: IntersectionObserver | undefined;
+    let sections: HTMLElement[] = [];
 
-    let hostElement;
-    let floaterAnimationStates = [];
-    let floaterStateMap = new Map();
-    let floaterAnimationRafId = null;
-    let floaterAnimationLastFrame = 0;
-    let floaterPrefersReducedMotion = false;
-    let cleanupFloaterAnimation = null;
+    let hostElement: HTMLElement | undefined;
 
-    const floaterFrameInterval = 1000 / 30;
-    const floaterPaddingTop = 0;
-    const floaterPaddingRight = 30;
+    let holdTimeout: ReturnType<typeof setTimeout> | undefined;
+    let interval: ReturnType<typeof setInterval> | undefined;
+    let cardWidth: number, cardHeight: number, offset: number;
 
-    let holdTimeout;
-    let interval;
-    let cardWidth, cardHeight, offset;
-
-    let lastDeviceType = null;
+    let lastDeviceType: string | null = null;
     let isSwapping = false;
     let isInteractionLocked = false;
 
@@ -88,7 +81,7 @@
 
     const windowSizeReady = writable(false);
 
-    const getCardFlushOrder = (card) => {
+    const getCardFlushOrder = (card: import("$lib/stores/types").CardData | undefined): number => {
         if (typeof document !== "undefined") {
             const currentCard = document.querySelector(
                 `[data-section="${card?.Title}"]`,
@@ -96,7 +89,7 @@
             if (currentCard) {
                 const currentFlushOrder =
                     currentCard.getAttribute("data-flush-order");
-                return currentFlushOrder;
+                return parseInt(currentFlushOrder || "0", 10);
             }
         }
 
@@ -112,14 +105,6 @@
         windowSizeReady.set(true);
     };
 
-    const handleWindowResize = () => {
-        updateWindowSize();
-
-        if (floaterAnimationStates.length) {
-            cacheFloaterMetrics();
-        }
-    };
-
     const bringToFront = (eventOrElement) => {
         const frontingTarget = eventOrElement.currentTarget || eventOrElement;
         $highestZIndex += 1;
@@ -131,192 +116,7 @@
         }
     };
 
-    const calculateRandomPosition = (floater) => {
-        if (typeof window === "undefined") {
-            return {
-                top: "0px",
-                left: "0px",
-                zIndex: 0,
-            };
-        }
 
-        const safetyInset = 20;
-
-        //This fallback is primarly for the vademecum floater
-        let estimatedWidth = 250;
-        let estimatedHeight = 150;
-
-        if (floater) {
-            const selector = `[data-identifier="${floater.parent}_${floater.id}"]`;
-            const maybeElem = document.querySelector(selector);
-
-            if (maybeElem) {
-                const rect = maybeElem.getBoundingClientRect();
-                if (rect.width && rect.height) {
-                    estimatedWidth = rect.width;
-                    estimatedHeight = rect.height;
-                }
-            }
-        }
-
-        const maxLeft = Math.max(
-            window.innerWidth - estimatedWidth - safetyInset,
-            safetyInset,
-        );
-        const maxTop = Math.max(
-            window.innerHeight - estimatedHeight - safetyInset,
-            safetyInset,
-        );
-
-        const left = Math.random() * (maxLeft - safetyInset) + safetyInset;
-        const top = Math.random() * (maxTop - safetyInset) + safetyInset;
-
-        return {
-            top: `${Math.round(top)}px`,
-            left: `${Math.round(left)}px`,
-            zIndex: Math.floor(Math.random() * 1000),
-            animationDelay: Number(Math.random().toFixed(2)),
-        };
-    };
-
-    const cacheFloaterMetrics = () => {
-        floaterAnimationStates.forEach((state) => {
-            const rect = state.element.getBoundingClientRect();
-            const visualX = state.baseX + state.offsetX;
-            const visualY = state.baseY + state.offsetY;
-
-            state.width = rect.width || state.width || 250;
-            state.height = rect.height || state.height || 150;
-            state.anchorX = rect.left - visualX;
-            state.anchorY = rect.top - visualY;
-        });
-    };
-
-    const stopFloaterAnimation = () => {
-        if (floaterAnimationRafId) {
-            cancelAnimationFrame(floaterAnimationRafId);
-            floaterAnimationRafId = null;
-        }
-        floaterAnimationLastFrame = 0;
-    };
-
-    const stepFloaterAnimation = (now) => {
-        if (!floaterAnimationStates.length) return;
-
-        if (
-            floaterAnimationLastFrame &&
-            now - floaterAnimationLastFrame < floaterFrameInterval
-        ) {
-            floaterAnimationRafId = requestAnimationFrame(stepFloaterAnimation);
-            return;
-        }
-
-        const delta = floaterAnimationLastFrame
-            ? Math.min(2.2, (now - floaterAnimationLastFrame) / 16.67)
-            : 1;
-        floaterAnimationLastFrame = now;
-
-        floaterAnimationStates.forEach((state) => {
-            if (state.isDragging || floaterPrefersReducedMotion) return;
-
-            const speedFactorX = 1 + Math.sin(now * 0.001 + state.phaseX);
-            const speedFactorY = 1 + Math.cos(now * 0.001 + state.phaseY);
-
-            state.offsetX += state.vx * speedFactorX * delta;
-            state.offsetY += state.vy * speedFactorY * delta;
-
-            let nextX = state.baseX + state.offsetX;
-            let nextY = state.baseY + state.offsetY;
-
-            const minX = -state.anchorX;
-            const maxX =
-                windowWidth - state.width - floaterPaddingRight - state.anchorX;
-            const minY = floaterPaddingTop - state.anchorY;
-            const maxY = windowHeight - state.height - state.anchorY;
-
-            if (nextX < minX || nextX > maxX) {
-                state.vx *= -1;
-                nextX = Math.max(minX, Math.min(nextX, maxX));
-                state.offsetX = nextX - state.baseX;
-            }
-
-            if (nextY < minY || nextY > maxY) {
-                state.vy *= -1;
-                nextY = Math.max(minY, Math.min(nextY, maxY));
-                state.offsetY = nextY - state.baseY;
-            }
-
-            state.element.style.transform = `translate(${nextX}px, ${nextY}px)`;
-        });
-
-        floaterAnimationRafId = requestAnimationFrame(stepFloaterAnimation);
-    };
-
-    const startFloaterAnimation = () => {
-        stopFloaterAnimation();
-
-        if (!floaterAnimationStates.length) return;
-
-        floaterAnimationRafId = requestAnimationFrame(stepFloaterAnimation);
-    };
-
-    const initFloaterAnimation = () => {
-        if (!floaters || !floaters.length) return null;
-
-        const motionMedia = window.matchMedia(
-            "(prefers-reduced-motion: reduce)",
-        );
-        floaterPrefersReducedMotion = motionMedia.matches;
-
-        floaterAnimationStates = Array.from(floaters).map((floater) => {
-            const baseX = parseFloat(floater.getAttribute("data-x")) || 0;
-            const baseY = parseFloat(floater.getAttribute("data-y")) || 0;
-            const rect = floater.getBoundingClientRect();
-
-            return {
-                element: floater,
-                baseX,
-                baseY,
-                offsetX: 0,
-                offsetY: 0,
-                width: rect.width || 250,
-                height: rect.height || 150,
-                anchorX: rect.left - baseX,
-                anchorY: rect.top - baseY,
-                vx:
-                    (Math.random() > 0.5 ? 1 : -1) *
-                    (0.08 + Math.random() * 0.15),
-                vy:
-                    (Math.random() > 0.5 ? 1 : -1) *
-                    (0.08 + Math.random() * 0.15),
-                phaseX: Math.random() * Math.PI * 2,
-                phaseY: Math.random() * Math.PI * 2,
-                isDragging: false,
-            };
-        });
-
-        floaterStateMap = new Map(
-            floaterAnimationStates.map((state) => [state.element, state]),
-        );
-
-        const handleMotionChange = () => {
-            floaterPrefersReducedMotion = motionMedia.matches;
-        };
-
-        motionMedia.addEventListener?.("change", handleMotionChange);
-        motionMedia.addListener?.(handleMotionChange);
-
-        cacheFloaterMetrics();
-        startFloaterAnimation();
-
-        return () => {
-            stopFloaterAnimation();
-            motionMedia.removeEventListener?.("change", handleMotionChange);
-            motionMedia.removeListener?.(handleMotionChange);
-            floaterAnimationStates = [];
-            floaterStateMap.clear();
-        };
-    };
 
     const alignColor = ($selectedCard) => {
         const selected = Object.values(data.cardsDb).find(
@@ -331,47 +131,9 @@
         }
     };
 
-    const openFloaters = (floaters) => {
-        floaters.forEach((floater) => {
-            if (floater.classList.contains("closed")) {
-                floater.classList.remove("closed");
-                floater.classList.add("open");
-            }
-        });
-    };
-
-    const closeFloaters = (floaters) => {
-        floaters.forEach((floater) => {
-            if (floater.classList.contains("open")) {
-                floater.classList.remove("open");
-                floater.classList.add("closed");
-            }
-        });
-    };
-
-    const hideFloaters = () => {
-        if (!floaters) return;
-
-        floaters.forEach((floater) => {
-            floater.classList.remove("clicked");
-            floater.classList.add("open");
-        });
-    };
-
-    $: if ($shareData && $shareData?.title && svgDoc) generateShareContent();
-
-    $: if ($selectedCard && floaters && floaters.length > 0) {
-        floaters.forEach((floater) => {
-            if (
-                $selectedCard !== "all" &&
-                floater.dataset.parent !== $selectedCard
-            ) {
-                floater.style.display = "none";
-            } else if (floater.dataset.parent === $selectedCard) {
-                floater.style.display = "flex";
-            }
-        });
-    }
+    $effect(() => {
+        if ($shareData && $shareData?.title && svgDoc) generateShareContent();
+    });
 
     const placeCards = (containers) => {
         setTimeout(() => {
@@ -469,13 +231,13 @@
         }, 10);
     };
 
-    const swapCards = (event) => {
+    const swapCards = (event: HTMLElement) => {
         alignColor(event.getAttribute("data-section"));
 
         const swapDuration = transitionTime * 300;
         const clickedCard = event;
         const clickedFlushOrder = Number(clickedCard.dataset.flushOrder);
-        const topCard = Array.from(containers).find(
+        const topCard = Array.from(containers || []).find(
             (container) => container.dataset.flushOrder === "1",
         );
         const cubicBezier = ".1,.0,.0,.1";
@@ -513,21 +275,21 @@
         // Stage 2: After first movement, exchange flush orders
         setTimeout(() => {
             clickedCard.dataset.flushOrder = "1";
-            topCard.dataset.flushOrder = clickedFlushOrder.toString();
+            (topCard as HTMLElement).dataset.flushOrder = clickedFlushOrder.toString();
 
-            const currentTopZ = parseInt(topCard.style.zIndex || 0);
-            const currentClickedZ = parseInt(clickedCard.style.zIndex || 0);
+            const currentTopZ = parseInt((topCard as HTMLElement).style.zIndex || "0");
+            const currentClickedZ = parseInt(clickedCard.style.zIndex || "0");
 
-            clickedCard.style.zIndex = currentTopZ;
-            topCard.style.zIndex = currentClickedZ;
+            clickedCard.style.zIndex = String(currentTopZ);
+            (topCard as HTMLElement).style.zIndex = String(currentClickedZ);
 
             setTimeout(() => {
                 clickedCard.style.transform = `translateX(${clickedCardX}px) translateY(${topCardY}px)`;
-                topCard.style.transform = `translateX(${topCardX}px) translateY(${clickedCardY}px)`;
+                (topCard as HTMLElement).style.transform = `translateX(${topCardX}px) translateY(${clickedCardY}px)`;
 
                 setTimeout(() => {
-                    clickedCard.setAttribute("data-y", topCardY);
-                    topCard.setAttribute("data-y", clickedCardY);
+                    clickedCard.setAttribute("data-y", String(topCardY));
+                    (topCard as HTMLElement).setAttribute("data-y", String(clickedCardY));
 
                     containers.forEach((container) => {
                         container.style.pointerEvents = "";
@@ -539,50 +301,6 @@
                 }, swapDuration);
             }, 100);
         }, swapDuration);
-    };
-
-    const navigateToExercise = (exercise) => {
-        $currentHash = window.location.hash;
-
-        if (!$currentHash) {
-            $waitForHash = false;
-            return;
-        }
-
-        const cleanHash = $currentHash.replace("#", "");
-        const isExerciseHash = cleanHash.includes("_");
-
-        if (isExerciseHash) {
-            $waitForHash = true;
-
-            const hashContainer = cleanHash.split("_")[0];
-            const definedContainer = document.querySelector(
-                `[data-section="${hashContainer}"]`,
-            );
-
-            const hashSection = cleanHash.split("_").slice(1).join("_");
-            const definedSection = document.querySelector(
-                `[data-section="${hashSection}"]`,
-            );
-
-            if (definedContainer) {
-                $selectedCard = definedContainer.dataset.section;
-            }
-
-            if (definedContainer) {
-                setTimeout(() => {
-                    if ($isMobileDevice && $areCardsLoaded) {
-                        swapCards(definedContainer);
-                    } else if (!$isMobileDevice && $areCardsLoaded) {
-                        definedContainer.style.zIndex = $highestZIndex + 1;
-                        $highestZIndex = $highestZIndex + 1;
-                    }
-                    if (definedSection) {
-                        definedSection.scrollIntoView({ behavior: "smooth" });
-                    }
-                }, 1100);
-            }
-        }
     };
 
     let svgDoc = null;
@@ -665,7 +383,7 @@
         };
 
         // Store text limits globally for use in other functions
-        window.svgTextLimits = textLimits;
+        (window as typeof window & { svgTextLimits: typeof textLimits }).svgTextLimits = textLimits;
 
         lineHeightConfig = {
             exTitle: $isMobileDevice ? 1.05 : 1.1, // Tighter line height on mobile
@@ -693,75 +411,13 @@
         return tempDiv.textContent || tempDiv.innerText || "";
     };
 
-    // Helper function to calculate content height before rendering
-    const calculateContentHeight = (
-        title,
-        description,
-        text,
-        baseFontSize = 16,
-    ) => {
-        if (!description && !text) return 0;
-
-        let titleOffset = 0;
-        if (title) {
-            const titleLines = wrapText(stripHTML(title), "exTitle").length;
-            const titleLineHeight = baseFontSize * lineHeightConfig.exTitle;
-            const singleLineHeight = titleLineHeight;
-            const totalTitleHeight = titleLines * titleLineHeight;
-            const extraTitleHeight = Math.max(
-                0,
-                totalTitleHeight - singleLineHeight,
-            );
-
-            // Apply mobile scaling to reduce excessive spacing
-            const mobileOffsetScale = $isMobileDevice ? 0.4 : 1.0;
-            titleOffset = extraTitleHeight * mobileOffsetScale;
-        }
-
-        const descriptionLines = description
-            ? wrapText(stripHTML(description), "exDescription").length
-            : 0;
-        const textLines = text ? wrapText(stripHTML(text), "exText").length : 0;
-
-        const descriptionLineHeight =
-            baseFontSize * lineHeightConfig.exDescription;
-        const textLineHeight = baseFontSize * lineHeightConfig.exText;
-
-        const descriptionHeight = descriptionLines * descriptionLineHeight;
-        const textHeight = textLines * textLineHeight;
-        const spacingHeight =
-            descriptionLines > 0 && textLines > 0
-                ? descriptionLineHeight * 0.5
-                : 0;
-        // Eliminate additional spacing on mobile due to large font sizes
-        const spacingMultiplier = $isMobileDevice ? 0 : 0.3;
-        const additionalSpacing =
-            titleOffset > 0 ? baseFontSize * spacingMultiplier : 0;
-
-        return {
-            titleOffset,
-            descriptionLines,
-            textLines,
-            totalHeight:
-                titleOffset +
-                additionalSpacing +
-                descriptionHeight +
-                textHeight +
-                spacingHeight,
-            descriptionHeight,
-            textHeight,
-            spacingHeight,
-            additionalSpacing,
-        };
-    };
-
     const wrapText = (textToWrap, textType = "default") => {
         // Validate input
         if (!textToWrap || typeof textToWrap !== "string") {
             return [];
         }
 
-        const textLimits = window.svgTextLimits;
+        const textLimits = (window as typeof window & { svgTextLimits: Record<string, number> }).svgTextLimits;
         const customMaxChars = textLimits[textType] || textLimits.default;
 
         const words = textToWrap.trim().split(" ");
@@ -1235,8 +891,8 @@
                 return;
             }
 
-            const imageLoadPromises = imageUrls.map((url, index) => {
-                return new Promise((resolve, reject) => {
+            const imageLoadPromises = imageUrls.map((url) => {
+                return new Promise<void>((resolve) => {
                     const img = new Image();
                     img.onload = () => resolve();
                     img.onerror = () => resolve();
@@ -1357,11 +1013,6 @@
         };
     };
 
-    const intentionalNavigationToHash = () => {
-        navigateToExercise();
-        window.location.reload();
-    };
-
     onMount(async () => {
         const interact = (await import("interactjs")).default;
 
@@ -1376,10 +1027,9 @@
         scrollableElements = document.querySelectorAll(
             ".card_scrollable_container",
         );
-        sections = document.querySelectorAll(".section_container");
+        sections = Array.from(document.querySelectorAll<HTMLElement>(".section_container"));
 
         placeCards(containers);
-        navigateToExercise();
 
         if (
             "requestIdleCallback" in window &&
@@ -1395,150 +1045,6 @@
             setTimeout(() => {
                 void prepareSVG();
             }, 0);
-        }
-
-        // Query and initialize floaters after they're rendered in the DOM
-        if ($windowSizeReady && !$isMobileDevice) {
-            await tick(); // Wait for DOM to update
-
-            floaters = document.querySelectorAll(".floater_container");
-
-            if (floaters && floaters.length > 0) {
-                try {
-                    cleanupFloaterAnimation = initFloaterAnimation();
-                    let floaterFadeStep = 0;
-
-                    floaters.forEach((floater) => {
-                        floater.classList.add("cursor-grab");
-                        floater.style.touchAction = "none";
-                        floater.style.transition = "opacity 0s linear";
-
-                        const fadeDelay = 1650 + floaterFadeStep * 50;
-                        floaterFadeStep += 1;
-
-                        setTimeout(() => {
-                            floater.style.opacity = "1";
-                        }, fadeDelay);
-
-                        floater.style.transformOrigin = "bottom left";
-
-                        interact(floater).draggable({
-                            inertia: {
-                                resistance: 20,
-                                minSpeed: 80,
-                                endSpeed: 10,
-                                smoothEndDuration: 400,
-                            },
-                            listeners: {
-                                start(event) {
-                                    const state = floaterStateMap.get(floater);
-
-                                    // Bring the floater to the front
-                                    floater.style.zIndex =
-                                        parseInt(floater.style.zIndex || 1) + 1;
-
-                                    // Get current transform values and calculate actual position
-                                    const computedStyle =
-                                        window.getComputedStyle(floater);
-                                    const transform = computedStyle.transform;
-
-                                    if (transform && transform !== "none") {
-                                        const matrix = new DOMMatrix(transform);
-                                        const currentX = matrix.m41; // Translate X value
-                                        const currentY = matrix.m42; // Translate Y value
-
-                                        // Set data attributes for accurate dragging
-                                        floater.setAttribute(
-                                            "data-x",
-                                            currentX,
-                                        );
-                                        floater.setAttribute(
-                                            "data-y",
-                                            currentY,
-                                        );
-
-                                        if (state) {
-                                            state.baseX = currentX;
-                                            state.baseY = currentY;
-                                        }
-                                    } else {
-                                        // If no transform is applied, set to default (0, 0)
-                                        floater.setAttribute("data-x", 0);
-                                        floater.setAttribute("data-y", 0);
-
-                                        if (state) {
-                                            state.baseX = 0;
-                                            state.baseY = 0;
-                                        }
-                                    }
-
-                                    if (state) {
-                                        const rect =
-                                            floater.getBoundingClientRect();
-                                        state.offsetX = 0;
-                                        state.offsetY = 0;
-                                        state.width = rect.width || state.width;
-                                        state.height =
-                                            rect.height || state.height;
-                                        state.anchorX = rect.left - state.baseX;
-                                        state.anchorY = rect.top - state.baseY;
-                                        state.isDragging = true;
-                                    }
-
-                                    event.target.classList.remove(
-                                        "cursor-grab",
-                                    );
-                                    event.target.classList.add(
-                                        "cursor-grabbing",
-                                    );
-                                },
-
-                                move(event) {
-                                    const state = floaterStateMap.get(floater);
-                                    // Calculate new position during dragging
-                                    const x =
-                                        (parseFloat(
-                                            floater.getAttribute("data-x"),
-                                        ) || 0) + event.dx;
-                                    const y =
-                                        (parseFloat(
-                                            floater.getAttribute("data-y"),
-                                        ) || 0) + event.dy;
-
-                                    // Apply the transformation and update attributes
-                                    floater.style.transform = `translate(${x}px, ${y}px)`;
-                                    floater.setAttribute("data-x", x);
-                                    floater.setAttribute("data-y", y);
-                                    if (state) {
-                                        state.baseX = x;
-                                        state.baseY = y;
-                                        state.offsetX = 0;
-                                        state.offsetY = 0;
-                                    }
-                                },
-                                end(event) {
-                                    const state = floaterStateMap.get(floater);
-                                    if (state) {
-                                        state.isDragging = false;
-                                    }
-                                    // Reset cursor after drag ends
-                                    event.target.classList.remove(
-                                        "cursor-grabbing",
-                                    );
-                                    event.target.classList.add("cursor-grab");
-                                },
-                            },
-                            modifiers: [
-                                interact.modifiers.restrict({
-                                    restriction: hostElement,
-                                    endOnly: true,
-                                }),
-                            ],
-                            inertia: true,
-                        });
-                    });
-                } catch {}
-            }
         }
 
         if ($isMobileDevice) {
@@ -1617,7 +1123,6 @@
                             endOnly: true,
                         }),
                     ],
-                    inertia: true,
                 });
             });
         } else {
@@ -1626,15 +1131,6 @@
     });
 
     onDestroy(() => {
-        try {
-            window.removeEventListener("hashchange", navigateToExercise);
-        } catch {}
-
-        if (cleanupFloaterAnimation) {
-            cleanupFloaterAnimation();
-            cleanupFloaterAnimation = null;
-        }
-
         // Cancel any animation frames or timeouts
         if (typeof holdTimeout !== "undefined" && holdTimeout) {
             clearTimeout(holdTimeout);
@@ -1649,20 +1145,6 @@
                         try {
                             interact(container).unset();
                         } catch (e) {}
-                    });
-                }
-
-                // Clean up floaters
-                if (floaters) {
-                    floaters.forEach((floater) => {
-                        try {
-                            interact(floater).unset();
-                        } catch (e) {}
-
-                        if (floater.style) {
-                            floater.style.animation = "none";
-                            floater.style.transition = "none";
-                        }
                     });
                 }
             }
@@ -1680,13 +1162,10 @@
         // Clear references to DOM elements to help garbage collection
         const clearReferences = () => {
             containers = null;
-            floaters = null;
             scrollContainers = null;
             hostElement = null;
             scrollableElements = null;
             sections = null;
-            floaterAnimationStates = [];
-            floaterStateMap.clear();
 
             // Clear arrays
             initialPositions = [];
@@ -1701,8 +1180,6 @@
         clearReferences();
     });
 </script>
-
-<svelte:window onresize={handleWindowResize} />
 
 {#if !$isPageLoaded}
     <div
@@ -1728,25 +1205,24 @@
     {/if}
 
     {#if $windowSizeReady}
-        {#each Object.values(data.cardsDb) as card (card.IndexNum)}
+        {#each Object.values(data.cardsDb || {}) as card (card.IndexNum)}
+            {@const typedCard = card as import("$lib/stores/types").CardData}
             <Capitols
-                {data}
-                {card}
-                transitionDelay={getCardFlushOrder(card) * 10}
+                card={typedCard}
+                transitionDelay={getCardFlushOrder(typedCard) * 10}
                 {bringToFront}
                 {swapCards}
-                logoImage={data.logoImage}
-                generateShareContent={generateShareContent()}
             />
         {/each}
-
-        <!--{#if !$isMobileDevice}
-            {#each Object.values(data.floatersDb) as singleFloater (singleFloater.id)}
+    <!--
+        {#if !$isMobileDevice}
+            {#each Object.values(data.floatersDb) as singleFloater}
                 <Floater
                     data={singleFloater}
-                    randomPosition={calculateRandomPosition(singleFloater)}
+                    {hostElement}
                 />
             {/each}
-        {/if}-->
+        {/if}
+        -->
     {/if}
 </section>

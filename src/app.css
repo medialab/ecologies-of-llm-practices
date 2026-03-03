@@ -55,7 +55,7 @@
   }
 
   p {
-    @apply text-base leading-[140%];
+    @apply text-base leading-[140%] text-balance;
     overflow-wrap: anywhere;
     hyphens: auto;
   }
