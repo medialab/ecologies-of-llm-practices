@@ -6,6 +6,7 @@ yarn-error.log*
 .pnpm-debug.log*
 .npmrc
 .agent
+.opencode/
 
 # Build output folders
 .output/
