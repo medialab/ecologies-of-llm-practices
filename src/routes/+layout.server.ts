@@ -6,3 +6,4 @@ export const csr = true;
 
 // Configure prerendering
 export const prerender = true;
+export const trailingSlash = 'always';
