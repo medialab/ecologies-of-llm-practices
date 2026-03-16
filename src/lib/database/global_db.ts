@@ -476,6 +476,8 @@ const inquirers: Inquirers = [
   "Mathilde Blanchon",
   "Thérèse d'Orléans",
   "Yajing Hu",
+  "Fabiola Fenili",
+  "Ole Teutloff"
 ];
 
 const researchTeam: ResearchTeam = [
