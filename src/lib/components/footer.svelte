@@ -5,6 +5,7 @@
 
     type FooterLink = {
         label: string;
+        role?: string;
         img?: string;
         url?: string;
         href?: string;
@@ -27,23 +28,22 @@
             links: [
                 {
                     label: "Donato Ricci",
+                    role: "Principal Investigator, Designer",
                     url: "https://medialab.sciencespo.fr/en/people/donato-ricci/",
                 },
                 {
                     label: "Gabriel Alcaras",
+                    role: "Postdoctoral researcher, Sociologist",
                     url: "https://medialab.sciencespo.fr/en/people/gabriel-alcaras/",
                 },
                 {
                     label: "Tommaso Prinetti",
+                    role: "Research Assistant, Designer",
                     url: "https://medialab.sciencespo.fr/en/people/tommaso-prinetti/",
-                },
-                {
-                    label: "Zoé de Vries",
-                    url: "https://medialab.sciencespo.fr/en/people/zoe-de-vries/",
                 },
             ],
         },
-        {
+        /*{
             title: "The project:",
             links: [
                 {
@@ -60,7 +60,7 @@
                 },
                 { label: "Co-Inquirers", href: resolve("/inquirers") },
             ],
-        },
+        },*/
     ];
 </script>
 
@@ -118,11 +118,11 @@
                                     <img src={link.img} alt={link.label} />
                                 {:else}
                                     {#if i < section.links.length - 1}
-                                        <p class="text-nowrap md:block hidden">{link.label}</p>
-                                        <p class="text-nowrap md:hidden block">{link.label},</p>
+                                        <p class="text-nowrap md:block hidden"> {link.label}: <span class="text-neutral-500">{link.role}</span></p>
+                                        <p class="text-nowrap md:hidden block"><b>{link.label}:</b>  <span class="text-neutral-500">{link.role}</span>,</p>
                                     {:else}
-                                        <p class="text-nowrap md:block hidden">{link.label}</p>
-                                        <p class="text-nowrap md:hidden block">{link.label}.</p>
+                                        <p class="text-nowrap md:block hidden"><b>{link.label}:</b>  <span class="text-neutral-500">{link.role}</span></p>
+                                        <p class="text-nowrap md:hidden block"><b>{link.label}:</b>  <span class="text-neutral-500">{link.role}</span>.</p>
                                     {/if}
                                 {/if}
                             </a>

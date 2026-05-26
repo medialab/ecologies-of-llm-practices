@@ -455,6 +455,7 @@ const tediumData: TediumData = {
 
 const inquirers: Inquirers = [
   "Anna lèa Vrinat",
+  "Zoé de Vries",
   "Enora Floc'h",
   "Faîza Said",
   "Jérémy Tran",
@@ -477,7 +478,7 @@ const inquirers: Inquirers = [
   "Thérèse d'Orléans",
   "Yajing Hu",
   "Fabiola Fenili",
-  "Ole Teutloff"
+  "Ole Teutloff",
 ];
 
 const researchTeam: ResearchTeam = [
