@@ -19,14 +19,8 @@ const config = {
       $videos: "src/lib/media/videos",
     },
     prerender: {
-      handleHttpError: ({ path, referrer, message }) => {
-        if (
-          path === "/not-found"
-        ) {
-          return;
-        }
-
-        // otherwise fail the build
+      handleHttpError: ({ path, message }) => {
+        if (path === "/not-found") return;
         throw new Error(message);
       },
     },

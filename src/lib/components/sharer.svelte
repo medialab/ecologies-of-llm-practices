@@ -12,8 +12,27 @@
     } from "$lib/stores/globalStores";
     import { fade, scale } from "svelte/transition";
     import { cubicOut } from "svelte/easing";
+    import { onDestroy } from "svelte";
 
     let copierAlert = $state<HTMLElement | undefined>();
+    let pendingTimers: ReturnType<typeof setTimeout>[] = [];
+
+    const schedule = (fn: () => void, ms: number) => {
+        const id = setTimeout(() => {
+            pendingTimers = pendingTimers.filter((t) => t !== id);
+            fn();
+        }, ms);
+        pendingTimers.push(id);
+        return id;
+    };
+
+    const wait = (ms: number) =>
+        new Promise<void>((resolve) => schedule(resolve, ms));
+
+    onDestroy(() => {
+        pendingTimers.forEach(clearTimeout);
+        pendingTimers = [];
+    });
 
     const truncateText = (text, maxLength = 200) => {
         if (!text || text.length <= maxLength) return text + "🚀🚀🚀\n";
@@ -24,126 +43,66 @@
         $showSharer = false;
     };
 
+    const dismissAfterShowingMessage = async (message: string) => {
+        $sharingTextMobile = message;
+        await wait(1000);
+        $showSharer = false;
+        await wait(2000);
+        $sharingTextMobile = "We're preparing your image...";
+    };
+
     const shareContent = async () => {
-        if (!$isDesktop) {
-            if (
-                window.isSecureContext &&
-                navigator.share &&
-                $sharerVisibility
-            ) {
-                const canShareFiles =
-                    navigator.canShare &&
-                    $finalShareData &&
-                    $finalShareData.files &&
-                    navigator.canShare({ files: $finalShareData.files });
+        if ($isDesktop) return;
+        if (
+            !window.isSecureContext ||
+            !navigator.share ||
+            !$sharerVisibility
+        ) {
+            $sharingTextMobile = "No sharing this time... ok";
+            $showSharer = false;
+            return;
+        }
 
-                if (canShareFiles) {
-                    try {
-                        await navigator.share($finalShareData);
-                        setTimeout(() => {
-                            $sharingTextMobile = "Thanks for sharing!";
-                        }, 100);
-                        setTimeout(() => {
-                            $showSharer = false;
-                            setTimeout(() => {
-                                $sharingTextMobile =
-                                    "We're preparing your image...";
-                            }, 2000);
-                        }, 1000);
-                    } catch (error) {
-                        if (error.name === "AbortError") {
-                            setTimeout(() => {
-                                $sharingTextMobile = "Share cancelled.";
-                            }, 100);
+        const canShareFiles =
+            navigator.canShare &&
+            $finalShareData &&
+            $finalShareData.files &&
+            navigator.canShare({ files: $finalShareData.files });
 
-                            setTimeout(() => {
-                                $showSharer = false;
-                                setTimeout(() => {
-                                    $sharingTextMobile =
-                                        "We're preparing your image...";
-                                }, 2000);
-                            }, 1000);
-                        } else if (error.name === "NotAllowedError") {
-                            setTimeout(() => {
-                                $sharingTextMobile = "Sharing not permitted.";
-                            }, 100);
-
-                            setTimeout(() => {
-                                $showSharer = false;
-                                setTimeout(() => {
-                                    $sharingTextMobile =
-                                        "We're preparing your image...";
-                                }, 2000);
-                            }, 1000);
-                        } else {
-                            try {
-                                const textOnlyPayload = {
-                                    text: truncateText(
-                                        $finalShareData.text,
-                                        120,
-                                    ),
-                                    url: $finalShareData.url,
-                                };
-                                await navigator.share(textOnlyPayload);
-                                setTimeout(() => {
-                                    $sharingTextMobile = "Thanks for sharing!";
-                                }, 100);
-
-                                setTimeout(() => {
-                                    $showSharer = false;
-                                    setTimeout(() => {
-                                        $sharingTextMobile =
-                                            "We're preparing your image...";
-                                    }, 2000);
-                                }, 1000);
-                            } catch (err2) {
-                                if (
-                                    err2.name !== "AbortError" &&
-                                    err2.name !== "NotAllowedError"
-                                ) {
-                                    // Intentionally silent in production and development UI flow.
-                                }
-                                setTimeout(() => {
-                                    $sharingTextMobile =
-                                        "No sharing this time... ok";
-                                }, 100);
-
-                                setTimeout(() => {
-                                    $showSharer = false;
-                                    setTimeout(() => {
-                                        $sharingTextMobile =
-                                            "We're preparing your image...";
-                                    }, 2000);
-                                }, 1000);
-                            }
-                        }
-                    }
+        if (canShareFiles) {
+            try {
+                await navigator.share($finalShareData);
+                await dismissAfterShowingMessage("Thanks for sharing!");
+            } catch (error) {
+                if (error.name === "AbortError") {
+                    await dismissAfterShowingMessage("Share cancelled.");
+                } else if (error.name === "NotAllowedError") {
+                    await dismissAfterShowingMessage("Sharing not permitted.");
                 } else {
                     try {
                         const textOnlyPayload = {
-                            text: truncateText($finalShareData.text),
+                            text: truncateText($finalShareData.text, 120),
                             url: $finalShareData.url,
                         };
                         await navigator.share(textOnlyPayload);
-                        $sharingTextMobile = "Thanks for sharing!";
-
-                        $showSharer = false;
-                    } catch (error) {
-                        if (
-                            error.name !== "AbortError" &&
-                            error.name !== "NotAllowedError"
-                        ) {
-                            // Intentionally silent in production and development UI flow.
-                        }
-                        $sharingTextMobile = "No sharing this time... ok";
-
-                        $showSharer = false;
+                        await dismissAfterShowingMessage("Thanks for sharing!");
+                    } catch (err2) {
+                        await dismissAfterShowingMessage(
+                            "No sharing this time... ok",
+                        );
                     }
                 }
-            } else {
-                $sharingTextMobile = "No sharing this time... ok";
-
-                $showSharer = false;
+            }
+        } else {
+            try {
+                const textOnlyPayload = {
+                    text: truncateText($finalShareData.text),
+                    url: $finalShareData.url,
+                };
+                await navigator.share(textOnlyPayload);
+                await dismissAfterShowingMessage("Thanks for sharing!");
+            } catch (error) {
+                await dismissAfterShowingMessage("No sharing this time... ok");
             }
         }
     };
@@ -157,7 +116,7 @@
         } catch {}
         copierAlert?.classList.add("show");
 
-        setTimeout(() => {
+        schedule(() => {
             copierAlert?.classList.remove("show");
         }, 1000);
     };
