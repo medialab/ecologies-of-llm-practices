@@ -398,6 +398,8 @@ const tediumData: TediumData = {
     Subtitle:
       "Tedium is an interactive visual exposition presented at the Hype Studies! conference in Barcelona, between 10-12 September 2025. It is a curated exploration of the multimodal archive generated during the Ecologies of LLM Practices project.",
     SubDescription: "Tedium: effects and consequences of LLM boredom",
+    Questions:
+      "Do workers engage with these systems differently than managerial narratives of optimisation and cost reduction suggest? And how do they navigate the capacities of these tools, making sense of their results?",
     Description: `What does a workday with a large language model actually look like, hour after hour, prompt after prompt?<br><br>
       <i>Tedium</i>, a video installation developed within the <a href="https://ecologiesofllm.medialab.sciencespo.fr/" target="_blank" style="text-decoration: underline;">Ecologies of LLM Practices (EL2MP)</a> at <a href="https://medialab.sciencespo.fr/" target="_blank" style="text-decoration: underline;">Sciences Po’s médialab</a>, answers by staying close to the ordinary. It documents mundane, situated interactions between professionals and LLMs across diverse fields, drawing on EL2MP’s multimodal archive of audio recordings, photos, video, sketches, and chat logs to capture the texture of LLMs-in-use.<br><br>
       <i>Tedium</i> returns to this archive and reorganises it into scenes, each staging a distinct relational mode between generative AI and professional practice. The scenes account for new forms of work taking shape: prompt crafting, error evaluation, and the discretisation of formerly continuous workflows.<br><br>

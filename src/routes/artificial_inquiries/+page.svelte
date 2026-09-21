@@ -4,6 +4,7 @@
     import editionsAnnexesIcon from "$lib/media/icons/editionsAnnexesIcon.svg";
     import HeroLogo from "$lib/components/hero-logo.svelte";
     import type { PageData } from "$lib/stores/types";
+    import SectionCard from "$lib/components/section-card.svelte";
 
     let { data }: { data: PageData } = $props();
 
@@ -95,34 +96,27 @@
     </div>
 </section>
 
-<!--<section
-        class="fullsize_section section-fit-center"
-        data-scroll
-        data-scroll-speed="0.3"
-        id="abstract"
-    >
-        <div
-            class="content-card md:w-2/3"
-        >
-            <h2>A Book Made to Reflect</h2>
-            <p>{@html data.description}</p>
-            <enhanced:img src={images[1]} alt="" class="md:p-16 p-4" />
-        </div>
-    </section>
+<SectionCard
+    title="A Book Made to Reflect"
+    question="How do we design a participatory artifacts to relate with a complete digital tool as LLMs are?"
+    description={data.description}
+    image={images[1]}
+    id="abstract"
+/>
 
-    <section
-        class="fullsize_section section-fit-center"
-        id="gallery"
-        data-scroll
-        data-scroll-speed="1"
+<section
+    class="fullsize_section justify-center h-fit"
+    id="gallery"
+    data-scroll
+    data-scroll-speed="1"
+>
+    <div
+        class="md:p-4 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
     >
-        <div
-            class="md:p-4 text-xl flex md:flex-row flex-col gap-4 overflow-x-scroll w-fit h-fit justify-start"
-        >
-            <enhanced:img
-                src={images[0]}
-                alt="Artificial inquiries img"
-                class="w-fit h-full grayscale md:hover:p-1 hover:grayscale-0 p-4 bg-white"
-            ></enhanced:img>
-        </div>
-    </section>-->
+        <enhanced:img
+            src={images[0]}
+            alt="Artificial inquiries img"
+            class="w-fit h-full grayscale md:hover:p-1 hover:grayscale-0 p-4 bg-white"
+        ></enhanced:img>
+    </div>
+</section>

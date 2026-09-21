@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { inquirersAnimation } from "$lib/stores/animeJs";
+    import { scrollStore } from "$lib/stores/globalStores";
+    import { researchTeam } from "$database/global_db";
+    import { inquirersAnimation, pillAnimation } from "$lib/stores/animeJs";
     import HeroLogo from "$lib/components/hero-logo.svelte";
 
     let data = $props();
@@ -15,14 +17,8 @@
     };
 
     const buttons = [
-        {
-            label: "Their names",
-            href: "#names",
-        },
-        {
-            label: "Research team",
-            href: "#research_team",
-        },
+        { label: "Their names", href: "#names" },
+        { label: "Research team", href: "#research_team" },
     ];
 </script>
 
@@ -41,6 +37,44 @@
     <meta name="twitter:image:alt" content={meta.imageAlt} />
 </svelte:head>
 
+<section
+    id="inquirers_hero"
+    class="fullsize_section hero flex-col items-start md:items-center justify-center mt-48 md:mt-0"
+>
+    <HeroLogo />
+    <div class="flex flex-col md:p-2 p-2 items-center md:w-fit w-full">
+        <h1 class="md:text-center text-left md:w-max-content p-4 bg-white">
+            This project <i>couldn't have happened</i> <br /><i>without</i> the support
+            of all Co-Inquirers
+        </h1>
+        <p class="md:text-center text-left md:w-[90ch] bg-white p-4">
+            Ecologies of LLM Practices is a participatory inquiry that explores
+            how people and technologies co-shape one another within emerging
+            landscapes of language models. Through a series of close
+            collaborations with diverse co-inquirers—artists, researchers,
+            developers, and practitioners—the project unfolds as a living system
+            of exchanges. Each contributor, by engaging with the LLM in their
+            own distinctive way, helped define the contours of this research
+            architecture. Their unique usage patterns, interpretive gestures,
+            and experimental approaches became integral components, revealing
+            how creative agency and computational reasoning continuously
+            interlace.
+        </p>
+        <div class="flex justify-center bg-white p-2 gap-2">
+            {#each buttons as { label, href }}
+                <a
+                    use:pillAnimation
+                    class="pill border-solid"
+                    {href}
+                    onclick={() => scrollStore.scrollTo(href)}
+                >
+                    <p class="text-nowrap uppercase">{label}</p>
+                </a>
+            {/each}
+        </div>
+    </div>
+</section>
+
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     class="fullsize_section justify-center flex-col md:px-20 md:my-0 my-20"
@@ -48,24 +82,30 @@
     tabindex="0"
     aria-labelledby="inquirers-h1"
 >
-    <HeroLogo/>
     <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
         {#each data.data.inquirers as name, i}
-            {#if i === data.data.inquirers.length - 1}
+            <h2
+                use:inquirersAnimation
+                class="inquirer_name transition-all duration-300 ease-in-out"
+            >
+                {name}{i === data.data.inquirers.length - 1 ? "." : ","}
+            </h2>
+        {/each}
+    </div>
+</section>
+
+<section class="fullsize_section justify-center flex-col" id="research_team">
+    <p class="bg-white p-4 text-center">The research team</p>
+    <div class="flex flex-row flex-wrap bg-white gap-2 p-4">
+        {#each researchTeam as { name, url }, i}
+            <a href={url} target="_blank" rel="noreferrer">
                 <h2
                     use:inquirersAnimation
                     class="inquirer_name transition-all duration-300 ease-in-out"
                 >
-                    {name}.
+                    {name}{i === researchTeam.length - 1 ? "." : ","}
                 </h2>
-            {:else}
-                <h2
-                    use:inquirersAnimation
-                    class="inquirer_name transition-all duration-300 ease-in-out"
-                >
-                    {name},
-                </h2>
-            {/if}
+            </a>
         {/each}
     </div>
 </section>

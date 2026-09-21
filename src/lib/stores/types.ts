@@ -124,6 +124,7 @@ export type TediumData = {
     Title: string;
     Subtitle: string;
     SubDescription: string;
+    Questions: string;
     Description: string;
   };
   Team: TeamMember[];
@@ -217,6 +218,7 @@ export type PageData = {
   subtitle?: string;
   description?: string;
   SubDescription?: string;
+  question?: string;
   media?: EnhancedImgModule[];
   textPolicy?: Record<string, { title: string; text: string }>;
   inquirers?: string[];

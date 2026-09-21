@@ -11,5 +11,6 @@ export async function load() {
     description: tediumData.About.Description,
     SubDescription: tediumData.About.SubDescription,
     media,
+    question: tediumData.About.Questions,
   };
 }
