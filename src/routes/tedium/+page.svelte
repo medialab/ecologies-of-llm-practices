@@ -8,7 +8,6 @@
     import galleryIcon from "$lib/media/icons/galleryIcon.svg";
     import HeroLogo from "$lib/components/hero-logo.svelte";
     import type { PageData } from "$lib/stores/types";
-    import SectionCard from "$lib/components/section-card.svelte";
 
     let { data }: { data: PageData } = $props();
 
@@ -43,7 +42,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     id="tedium_hero"
-    class="fullsize_section hero justify-center"
+    class="fullsize_section justify-center"
     tabindex="0"
     aria-labelledby="tedium-h1"
 >
@@ -89,12 +88,24 @@
             </div>
     </div>
 </section>
-<SectionCard
-    title={data.SubDescription}
-    question={data.question}
-    description={data.description}
+<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+<section
+    class="fullsize_section section-fit-center"
+    data-scroll
+    data-scroll-speed="0.3"
     id="abstract"
-/>
+    tabindex="0"
+    aria-label="Tedium abstract"
+>
+    <div
+        class="content-card md:w-2/3"
+    >
+        <h2>
+            {@html data.SubDescription}
+        </h2>
+        <p class="text-xl">{@html data.description}</p>
+    </div>
+</section>
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section

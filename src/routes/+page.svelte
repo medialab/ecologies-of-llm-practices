@@ -10,8 +10,7 @@
     import paperIcon from "$lib/media/icons/paperIcon.svg";
     import bookIcon from "$lib/media/icons/bookIcon.svg";
     import noteIcon from "$lib/media/icons/noteIcon.svg";
-    import HeroLogo from "$lib/components/hero-logo.svelte";
-    import SectionCard from "$lib/components/section-card.svelte";
+  import HeroLogo from "$lib/components/hero-logo.svelte";
 
     /** @type {import('./$types').PageProps} */
     let { data } = $props();
@@ -116,7 +115,7 @@
 
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
-    class="fullsize_section hero justify-center md:translate-y-[-5%]"
+    class="fullsize_section justify-center md:translate-y-[-5%]"
     id="hero_title"
     tabindex="0"
     aria-labelledby="hero-h1"
@@ -208,15 +207,71 @@
 {#if data?.alterEgosDb}
     {@const usableCards: import("$lib/stores/types").AlterEgoCard[] = Object.values(data.alterEgosDb)}
     {#each usableCards as c, i}
-        {@const card: import("$lib/stores/types").AlterEgoCard = c}
+    {@const card: import("$lib/stores/types").AlterEgoCard = c}
         {#if card?.Title !== "Contact" && card?.Title !== "Co-Inquirers"}
-            <SectionCard
-                id={card?.Id}
-                title={card?.Title}
-                question={card?.Question}
-                description={card?.Description}
-                {i}
-            />
+            <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+            <section
+                id={card.Id}
+                class="fullsize_section"
+                data-scroll
+                data-scroll-speed="0.1"
+                data-scroll-call="cardInView"
+                tabindex="0"
+                aria-label={`${card?.Title} section`}
+            >
+                <div
+                    class="bg-white md:bg-transparent flex md:flex-row flex-col w-full justify-between items-start md:gap-6 gap-4 md:px-12 md:border-none border-black border rounded-xl md:p-6 px-2 py-4 transition-all duration-200 ease-in-out opacity"
+                >
+                    <div
+                        class="flex flex-col gap-2 md:bg-white md:w-2/5 w-full md:p-4"
+                    >
+                        <h2 class="text-5xl md:text-6xl">{card?.Title}</h2>
+                    </div>
+                    <div
+                        class="flex flex-col gap-4 md:bg-white md:w-3/5 w-full max-w-none h-fit md:p-4"
+                    >
+                        <p class="h-fit text-gray-500 text-wrap">
+                            {@html card?.Question}
+                        </p>
+                        <p
+                            class="overflow-hidden transition-[max-height] duration-500 ease-in-out"
+                        >
+                            {@html card?.Description}
+                        </p>
+                        <!--AI containers
+                        <div
+                            class="flex flex-row md:gap-1 gap-2 flex-wrap h-[30px]"
+                            id="AI_containers"
+                        >
+                            {#each models as { name, img }, i}
+                                <button
+                                    use:pillAnimation
+                                    class="pill px-4 py-1 flex flex-row gap-2 items-center h-full group"
+                                    onclick={() =>
+                                        askAI(
+                                            card?.Description,
+                                            name as
+                                                | "gpt"
+                                                | "claude"
+                                                | "mistral",
+                                        )}
+                                >
+                                    <p
+                                        class="label-caps-nowrap hidden group-hover:block group-transition-delay-300 group-active:block transition-all duration-500 ease-in-out"
+                                    >
+                                        Ask
+                                    </p>
+                                    <img
+                                        src={img}
+                                        alt="{name} logo"
+                                        class="h-5 w-5"
+                                    />
+                                </button>
+                            {/each}
+                        </div>-->
+                    </div>
+                </div>
+            </section>
         {/if}
     {/each}
 {/if}
