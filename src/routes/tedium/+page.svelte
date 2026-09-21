@@ -43,7 +43,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     id="tedium_hero"
-    class="fullsize_section justify-center"
+    class="fullsize_section hero justify-center"
     tabindex="0"
     aria-labelledby="tedium-h1"
 >

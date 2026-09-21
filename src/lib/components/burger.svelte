@@ -39,20 +39,27 @@
     let appearText = $state(false);
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
+    const clearAppearTimeout = () => {
+        if (timeoutId !== null) {
+            clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+    };
+
     $effect(() => {
+        clearAppearTimeout();
+        appearText = false;
+
         if ($burgerOpen) {
             timeoutId = setTimeout(() => {
+                timeoutId = null;
                 appearText = true;
             }, 100);
-        } else {
-            appearText = false;
         }
     });
 
     onDestroy(() => {
-        if (timeoutId) {
-            clearTimeout(timeoutId);
-        }
+        clearAppearTimeout();
     });
 </script>
 

@@ -58,7 +58,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 <section
     id="artificial_inquiries_hero"
-    class="fullsize_section justify-center"
+    class="fullsize_section hero justify-center"
     tabindex="0"
     aria-labelledby="artificial-inquiries-h1"
 >

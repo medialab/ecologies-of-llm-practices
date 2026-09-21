@@ -19,7 +19,10 @@ const config = {
       $videos: "src/lib/media/videos",
     },
     prerender: {
-      handleHttpError: "warn",
+      handleHttpError: ({ path, message }) => {
+        if (path === "/not-found") return;
+        throw new Error(message);
+      },
     },
     inlineStyleThreshold: Infinity,
   },

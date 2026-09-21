@@ -43,7 +43,10 @@
 >
     <HeroLogo />
     <div class="flex flex-col md:p-2 p-2 items-center md:w-fit w-full">
-        <h1 class="md:text-center text-left md:w-max-content p-4 bg-white">
+        <h1
+            id="inquirers-h1"
+            class="md:text-center text-left md:w-max-content p-4 bg-white"
+        >
             This project <i>couldn't have happened</i> <br /><i>without</i> the support
             of all Co-Inquirers
         </h1>
