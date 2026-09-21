@@ -3,6 +3,7 @@
     import { slide, fade } from "svelte/transition";
     import { cubicInOut } from "svelte/easing";
     import { resolve } from "$app/paths";
+    import { onDestroy } from "svelte";
 
     const burgerEls = [
         {
@@ -36,14 +37,21 @@
     ];
 
     let appearText = $state(false);
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     $effect(() => {
         if ($burgerOpen) {
-            setTimeout(() => {
+            timeoutId = setTimeout(() => {
                 appearText = true;
             }, 100);
         } else {
             appearText = false;
+        }
+    });
+
+    onDestroy(() => {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
         }
     });
 </script>
