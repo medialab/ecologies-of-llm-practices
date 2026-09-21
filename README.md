@@ -1,5 +1,8 @@
 # EL2MP Website
 
+<img width="5088" height="3344" alt="image" src="https://github.com/user-attachments/assets/b1ccbbaa-8bf4-494a-ad3e-281c163aad14" />
+
+
 ## Development Notes
 
 - Package manager policy: use Bun and keep `bun.lock` as the single lockfile.
