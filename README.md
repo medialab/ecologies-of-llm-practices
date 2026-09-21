@@ -6,6 +6,8 @@ Official website for [Ecologies of LLM Practices (EL2MP)](https://ecologiesofllm
 
 The project studies how large language models enter professional practices and ordinary knowledge work, and what kinds of effort, judgement, and adaptation their use creates. The website presents the project’s research questions, participatory protocol, workbook, audiovisual archive, and contributors.
 
+<img width="5088" height="3344" alt="image" src="https://github.com/user-attachments/assets/62df338f-bd8c-4336-9876-6cfabe0ee1a7" />
+
 ## Website
 
 - [Live website](https://ecologiesofllm.medialab.sciencespo.fr/): project overview, research questions, and interactive protocol
